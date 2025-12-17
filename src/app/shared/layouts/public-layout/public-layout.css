@@ -1,9 +1,32 @@
+/* asegura altura completa */
+:host {
+  display: block;
+  height: 100%;
+}
+
+/* layout principal */
+.app-layout {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* empuja el footer hacia abajo */
+.app-content {
+  flex: 1;
+  background-color: transparent;
+  padding: 24px; /* opcional */
+}
+
+/* toolbar spacer */
 .spacer {
   flex: 1;
 }
 
+/* footer */
 .footer {
   text-align: center;
   padding: 16px;
   background: #f5f5f5;
+  font-size: 14px;
 }

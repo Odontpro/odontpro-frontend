@@ -1,17 +1,23 @@
-<!-- HEADER -->
-<mat-toolbar color="primary">
-  <span>OdontPro</span>
+<div class="app-layout">
 
-  <span class="spacer"></span>
+  <!-- HEADER -->
+  <mat-toolbar color="primary">
+    <span>OdontPro</span>
 
-  <a mat-button routerLink="/">Inicio</a>
-  <a mat-button routerLink="/login">Eres empleado</a>
-</mat-toolbar>
+    <span class="spacer"></span>
 
-<!-- CONTENIDO -->
-<router-outlet></router-outlet>
+    <a mat-button routerLink="/">Inicio</a>
+    <a mat-button routerLink="/login">Eres empleado</a>
+  </mat-toolbar>
 
-<!-- FOOTER -->
-<footer class="footer">
-  <p>© 2025 OdontPro</p>
-</footer>
+  <!-- CONTENIDO -->
+  <main class="app-content">
+    <router-outlet></router-outlet>
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>© 2025 OdontPro</p>
+  </footer>
+
+</div>
