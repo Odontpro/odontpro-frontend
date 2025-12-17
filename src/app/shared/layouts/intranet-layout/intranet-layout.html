@@ -1,0 +1,57 @@
+<mat-sidenav-container class="layout">
+
+  <!-- SIDEBAR -->
+  <mat-sidenav mode="side" opened>
+    <mat-toolbar color="primary">
+      OdontPro
+    </mat-toolbar>
+
+    <mat-nav-list>
+
+      <a mat-list-item routerLink="/intranet/home">
+        <mat-icon>home</mat-icon>
+        Home
+      </a>
+
+      <a mat-list-item routerLink="/intranet/agenda">
+        <mat-icon>event</mat-icon>
+        Agenda
+      </a>
+
+      <!-- SOLO ADMIN -->
+      <a
+        *ngIf="role === 'admin'"
+        mat-list-item
+        routerLink="/intranet/pacientes">
+        <mat-icon>people</mat-icon>
+        Pacientes
+      </a>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <!-- CONTENT -->
+  <mat-sidenav-content>
+
+    <!-- HEADER -->
+    <mat-toolbar color="primary">
+      <span class="spacer"></span>
+
+      <span>
+        {{ user?.first_name }} {{ user?.last_name }}
+        ({{ role }})
+      </span>
+
+      <button mat-icon-button (click)="logout()">
+        <mat-icon>logout</mat-icon>
+      </button>
+    </mat-toolbar>
+
+    <!-- VIEW -->
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

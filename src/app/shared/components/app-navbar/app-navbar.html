@@ -1,0 +1,139 @@
+<header class="header-wrapper">
+  <!-- DESKTOP VERSION -->
+  <div class="desktop-header">
+    <!-- Primera fila -->
+    <div class="top-row">
+      <div class="top-row-content">
+        <!-- Logo -->
+        <div class="logo-section">
+          <img src="horizontal_logo.png" alt="LittleHands Logo" class="logo" routerLink="/">
+        </div>
+
+        <!-- Redes sociales -->
+        <div class="social-section">
+          <a href="https://www.instagram.com/bylittlehands.pe/" target="_blank" class="social-link">
+            <i class="fab fa-instagram"></i>
+          </a>
+          <a href="https://www.tiktok.com/@bylittlehands.pe?_t=ZS-90yLY2DTeBL&_r=1" target="_blank" class="social-link">
+            <i class="fab fa-tiktok"></i>
+          </a>
+        </div>
+
+        <!-- Barra de búsqueda -->
+        <div class="search-section">
+          <mat-form-field appearance="outline" class="search-field">
+            <input
+              matInput
+              placeholder="¿QUÉ BUSCAS?"
+              [(ngModel)]="searchQuery"
+              (keyup.enter)="onSearch()">
+            <button mat-icon-button matSuffix (click)="onSearch()">
+              <mat-icon>search</mat-icon>
+            </button>
+          </mat-form-field>
+        </div>
+
+        <!-- Cuenta -->
+        <div class="account-section" (click)="goToAccount()">
+          <mat-icon class="account-icon">
+            {{ isUserLogged() ? 'person' : 'person_add' }}
+          </mat-icon>
+          <span class="account-text">
+            {{ isUserLogged() ? 'MI CUENTA' : 'INGRESAR' }}
+          </span>
+        </div>
+
+        <!-- Carrito -->
+        <div class="cart-section" (click)="goToCart()">
+          <mat-icon class="cart-icon" [matBadge]="cartItemsCount" matBadgeColor="warn">shopping_cart</mat-icon>
+        </div>
+
+      </div>
+
+
+    </div>
+
+    <!-- Segunda fila: Navegación -->
+    <nav class="nav-row">
+      <div class="nav-row-content">
+        <button routerLink="/nosotros" routerLinkActive="active-link">NOSOTROS</button>
+        <button routerLink="/tienda" routerLinkActive="active-link">TIENDA</button>
+        <button routerLink="/encuentra-juguete" routerLinkActive="active-link">ENCUENTRA TU JUGUETE</button>
+      </div>
+    </nav>
+  </div>
+
+  <!-- MOBILE VERSION -->
+  <div class="mobile-header">
+    <mat-toolbar color="primary">
+      <!-- Menu hamburguesa -->
+      <button mat-icon-button (click)="toggleMenu()">
+        <mat-icon>menu</mat-icon>
+      </button>
+
+      <!-- Logo texto -->
+      <img src="horizontal_logo.png" alt="LittleHands Logo" class="mobile-brand" routerLink="/">
+
+      <span class="mobile-spacer"></span>
+
+      <!-- Búsqueda -->
+      <button mat-icon-button>
+        <mat-icon>search</mat-icon>
+      </button>
+
+      <!-- Usuario -->
+      <button mat-icon-button (click)="goToAccount()" routerLinkActive="active-link">
+        <mat-icon>person</mat-icon>
+      </button>
+
+      <!-- Carrito -->
+      <button mat-icon-button (click)="goToCart()">
+        <mat-icon [matBadge]="cartItemsCount" matBadgeColor="warn" matBadgeSize="small">shopping_cart</mat-icon>
+      </button>
+    </mat-toolbar>
+  </div>
+</header>
+
+<!-- Mobile Menu Sidenav -->
+<mat-sidenav-container class="mobile-menu-container" [class.menu-open]="menuOpened" autosize>
+  <mat-sidenav
+    #sidenav
+    mode="over"
+    position="start"
+    [opened]="menuOpened"
+    (closed)="closeMenu()"
+    class="mobile-sidenav">
+
+    <div class="mobile-menu">
+      <div class="menu-header">
+        <button mat-icon-button (click)="closeMenu()">
+          <mat-icon>close</mat-icon>
+        </button>
+      </div>
+
+      <nav class="menu-nav">
+        <button routerLink="/nosotros" (click)="closeMenu()" routerLinkActive="active-link">
+          <span>NOSOTROS</span>
+        </button>
+        <button routerLink="/tienda" (click)="closeMenu()" routerLinkActive="active-link">
+          <span>TIENDA</span>
+        </button>
+        <button routerLink="/encuentra-juguete" (click)="closeMenu()" routerLinkActive="active-link">
+          ENCUENTRA TU JUGUETE
+        </button>
+      </nav>
+
+      <div class="menu-social">
+        <h3>Síguenos</h3>
+        <a href="https://www.instagram.com/bylittlehands.pe/" target="_blank" class="menu-social-link">
+          <i class="fab fa-instagram"></i>
+          <span>Instagram</span>
+        </a>
+        <a href="https://www.tiktok.com/@bylittlehands.pe?_t=ZS-90yLY2DTeBL&_r=1" target="_blank" class="menu-social-link">
+          <i class="fab fa-tiktok"></i>
+          <span>TikTok</span>
+        </a>
+      </div>
+    </div>
+  </mat-sidenav>
+</mat-sidenav-container>
