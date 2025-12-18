@@ -1,1 +1,62 @@
-<p>odontologia-general works!</p>
+<div class="especialidad-page" *ngIf="casoSeleccionado">
+
+  <div class="caso-container">
+
+    <div class="image-side">
+      <div class="image-comparison"
+           (mousedown)="onMouseDown($event)"
+           (click)="onImageClick($event)">
+
+        <div class="image-layer image-after">
+          <img [src]="casoSeleccionado.imagenDespues" alt="Después">
+          <div class="image-label label-after" (click)="onDespuesClick($event)">
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+            </svg>
+            Después
+          </div>
+        </div>
+
+        <div class="image-layer image-before"
+             [style.clip-path]="'inset(0 ' + (100 - sliderPosition) + '% 0 0)'">
+          <img [src]="casoSeleccionado.imagenAntes" alt="Antes">
+          <div class="image-label label-before" (click)="onAntesClick($event)">
+            Antes
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </div>
+        </div>
+
+        <div class="slider-divider" [style.left.%]="sliderPosition">
+          <div class="slider-handle">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="15 18 9 12 15 6"></polyline>
+              <polyline points="9 18 15 12 9 6"></polyline>
+            </svg>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="casos-selector">
+        <button
+          *ngFor="let caso of casos; let i = index"
+          class="caso-btn"
+          [class.active]="casoActual === i"
+          (click)="seleccionarCaso(i)">
+          CASO {{ caso.id }}
+        </button>
+      </div>
+    </div>
+
+    <div class="info-side">
+      <h1 class="caso-titulo">{{ casoSeleccionado.titulo }}</h1>
+      <h2 class="caso-subtitulo">{{ casoSeleccionado.subtitulo }}</h2>
+      <h4 class="especialidad-nombre">ODONTOLOGÍA GENERAL</h4>
+      <p class="caso-descripcion">{{ casoSeleccionado.descripcion }}</p>
+    </div>
+
+  </div>
+
+</div>
