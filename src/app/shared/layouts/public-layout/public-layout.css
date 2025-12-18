@@ -40,6 +40,35 @@
   justify-content: space-between;
 }
 
+/* Header siempre sólido cuando NO es landing */
+.header.always-solid {
+  background-color: white;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.header.always-solid .logo img {
+  filter: brightness(0) saturate(100%)
+  invert(71%)
+  sepia(34%)
+  saturate(613%)
+  hue-rotate(126deg)
+  brightness(96%)
+  contrast(92%);
+}
+
+.header.always-solid .nav-link {
+  color: #7dc0bf;
+}
+
+.header.always-solid .nav-link:hover {
+  color: #5a9f9e;
+}
+
+.header.always-solid .nav-link.active {
+  color: #5a9f9e;
+  border-bottom: 2px solid #7dc0bf;
+}
+
 /* Logo */
 .logo {
   display: flex;

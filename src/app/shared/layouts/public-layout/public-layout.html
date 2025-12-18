@@ -1,7 +1,7 @@
 <div class="app-layout">
 
   <!-- HEADER -->
-  <header class="header" [class.scrolled]="isScrolled">
+  <header class="header" [class.scrolled]="isScrolled" [class.always-solid]="!isLandingPage">
     <div class="header-container">
       <!-- Logo -->
       <div class="logo">
@@ -10,7 +10,7 @@
 
       <!-- Navegación -->
       <nav class="nav-menu">
-        <a class="nav-link" routerLink="/" fragment="inicio">Inicio</a>
+        <a class="nav-link" routerLink="/" fragment="inicio" >Inicio</a>
 
         <!-- Especialidades con Dropdown -->
         <div class="nav-dropdown">
