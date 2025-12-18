@@ -39,7 +39,7 @@
 }
 
 .logo img {
-  height: 40px;
+  height: 35px;
   width: auto;
   filter: brightness(0) saturate(100%)
   invert(71%)
@@ -88,7 +88,7 @@
   display: flex;
   align-items: center;
   gap: 6px;
-  font-family: Roboto, sans-serif;
+  font-family: 'Poppins', sans-serif;
 }
 
 .arrow {
@@ -218,25 +218,15 @@
   width: auto;
 }
 
-.reclamaciones-btn {
-  color: white;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 4px;
-  font-size: 14px;
-  font-weight: 500;
+.footer-link {
   cursor: pointer;
-  transition: background-color 0.2s;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  width: 100%;
+  transition: color 0.2s ease;
 }
 
-.reclamaciones-btn:hover {
-  background-color: #3d3d3d;
+.footer-link:hover {
+  color: #38d3c0;
 }
+
 
 /* Copyright */
 .footer-copyright {
