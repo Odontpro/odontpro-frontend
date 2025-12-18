@@ -127,12 +127,12 @@
   }
 
   .hero-title {
-    font-size: 1.2rem;
+    font-size: 1.5rem !important;
     letter-spacing: 2px;
   }
 
   .hero-subtitle {
-    font-size: 1.5rem;
+    font-size: 2rem !important;
     letter-spacing: 3px;
     margin: 0 0 32px 0;
   }
