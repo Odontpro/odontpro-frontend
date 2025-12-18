@@ -63,8 +63,9 @@
 .hero-text {
   position: absolute; /* ← AÑADIR ESTO */
   top: 50%; /* ← AÑADIR ESTO */
-  left: 50%; /* ← AÑADIR ESTO */
+  left: 25%; /* ← AÑADIR ESTO */
   transform: translate(-50%, -50%); /* ← AÑADIR ESTO */
+  text-align: left; /* ← Cambiado de center a left */
   width: 100%; /* ← AÑADIR ESTO */
   opacity: 0;
   transition: opacity 0.5s ease-in-out;
@@ -111,15 +112,27 @@
   transform: scale(1.05);
 }
 
-/* Responsive */
 @media (max-width: 768px) {
+  /* Centrar el contenido en mobile */
+  .hero-content {
+    left: 50% !important;
+    text-align: center !important;
+    width: 95% !important;
+    padding: 0 16px !important;
+  }
+
+  .hero-text {
+    left: 50% !important; /* ← Centrar horizontalmente */
+    text-align: center !important;
+  }
+
   .hero-title {
-    font-size: 1.5rem;
+    font-size: 1.2rem;
     letter-spacing: 2px;
   }
 
   .hero-subtitle {
-    font-size: 2rem;
+    font-size: 1.5rem;
     letter-spacing: 3px;
     margin: 0 0 32px 0;
   }
@@ -128,6 +141,25 @@
     padding: 14px 40px;
     font-size: 0.95rem;
     letter-spacing: 2px;
+  }
+
+  /* Ajustar controles del carrusel en mobile */
+  .carousel-control {
+    font-size: 1.5rem;
+    padding: 12px 16px;
+  }
+
+  .carousel-control.prev {
+    left: 12px;
+  }
+
+  .carousel-control.next {
+    right: 12px;
+  }
+
+  /* Ajustar indicadores en mobile */
+  .carousel-indicators {
+    bottom: 20px;
   }
 }
 
