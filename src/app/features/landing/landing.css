@@ -1,0 +1,282 @@
+/* ============================================
+   HERO SECTION CON CARRUSEL
+   ============================================ */
+.hero-section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* Carrusel */
+.carousel {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.carousel-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  transition: opacity 1s ease-in-out;
+}
+
+.carousel-slide.active {
+  opacity: 1;
+  z-index: 1;
+}
+
+.carousel-slide img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Overlay oscuro sobre las imágenes */
+.slide-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
+   CONTENIDO DEL HERO
+   ============================================ */
+.hero-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  text-align: center;
+  z-index: 10;
+  width: 90%;
+  max-width: 800px;
+}
+
+.hero-text {
+  position: absolute; /* ← AÑADIR ESTO */
+  top: 50%; /* ← AÑADIR ESTO */
+  left: 50%; /* ← AÑADIR ESTO */
+  transform: translate(-50%, -50%); /* ← AÑADIR ESTO */
+  width: 100%; /* ← AÑADIR ESTO */
+  opacity: 0;
+  transition: opacity 0.5s ease-in-out;
+}
+
+.hero-text.active {
+  opacity: 1;
+}
+.hero-title {
+  color: white;
+  font-size: 2.5rem;
+  font-weight: 300;
+  margin: 0 0 8px 0;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.hero-subtitle {
+  color: white;
+  font-size: 3.5rem;
+  font-weight: 700;
+  margin: 0 0 48px 0;
+  letter-spacing: 6px;
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+.cta-button {
+  background-color: transparent;
+  color: white;
+  border: 3px solid white;
+  padding: 18px 56px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: 3px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.cta-button:hover {
+  background-color: white;
+  color: #7dc0bf;
+  transform: scale(1.05);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.5rem;
+    letter-spacing: 2px;
+  }
+
+  .hero-subtitle {
+    font-size: 2rem;
+    letter-spacing: 3px;
+    margin: 0 0 32px 0;
+  }
+
+  .cta-button {
+    padding: 14px 40px;
+    font-size: 0.95rem;
+    letter-spacing: 2px;
+  }
+}
+
+/* ============================================
+   ANIMACIONES
+   ============================================ */
+@keyframes fadeInDown {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero-text.active .animate-fade-down {
+  animation: fadeInDown 0.8s ease-out forwards;
+}
+
+.hero-text.active .animate-fade-up {
+  animation: fadeInUp 0.8s ease-out 0.2s forwards;
+  opacity: 0;
+}
+
+.hero-text.active .animate-fade-up-delay {
+  animation: fadeInUp 0.8s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+/* ============================================
+   INDICADORES DEL CARRUSEL
+   ============================================ */
+.carousel-indicators {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 12px;
+  z-index: 10;
+}
+
+.indicator {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background-color: black;
+  border: 2px solid black;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  padding: 0;
+}
+
+.indicator:hover {
+  background-color: rgba(255, 255, 255, 0.8);
+  border: rgba(255, 255, 255, 0.8);
+}
+
+.indicator.active {
+  background-color: #a3a1a3;
+  border: #a3a1a3;
+  width: 32px;
+  border-radius: 6px;
+}
+
+/* ============================================
+   CONTROLES DEL CARRUSEL (OPCIONAL)
+   ============================================ */
+.carousel-control {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgba(255, 255, 255, 0.3);
+  color: white;
+  border: none;
+  font-size: 2rem;
+  padding: 16px 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  z-index: 10;
+}
+
+.carousel-control:hover {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.carousel-control.prev {
+  left: 24px;
+}
+
+.carousel-control.next {
+  right: 24px;
+}
+
+/* ============================================
+   SECCIÓN DE CONTENIDO
+   ============================================ */
+.content-section {
+  padding: 80px 24px;
+  background-color: white;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.content-section h2 {
+  font-size: 2.5rem;
+  color: #7dc0bf;
+  margin-bottom: 24px;
+  text-align: center;
+}
+
+.content-section p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: #333;
+  text-align: center;
+}
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 768px) {
+  .hero-title {
+    font-size: 1.8rem;
+  }
+
+  .hero-subtitle {
+    font-size: 2.5rem;
+  }
+
+  .cta-button {
+    padding: 12px 32px;
+    font-size: 1rem;
+  }
+
+}

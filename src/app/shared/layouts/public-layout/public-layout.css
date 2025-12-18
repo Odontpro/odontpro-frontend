@@ -15,11 +15,20 @@
    HEADER
    ============================================ */
 .header {
+  background-color: transparent;
+  box-shadow: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  transition: all 0.3s ease;
+}
+
+/* Header cuando se hace scroll */
+.header.scrolled {
   background-color: white;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
-  z-index: 1000;
 }
 
 .header-container {
@@ -41,6 +50,13 @@
 .logo img {
   height: 35px;
   width: auto;
+  /* Logo blanco cuando header transparente */
+  filter: brightness(0) invert(1);
+  transition: filter 0.3s ease;
+}
+
+/* Logo con color #7dc0bf cuando se hace scroll */
+.header.scrolled .logo img {
   filter: brightness(0) saturate(100%)
   invert(71%)
   sepia(34%)
@@ -59,24 +75,28 @@
 }
 
 .nav-link {
-  color: #959595;
+  color: white; /* Blanco cuando transparente */
   text-decoration: none;
   font-size: 16px;
   font-weight: 500;
-  transition: color 0.2s;
+  transition: color 0.3s;
   background: none;
   border: none;
   cursor: pointer;
   padding: 8px 0;
 }
 
-.nav-link:hover {
-  color: #38d3c0;
+/* Links con color cuando se hace scroll */
+.header.scrolled .nav-link {
+  color: #7dc0bf;
 }
 
-.nav-link.active {
-  color: #38d3c0;
-  border-bottom: 2px solid #38d3c0;
+.nav-link:hover {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.header.scrolled .nav-link:hover {
+  color: #5a9f9e;
 }
 
 /* Dropdown de Especialidades */
@@ -140,16 +160,17 @@
 }
 
 .dropdown-content a:hover {
-  background-color: #e0f4f4;
-  color: #7dc0bf;
+  background-color: #38d3c0;
+  color: white;
 }
 
 /* ============================================
-   CONTENIDO
+   CONTENIDO SIN PADDING
    ============================================ */
 .app-content {
   flex: 1;
   background-color: transparent;
+  padding: 0; /* Sin padding para que el hero ocupe todo */
 }
 
 /* ============================================
