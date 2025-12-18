@@ -59,6 +59,12 @@ export const routes: Routes = [
           import('./features/landing/specialties/rehabilitacion/rehabilitacion')
             .then(m => m.Rehabilitacion)
       },
+      {
+        path: 'especialidades/odontologia-estetica',
+        loadComponent: () =>
+          import('./features/landing/specialties/odontologia-estetica/odontologia-estetica')
+            .then(m => m.OdontologiaEstetica)
+      },
 
       {
         path: 'login',

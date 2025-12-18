@@ -10,14 +10,14 @@
 
       <!-- Navegación -->
       <nav class="nav-menu">
-        <a class="nav-link" routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}">Inicio</a>
+        <a class="nav-link" routerLink="/" fragment="inicio">Inicio</a>
 
         <!-- Especialidades con Dropdown -->
         <div class="nav-dropdown">
-          <button class="nav-link dropdown-toggle">
+          <a class="nav-link dropdown-toggle" routerLink="/" fragment="especialidades">
             Especialidades
             <span class="arrow">▼</span>
-          </button>
+          </a>
           <div class="dropdown-content">
             <a routerLink="/especialidades/odontologia-general">Odontología general</a>
             <a routerLink="/especialidades/endodoncia">Endodoncia</a>
@@ -26,11 +26,12 @@
             <a routerLink="/especialidades/cirugia">Cirugía bucal</a>
             <a routerLink="/especialidades/radiologia">Radiología oral y maxilofacial</a>
             <a routerLink="/especialidades/implantologia">Implantología</a>
+            <a routerLink="/especialidades/odontologia-estetica">Odontología estética</a>
           </div>
         </div>
 
-        <a class="nav-link" href="#testimonios">Testimonios</a>
-        <a class="nav-link" href="#locacion">Locación</a>
+        <a class="nav-link" routerLink="/" fragment="testimonios">Testimonios</a>
+        <a class="nav-link" routerLink="/" fragment="ubicacion">Ubicación</a>
       </nav>
     </div>
   </header>

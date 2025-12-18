@@ -1,5 +1,6 @@
 import {Component, OnInit, OnDestroy, HostListener, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {RouterLink} from '@angular/router';
 
 interface Slide {
   image: string;
@@ -10,7 +11,7 @@ interface Slide {
 @Component({
   selector: 'app-landing',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, RouterLink],
   templateUrl: './landing.html',
   styleUrls: ['./landing.css']
 })
