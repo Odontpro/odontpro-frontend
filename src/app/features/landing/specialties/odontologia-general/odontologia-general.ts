@@ -1,4 +1,4 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component, OnDestroy, NgZone } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Caso {
@@ -42,6 +42,8 @@ export class OdontologiaGeneral implements OnDestroy {
   sliderPosition = 50;
   isDragging = false;
   isAnimating = false;
+
+  constructor(private ngZone: NgZone) {}
 
   get casoSeleccionado(): Caso {
     return this.casos[this.casoActual];
@@ -90,7 +92,7 @@ export class OdontologiaGeneral implements OnDestroy {
     }
   }
 
-  // Click en el label "Antes" - mueve el slider completamente a la derecha
+// Click en el label "Antes" - mueve el slider completamente a la derecha
   onAntesClick(event: MouseEvent) {
     event.stopPropagation();
     this.animateSlider(100);
@@ -102,32 +104,37 @@ export class OdontologiaGeneral implements OnDestroy {
     this.animateSlider(0);
   }
 
-  // Anima el slider hacia una posición específica
+  // Anima el slider hacia una posición específica con mejor rendimiento
   private animateSlider(targetPosition: number) {
     if (this.isAnimating) return;
 
     this.isAnimating = true;
     const startPosition = this.sliderPosition;
     const distance = targetPosition - startPosition;
-    const duration = 500; // 500ms de duración
+    const duration = 400; // Reducido a 400ms para mayor velocidad
     const startTime = performance.now();
 
     const animate = (currentTime: number) => {
       const elapsed = currentTime - startTime;
       const progress = Math.min(elapsed / duration, 1);
 
-      // Función de easing suave (ease-in-out)
+      // Función de easing más suave
       const easeProgress = progress < 0.5
-        ? 2 * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 2) / 2;
+        ? 4 * progress * progress * progress
+        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
 
-      this.sliderPosition = startPosition + (distance * easeProgress);
+      // NgZone.run fuerza el change detection
+      this.ngZone.run(() => {
+        this.sliderPosition = startPosition + (distance * easeProgress);
+      });
 
       if (progress < 1) {
         requestAnimationFrame(animate);
       } else {
-        this.sliderPosition = targetPosition;
-        this.isAnimating = false;
+        this.ngZone.run(() => {
+          this.sliderPosition = targetPosition;
+          this.isAnimating = false;
+        });
       }
     };
 

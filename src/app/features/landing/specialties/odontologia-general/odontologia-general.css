@@ -116,6 +116,15 @@
   pointer-events: none;
 }
 
+/* Transición suave cuando se activa */
+.slider-divider.smooth-transition {
+  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.image-before.smooth-transition {
+  transition: clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
 .slider-handle {
   position: absolute;
   top: 50%;
@@ -192,6 +201,7 @@
   margin: 0 0 8px 0;
   letter-spacing: 2px;
   color: #7dc0bf;
+  line-height: 0.7;
 }
 
 .caso-subtitulo {
@@ -200,6 +210,7 @@
   margin: 0 0 32px 0;
   color: #7dc0bf;
   letter-spacing: 2px;
+  line-height: 1;
 }
 
 .caso-categoria {
