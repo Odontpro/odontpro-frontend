@@ -55,39 +55,36 @@ export class OdontologiaGeneral implements OnDestroy {
   onMouseDown(event: MouseEvent) {
     // Evitar que el drag se active si se hace click en los labels
     const target = event.target as HTMLElement;
-    if (target.classList.contains('image-label')) {
+    if (target.classList.contains('image-label') || target.closest('.image-label')) {
       return;
     }
 
+    event.preventDefault();
     this.isDragging = true;
     this.updateSliderPosition(event);
-    document.addEventListener('mousemove', this.onMouseMove);
-    document.addEventListener('mouseup', this.onMouseUp);
-    event.preventDefault();
   }
 
-  onMouseMove = (event: MouseEvent) => {
+  onMouseMove(event: MouseEvent) {
     if (this.isDragging) {
+      event.preventDefault();
       this.updateSliderPosition(event);
     }
   }
 
-  onMouseUp = () => {
+  onMouseUp() {
     this.isDragging = false;
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
   }
 
   // Click en cualquier parte de la imagen para mover el slider
   onImageClick(event: MouseEvent) {
     const target = event.target as HTMLElement;
 
-    // Si se hace click en el handle, no hacer nada
-    if (target.closest('.slider-handle')) {
+    // Si se hace click en el handle o en los labels, no hacer nada
+    if (target.closest('.slider-handle') || target.closest('.image-label')) {
       return;
     }
 
-    // Si no estamos arrastrando, mover el slider al punto clickeado
+    // Solo mover si no estamos arrastrando
     if (!this.isDragging) {
       this.updateSliderPosition(event);
     }
@@ -147,7 +144,10 @@ export class OdontologiaGeneral implements OnDestroy {
   }
 
   ngOnDestroy() {
-    document.removeEventListener('mousemove', this.onMouseMove);
-    document.removeEventListener('mouseup', this.onMouseUp);
+    this.isDragging = false;
+    if ((this as any)._moveHandler) {
+      document.removeEventListener('mousemove', (this as any)._moveHandler);
+      document.removeEventListener('mouseup', (this as any)._upHandler);
+    }
   }
 }

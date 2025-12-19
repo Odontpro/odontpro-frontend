@@ -5,14 +5,14 @@
     <div class="image-side">
       <div class="image-comparison"
            (mousedown)="onMouseDown($event)"
+           (mousemove)="onMouseMove($event)"
+           (mouseup)="onMouseUp()"
+           (mouseleave)="onMouseUp()"
            (click)="onImageClick($event)">
 
         <div class="image-layer image-after">
           <img [src]="casoSeleccionado.imagenDespues" alt="Después">
           <div class="image-label label-after" (click)="onDespuesClick($event)">
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-            </svg>
             Después
           </div>
         </div>
@@ -22,18 +22,25 @@
           <img [src]="casoSeleccionado.imagenAntes" alt="Antes">
           <div class="image-label label-before" (click)="onAntesClick($event)">
             Antes
-            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="9 18 15 12 9 6"></polyline>
-            </svg>
           </div>
         </div>
 
         <div class="slider-divider" [style.left.%]="sliderPosition">
           <div class="slider-handle">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="15 18 9 12 15 6"></polyline>
-              <polyline points="9 18 15 12 9 6"></polyline>
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+            >
+              <!-- Triángulo izquierdo ◄ -->
+              <polygon points="10 6 10 18 4 12" />
+
+              <!-- Triángulo derecho ► -->
+              <polygon points="14 6 14 18 20 12" />
             </svg>
+
           </div>
         </div>
 
