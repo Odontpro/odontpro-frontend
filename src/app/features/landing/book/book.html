@@ -1,4 +1,203 @@
-<mat-card>
-  <h1>Libro de Reclamaciones</h1>
-  <p>Aquí irá el formulario obligatorio según ley peruana.</p>
-</mat-card>
+<div class="reclamaciones-container">
+  <mat-card class="reclamaciones-card">
+    <mat-card-header>
+      <mat-card-title>Libro de Reclamaciones</mat-card-title>
+      <mat-card-subtitle>Complete el formulario con sus datos</mat-card-subtitle>
+    </mat-card-header>
+
+    <mat-card-content>
+      <form [formGroup]="reclamacionForm" (ngSubmit)="onSubmit()">
+
+        <!-- Fecha -->
+        <div class="form-section">
+          <h3 class="section-title">Fecha del Reclamo</h3>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Seleccione una fecha</mat-label>
+            <input matInput [matDatepicker]="picker" formControlName="fecha" [max]="maxDate">
+            <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+            <mat-datepicker #picker></mat-datepicker>
+            <mat-error *ngIf="reclamacionForm.get('fecha')?.invalid">
+              {{ getErrorMessage('fecha') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Identificación del Usuario -->
+        <div class="form-section">
+          <h3 class="section-title">Identificación del Usuario o Tercero Legitimado (Reclamante)</h3>
+
+          <div class="form-row three-columns">
+            <mat-form-field appearance="outline">
+              <mat-label>Nombres</mat-label>
+              <input matInput formControlName="nombres" placeholder="Ingrese sus nombres">
+              <mat-error *ngIf="reclamacionForm.get('nombres')?.invalid">
+                {{ getErrorMessage('nombres') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Paterno</mat-label>
+              <input matInput formControlName="apellidoPaterno" placeholder="Apellido paterno">
+              <mat-error *ngIf="reclamacionForm.get('apellidoPaterno')?.invalid">
+                {{ getErrorMessage('apellidoPaterno') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Apellido Materno</mat-label>
+              <input matInput formControlName="apellidoMaterno" placeholder="Apellido materno">
+              <mat-error *ngIf="reclamacionForm.get('apellidoMaterno')?.invalid">
+                {{ getErrorMessage('apellidoMaterno') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row three-columns">
+            <mat-form-field appearance="outline">
+              <mat-label>Documento de Identidad</mat-label>
+              <mat-select formControlName="tipoDocumento">
+                <mat-option *ngFor="let tipo of tiposDocumento" [value]="tipo.value">
+                  {{ tipo.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Número de Documento</mat-label>
+              <input matInput formControlName="numeroDocumento" placeholder="Ej: 12345678">
+              <mat-error *ngIf="reclamacionForm.get('numeroDocumento')?.invalid">
+                {{ getErrorMessage('numeroDocumento') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>E-mail</mat-label>
+              <input matInput type="email" formControlName="email" placeholder="ejemplo@correo.com">
+              <mat-icon matPrefix>email</mat-icon>
+              <mat-error *ngIf="reclamacionForm.get('email')?.invalid">
+                {{ getErrorMessage('email') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row two-columns">
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono Fijo</mat-label>
+              <input matInput formControlName="telefonoFijo" placeholder="Ej: 014567890">
+              <mat-icon matPrefix>phone</mat-icon>
+              <mat-error *ngIf="reclamacionForm.get('telefonoFijo')?.invalid">
+                {{ getErrorMessage('telefonoFijo') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Teléfono Celular</mat-label>
+              <input matInput formControlName="telefonoCelular" placeholder="Ej: 987654321">
+              <mat-icon matPrefix>smartphone</mat-icon>
+              <mat-error *ngIf="reclamacionForm.get('telefonoCelular')?.invalid">
+                {{ getErrorMessage('telefonoCelular') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row three-columns">
+            <mat-form-field appearance="outline">
+              <mat-label>Dirección</mat-label>
+              <input matInput formControlName="direccion" placeholder="Calle, avenida, número">
+              <mat-icon matPrefix>home</mat-icon>
+              <mat-error *ngIf="reclamacionForm.get('direccion')?.invalid">
+                {{ getErrorMessage('direccion') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Distrito</mat-label>
+              <input matInput formControlName="distrito" placeholder="Distrito">
+              <mat-error *ngIf="reclamacionForm.get('distrito')?.invalid">
+                {{ getErrorMessage('distrito') }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Departamento</mat-label>
+              <mat-select formControlName="departamento">
+                <mat-option *ngFor="let dept of departamentos" [value]="dept">
+                  {{ dept }}
+                </mat-option>
+              </mat-select>
+              <mat-error *ngIf="reclamacionForm.get('departamento')?.invalid">
+                {{ getErrorMessage('departamento') }}
+              </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+
+        <!-- Detalle del Reclamo -->
+        <div class="form-section">
+          <h3 class="section-title">Detalle del Reclamo</h3>
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Describa su reclamo</mat-label>
+            <textarea
+              matInput
+              formControlName="detalleReclamo"
+              rows="6"
+              placeholder="Describa detalladamente su reclamo..."></textarea>
+            <mat-hint align="end">{{ caracteresRestantes }} / 500</mat-hint>
+            <mat-error *ngIf="reclamacionForm.get('detalleReclamo')?.invalid">
+              {{ getErrorMessage('detalleReclamo') }}
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <!-- Confirmación de Datos -->
+        <div class="form-section">
+          <h3 class="section-title">Confirmación de Datos</h3>
+
+          <div class="checkbox-container">
+            <mat-checkbox formControlName="confirmacionDatos" color="primary">
+              <span class="checkbox-label">
+                Estoy de acuerdo con lo ingresado en esta hoja de reclamaciones y así mismo
+                confirmo que los datos son tomados como firma de esta solicitud. *
+              </span>
+            </mat-checkbox>
+            <mat-error
+              *ngIf="reclamacionForm.get('confirmacionDatos')?.invalid && reclamacionForm.get('confirmacionDatos')?.touched"
+              class="checkbox-error">
+              Debe aceptar la confirmación de datos
+            </mat-error>
+          </div>
+
+          <div class="checkbox-container">
+            <mat-checkbox formControlName="autorizacionNotificacion" color="primary">
+              <span class="checkbox-label">
+                Autorizo Notificación del Resultado al email consignado
+              </span>
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <!-- Botón de Enviar -->
+        <div class="form-actions">
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="submit-button"
+            [disabled]="reclamacionForm.invalid">
+            <mat-icon>send</mat-icon>
+            ENVIAR
+          </button>
+        </div>
+
+        <!-- Aviso Legal -->
+        <div class="legal-notice">
+          <mat-icon class="warning-icon">info</mat-icon>
+          <p>
+            Odontpro se reserva el derecho de tomar acciones legales pertinentes en caso
+            de verificarse la falsedad o inexactitud de las declaraciones realizadas.
+          </p>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

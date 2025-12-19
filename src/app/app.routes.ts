@@ -18,6 +18,12 @@ export const routes: Routes = [
             .then(m => m.Landing)
       },
       {
+        path: 'libro-reclamaciones',
+        loadComponent: () =>
+          import('./features/landing/book/book')
+            .then(m => m.Book)
+      },
+      {
         path: 'especialidades/cirugia',
         loadComponent: () =>
           import('./features/landing/specialties/cirugia/cirugia')
@@ -85,12 +91,7 @@ export const routes: Routes = [
         .then(m => m.INTRANET_ROUTES)
   },
 
-  {
-    path: 'libro-reclamaciones',
-    loadComponent: () =>
-      import('./features/landing/book/book')
-        .then(m => m.Book)
-  },
+
 
   { path: '**', redirectTo: '' }
 ];
