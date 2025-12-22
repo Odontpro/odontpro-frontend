@@ -3,17 +3,150 @@
    ============================================ */
 .especialidad-page {
   min-height: calc(100vh - 64px);
-  background-color: #f8f9fa;
-  padding-top: 80px; /* Espacio para el header fijo */
+  background-color: white;
+  padding-top: 64px; /* Espacio para el header fijo */
 }
 
-.caso-container {
-  max-width: 1400px;
+/* ============================================
+   SECCIÓN 1: BANNER
+   ============================================ */
+.banner-section {
+  position: relative;
+  width: 100%;
+  height: 300px;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.banner-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.banner-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.9); /* Tinte blanco semi-transparente */
+  z-index: 2;
+}
+
+.banner-title {
+  position: relative;
+  z-index: 3;
+  font-size: 50px;
+  font-weight: 600;
+  color: #7dc0bf;
+  text-align: center;
+  margin: 0;
+  text-transform: capitalize;
+  letter-spacing: 2px;
+}
+
+/* ============================================
+   SECCIÓN 2: INFORMACIÓN DE LA ESPECIALIDAD
+   ============================================ */
+.info-especialidad-section {
+  padding: 80px 40px;
+  background-color: white;
+}
+
+.info-container {
+  max-width: 1200px;
   margin: 0 auto;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 60px;
-  padding: 60px 40px;
+  align-items: center;
+}
+
+.info-image {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-image img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: cover;
+}
+
+.info-content {
+  padding: 20px;
+}
+
+.info-title {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #7dc0bf;
+  margin: 0 0 24px 0;
+  line-height: 1.2;
+  text-align: right;
+}
+
+.info-text {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #666;
+  text-align: justify;
+}
+
+.info-text p {
+  margin: 0 0 16px 0;
+}
+
+.info-text p:last-child {
+  margin-bottom: 0;
+}
+
+/* ============================================
+   SECCIÓN 3: CASOS DE ÉXITO
+   ============================================ */
+.casos-section {
+  padding: 80px 40px;
+}
+
+/* Header de la sección de casos */
+.casos-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.casos-main-title {
+  font-size: 2.5rem;
+  font-weight: 400;
+  color: #666666;
+  line-height: 1.2;
+  margin: 0 0 8px 0;
+  letter-spacing: 1px;
+}
+
+.casos-subtitle {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #7dc0bf;
+  margin: 0;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.caso-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
   align-items: center;
 }
 
@@ -34,7 +167,7 @@
   cursor: ew-resize;
   user-select: none;
   border-radius: 12px;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
 }
 
 .image-layer {
@@ -65,29 +198,13 @@
 .image-label {
   position: absolute;
   top: 20px;
-  padding: 10px 16px;
-  background-color: rgba(125, 192, 191, 0.95);
+  padding: 8px 16px;
+  background-color: rgba(125, 192, 191, 0.9);
   color: white;
   font-weight: 600;
   font-size: 14px;
-  border-radius: 6px;
+  border-radius: 4px;
   z-index: 3;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
-}
-
-.image-label:hover {
-  background-color: rgba(125, 192, 191, 1);
-  transform: translateY(-2px);
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-}
-
-.image-label:active {
-  transform: translateY(0);
 }
 
 .label-before {
@@ -96,12 +213,6 @@
 
 .label-after {
   right: 20px;
-}
-
-.image-label svg {
-  width: 16px;
-  height: 16px;
-  flex-shrink: 0;
 }
 
 /* Slider divisor */
@@ -116,15 +227,6 @@
   pointer-events: none;
 }
 
-/* Transición suave cuando se activa */
-.slider-divider.smooth-transition {
-  transition: left 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-.image-before.smooth-transition {
-  transition: clip-path 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
 .slider-handle {
   position: absolute;
   top: 50%;
@@ -137,20 +239,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
   pointer-events: auto;
   cursor: ew-resize;
-  transition: all 0.2s ease;
-}
-
-.slider-handle:hover {
-  transform: translate(-50%, -50%) scale(1.1);
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
 }
 
 .slider-handle svg {
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   color: #7dc0bf;
 }
 
@@ -191,7 +287,7 @@
    LADO DERECHO: INFORMACIÓN
    ============================================ */
 .info-side {
-  color: #333333;
+  color: white;
   padding: 40px;
 }
 
@@ -201,7 +297,7 @@
   margin: 0 0 8px 0;
   letter-spacing: 2px;
   color: #7dc0bf;
-  line-height: 0.7;
+  line-height: 1;
 }
 
 .caso-subtitulo {
@@ -210,7 +306,6 @@
   margin: 0 0 32px 0;
   color: #7dc0bf;
   letter-spacing: 2px;
-  line-height: 1;
 }
 
 .caso-categoria {
@@ -218,7 +313,6 @@
   font-weight: 600;
   margin: 0 0 8px 0;
   letter-spacing: 1px;
-  color: #333333;
 }
 
 .especialidad-nombre {
@@ -233,7 +327,7 @@
 .caso-descripcion {
   font-size: 1.1rem;
   line-height: 1.8;
-  color: #333333;
+  color: #666666;
   margin: 0;
 }
 
@@ -241,10 +335,39 @@
    RESPONSIVE
    ============================================ */
 @media (max-width: 992px) {
+  .banner-title {
+    font-size: 3rem;
+  }
+
+  .casos-header {
+    margin-bottom: 40px;
+  }
+
+  .casos-main-title {
+    font-size: 2rem;
+  }
+
+  .casos-subtitle {
+    font-size: 2rem;
+  }
+
+  .info-container,
   .caso-container {
     grid-template-columns: 1fr;
     gap: 40px;
     padding: 40px 24px;
+  }
+
+  .info-especialidad-section {
+    padding: 60px 24px;
+  }
+
+  .casos-section {
+    padding: 60px 24px;
+  }
+
+  .info-title {
+    font-size: 2rem;
   }
 
   .caso-titulo {
@@ -265,12 +388,40 @@
 }
 
 @media (max-width: 768px) {
-  .especialidad-page {
-    padding-top: 64px;
+  .casos-header {
+    margin-bottom: 32px;
   }
 
-  .caso-container {
-    padding: 32px 16px;
+  .casos-main-title {
+    font-size: 1.5rem;
+  }
+
+  .casos-subtitle {
+    font-size: 1.5rem;
+  }
+
+  .banner-section {
+    height: 250px;
+  }
+
+  .banner-title {
+    font-size: 2rem;
+  }
+
+  .info-especialidad-section {
+    padding: 40px 16px;
+  }
+
+  .casos-section {
+    padding: 40px 16px;
+  }
+
+  .info-title {
+    font-size: 1.75rem;
+  }
+
+  .info-text {
+    font-size: 1rem;
   }
 
   .caso-titulo {
@@ -293,15 +444,5 @@
   .slider-handle svg {
     width: 24px;
     height: 24px;
-  }
-
-  .image-label {
-    padding: 8px 12px;
-    font-size: 12px;
-  }
-
-  .image-label svg {
-    width: 14px;
-    height: 14px;
   }
 }

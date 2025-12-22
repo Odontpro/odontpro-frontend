@@ -1,69 +1,101 @@
-<div class="especialidad-page" *ngIf="casoSeleccionado">
+<div class="especialidad-page">
 
-  <div class="caso-container">
+  <!-- SECCIÓN 1: BANNER -->
+  <section class="banner-section">
+    <div class="banner-overlay"></div>
+    <img src="banners/background.jpg" alt="Odontología General" class="banner-image">
+    <h1 class="banner-title">Odontología General</h1>
+  </section>
 
-    <div class="image-side">
-      <div class="image-comparison"
-           (mousedown)="onMouseDown($event)"
-           (mousemove)="onMouseMove($event)"
-           (mouseup)="onMouseUp()"
-           (mouseleave)="onMouseUp()"
-           (click)="onImageClick($event)">
-
-        <div class="image-layer image-after">
-          <img [src]="casoSeleccionado.imagenDespues" alt="Después">
-          <div class="image-label label-after" (click)="onDespuesClick($event)">
-            Después
-          </div>
-        </div>
-
-        <div class="image-layer image-before"
-             [style.clip-path]="'inset(0 ' + (100 - sliderPosition) + '% 0 0)'">
-          <img [src]="casoSeleccionado.imagenAntes" alt="Antes">
-          <div class="image-label label-before" (click)="onAntesClick($event)">
-            Antes
-          </div>
-        </div>
-
-        <div class="slider-divider" [style.left.%]="sliderPosition">
-          <div class="slider-handle">
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
-              viewBox="0 0 24 24"
-              fill="currentColor"
-            >
-              <!-- Triángulo izquierdo ◄ -->
-              <polygon points="10 6 10 18 4 12" />
-
-              <!-- Triángulo derecho ► -->
-              <polygon points="14 6 14 18 20 12" />
-            </svg>
-
-          </div>
-        </div>
-
+  <!-- SECCIÓN 2: ¿QUÉ ES LA ESPECIALIDAD? -->
+  <section class="info-especialidad-section">
+    <div class="info-container">
+      <div class="info-image">
+        <img src="odontologia-general/og-img1.webp" alt="Odontología General">
       </div>
-
-      <div class="casos-selector">
-        <button
-          *ngFor="let caso of casos; let i = index"
-          class="caso-btn"
-          [class.active]="casoActual === i"
-          (click)="seleccionarCaso(i)">
-          CASO {{ caso.id }}
-        </button>
+      <div class="info-content">
+        <h2 class="info-title">¿Qué es la Odontología General?</h2>
+        <div class="info-text">
+          <p>La odontología general es una especialidad de la odontología que se dedica a corregir la posición de los dientes y la mordida. Más allá de la apariencia, esta maravillosa disciplina puede tener un impacto significativo en tu salud oral y bienestar general.</p>
+          <p>Se dedica al diagnóstico, prevención y corrección de las irregularidades en la alineación de los dientes y las mandíbulas. Su principal objetivo es mejorar la salud bucal y la estética facial al lograr una mordida adecuada y una sonrisa armoniosa. La odontología se centra en el estudio y el tratamiento de problemas como la maloclusión (una mordida incorrecta), dientes apiñados, separados o torcidos, y problemas de alineación de las mandíbulas.</p>
+        </div>
       </div>
     </div>
+  </section>
 
-    <div class="info-side">
-      <h1 class="caso-titulo">{{ casoSeleccionado.titulo }}</h1>
-      <h2 class="caso-subtitulo">{{ casoSeleccionado.subtitulo }}</h2>
-      <h4 class="especialidad-nombre">ODONTOLOGÍA GENERAL</h4>
-      <p class="caso-descripcion">{{ casoSeleccionado.descripcion }}</p>
+  <!-- SECCIÓN 3: CASOS  -->
+  <section class="casos-section">
+    <!-- Título de la sección -->
+    <div class="casos-header">
+      <h2 class="casos-main-title">Antes y Después</h2>
+      <h3 class="casos-subtitle">CARILLAS DENTALES</h3>
     </div>
+    <div class="caso-container">
 
-  </div>
+      <div class="image-side">
+        <div class="image-comparison"
+             (mousedown)="onMouseDown($event)"
+             (mousemove)="onMouseMove($event)"
+             (mouseup)="onMouseUp()"
+             (mouseleave)="onMouseUp()"
+             (click)="onImageClick($event)">
+
+          <div class="image-layer image-after">
+            <img [src]="casoSeleccionado.imagenDespues" alt="Después">
+            <div class="image-label label-after" (click)="onDespuesClick($event)">
+              Después
+            </div>
+          </div>
+
+          <div class="image-layer image-before"
+               [style.clip-path]="'inset(0 ' + (100 - sliderPosition) + '% 0 0)'">
+            <img [src]="casoSeleccionado.imagenAntes" alt="Antes">
+            <div class="image-label label-before" (click)="onAntesClick($event)">
+              Antes
+            </div>
+          </div>
+
+          <div class="slider-divider" [style.left.%]="sliderPosition">
+            <div class="slider-handle">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="24"
+                height="24"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
+                <!-- Triángulo izquierdo ◄ -->
+                <polygon points="10 6 10 18 4 12" />
+
+                <!-- Triángulo derecho ► -->
+                <polygon points="14 6 14 18 20 12" />
+              </svg>
+
+            </div>
+          </div>
+
+        </div>
+
+        <div class="casos-selector">
+          <button
+            *ngFor="let caso of casos; let i = index"
+            class="caso-btn"
+            [class.active]="casoActual === i"
+            (click)="seleccionarCaso(i)">
+            CASO {{ caso.id }}
+          </button>
+        </div>
+      </div>
+
+      <div class="info-side">
+        <h1 class="caso-titulo">{{ casoSeleccionado.titulo }}</h1>
+        <h2 class="caso-subtitulo">{{ casoSeleccionado.subtitulo }}</h2>
+        <h4 class="especialidad-nombre">ODONTOLOGÍA GENERAL</h4>
+        <p class="caso-descripcion">{{ casoSeleccionado.descripcion }}</p>
+      </div>
+
+    </div>
+  </section>
+
 
 </div>
