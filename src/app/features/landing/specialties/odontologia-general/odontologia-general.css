@@ -331,6 +331,269 @@
   margin: 0;
 }
 
+
+/* ============================================
+   SECCIÓN 4: VIDEO DIGITALIZACIÓN DENTAL
+   ============================================ */
+.video-section {
+  padding: 80px 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+}
+
+.video-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.video-content {
+  padding: 20px;
+}
+
+.video-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 24px 0;
+  line-height: 1.3;
+}
+
+.video-description {
+  font-size: 1rem;
+  line-height: 1.8;
+  color: #666;
+  margin: 0 0 16px 0;
+  text-align: justify;
+}
+
+.video-subtitle {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin: 24px 0 12px 0;
+}
+
+.video-benefits {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 32px 0;
+}
+
+.video-benefits li {
+  font-size: 1rem;
+  color: #666;
+  padding: 8px 0;
+  padding-left: 28px;
+  position: relative;
+}
+
+.video-benefits li::before {
+  content: "•";
+  color: #7dc0bf;
+  font-size: 1.5rem;
+  position: absolute;
+  left: 0;
+  top: 4px;
+}
+
+.video-cta-button {
+  background-color: #f8f9fa;
+  color: #333;
+  border: 2px solid #7dc0bf;
+  padding: 14px 40px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  text-transform: none;
+}
+
+.video-cta-button:hover {
+  background-color: #7dc0bf;
+  color: white;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(125, 192, 191, 0.3);
+}
+.video-player {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.video-placeholder {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 1 / 1; /* Formato cuadrado 1:1 */
+  background-color: #000;
+  overflow: hidden;
+}
+
+.video-element {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* ============================================
+   SECCIÓN 5: CALL TO ACTION
+   ============================================ */
+.cta-section {
+  position: relative;
+  width: 100%;
+  min-height: 400px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  padding: 80px 40px;
+}
+
+.cta-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.cta-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.95) 0%, rgba(248, 249, 250, 0.9) 100%);
+  z-index: 2;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto;
+}
+
+.cta-title {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin: 0 0 16px 0;
+  line-height: 1.2;
+}
+
+.cta-description {
+  font-size: 1.2rem;
+  color: #666;
+  margin: 0 0 32px 0;
+  line-height: 1.6;
+}
+
+.cta-button {
+  background-color: #7dc0bf;
+  color: white;
+  border: none;
+  padding: 16px 48px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  border-radius: 50px;
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  box-shadow: 0 4px 20px rgba(125, 192, 191, 0.3);
+}
+
+.cta-button:hover {
+  background-color: #6bafae;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 24px rgba(125, 192, 191, 0.4);
+}
+
+.cta-button svg {
+  flex-shrink: 0;
+}
+
+/* ============================================
+   RESPONSIVE - SECCIONES NUEVAS
+   ============================================ */
+@media (max-width: 992px) {
+  .video-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+  }
+
+  .video-title {
+    font-size: 1.75rem;
+  }
+
+  .cta-title {
+    font-size: 2rem;
+  }
+
+  .cta-description {
+    font-size: 1.1rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .video-section {
+    padding: 60px 24px;
+  }
+
+  .video-title {
+    font-size: 1.5rem;
+  }
+
+  .video-description,
+  .video-benefits li {
+    font-size: 0.95rem;
+  }
+
+  .video-cta-button {
+    width: 100%;
+  }
+
+  .play-button {
+    width: 60px;
+    height: 60px;
+  }
+
+  .play-button svg {
+    width: 60px;
+    height: 60px;
+  }
+
+  .cta-section {
+    min-height: 350px;
+    padding: 60px 24px;
+  }
+
+  .cta-title {
+    font-size: 1.75rem;
+  }
+
+  .cta-description {
+    font-size: 1rem;
+  }
+
+  .cta-button {
+    padding: 14px 32px;
+    font-size: 1rem;
+    width: 100%;
+    justify-content: center;
+  }
+}
+
 /* ============================================
    RESPONSIVE
    ============================================ */

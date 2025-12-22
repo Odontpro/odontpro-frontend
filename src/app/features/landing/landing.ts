@@ -18,17 +18,17 @@ interface Slide {
 export class Landing implements OnInit, OnDestroy {
   slides: Slide[] = [
     {
-      image: 'slider1.jpg',
+      image: 'slider/slider1.jpg',
       title: 'Especialistas en',
       subtitle: 'ESTÉTICA DENTAL'
     },
     {
-      image: 'slider2.jpg',
+      image: 'slider/slider2.jpg',
       title: 'LUCE TU MEJOR',
       subtitle: 'SONRISA'
     },
     {
-      image: 'slider3.jpg',
+      image: 'slider/slider3.jpg',
       title: 'Cuidamos',
       subtitle: 'TU SALUD ORAL'
     }

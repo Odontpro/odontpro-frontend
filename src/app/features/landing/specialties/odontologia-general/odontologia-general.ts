@@ -19,6 +19,8 @@ interface Caso {
 })
 export class OdontologiaGeneral implements OnDestroy {
 
+  isMuted = true;
+
   casos: Caso[] = [
     {
       id: 1,
@@ -149,6 +151,13 @@ export class OdontologiaGeneral implements OnDestroy {
     const x = event.clientX - rect.left;
     this.sliderPosition = Math.max(0, Math.min(100, (x / rect.width) * 100));
   }
+
+  toggleSound(video: HTMLVideoElement) {
+    this.isMuted = false;
+    video.muted = false;
+    video.volume = 1;
+  }
+
 
   ngOnDestroy() {
     this.isDragging = false;
