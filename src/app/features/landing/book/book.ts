@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, FormGroupDirective  } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -34,6 +34,9 @@ export class Book {
   reclamacionForm: FormGroup;
   maxDate = new Date(); // No permitir fechas futuras
   caracteresRestantes = 500;
+  submitted = false;
+
+  @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
 
   tiposDocumento = [
     { value: 'dni', label: 'DNI' },
@@ -74,20 +77,28 @@ export class Book {
     });
   }
 
+  shouldShowError(controlName: string): boolean {
+    const control = this.reclamacionForm.get(controlName);
+    return !!(control && control.invalid && (control.touched || this.submitted));
+  }
+
   onSubmit() {
-    if (this.reclamacionForm.valid) {
-      console.log('Formulario válido:', this.reclamacionForm.value);
-      // Aquí puedes enviar los datos a tu backend
-      alert('Reclamación enviada exitosamente');
-      this.reclamacionForm.reset();
-      this.reclamacionForm.patchValue({ tipoDocumento: 'dni' });
-    } else {
-      // Marcar todos los campos como tocados para mostrar errores
-      Object.keys(this.reclamacionForm.controls).forEach(key => {
-        this.reclamacionForm.get(key)?.markAsTouched();
-      });
-      alert('Por favor complete todos los campos requeridos correctamente');
-    }
+    if (this.reclamacionForm.invalid) return;
+
+    console.log('Formulario válido:', this.reclamacionForm.value);
+    // Aquí puedes enviar los datos a tu backend
+    alert('Reclamación enviada exitosamente');
+    this.submitted = true;
+    // mostrar mensaje de éxito
+    this.submitted = true;
+
+    // RESET REAL
+    this.formDirective.resetForm();
+
+    // volver a valores por defecto
+    this.reclamacionForm.patchValue({
+      tipoDocumento: 'dni'
+    });
   }
 
   // Métodos helper para mostrar errores

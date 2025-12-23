@@ -6,7 +6,12 @@
     </mat-card-header>
 
     <mat-card-content>
-      <form [formGroup]="reclamacionForm" (ngSubmit)="onSubmit()">
+      <form
+        [formGroup]="reclamacionForm"
+        (ngSubmit)="onSubmit()"
+        #formDirective="ngForm"
+        ngNoForm
+      >
 
         <!-- Fecha -->
         <div class="form-section">
@@ -16,7 +21,7 @@
             <input matInput [matDatepicker]="picker" formControlName="fecha" [max]="maxDate">
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
-            <mat-error *ngIf="reclamacionForm.get('fecha')?.invalid">
+            <mat-error *ngIf="shouldShowError('fecha')">
               {{ getErrorMessage('fecha') }}
             </mat-error>
           </mat-form-field>
@@ -30,7 +35,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Nombres</mat-label>
               <input matInput formControlName="nombres" placeholder="Ingrese sus nombres">
-              <mat-error *ngIf="reclamacionForm.get('nombres')?.invalid">
+              <mat-error *ngIf="shouldShowError('nombres')" >
                 {{ getErrorMessage('nombres') }}
               </mat-error>
             </mat-form-field>
@@ -38,7 +43,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Apellido Paterno</mat-label>
               <input matInput formControlName="apellidoPaterno" placeholder="Apellido paterno">
-              <mat-error *ngIf="reclamacionForm.get('apellidoPaterno')?.invalid">
+              <mat-error *ngIf="shouldShowError('apellidoPaterno')">
                 {{ getErrorMessage('apellidoPaterno') }}
               </mat-error>
             </mat-form-field>
@@ -46,7 +51,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Apellido Materno</mat-label>
               <input matInput formControlName="apellidoMaterno" placeholder="Apellido materno">
-              <mat-error *ngIf="reclamacionForm.get('apellidoMaterno')?.invalid">
+              <mat-error *ngIf="shouldShowError('apellidoMaterno')">
                 {{ getErrorMessage('apellidoMaterno') }}
               </mat-error>
             </mat-form-field>
@@ -65,7 +70,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Número de Documento</mat-label>
               <input matInput formControlName="numeroDocumento" placeholder="Ej: 12345678">
-              <mat-error *ngIf="reclamacionForm.get('numeroDocumento')?.invalid">
+              <mat-error *ngIf="shouldShowError('numeroDocumento')">
                 {{ getErrorMessage('numeroDocumento') }}
               </mat-error>
             </mat-form-field>
@@ -74,7 +79,7 @@
               <mat-label>E-mail</mat-label>
               <input matInput type="email" formControlName="email" placeholder="ejemplo@correo.com">
               <mat-icon matPrefix>email</mat-icon>
-              <mat-error *ngIf="reclamacionForm.get('email')?.invalid">
+              <mat-error *ngIf="shouldShowError('email')">
                 {{ getErrorMessage('email') }}
               </mat-error>
             </mat-form-field>
@@ -85,7 +90,7 @@
               <mat-label>Teléfono Fijo</mat-label>
               <input matInput formControlName="telefonoFijo" placeholder="Ej: 014567890">
               <mat-icon matPrefix>phone</mat-icon>
-              <mat-error *ngIf="reclamacionForm.get('telefonoFijo')?.invalid">
+              <mat-error *ngIf="shouldShowError('telefonoFijo')">
                 {{ getErrorMessage('telefonoFijo') }}
               </mat-error>
             </mat-form-field>
@@ -94,7 +99,7 @@
               <mat-label>Teléfono Celular</mat-label>
               <input matInput formControlName="telefonoCelular" placeholder="Ej: 987654321">
               <mat-icon matPrefix>smartphone</mat-icon>
-              <mat-error *ngIf="reclamacionForm.get('telefonoCelular')?.invalid">
+              <mat-error *ngIf="shouldShowError('telefonoCelular')">
                 {{ getErrorMessage('telefonoCelular') }}
               </mat-error>
             </mat-form-field>
@@ -105,7 +110,7 @@
               <mat-label>Dirección</mat-label>
               <input matInput formControlName="direccion" placeholder="Calle, avenida, número">
               <mat-icon matPrefix>home</mat-icon>
-              <mat-error *ngIf="reclamacionForm.get('direccion')?.invalid">
+              <mat-error *ngIf="shouldShowError('direccion')">
                 {{ getErrorMessage('direccion') }}
               </mat-error>
             </mat-form-field>
@@ -113,7 +118,7 @@
             <mat-form-field appearance="outline">
               <mat-label>Distrito</mat-label>
               <input matInput formControlName="distrito" placeholder="Distrito">
-              <mat-error *ngIf="reclamacionForm.get('distrito')?.invalid">
+              <mat-error *ngIf="shouldShowError('distrito')">
                 {{ getErrorMessage('distrito') }}
               </mat-error>
             </mat-form-field>
@@ -125,7 +130,7 @@
                   {{ dept }}
                 </mat-option>
               </mat-select>
-              <mat-error *ngIf="reclamacionForm.get('departamento')?.invalid">
+              <mat-error *ngIf="shouldShowError('departamento')">
                 {{ getErrorMessage('departamento') }}
               </mat-error>
             </mat-form-field>
@@ -143,7 +148,7 @@
               rows="6"
               placeholder="Describa detalladamente su reclamo..."></textarea>
             <mat-hint align="end">{{ caracteresRestantes }} / 500</mat-hint>
-            <mat-error *ngIf="reclamacionForm.get('detalleReclamo')?.invalid">
+            <mat-error *ngIf="shouldShowError('detalleReclamo')">
               {{ getErrorMessage('detalleReclamo') }}
             </mat-error>
           </mat-form-field>
