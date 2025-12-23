@@ -491,6 +491,7 @@
 .testimonios-grid {
   display: flex;
   gap: 24px;
+  align-items: flex-start; /* 👈 CLAVE */
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
   will-change: transform;
 }
@@ -553,13 +554,17 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  border: 1px solid #e0e0e0;
+
   display: flex;
   flex-direction: column;
-  position: relative;
-  border: 1px solid #e0e0e0;
+
   min-height: 320px;
+  transition:
+    transform 0.3s ease,
+    box-shadow 0.3s ease;
 }
+
 
 .testimonio-card:hover {
   transform: translateY(-4px);
@@ -642,21 +647,18 @@
   color: #666;
   text-align: center;
   margin: 0;
-  flex-grow: 1;
+
   max-height: 96px;
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-line-clamp: 4;
-  -webkit-box-orient: vertical;
-  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+
+  transition: max-height 0.4s ease, opacity 0.3s ease;
 }
 
 .review-text.expanded {
-  max-height: 1000px;
-  display: block;
-  -webkit-line-clamp: unset;
-  overflow: visible;
+  max-height: 500px; /* suficiente */
+  opacity: 1;
 }
+
 
 /* Botón leer más */
 .read-more-btn {
