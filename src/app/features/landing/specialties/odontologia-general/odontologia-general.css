@@ -57,7 +57,7 @@
    ============================================ */
 .info-especialidad-section {
   padding: 80px 40px;
-  background-color: white;
+  background-color: #f8f9fa;
 }
 
 .info-container {
@@ -115,6 +115,7 @@
    ============================================ */
 .casos-section {
   padding: 80px 40px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
 }
 
 /* Header de la sección de casos */
@@ -337,7 +338,7 @@
    ============================================ */
 .video-section {
   padding: 80px 40px;
-  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  background: #f8f9fa;
 }
 
 .video-container {
@@ -446,12 +447,12 @@
 .cta-section {
   position: relative;
   width: 100%;
-  min-height: 400px;
+  min-height: 100px;
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
-  padding: 80px 40px;
+  padding: 80px 20px;
 }
 
 .cta-background {
