@@ -481,11 +481,23 @@
   padding: 0 60px;
 }
 
+/* Wrapper para overflow */
+.testimonios-wrapper {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* Grid con animación de translateX */
 .testimonios-grid {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  display: flex;
   gap: 24px;
-  transition: transform 0.5s ease;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.testimonios-grid > * {
+  flex: 0 0 calc((100% - 24px) / 5); /* 5 columnas con gap de 24px */
+  min-width: 0;
 }
 
 /* Botones de navegación */
@@ -541,11 +553,12 @@
   border-radius: 12px;
   padding: 24px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
-  transition: all 0.3s ease;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
   flex-direction: column;
   position: relative;
   border: 1px solid #e0e0e0;
+  min-height: 320px;
 }
 
 .testimonio-card:hover {
@@ -553,7 +566,10 @@
   box-shadow: 0 8px 24px rgba(125, 192, 191, 0.15);
 }
 
-
+.testimonio-card.expanded {
+  min-height: auto;
+  max-height: none;
+}
 
 /* Avatar */
 .avatar-container {
@@ -627,10 +643,19 @@
   text-align: center;
   margin: 0;
   flex-grow: 1;
+  max-height: 96px;
+  overflow: hidden;
   display: -webkit-box;
   -webkit-line-clamp: 4;
   -webkit-box-orient: vertical;
-  overflow: hidden;
+  transition: max-height 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.review-text.expanded {
+  max-height: 1000px;
+  display: block;
+  -webkit-line-clamp: unset;
+  overflow: visible;
 }
 
 /* Botón leer más */
@@ -684,8 +709,8 @@
    RESPONSIVE
    ============================================ */
 @media (max-width: 1200px) {
-  .testimonios-grid {
-    grid-template-columns: repeat(3, 1fr);
+  .testimonios-grid > * {
+    flex: 0 0 calc((100% - 48px) / 3);
   }
 }
 
@@ -694,8 +719,8 @@
     font-size: 2rem;
   }
 
-  .testimonios-grid {
-    grid-template-columns: repeat(2, 1fr);
+  .testimonios-grid > * {
+    flex: 0 0 calc((100% - 24px) / 2);
   }
 
   .testimonios-carousel {
@@ -718,8 +743,8 @@
     margin-bottom: 40px;
   }
 
-  .testimonios-grid {
-    grid-template-columns: 1fr;
+  .testimonios-grid > * {
+    flex: 0 0 100%;
   }
 
   .testimonios-carousel {
@@ -742,6 +767,7 @@
 
   .review-text {
     -webkit-line-clamp: 5;
+    max-height: 120px;
   }
 }
 
@@ -759,8 +785,6 @@
     max-width: 300px;
   }
 }
-
-
 
 /* ============================================
    SECCIÓN DE UBICACIÓN

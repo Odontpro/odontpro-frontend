@@ -101,7 +101,6 @@ export class Landing implements OnInit, OnDestroy {
   // Variables para el carrusel de testimonios
   currentReviewIndex = 0;
   reviewsPerPage = 4;
-  isAnimating = false; // ← NUEVO: para controlar la animación
 
   constructor(private cdr: ChangeDetectorRef) {}
 
@@ -144,23 +143,16 @@ export class Landing implements OnInit, OnDestroy {
     return this.currentReviewIndex + this.reviewsPerPage < this.reviews.length;
   }
 
-  scrollReviews(direction: 'left' | 'right') {
-    if (this.isAnimating) return; // Evitar múltiples clics durante la animación
-
-    if (direction === 'left' && this.canScrollLeft) {
-      this.isAnimating = true;
-      this.currentReviewIndex--;
-      setTimeout(() => this.isAnimating = false, 500); // Duración de la animación
-    } else if (direction === 'right' && this.canScrollRight) {
-      this.isAnimating = true;
-      this.currentReviewIndex++;
-      setTimeout(() => this.isAnimating = false, 500);
-    }
+  toggleReviewText(index: number) {
+    this.reviews[index].expanded = !this.reviews[index].expanded;
   }
 
-  // ← NUEVO: Toggle para expandir/contraer texto
-  toggleReviewText(review: Review) {
-    review.expanded = !review.expanded;
+  scrollReviews(direction: 'left' | 'right') {
+    if (direction === 'left' && this.canScrollLeft) {
+      this.currentReviewIndex--;
+    } else if (direction === 'right' && this.canScrollRight) {
+      this.currentReviewIndex++;
+    }
   }
 
   getStarsArray(rating: number): number[] {
