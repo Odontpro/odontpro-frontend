@@ -650,8 +650,11 @@
 
   max-height: 96px;
   overflow: hidden;
+  transform-origin: top;
 
-  transition: max-height 0.4s ease, opacity 0.3s ease;
+  transition:
+    max-height 1.3s ease-in,
+    opacity 1s ease-in;
 }
 
 .review-text.expanded {
