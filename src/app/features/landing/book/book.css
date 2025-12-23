@@ -1,3 +1,10 @@
+html {
+  --mat-sys-primary: #7dc0bf !important;
+  --mat-sys-on-primary: #ffffff !important;
+  --mat-sys-primary-container: #d6efee !important;
+}
+
+
 .reclamaciones-container {
   min-height: 100vh;
   background-color: #f8f9fa;

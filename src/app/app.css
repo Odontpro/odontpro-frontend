@@ -13,3 +13,13 @@ html, body {
   flex: 1; /* empuja el footer hacia abajo */
   background-color: transparent;
 }
+
+.mdc-notched-outline.mdc-notched-outline--upgraded
+.mat-mdc-notch-piece {
+  border-color: #7dc0bf !important;
+}
+html {
+  --mat-sys-primary: #7dc0bf !important;
+  --mat-sys-on-primary: #ffffff !important;
+  --mat-sys-primary-container: #d6efee !important;
+}

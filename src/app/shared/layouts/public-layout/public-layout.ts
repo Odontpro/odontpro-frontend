@@ -5,6 +5,8 @@ import {MatButtonModule} from '@angular/material/button';
 import {MatIconModule} from '@angular/material/icon';
 import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
+import { ViewChild } from '@angular/core';
+import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 
 
 @Component({
@@ -15,7 +17,8 @@ import { CommonModule } from '@angular/common';
     MatToolbarModule,
     MatButtonModule,
     MatIconModule,
-    RouterLink
+    RouterLink,
+    MatSidenavModule
   ],
   templateUrl: './public-layout.html',
   styleUrl: './public-layout.css',
@@ -23,6 +26,9 @@ import { CommonModule } from '@angular/common';
 export class PublicLayout implements OnInit {
   isScrolled = false;
   isLandingPage = true;
+
+  @ViewChild('sidenav') sidenav!: MatSidenav;
+
 
   constructor(private router: Router) {}
 
