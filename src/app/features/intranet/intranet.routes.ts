@@ -14,6 +14,12 @@ export const INTRANET_ROUTES: Routes = [
         loadComponent: () =>
           import('./agenda/agenda')
             .then(m => m.Agenda)
+      },
+      {
+        path: 'libro-reclamaciones',
+        loadComponent: () =>
+          import('./complaints/complaints')
+            .then(m => m.Complaints)
       }
 
     ]

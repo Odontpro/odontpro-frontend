@@ -30,6 +30,15 @@
       <h2 class="casos-main-title">Antes y Después</h2>
       <h3 class="casos-subtitle">CARILLAS DENTALES</h3>
     </div>
+    <div class="casos-selector-mobile">
+      <button
+        *ngFor="let caso of casos; let i = index"
+        class="caso-btn"
+        [class.active]="casoActual === i"
+        (click)="seleccionarCaso(i)">
+        CASO {{ caso.id }}
+      </button>
+    </div>
     <div class="caso-container">
 
       <div class="image-side">
@@ -76,15 +85,6 @@
 
         </div>
 
-        <div class="casos-selector">
-          <button
-            *ngFor="let caso of casos; let i = index"
-            class="caso-btn"
-            [class.active]="casoActual === i"
-            (click)="seleccionarCaso(i)">
-            CASO {{ caso.id }}
-          </button>
-        </div>
       </div>
 
       <div class="info-side">
@@ -94,6 +94,15 @@
         <p class="caso-descripcion">{{ casoSeleccionado.descripcion }}</p>
       </div>
 
+    </div>
+    <div class="casos-selector">
+      <button
+        *ngFor="let caso of casos; let i = index"
+        class="caso-btn"
+        [class.active]="casoActual === i"
+        (click)="seleccionarCaso(i)">
+        CASO {{ caso.id }}
+      </button>
     </div>
   </section>
 

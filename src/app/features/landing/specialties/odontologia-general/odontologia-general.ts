@@ -34,9 +34,17 @@ export class OdontologiaGeneral implements OnDestroy {
       id: 2,
       titulo: 'SONRISAS',
       subtitulo: 'TOP',
-      descripcion: 'Paciente con múltiples caries y desgaste dental. Se realizó un tratamiento integral con restauraciones y carillas.',
-      imagenAntes: 'odontologia-general/OG-C1-ANTES.png',
-      imagenDespues: 'odontologia-general/OG-C1-DESPUES.png'
+      descripcion: 'El tratamiento consistió en colocar carillas dentales de resina a nuestro paciente, cerramos espacios entre los dientes y de esta forma mejoramos las proporciones para conseguir una sonrisa más armónica.',
+      imagenAntes: 'odontologia-general/OG-C2-ANTES.png',
+      imagenDespues: 'odontologia-general/OG-C2-DESPUES.png'
+    },
+    {
+      id: 3,
+      titulo: 'SONRISAS',
+      subtitulo: 'TOP',
+      descripcion: 'En este caso nuestra paciente requería una rehabilitación oral compleja, ya que presentaba pérdida dental y ósea, por lo que fue necesaria la colocación de implantes dentales, sumado a injerto de tejido óseo y finalmente un diseño de sonrisa con la colocación de carillas dentales, logrando excelentes resultados a nivel estético y de funcionalidad.',
+      imagenAntes: 'odontologia-general/OG-C3-ANTES.png',
+      imagenDespues: 'odontologia-general/OG-C3-DESPUES.png'
     },
   ];
 
