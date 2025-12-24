@@ -167,15 +167,16 @@ export class Landing implements OnInit, OnDestroy {
   private updateReviewsPerPage() {
     const width = window.innerWidth;
     if (width < 768) {
-      this.reviewsPerPage = 1;
+      this.reviewsPerPage = 1; // 1 tarjeta ocupa el 100% del contenedor
     } else if (width < 992) {
-      this.reviewsPerPage = 2;
+      this.reviewsPerPage = 2; // 2 tarjetas ocupan 50% cada una
     } else if (width < 1200) {
       this.reviewsPerPage = 3;
     } else {
       this.reviewsPerPage = 4;
     }
-    // Ajustar el índice si es necesario
+
+    // Seguridad: que el índice no se pase del límite
     if (this.currentReviewIndex + this.reviewsPerPage > this.reviews.length) {
       this.currentReviewIndex = Math.max(0, this.reviews.length - this.reviewsPerPage);
     }

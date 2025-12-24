@@ -460,6 +460,45 @@
 /* ============================================
    SECCIÓN DE TESTIMONIOS
    ============================================ */
+
+/*CONFIGURACION GRID*/
+.testimonios-grid {
+  display: flex;
+  /* Eliminamos el gap aquí porque el gap rompe los cálculos de % simples
+     si no se compensa. Es mejor usar padding en las tarjetas. */
+  gap: 0;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.testimonios-grid > * {
+  /* El ancho lo define el JS a través de reviewsPerPage,
+     pero aquí ponemos el default */
+  flex: 0 0 100%;
+  padding: 0 12px; /* Aquí creamos el "gap" visualmente */
+  box-sizing: border-box;
+}
+
+/* En resoluciones mayores, el JS cambiará reviewsPerPage y este estilo se adapta */
+@media (min-width: 768px) {
+  .testimonios-grid > * {
+    flex: 0 0 50%; /* 2 cards */
+  }
+}
+
+@media (min-width: 992px) {
+  .testimonios-grid > * {
+    flex: 0 0 33.333%; /* 3 cards */
+  }
+}
+
+@media (min-width: 1200px) {
+  .testimonios-grid > * {
+    flex: 0 0 25%; /* 4 cards */
+  }
+}
+/*CONFIGURACION GRID*/
+
 .testimonios-section {
   padding: 80px 20px;
   background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
@@ -491,20 +530,6 @@
 .testimonios-wrapper {
   overflow: hidden;
   width: 100%;
-}
-
-/* Grid con animación de translateX */
-.testimonios-grid {
-  display: flex;
-  gap: 24px;
-  align-items: flex-start; /* 👈 CLAVE */
-  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  will-change: transform;
-}
-
-.testimonios-grid > * {
-  flex: 0 0 calc((100% - 24px) / 5); /* 5 columnas con gap de 24px */
-  min-width: 0;
 }
 
 /* Botones de navegación */
@@ -720,18 +745,11 @@
    RESPONSIVE
    ============================================ */
 @media (max-width: 1200px) {
-  .testimonios-grid > * {
-    flex: 0 0 calc((100% - 198px) / 3);
-  }
 }
 
 @media (max-width: 992px) {
   .testimonios-title {
     font-size: 2.1rem;
-  }
-
-  .testimonios-grid > * {
-    flex: 0 0 calc((100% - 140px) / 2);
   }
 
   .testimonios-carousel {
@@ -753,10 +771,6 @@
     font-size: 2.1rem;
     margin-bottom: 40px;
     line-height: 1;
-  }
-
-  .testimonios-grid > * {
-    flex: 0 0 90%;
   }
 
   .testimonios-carousel {
@@ -788,12 +802,7 @@
     padding: 0;
   }
 
-  .testimonios-grid > * {
-    flex: 0 0 88%;
-  }
-
   .carousel-button {
-    display: none;
   }
 
   .google-button {
