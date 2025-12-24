@@ -15,7 +15,7 @@
       </mat-icon>
     </div>
     <nav class="mobile-nav">
-      <a routerLink="/" fragment="inicio" (click)="sidenav.close()">Inicio</a>
+      <a routerLink="/" fragment="inicio" (click)="sidenav.close(); onHomeNavigation()">Inicio</a>
       <a routerLink="/" fragment="especialidades" class="mobile-section-title">Especialidades</a>
       <div class="mobile-section">
         <a routerLink="/especialidades/odontologia-general" (click)="sidenav.close()">Odontología general</a>
@@ -46,7 +46,7 @@
 
           <!-- Navegación -->
           <nav class="nav-menu desktop-only">
-            <a class="nav-link" routerLink="/" fragment="inicio" >Inicio</a>
+            <a class="nav-link" routerLink="/" fragment="inicio" (click)="onHomeNavigation()">Inicio</a>
 
             <!-- Especialidades con Dropdown -->
             <div class="nav-dropdown">

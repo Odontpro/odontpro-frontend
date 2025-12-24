@@ -85,6 +85,11 @@ export class PublicLayout implements OnInit, AfterViewInit {
     }
   }
 
+  onHomeNavigation() {
+    this.isLandingPage=true;
+    this.isScrolled = false;
+  }
+
   // Método para hacer scroll al fragmento dentro del mat-sidenav-content
   private scrollToFragment(fragment: string) {
     const element = document.getElementById(fragment);
