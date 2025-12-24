@@ -114,6 +114,7 @@
 
 .menu-button {
   color: white;
+
 }
 
 .header.scrolled .menu-button,
@@ -138,13 +139,9 @@
 .close-button {
   cursor: pointer;
   font-size: 30px;
-  color: #333;
-  margin: 10px 3px;
+  color: #606060;
+  margin: 0 8px;
 }
-.close-button:hover {
-  color: red;
-}
-
 
 .mobile-nav {
   display: flex;

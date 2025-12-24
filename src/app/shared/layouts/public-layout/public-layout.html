@@ -1,22 +1,21 @@
 <mat-sidenav-container class="sidenav-container">
 
-  <!-- SIDENAV MOBILE -->
+
+<!-- SIDENAV MOBILE -->
   <mat-sidenav
     #sidenav
     position="end"
     mode="over"
     class="mobile-sidenav">
     <div class="close-button-container">
-      <span
+      <mat-icon
         class="close-button"
         (click)="sidenav.close()">
-      ✖
-    </span>
+        close
+      </mat-icon>
     </div>
-
     <nav class="mobile-nav">
       <a routerLink="/" fragment="inicio" (click)="sidenav.close()">Inicio</a>
-
       <a routerLink="/" fragment="especialidades" class="mobile-section-title">Especialidades</a>
       <div class="mobile-section">
         <a routerLink="/especialidades/odontologia-general" (click)="sidenav.close()">Odontología general</a>
@@ -28,14 +27,13 @@
         <a routerLink="/especialidades/implantologia" (click)="sidenav.close()">Implantología</a>
         <a routerLink="/especialidades/odontologia-estetica" (click)="sidenav.close()">Odontología estética</a>
       </div>
-
       <a routerLink="/" fragment="testimonios" (click)="sidenav.close()">Testimonios</a>
       <a routerLink="/" fragment="ubicacion" (click)="sidenav.close()">Ubicación</a>
     </nav>
   </mat-sidenav>
 
   <!-- CONTENIDO ORIGINAL CON EVENTO DE SCROLL -->
-  <mat-sidenav-content (scroll)="onContentScroll($event)">
+  <mat-sidenav-content #sidenavContent (scroll)="onContentScroll($event)">
     <div class="app-layout">
 
       <!-- HEADER -->
