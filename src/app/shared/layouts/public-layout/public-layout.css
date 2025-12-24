@@ -34,7 +34,7 @@
 .header-container {
   max-width: 1200px;
   margin: 0 auto;
-  padding: 16px 24px;
+  padding: 22px 24px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -420,6 +420,7 @@
    ============================================ */
 @media (max-width: 768px) {
   .header-container {
+    padding: 22px 40px;
     gap: 16px;
     display: flex;
   }
