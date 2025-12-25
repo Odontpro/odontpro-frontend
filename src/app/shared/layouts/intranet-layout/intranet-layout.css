@@ -12,6 +12,8 @@ mat-sidenav-content {
   flex-direction: column;
   background-color: #f1f9fc;
   overflow: hidden;
+  height: 100vh; /* Ocupa el alto de la pantalla */
+  overflow-y: auto; /* Habilita el scroll vertical aquí */
 }
 
 mat-sidenav-content > div {
@@ -30,6 +32,7 @@ mat-sidenav-content > div {
   padding: 0;
   overflow-x: hidden;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 /* ============================================

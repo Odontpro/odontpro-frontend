@@ -101,7 +101,7 @@
 
 .search-input {
   width: 100%;
-  box-sizing: border-box; 
+  box-sizing: border-box;
   padding: 12px 48px; /* 48px a la izq para el icono, 48px a la derecha para la X */
   border: 2px solid #e0e0e0;
   border-radius: 8px;
@@ -245,6 +245,11 @@
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
   margin-bottom: 24px;
+  width: 100%;
+  overflow-x: auto; /* Permite scroll a los lados si la tabla es ancha */
+  -webkit-overflow-scrolling: touch;
+  margin-top: 15px;
+  border: 1px solid #eee;
 }
 
 .complaints-table {
@@ -578,7 +583,7 @@
     flex-direction: column;
     align-items: flex-start;
   }
-  
+
   .header-stats {
     width: 100%;
     justify-content: flex-start;
@@ -586,6 +591,10 @@
 }
 
 @media (max-width: 768px) {
+  .hide-mobile {
+    display: none !important;
+  }
+
   .complaints-container {
     padding: 16px;
   }
@@ -607,9 +616,25 @@
   }
 
   .filter-select,
-  .date-filter,
   .btn-secondary {
     width: 100%;
+  }
+
+  .date-filter {
+    /* 1. Ocupa el ancho disponible del padre */
+    width: 100%;
+
+    /* 2. CLAVE: Incluye padding y bordes DENTRO del 100% */
+    box-sizing: border-box;
+
+    /* 3. Evita que el icono del calendario de Chrome/Edge empuje el ancho */
+    display: block;
+
+    /* 4. Asegura consistencia con el select */
+    height: 45px;
+    padding: 8px 12px;
+    border: 1px solid #ced4da;
+    border-radius: 8px;
   }
 
   .table-container {
