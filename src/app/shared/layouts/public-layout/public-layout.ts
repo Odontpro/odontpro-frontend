@@ -90,6 +90,18 @@ export class PublicLayout implements OnInit, AfterViewInit {
     this.isScrolled = false;
   }
 
+  scrollOnTop() {
+  const sidenavContent = document.querySelector('mat-sidenav-content');
+  
+  if (sidenavContent) {
+    sidenavContent.scrollTo({
+      top: 0,
+      behavior: 'smooth' // Movimiento fluido
+    });
+  }
+
+}
+
   // Método para hacer scroll al fragmento dentro del mat-sidenav-content
   private scrollToFragment(fragment: string) {
     const element = document.getElementById(fragment);

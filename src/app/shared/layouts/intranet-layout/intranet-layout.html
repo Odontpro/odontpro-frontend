@@ -39,10 +39,12 @@
   <mat-sidenav-content>
 
     <!-- HEADER -->
-    <mat-toolbar color="primary">
+    <mat-toolbar color="primary" class="toolbar-container">
       <span class="spacer"></span>
-      <span>{{ user?.first_name }} ({{ role }})</span>
-      <button mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
+      <div class="user-actions">
+        <span>{{ user?.first_name }} ({{ role }})</span>
+        <button mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
+      </div>
     </mat-toolbar>
 
     <!-- VIEW -->

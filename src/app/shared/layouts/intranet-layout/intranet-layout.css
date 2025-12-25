@@ -29,3 +29,26 @@ mat-sidenav {
   background-color: white;
   border-right: 1px solid #e0e0e0;
 }
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+mat-toolbar span:not(.spacer) {
+  margin-right: 8px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+.toolbar-container{
+  min-height: 64px !important;
+  padding: auto;
+}
+
+.user-actions{
+  display: flex;
+  align-items: center;
+}
+.user-actions span{
+  margin-top: 3px;
+}
