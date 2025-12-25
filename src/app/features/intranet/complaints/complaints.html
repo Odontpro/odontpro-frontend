@@ -1,1 +1,295 @@
-<p>complaints works!</p>
+<div class="complaints-container">
+  
+  <!-- Header -->
+  <div class="complaints-header">
+    <div class="header-content">
+      <h1 class="page-title">
+        <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+          <polyline points="14 2 14 8 20 8"/>
+          <line x1="12" y1="18" x2="12" y2="12"/>
+          <line x1="9" y1="15" x2="15" y2="15"/>
+        </svg>
+        Libro de Reclamaciones
+      </h1>
+      <p class="page-subtitle">Gestión y visualización de reclamos</p>
+    </div>
+    <div class="header-stats">
+      <div class="stat-card">
+        <span class="stat-number">{{ complaints.length }}</span>
+        <span class="stat-label">Total de reclamos</span>
+      </div>
+      <div class="stat-card">
+        <span class="stat-number">{{ filteredComplaints.length }}</span>
+        <span class="stat-label">Resultados filtrados</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Barra de búsqueda y filtros -->
+  <div class="search-filters-section">
+    <div class="search-bar">
+      <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" class="search-icon">
+        <circle cx="11" cy="11" r="8"/>
+        <path d="m21 21-4.35-4.35"/>
+      </svg>
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm"
+        (input)="applyFilters()"
+        placeholder="Buscar por nombre, DNI, código..."
+        class="search-input">
+      <button *ngIf="searchTerm" (click)="searchTerm = ''; applyFilters()" class="clear-search">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="filters-row">
+      <select [(ngModel)]="filterType" (change)="applyFilters()" class="filter-select">
+        <option value="all">Todos los campos</option>
+        <option value="nombre">Por nombre</option>
+        <option value="dni">Por DNI</option>
+        <option value="codigo">Por código</option>
+      </select>
+
+      <input 
+        type="date" 
+        [(ngModel)]="selectedDate"
+        (change)="applyFilters()"
+        class="date-filter">
+
+      <button (click)="clearFilters()" class="btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="1 4 1 10 7 10"/>
+          <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+        </svg>
+        Limpiar filtros
+      </button>
+
+      <button (click)="exportToCSV()" class="btn-secondary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Exportar CSV
+      </button>
+    </div>
+  </div>
+
+  <!-- Loading State -->
+  <div *ngIf="isLoading" class="loading-container">
+    <div class="spinner"></div>
+    <p>Cargando reclamos...</p>
+  </div>
+
+  <!-- Empty State -->
+  <div *ngIf="!isLoading && filteredComplaints.length === 0" class="empty-state">
+    <svg xmlns="http://www.w3.org/2000/svg" width="64" height="64" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+      <circle cx="12" cy="12" r="10"/>
+      <line x1="12" y1="8" x2="12" y2="12"/>
+      <line x1="12" y1="16" x2="12.01" y2="16"/>
+    </svg>
+    <h3>No se encontraron reclamos</h3>
+    <p>{{ searchTerm || selectedDate ? 'Intenta ajustar los filtros de búsqueda' : 'Aún no hay reclamos registrados' }}</p>
+  </div>
+
+  <!-- Tabla de reclamos -->
+  <div *ngIf="!isLoading && filteredComplaints.length > 0" class="table-container">
+    <table class="complaints-table">
+      <thead>
+        <tr>
+          <th>Código</th>
+          <th>Fecha</th>
+          <th>Nombre Completo</th>
+          <th>Documento</th>
+          <th>Contacto</th>
+          <th>Departamento</th>
+          <th class="actions-column">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let complaint of paginatedComplaints" class="table-row">
+          <td class="code-cell">
+            <span class="code-badge">{{ complaint.codigoConfirmacion }}</span>
+          </td>
+          <td>{{ formatDate(complaint.fecha) }}</td>
+          <td class="name-cell">
+            <div class="name-content">
+              <span class="name-primary">{{ getFullName(complaint) }}</span>
+              <span class="name-secondary">{{ complaint.email }}</span>
+            </div>
+          </td>
+          <td>
+            <span class="doc-badge">{{ getDocumentTypeLabel(complaint.tipoDocumento) }}</span>
+            <span class="doc-number">{{ complaint.numeroDocumento }}</span>
+          </td>
+          <td>
+            <div class="contact-info">
+              <span>📱 {{ complaint.telefonoCelular }}</span>
+              <span *ngIf="complaint.telefonoFijo">☎️ {{ complaint.telefonoFijo }}</span>
+            </div>
+          </td>
+          <td>{{ complaint.departamento }}</td>
+          <td class="actions-cell">
+            <button (click)="viewDetails(complaint)" class="action-btn view-btn" title="Ver detalles">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                <circle cx="12" cy="12" r="3"/>
+              </svg>
+            </button>
+            <button (click)="downloadPDF(complaint)" class="action-btn download-btn" title="Descargar PDF">
+              <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+                <polyline points="7 10 12 15 17 10"/>
+                <line x1="12" y1="15" x2="12" y2="3"/>
+              </svg>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Paginación -->
+  <div *ngIf="filteredComplaints.length > itemsPerPage" class="pagination">
+    <button 
+      (click)="goToPage(currentPage - 1)" 
+      [disabled]="currentPage === 1"
+      class="pagination-btn">
+      Anterior
+    </button>
+    
+    <div class="pagination-numbers">
+      <button 
+        *ngFor="let page of pagesArray"
+        (click)="goToPage(page)"
+        [class.active]="page === currentPage"
+        class="pagination-number">
+        {{ page }}
+      </button>
+    </div>
+    
+    <button 
+      (click)="goToPage(currentPage + 1)" 
+      [disabled]="currentPage === totalPages"
+      class="pagination-btn">
+      Siguiente
+    </button>
+  </div>
+
+</div>
+
+<!-- Modal de detalles -->
+<div *ngIf="showDetailModal && selectedComplaint" class="modal-overlay" (click)="closeDetailModal()">
+  <div class="modal-content" (click)="$event.stopPropagation()">
+    <div class="modal-header">
+      <h2>Detalle del Reclamo</h2>
+      <button (click)="closeDetailModal()" class="close-modal">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"/>
+          <line x1="6" y1="6" x2="18" y2="18"/>
+        </svg>
+      </button>
+    </div>
+
+    <div class="modal-body">
+      <div class="detail-section">
+        <h3>Información General</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Código de Confirmación:</label>
+            <span class="code-highlight">{{ selectedComplaint.codigoConfirmacion }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Fecha del Reclamo:</label>
+            <span>{{ formatDate(selectedComplaint.fecha) }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Datos del Reclamante</h3>
+        <div class="detail-grid">
+          <div class="detail-item">
+            <label>Nombres:</label>
+            <span>{{ selectedComplaint.nombres }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Apellido Paterno:</label>
+            <span>{{ selectedComplaint.apellidoPaterno }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Apellido Materno:</label>
+            <span>{{ selectedComplaint.apellidoMaterno }}</span>
+          </div>
+          <div class="detail-item">
+            <label>{{ getDocumentTypeLabel(selectedComplaint.tipoDocumento) }}:</label>
+            <span>{{ selectedComplaint.numeroDocumento }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Email:</label>
+            <span>{{ selectedComplaint.email }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Celular:</label>
+            <span>{{ selectedComplaint.telefonoCelular }}</span>
+          </div>
+          <div class="detail-item" *ngIf="selectedComplaint.telefonoFijo">
+            <label>Teléfono Fijo:</label>
+            <span>{{ selectedComplaint.telefonoFijo }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Ubicación</h3>
+        <div class="detail-grid">
+          <div class="detail-item full-width">
+            <label>Dirección:</label>
+            <span>{{ selectedComplaint.direccion }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Distrito:</label>
+            <span>{{ selectedComplaint.distrito }}</span>
+          </div>
+          <div class="detail-item">
+            <label>Departamento:</label>
+            <span>{{ selectedComplaint.departamento }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <h3>Detalle del Reclamo</h3>
+        <div class="detail-text-area">
+          {{ selectedComplaint.detalleReclamo }}
+        </div>
+      </div>
+
+      <div class="detail-section">
+        <div class="detail-item">
+          <label>Autoriza notificación por email:</label>
+          <span class="badge" [class.badge-success]="selectedComplaint.autorizacionNotificacion" [class.badge-warning]="!selectedComplaint.autorizacionNotificacion">
+            {{ selectedComplaint.autorizacionNotificacion ? 'Sí' : 'No' }}
+          </span>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-footer">
+      <button (click)="downloadPDF(selectedComplaint)" class="btn-primary">
+        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+          <polyline points="7 10 12 15 17 10"/>
+          <line x1="12" y1="15" x2="12" y2="3"/>
+        </svg>
+        Descargar PDF
+      </button>
+      <button (click)="closeDetailModal()" class="btn-secondary">Cerrar</button>
+    </div>
+  </div>
+</div>

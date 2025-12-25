@@ -18,7 +18,7 @@
           <h3 class="section-title">Fecha del Reclamo</h3>
           <mat-form-field appearance="outline" class="full-width">
             <mat-label>Seleccione una fecha</mat-label>
-            <input matInput [matDatepicker]="picker" formControlName="fecha" [max]="maxDate">
+            <input matInput [matDatepicker]="picker" formControlName="fecha" [max]="maxDate" >
             <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
             <mat-datepicker #picker></mat-datepicker>
             <mat-error *ngIf="shouldShowError('fecha')">

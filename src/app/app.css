@@ -23,3 +23,34 @@ html {
   --mat-sys-on-primary: #ffffff !important;
   --mat-sys-primary-container: #d6efee !important;
 }
+
+/* Mejoras visuales */
+/* 1. Quitamos cualquier color residual y aplicamos el color corporativo a TODO el borde */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #7dc0bf !important;
+  border-width: 2px !important;
+}
+
+/* 2. Específicamente para esa línea del 'leading' que se ve rara */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading {
+  /* Aseguramos que no haya bordes dobles o sombras */
+  border-right: none !important; 
+}
+
+/* 3. Ajuste para que el 'notch' (donde va el texto) no tenga bordes laterales */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch {
+  border-left: none !important;
+  border-right: none !important;
+}
+
+/* Cambia el color del label flotante cuando el campo está enfocado */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label {
+  color: #7dc0bf !important;
+}
+
+/* También para el asterisco si es requerido */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-floating-label mat-label abbr {
+  color: #7dc0bf !important;
+}

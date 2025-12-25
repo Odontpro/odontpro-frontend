@@ -41,15 +41,8 @@
     <!-- HEADER -->
     <mat-toolbar color="primary">
       <span class="spacer"></span>
-
-      <span>
-        {{ user?.first_name }} {{ user?.last_name }}
-        ({{ role }})
-      </span>
-
-      <button mat-icon-button (click)="logout()">
-        <mat-icon>logout</mat-icon>
-      </button>
+      <span>{{ user?.first_name }} ({{ role }})</span>
+      <button mat-icon-button (click)="logout()"><mat-icon>logout</mat-icon></button>
     </mat-toolbar>
 
     <!-- VIEW -->

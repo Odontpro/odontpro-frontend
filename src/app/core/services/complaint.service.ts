@@ -21,4 +21,14 @@ export class ComplaintService {
       })
     );
   }
+
+  getAllComplaints(): Observable<Complaint[]> {
+    return this.http.get<Complaint[]>(this.apiUrl).pipe(
+      catchError(error => {
+        console.error('Error obteniendo reclamos:', error);
+        return throwError(() => error);
+      })
+    );
+  }
+
 }
