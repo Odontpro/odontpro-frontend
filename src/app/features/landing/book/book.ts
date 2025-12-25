@@ -10,6 +10,8 @@ import { MatNativeDateModule } from '@angular/material/core';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
+import { ComplaintService } from '../../../core/services/complaint.service';
+import { Complaint } from '../../../shared/models/complaint.model';
 
 @Component({
   selector: 'app-book',
@@ -52,7 +54,7 @@ export class Book {
     'Pasco', 'Tacna', 'Tumbes', 'Madre de Dios', 'Callao'
   ];
 
-  constructor(private fb: FormBuilder) {
+  constructor(private fb: FormBuilder, private complaintService: ComplaintService) {
     this.reclamacionForm = this.fb.group({
       fecha: ['', Validators.required],
       nombres: ['', [Validators.required, Validators.minLength(2)]],
@@ -83,23 +85,46 @@ export class Book {
   }
 
   onSubmit() {
-    if (this.reclamacionForm.invalid) return;
+  this.submitted = true;
 
-    console.log('Formulario válido:', this.reclamacionForm.value);
-    // Aquí puedes enviar los datos a tu backend
-    alert('Reclamación enviada exitosamente');
-    this.submitted = true;
-    // mostrar mensaje de éxito
-    this.submitted = true;
+  if (this.reclamacionForm.invalid) return;
 
-    // RESET REAL
-    this.formDirective.resetForm();
+  const formValue = this.reclamacionForm.value;
 
-    // volver a valores por defecto
-    this.reclamacionForm.patchValue({
-      tipoDocumento: 'dni'
-    });
-  }
+  const complaint: Complaint = {
+    fecha: formValue.fecha.toISOString(),
+    nombres: formValue.nombres,
+    apellidoPaterno: formValue.apellidoPaterno,
+    apellidoMaterno: formValue.apellidoMaterno,
+    tipoDocumento: formValue.tipoDocumento,
+    numeroDocumento: formValue.numeroDocumento,
+    email: formValue.email,
+    telefonoFijo: formValue.telefonoFijo,
+    telefonoCelular: formValue.telefonoCelular,
+    direccion: formValue.direccion,
+    distrito: formValue.distrito,
+    departamento: formValue.departamento,
+    detalleReclamo: formValue.detalleReclamo,
+    autorizacionNotificacion: formValue.autorizacionNotificacion
+  };
+
+  this.complaintService.createComplaint(complaint).subscribe({
+    next: () => {
+      alert('Reclamación enviada exitosamente');
+
+      this.formDirective.resetForm();
+      this.reclamacionForm.patchValue({
+        tipoDocumento: 'dni'
+      });
+
+      this.submitted = false;
+    },
+    error: () => {
+      alert('Error al enviar la reclamación. Intente nuevamente.');
+    }
+  });
+}
+
 
   // Métodos helper para mostrar errores
   getErrorMessage(fieldName: string): string {
