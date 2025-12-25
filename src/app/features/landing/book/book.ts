@@ -12,6 +12,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
 import { ComplaintService } from '../../../core/services/complaint.service';
 import { Complaint } from '../../../shared/models/complaint.model';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-book',
@@ -54,7 +55,7 @@ export class Book {
     'Pasco', 'Tacna', 'Tumbes', 'Madre de Dios', 'Callao'
   ];
 
-  constructor(private fb: FormBuilder, private complaintService: ComplaintService) {
+  constructor(private fb: FormBuilder, private complaintService: ComplaintService, private toastr: ToastrService) {
     this.reclamacionForm = this.fb.group({
       fecha: ['', Validators.required],
       nombres: ['', [Validators.required, Validators.minLength(2)]],
@@ -87,7 +88,10 @@ export class Book {
   onSubmit() {
   this.submitted = true;
 
-  if (this.reclamacionForm.invalid) return;
+  if (this.reclamacionForm.invalid) {
+      this.toastr.warning('Por favor, revise los campos marcados en rojo.', 'Formulario Incompleto');
+      return;
+    }
 
   const formValue = this.reclamacionForm.value;
 
@@ -109,8 +113,11 @@ export class Book {
   };
 
   this.complaintService.createComplaint(complaint).subscribe({
-    next: () => {
-      alert('Reclamación enviada exitosamente');
+    next: (response) => {
+      this.toastr.success(
+          `Reclamo ${response.codigoConfirmacion} enviado con éxito`, 
+          '¡Registrado!'
+        );
 
       this.formDirective.resetForm();
       this.reclamacionForm.patchValue({
@@ -120,7 +127,7 @@ export class Book {
       this.submitted = false;
     },
     error: () => {
-      alert('Error al enviar la reclamación. Intente nuevamente.');
+      this.toastr.error('Hubo un problema al conectar con el servidor.', 'Error de Envío');
     }
   });
 }

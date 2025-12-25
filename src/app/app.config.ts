@@ -2,6 +2,8 @@ import {ApplicationConfig, provideBrowserGlobalErrorListeners, provideZoneChange
 import {provideRouter, withInMemoryScrolling, withViewTransitions} from '@angular/router';
 import { routes } from './app.routes';
 import {provideAnimationsAsync} from '@angular/platform-browser/animations/async';
+import { provideAnimations } from '@angular/platform-browser/animations';
+import { provideToastr } from 'ngx-toastr'
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -13,8 +15,16 @@ export const appConfig: ApplicationConfig = {
         scrollPositionRestoration: 'top',
         anchorScrolling: 'enabled'
       }),
-      withViewTransitions()
+      withViewTransitions(),
     ),
-    provideAnimationsAsync()
+    provideAnimations(),
+    provideAnimationsAsync(),
+    provideToastr({
+      timeOut: 4000,
+      positionClass: 'toast-top-right',
+      preventDuplicates: true,
+      progressBar: true,
+      closeButton: true
+    }),
   ]
 };
