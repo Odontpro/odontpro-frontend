@@ -1,20 +1,13 @@
 import {Component, OnInit, OnDestroy, HostListener, ChangeDetectorRef} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {RouterLink} from '@angular/router';
+import { ReviewService } from '../../core/services/review.service';
+import { Review } from '../../shared/models/review.model';
 
 interface Slide {
   image: string;
   title: string;
   subtitle: string;
-}
-
-interface Review {
-  profilePhotoUrl: string;
-  authorName: string;
-  relativeTimeDescription: string;
-  rating: number;
-  text: string;
-  expanded?: boolean; // ← NUEVO: para controlar si está expandido
 }
 
 @Component({
@@ -43,57 +36,7 @@ export class Landing implements OnInit, OnDestroy {
     }
   ];
 
-  // Datos de prueba para testimonios (simulando API de Google)
-  reviews: Review[] = [
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=1',
-      authorName: 'Carmen Quiroz',
-      relativeTimeDescription: 'Hace 1 año',
-      rating: 5,
-      text: 'Muy contenta con el profesionalismo del Dr. Revollar y su staff amable y paciente. Acabó mi tratamiento y los volvería a elegir para cualquier otra consulta. Recomiendo al 100% al Dr. Revollar y su equipo!',
-      expanded: false // ← NUEVO
-    },
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=5',
-      authorName: 'Corita Farías de Souza',
-      relativeTimeDescription: 'Hace 1 año',
-      rating: 5,
-      text: 'Nunca me había sentido tan cómoda, satisfecha y feliz en una clínica 💚. Recomiendo al 1000% al Dr. Revollar, Jesús es un crack! Totalmente agradecida con él y su equipo de trabajo.',
-      expanded: false
-    },
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=9',
-      authorName: 'Pierina Broncano',
-      relativeTimeDescription: 'Hace 1 año',
-      rating: 5,
-      text: 'Excelente servicio. Jesús es un crack y las chicas del staff súper lindas y amables. Gran Team!!',
-      expanded: false
-    },
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=8',
-      authorName: 'Stephany Bravo',
-      relativeTimeDescription: 'Hace 1 año',
-      rating: 5,
-      text: 'El Dr. Jesús Revollar es un gran profesional y una persona muy empática. Tiene mucha paciencia para escuchar, explicar y responder todas las dudas que uno tenga.',
-      expanded: false
-    },
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=12',
-      authorName: 'Luis Martínez',
-      relativeTimeDescription: 'Hace 2 meses',
-      rating: 5,
-      text: 'Increíble atención desde la primera consulta. El equipo es muy profesional y las instalaciones son de primera. Totalmente recomendado.',
-      expanded: false
-    },
-    {
-      profilePhotoUrl: 'https://i.pravatar.cc/150?img=15',
-      authorName: 'Andrea Silva',
-      relativeTimeDescription: 'Hace 3 semanas',
-      rating: 5,
-      text: 'Me realizaron carillas dentales y el resultado superó mis expectativas. El Dr. Revollar es un artista. Muy agradecida con todo el equipo!',
-      expanded: false
-    }
-  ];
+  reviews: Review[] = [];
 
   currentSlide = 0;
   private intervalId: any;
@@ -102,11 +45,12 @@ export class Landing implements OnInit, OnDestroy {
   currentReviewIndex = 0;
   reviewsPerPage = 4;
 
-  constructor(private cdr: ChangeDetectorRef) {}
+  constructor(private cdr: ChangeDetectorRef, private reviewService: ReviewService) {}
 
   ngOnInit() {
     this.startCarousel();
     this.updateReviewsPerPage();
+    this.loadReviews();
   }
 
   ngOnDestroy() {
@@ -114,6 +58,20 @@ export class Landing implements OnInit, OnDestroy {
       clearInterval(this.intervalId);
     }
   }
+
+  loadReviews() {
+  this.reviewService.getReviews().subscribe({
+    next: (data) => {
+      this.reviews = data;
+      this.currentReviewIndex = 0;
+      this.cdr.detectChanges();
+    },
+    error: (err) => {
+      console.error('Failed to load reviews', err);
+    },
+  });
+}
+
 
   startCarousel() {
     this.intervalId = setInterval(() => {
