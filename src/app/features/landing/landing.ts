@@ -60,17 +60,64 @@ export class Landing implements OnInit, OnDestroy {
   }
 
   loadReviews() {
-  this.reviewService.getReviews().subscribe({
-    next: (data) => {
-      this.reviews = data;
-      this.currentReviewIndex = 0;
-      this.cdr.detectChanges();
-    },
-    error: (err) => {
-      console.error('Failed to load reviews', err);
-    },
-  });
-}
+    this.reviewService.getReviews().subscribe({
+      next: (data) => {
+        this.reviews = data;
+        this.currentReviewIndex = 0;
+        this.cdr.detectChanges();
+      },
+      error: (err) => {
+        console.error('Fallo en obtener datos de Google, cargando datos de respaldo', err);
+
+        // Cargar data de fallback en caso de error
+        this.reviews = [
+          {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXYT9cZ_yirDMdWuBzEWB6r_XIKe6QiYPjrLSiFLl1m9Ev-2LQ=s128-c0x00000000-cc-rp-mo-ba3",
+            "authorName": "Carlos Rodriguez Sarlis",
+            "relativeTimeDescription": "Hace 2 semanas",
+            "rating": 5,
+            "text": "Fui porque un amigo me lo recomendó y porque está en un área muy céntrica.\nMe sorprendió lo moderno que es y la tecnología que tienen para atenderte. Literalmente no necesitas ir a otro sitio porque allí te hacen todo lo que necesitas.",
+            "expanded": false
+          },
+          {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXur1KDgbX7pFKl_5ypObYMjdaKtqR_3VqtOSsTfaEoaJfTiI70=s128-c0x00000000-cc-rp-mo",
+            "authorName": "Jorge (Jorge)",
+            "relativeTimeDescription": "Hace 2 semanas",
+            "rating": 5,
+            "text": "Estuve gratamente sorprendido con este moderno consultorio. Lo que más me sorprendió es que tienen una maquina que toma rayos-x (asumo) instantáneos en la misma silla de dentista y te los muestra en la pantalla. En mi anterior dentista tenía que ir a otro consultorio, pagar por la radiografia, esperar resultados, y luego continuar con el proceso. No sabía que esta tecnología existía y verdaderamente ahorra tiempo y dinero.",
+            "expanded": false
+          },
+          {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocLFZzNyVU6zZlKVfUvDy1QVoI_bHDHQ2UNDErcanug7eoISci0=s128-c0x00000000-cc-rp-mo",
+            "authorName": "Wilmer Nolasco Lazaro",
+            "relativeTimeDescription": "Hace 2 semanas",
+            "rating": 5,
+            "text": "Muy buena Clínica equipos modernos me tomaron fotos del tratamiento y bueno muy recomendable en la atención.",
+            "expanded": false
+          },
+          {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a/ACg8ocJpEYBphWGkbD3oRdW0V6UZd-3rBMa4p1pdgyID7jcH8S1VZA=s128-c0x00000000-cc-rp-mo",
+            "authorName": "SYD RA",
+            "relativeTimeDescription": "Hace 2 semanas",
+            "rating": 5,
+            "text": "Excelente trabajo, super amables!",
+            "expanded": false
+          },
+          {
+            "profilePhotoUrl": "https://lh3.googleusercontent.com/a-/ALV-UjXg6dVDGQ_haylAdWFA7SrLFS0f3elmOJ199FgV3_bN_bHyLgr_=s128-c0x00000000-cc-rp-mo-ba2",
+            "authorName": "Carlos Pino",
+            "relativeTimeDescription": "Hace 2 semanas",
+            "rating": 5,
+            "text": "Excelente servicio y muy profesionales",
+            "expanded": false
+          }
+        ];
+
+        this.currentReviewIndex = 0;
+        this.cdr.detectChanges(); // Forzar actualización de la vista con el fallback
+      },
+    });
+  }
 
 
   startCarousel() {

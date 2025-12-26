@@ -29,7 +29,7 @@ export class ReviewService {
     }
 
     // 2️⃣ No hay cache → llamar al backend
-    
+
     console.log("Obteniendo reviews del backend")
     return this.http.get<any[]>(this.apiUrl).pipe(
       map((reviews) =>
@@ -49,7 +49,6 @@ export class ReviewService {
       }),
 
       catchError((error) => {
-        console.error('Error loading reviews:', error);
         return throwError(() => error);
       })
     );
