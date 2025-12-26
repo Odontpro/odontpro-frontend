@@ -188,9 +188,12 @@
             color="primary"
             type="submit"
             class="submit-button"
-            [disabled]="reclamacionForm.invalid">
-            <mat-icon>send</mat-icon>
-            ENVIAR
+            [disabled]="reclamacionForm.invalid || isLoading">
+            <mat-spinner *ngIf="isLoading" diameter="24" class="spinner-button"></mat-spinner>
+            <span class="button-content" *ngIf="!isLoading">
+              <mat-icon>send</mat-icon>
+              <span>ENVIAR</span>
+            </span>
           </button>
         </div>
 

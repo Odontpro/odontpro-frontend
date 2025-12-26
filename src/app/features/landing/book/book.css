@@ -115,6 +115,18 @@ mat-form-field {
   background-color: #7dc0bf !important;
   color: white !important;
   min-width: 200px;
+  height: 48px; /* Altura fija para ayudar a centrar el spinner y contenido */
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.button-content {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  vertical-align: middle;
 }
 
 .submit-button:hover:not([disabled]) {
@@ -123,13 +135,29 @@ mat-form-field {
 }
 
 .submit-button[disabled] {
-  background-color: #cccccc !important;
-  color: #666666 !important;
+  background-color: #e6e6e6 !important;
+  color: #8a8a8a !important;
   cursor: not-allowed;
 }
 
 .submit-button mat-icon {
   margin-right: 8px;
+  margin-bottom: 0; /* Quita posibles márgenes residuales */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Centrar el spinner dentro del botón */
+.spinner-button {
+  position: absolute;
+  top: calc(50% - 12px);
+  left: calc(50% - 12px);
+}
+
+/* Opcional: ajustar color del spinner para que contraste con el botón primario */
+::ng-deep .spinner-button circle {
+  stroke: white !important;
 }
 
 /* Aviso legal */

@@ -27,24 +27,24 @@ export class OdontologiaGeneral implements OnDestroy {
       titulo: 'SONRISAS',
       subtitulo: 'TOP',
       descripcion: 'Una paciente insatisfecha con sus carillas de resina nos visitó en busca de un cambio. Decidimos mejorar su sonrisa diseñando y colocando 10 carillas de cerámica ultrafinas. El resultado fue una sonrisa más natural y estética.',
-      imagenAntes: 'odontologia-general/OG-C1-ANTES.png',
-      imagenDespues: 'odontologia-general/OG-C1-DESPUES.png'
+      imagenAntes: 'odontologia-restauradora/OG-C1-ANTES.png',
+      imagenDespues: 'odontologia-restauradora/OG-C1-DESPUES.png'
     },
     {
       id: 2,
       titulo: 'SONRISAS',
       subtitulo: 'TOP',
       descripcion: 'El tratamiento consistió en colocar carillas dentales de resina a nuestro paciente, cerramos espacios entre los dientes y de esta forma mejoramos las proporciones para conseguir una sonrisa más armónica.',
-      imagenAntes: 'odontologia-general/OG-C2-ANTES.png',
-      imagenDespues: 'odontologia-general/OG-C2-DESPUES.png'
+      imagenAntes: 'odontologia-restauradora/OG-C2-ANTES.png',
+      imagenDespues: 'odontologia-restauradora/OG-C2-DESPUES.png'
     },
     {
       id: 3,
       titulo: 'SONRISAS',
       subtitulo: 'TOP',
       descripcion: 'En este caso nuestra paciente requería una rehabilitación oral compleja, ya que presentaba pérdida dental y ósea, por lo que fue necesaria la colocación de implantes dentales, sumado a injerto de tejido óseo y finalmente un diseño de sonrisa con la colocación de carillas dentales, logrando excelentes resultados a nivel estético y de funcionalidad.',
-      imagenAntes: 'odontologia-general/OG-C3-ANTES.png',
-      imagenDespues: 'odontologia-general/OG-C3-DESPUES.png'
+      imagenAntes: 'odontologia-restauradora/OG-C3-ANTES.png',
+      imagenDespues: 'odontologia-restauradora/OG-C3-DESPUES.png'
     },
   ];
 

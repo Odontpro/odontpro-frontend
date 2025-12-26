@@ -375,13 +375,30 @@
 }
 
 /* Icono de la especialidad */
+/* Contenedor del icono */
 .specialty-icon {
-  width: 80px; /* Reducido de 100px */
-  height: 80px;
+  width: 100%;       /* Ocupa el ancho del card para centrar */
+  height: 80px;      /* Mantenemos la altura visual */
+  display: flex;     /* Activamos Flexbox */
+  align-items: center;    /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
   margin-bottom: 4px;
-  color: #7dc0bf;
-  transition: transform 0.3s ease;
+  overflow: visible; /* Permitimos que el ratio 280x220 se acomode */
   flex-shrink: 0;
+}
+
+.specialty-img {
+  max-width: 100%;   /* No permite que se salga del card horizontalmente */
+  height: 100%;      /* Ajusta la altura al contenedor de 80px */
+  width: auto;       /* Mantiene la proporción de 280x220 */
+  object-fit: contain; /* Asegura que el contenido se vea completo y centrado */
+  transition: transform 0.3s ease;
+  display: block;    /* Elimina espacios fantasma de elementos inline */
+  background: transparent; /* Quita el rojo una vez verificado */
+}
+
+.specialty-card:hover .specialty-img {
+  transform: scale(1.1);
 }
 
 .specialty-card:hover .specialty-icon {

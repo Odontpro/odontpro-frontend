@@ -13,6 +13,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { ComplaintService } from '../../../core/services/complaint.service';
 import { Complaint } from '../../../shared/models/complaint.model';
 import { ToastrService } from 'ngx-toastr';
+import {MatProgressSpinnerModule} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-book',
@@ -28,7 +29,8 @@ import { ToastrService } from 'ngx-toastr';
     MatNativeDateModule,
     MatCheckboxModule,
     MatButtonModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   templateUrl: './book.html',
   styleUrl: './book.css',
@@ -38,6 +40,7 @@ export class Book {
   maxDate = new Date(); // No permitir fechas futuras
   caracteresRestantes = 500;
   submitted = false;
+  isLoading = false;
 
   @ViewChild(FormGroupDirective) formDirective!: FormGroupDirective;
 
@@ -93,6 +96,8 @@ export class Book {
       return;
     }
 
+  this.isLoading = true;
+
   const formValue = this.reclamacionForm.value;
 
   const complaint: Complaint = {
@@ -115,7 +120,7 @@ export class Book {
   this.complaintService.createComplaint(complaint).subscribe({
     next: (response) => {
       this.toastr.success(
-          `Reclamo ${response.codigoConfirmacion} enviado con éxito`, 
+          `Reclamo ${response.codigoConfirmacion} enviado con éxito`,
           '¡Registrado!'
         );
 
@@ -125,9 +130,11 @@ export class Book {
       });
 
       this.submitted = false;
+      this.isLoading = false;
     },
     error: () => {
       this.toastr.error('Hubo un problema al conectar con el servidor.', 'Error de Envío');
+      this.isLoading = false;
     }
   });
 }

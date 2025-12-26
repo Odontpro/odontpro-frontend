@@ -261,7 +261,7 @@
 
 .dropdown-content a:hover {
   background-color: #38d3c0;
-  color: white;
+  color: white !important;
 }
 
 /* ============================================
@@ -277,7 +277,7 @@
    FOOTER
    ============================================ */
 .footer {
-  background-color: #f8f9fa;
+  background-color: white;
   padding: 48px 0 0;
 }
 
