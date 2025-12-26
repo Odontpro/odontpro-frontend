@@ -42,7 +42,7 @@ export const routes: Routes = [
             .then(m => m.Implantologia)
       },
       {
-        path: 'especialidades/odontologia-general',
+        path: 'especialidades/odontologia-restauradora',
         loadComponent: () =>
           import('./features/landing/specialties/odontologia-general/odontologia-general')
             .then(m => m.OdontologiaGeneral)

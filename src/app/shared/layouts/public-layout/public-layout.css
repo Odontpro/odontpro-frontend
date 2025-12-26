@@ -86,14 +86,9 @@
 
 /* Logo con color #7dc0bf cuando se hace scroll */
 .header.scrolled .logo img {
-  filter: brightness(0) saturate(100%)
-  invert(71%)
-  sepia(34%)
-  saturate(613%)
-  hue-rotate(126deg)
-  brightness(96%)
-  contrast(92%);
+  filter: brightness(0) saturate(100%) invert(20%) contrast(100%);
 }
+
 
 
 /* Navegación */
@@ -282,7 +277,7 @@
    FOOTER
    ============================================ */
 .footer {
-  background-color: #e5ffff;
+  background-color: #f8f9fa;
   padding: 48px 0 0;
 }
 
@@ -301,7 +296,7 @@
 }
 
 .footer-title {
-  color: #38d3c0;
+  color: #474747;
   font-size: 18px;
   font-weight: 700;
   margin: 0 0 16px 0;
@@ -310,11 +305,15 @@
 }
 
 .footer-info {
-  color: #38d3c0;
+  color: #666;
   padding: 10px 0 20px 0;
   border-radius: 4px;
   font-size: 14px;
   line-height: 1.8;
+}
+
+.footer-icon{
+  color: #333;
 }
 
 .footer-info p {
@@ -322,6 +321,10 @@
   display: flex;
   align-items: flex-start;
   gap: 8px;
+}
+
+.footer-info-days{
+  color: #333;
 }
 
 .footer-info .icon {
@@ -344,13 +347,24 @@
   width: auto;
 }
 
+.complaint-book {
+  height: 32px;
+  width: auto;
+}
+
 .footer-link {
   cursor: pointer;
   transition: color 0.2s ease;
+  display: flex;
+}
+
+.footer-link p{
+  margin: 5px 0 0 5px;
 }
 
 .footer-link:hover {
-  color: #38d3c0;
+  color: black;
+  text-decoration: underline;
 }
 
 

@@ -16,7 +16,7 @@
       <div class="hero-text" [class.active]="currentSlide === $index">
         <h1 class="hero-title animate-fade-down">{{ slide.title }}</h1>
         <h2 class="hero-subtitle animate-fade-up">{{ slide.subtitle }}</h2>
-        <button class="cta-button animate-fade-up-delay">AGENDA TU CITA</button>
+        <button class="cta-button animate-fade-up-delay" (click)="scheduleMeet()">AGENDA TU CITA</button>
       </div>
     }
   </div>
@@ -42,7 +42,7 @@
 
     <div class="specialties-grid">
 
-      <!-- Especialidad 1: Odontología General -->
+      <!-- Especialidad 1: Odontología restauradora -->
       <div class="specialty-card">
         <div class="specialty-icon">
           <svg viewBox="0 0 64 64" fill="none" stroke="currentColor" stroke-width="2">
@@ -50,8 +50,8 @@
             <circle cx="32" cy="28" r="8"/>
           </svg>
         </div>
-        <h3 class="specialty-title">Odontología General</h3>
-        <a routerLink="/especialidades/odontologia-general" class="specialty-link">Ver Casos</a>
+        <h3 class="specialty-title">Odontología Restauradora</h3>
+        <a routerLink="/especialidades/odontologia-restauradora" class="specialty-link">Ver Casos</a>
       </div>
 
       <!-- Especialidad 2: Endodoncia -->

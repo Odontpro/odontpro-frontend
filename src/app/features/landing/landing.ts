@@ -80,6 +80,13 @@ export class Landing implements OnInit, OnDestroy {
     }, 5000);
   }
 
+  scheduleMeet() {
+    window.open(
+      'https://wa.me/51901222854?text=Hola%20quiero%20agendar%20una%20cita',
+      '_blank'
+    );
+  }
+
   nextSlide() {
     this.currentSlide = (this.currentSlide + 1) % this.slides.length;
   }
