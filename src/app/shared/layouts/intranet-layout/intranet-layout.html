@@ -35,6 +35,11 @@
         <span matListItemTitle>Libro de reclamaciones</span>
       </a>
 
+      <a mat-list-item routerLink="/intranet/usuarios" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+        <mat-icon matListItemIcon>people</mat-icon>
+        <span matListItemTitle>Usuarios</span>
+      </a>
+
       <!-- SOLO ADMIN -->
       <a
         *ngIf="role === 'admin'"

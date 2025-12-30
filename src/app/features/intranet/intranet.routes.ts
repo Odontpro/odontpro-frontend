@@ -20,6 +20,12 @@ export const INTRANET_ROUTES: Routes = [
         loadComponent: () =>
           import('./complaints/complaints')
             .then(m => m.Complaints)
+      },
+      {
+        path: 'usuarios',
+        loadComponent: () =>
+          import('./user-management/user-management')
+            .then(m => m.UserManagement)
       }
 
     ]
