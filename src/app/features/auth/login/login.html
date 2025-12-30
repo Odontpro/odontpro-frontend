@@ -1,6 +1,42 @@
-<mat-card class="login-container">
-  <h2>Login</h2>
-  <button mat-raised-button color="primary" (click)="login()">
-    Entrar como Admin
-  </button>
-</mat-card>
+<div class="login-wrapper">
+  <mat-card class="login-card">
+    <mat-card-content>
+      <h1 class="login-title">OdontPro</h1>
+      <p class="login-subtitle">Sistema de Gestión Odontológica</p>
+
+      <form [formGroup]="loginForm" (ngSubmit)="onSubmit()" class="login-form">
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email" placeholder="Ingrese su email">
+          <mat-error *ngIf="shouldShowError('email')">
+            {{ getErrorMessage('email') }}
+          </mat-error>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline" class="full-width">
+          <mat-label>Contraseña</mat-label>
+          <input matInput type="password" formControlName="password" placeholder="Ingrese su contraseña">
+          <mat-error *ngIf="shouldShowError('password')">
+            {{ getErrorMessage('password') }}
+          </mat-error>
+        </mat-form-field>
+
+        <div class="error-message" *ngIf="errorMessage">
+          {{ errorMessage }}
+        </div>
+
+        <button
+          mat-flat-button
+          type="submit"
+          class="login-button"
+          [disabled]="loading"
+        >
+          <span *ngIf="!loading">INICIAR SESIÓN</span>
+          <mat-spinner *ngIf="loading" diameter="20"></mat-spinner>
+        </button>
+
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

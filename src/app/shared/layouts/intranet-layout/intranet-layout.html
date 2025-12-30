@@ -1,17 +1,17 @@
 <mat-sidenav-container class="layout">
 
   <!-- SIDEBAR -->
-  <mat-sidenav 
+  <mat-sidenav
     #sidenav
-    [mode]="sidenavMode" 
+    [mode]="sidenavMode"
     [opened]="sidenavOpened"
     class="sidenav">
-    
+
     <mat-toolbar color="primary" class="sidenav-header">
       <span class="logo-text">OdontPro</span>
-      <button 
-        *ngIf="isMobile" 
-        mat-icon-button 
+      <button
+        *ngIf="isMobile"
+        mat-icon-button
         (click)="toggleSidenav()"
         class="close-sidenav-btn">
         <mat-icon>close</mat-icon>
@@ -55,24 +55,24 @@
     <!-- HEADER -->
     <mat-toolbar color="primary" class="toolbar-container">
       <!-- Botón de menú hamburguesa (solo móvil) -->
-      <button 
-        *ngIf="isMobile" 
-        mat-icon-button 
+      <button
+        *ngIf="isMobile"
+        mat-icon-button
         (click)="toggleSidenav()"
         class="menu-toggle">
         <mat-icon>menu</mat-icon>
       </button>
 
       <span class="toolbar-title" *ngIf="isMobile">OdontPro</span>
-      
+
       <span class="spacer"></span>
-      
+
       <div class="user-actions">
         <span class="user-name" [class.hide-on-mobile]="isMobile">
-          {{ user?.first_name }} <span class="user-role">({{ role }})</span>
+          {{ user?.firstName }} <span class="user-role">({{ role }})</span>
         </span>
-        <button 
-          mat-icon-button 
+        <button
+          mat-icon-button
           (click)="logout()"
           matTooltip="Cerrar sesión"
           class="logout-btn">
