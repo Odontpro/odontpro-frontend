@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
 import { environment } from './environment';
 import { User } from '../../shared/models/user.model';
 import { catchError, map } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
+import {CryptoService} from './crypto.service';
 
 export interface CreateUserDto {
   email: string;
@@ -29,10 +30,16 @@ export interface BackendUserResponse {
 export class UserService {
   private apiUrl = `${environment.apiUrl}users`;
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cryptoService: CryptoService) { }
 
   createUser(userData: CreateUserDto): Observable<User> {
-    return this.http.post<BackendUserResponse>(this.apiUrl, userData).pipe(
+    const token = this.cryptoService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.post<BackendUserResponse>(this.apiUrl, userData, { headers }).pipe(
       map(response => this.transformBackendUser(response)),
       catchError(error => {
         console.error('Error creating user:', error);

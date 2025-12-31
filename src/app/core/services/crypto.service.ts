@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { environment } from './environment';
 import { User} from '../../shared/models/user.model';
 import * as CryptoJS from 'crypto-js';
+import {AuthResponse} from './auth.service';
 
 
 @Injectable({
@@ -26,6 +27,28 @@ export class CryptoService {
       return null;
     }
   }
+
+  getToken(): string | null {
+    const encryptedData = localStorage.getItem('odont-user');
+
+    if (!encryptedData) {
+      return null;
+    }
+
+    try {
+      // Castamos el resultado a AuthResponse para que TS reconozca las propiedades
+      const data = this.decrypt(encryptedData) as AuthResponse;
+
+      if (data && data.accessToken) {
+        return data.accessToken;
+      } else {
+        return null;
+      }
+    } catch (error) {
+      return null;
+    }
+  }
+
 
   getCurrentUser(): User | null {
     const encryptedUser = localStorage.getItem('odont-user');

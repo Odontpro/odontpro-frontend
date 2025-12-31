@@ -24,7 +24,7 @@ export interface BackendAuthResponse {
 }
 
 export interface AuthResponse {
-  token: string;
+  accessToken: string;
   user: User;
 }
 
@@ -63,16 +63,4 @@ export class AuthService {
     localStorage.removeItem('odont-user');
   }
 
-  getToken(): string | null {
-    /*const encryptedData = localStorage.getItem('odont-user');
-    if (!encryptedData) return null;
-
-    try {
-      const data = this.crypto.decrypt(encryptedData);
-      return data?.token ?? null;
-    } catch {
-      return null;
-    }*/
-    return null;
-  }
 }
