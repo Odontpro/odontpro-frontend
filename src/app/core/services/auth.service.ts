@@ -54,7 +54,6 @@ export class AuthService {
       tap((response: AuthResponse) => {
         // Guardar datos encriptados en localStorage
         localStorage.setItem('odont-user', this.crypto.encrypt(response));
-        console.log(response);
       })
     );
   }

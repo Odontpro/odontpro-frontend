@@ -11,11 +11,11 @@ export interface CreateUserDto {
   password: string;
   firstName: string;
   lastName: string;
-  role: 'ADMIN' | 'DOCTOR' | 'RECEPTIONIST';
+  role: 'ADMIN' | 'DOCTOR' | 'ASISTENTE';
 }
 
 export interface BackendUserResponse {
-  id: string;
+  id: number;
   email: string;
   firstName: string;
   lastName: string;
@@ -49,7 +49,13 @@ export class UserService {
   }
 
   getAllUsers(): Observable<User[]> {
-    return this.http.get<BackendUserResponse[]>(this.apiUrl).pipe(
+    const token = this.cryptoService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.get<BackendUserResponse[]>(this.apiUrl+"/active", {headers}).pipe(
       map(users => users.map(user => this.transformBackendUser(user))),
       catchError(error => {
         console.error('Error fetching users:', error);

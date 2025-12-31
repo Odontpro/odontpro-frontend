@@ -44,7 +44,7 @@ export class UserManagement implements OnInit {
   roles = [
     { value: 'ADMIN', label: 'Administrador' },
     { value: 'DOCTOR', label: 'Doctor' },
-    { value: 'RECEPTIONIST', label: 'Recepcionista' }
+    { value: 'ASISTENTE', label: 'Asistente' }
   ];
 
   constructor(
@@ -136,6 +136,7 @@ export class UserManagement implements OnInit {
 
     this.loading = true;
     const userData: CreateUserDto = this.createUserForm.value;
+    console.log(userData);
 
     this.userService.createUser(userData).subscribe({
       next: (newUser) => {

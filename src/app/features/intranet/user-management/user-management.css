@@ -270,7 +270,7 @@
   color: #1e40af;
 }
 
-.role-receptionist {
+.role-asistente {
   background-color: #dcfce7;
   color: #166534;
 }
@@ -278,11 +278,17 @@
 .actions-cell {
   display: flex;
   gap: 4px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
 }
 
 .action-button {
   width: 36px;
   height: 36px;
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
 }
 
 .action-button mat-icon {
