@@ -10,8 +10,11 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDialogModule, MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule, Sort } from '@angular/material/sort';
+import { MatProgressSpinner } from '@angular/material/progress-spinner';
 import { UserService, CreateUserDto } from '../../../core/services/user.service';
 import { User } from '../../../shared/models/user.model';
+import { UserViewDialog} from './user-view-dialog/user-view-dialog';
+import { UserEditDialog} from './user-edit-dialog/user-edit-dialog';
 
 @Component({
   selector: 'app-user-management',
@@ -27,7 +30,8 @@ import { User } from '../../../shared/models/user.model';
     MatSelectModule,
     MatDialogModule,
     MatSnackBarModule,
-    MatSortModule
+    MatSortModule,
+    MatProgressSpinner
   ],
   templateUrl: './user-management.html',
   styleUrl: './user-management.css'
@@ -40,6 +44,7 @@ export class UserManagement implements OnInit {
   showCreateForm = false;
   createUserForm: FormGroup;
   loading = false;
+  deletingUserIds = new Set<number>();
 
   roles = [
     { value: 'ADMIN', label: 'Administrador' },
@@ -50,7 +55,8 @@ export class UserManagement implements OnInit {
   constructor(
     private fb: FormBuilder,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.createUserForm = this.fb.group({
       email: ['', [Validators.required, Validators.email]],
@@ -136,7 +142,6 @@ export class UserManagement implements OnInit {
 
     this.loading = true;
     const userData: CreateUserDto = this.createUserForm.value;
-    console.log(userData);
 
     this.userService.createUser(userData).subscribe({
       next: (newUser) => {
@@ -154,10 +159,65 @@ export class UserManagement implements OnInit {
     });
   }
 
+  viewUser(user: User): void {
+    this.dialog.open(UserViewDialog, {
+      data: user,
+      width: '500px',
+      autoFocus: false
+    });
+  }
+
+  editUser(user: User): void {
+    const dialogRef = this.dialog.open(UserEditDialog, {
+      data: user,
+      width: '500px',
+      autoFocus: false
+    });
+
+    dialogRef.afterClosed().subscribe((updatedUser: User | undefined) => {
+      if (updatedUser) {
+        // Aquí llamarías al servicio para actualizar el usuario
+        // this.userService.updateUser(updatedUser.id, updatedUser).subscribe({...})
+
+        // Por ahora, actualizo localmente
+        const index = this.users.findIndex(u => u.id === updatedUser.id);
+        if (index !== -1) {
+          this.users[index] = updatedUser;
+          this.filteredUsers = [...this.users];
+          this.snackBar.open('Usuario actualizado exitosamente', 'Cerrar', { duration: 3000 });
+        }
+      }
+    });
+  }
+
   deleteUser(user: User): void {
-    // Pendiente de implementación
-    this.snackBar.open('Función de eliminar pendiente de implementación', 'Cerrar', {
-      duration: 3000
+    const confirmed = confirm(
+      `¿Estás seguro de que deseas eliminar al usuario "${user.firstName}"?\n\nEsta acción desactivará al usuario y no podrá acceder al sistema.`
+    );
+
+    if (!confirmed) return;
+
+    this.deletingUserIds.add(user.id);
+
+    this.userService.deleteUser(user.id).subscribe({
+      next: () => {
+        this.snackBar.open('Usuario desactivado correctamente', 'Cerrar', {
+          duration: 3000,
+        });
+
+        this.deletingUserIds.delete(user.id);
+        this.loadUsers();
+      },
+      error: (error) => {
+        this.deletingUserIds.delete(user.id);
+
+        const message =
+          error?.error?.message || 'Error al eliminar usuario';
+
+        this.snackBar.open(message, 'Cerrar', {
+          duration: 3000,
+        });
+      },
     });
   }
 

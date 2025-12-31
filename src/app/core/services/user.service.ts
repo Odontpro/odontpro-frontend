@@ -64,8 +64,16 @@ export class UserService {
     );
   }
 
-  deleteUser(userId: string): Observable<boolean> {
-    return this.http.delete(`${this.apiUrl}/${userId}`).pipe(
+  deleteUser(userId: number): Observable<boolean> {
+    const token = this.cryptoService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    console.log("deleteUser")
+
+    return this.http.delete(`${this.apiUrl}/${userId}`, {headers}).pipe(
       map(() => true),
       catchError(error => {
         console.error('Error deleting user:', error);

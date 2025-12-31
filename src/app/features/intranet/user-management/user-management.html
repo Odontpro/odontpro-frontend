@@ -160,10 +160,20 @@
           <th mat-header-cell *matHeaderCellDef>ACCIONES</th>
           <td mat-cell *matCellDef="let user">
             <div class="actions-cell">
-              <button mat-icon-button class="action-button view-button" title="Ver detalles">
+              <button
+                mat-icon-button
+                class="action-button view-button"
+                title="Ver detalles"
+                (click)="viewUser(user)"
+              >
                 <mat-icon>visibility</mat-icon>
               </button>
-              <button mat-icon-button class="action-button edit-button" title="Editar">
+              <button
+                mat-icon-button
+                class="action-button edit-button"
+                title="Editar"
+                (click)="editUser(user)"
+              >
                 <mat-icon>edit</mat-icon>
               </button>
               <button
@@ -171,8 +181,14 @@
                 class="action-button delete-button"
                 title="Eliminar"
                 (click)="deleteUser(user)"
+                [disabled]="deletingUserIds.has(user.id)"
               >
-                <mat-icon>delete</mat-icon>
+                <mat-icon *ngIf="!deletingUserIds.has(user.id)">delete</mat-icon>
+                <mat-progress-spinner
+                  *ngIf="deletingUserIds.has(user.id)"
+                  diameter="20"
+                  mode="indeterminate">
+                </mat-progress-spinner>
               </button>
             </div>
           </td>
