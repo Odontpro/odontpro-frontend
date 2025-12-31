@@ -1,1 +1,57 @@
-<p>user-view-dialog works!</p>
+<div class="dialog-container">
+  <div class="dialog-header">
+    <div class="header-content">
+      <mat-icon class="header-icon">visibility</mat-icon>
+      <h2 mat-dialog-title>Detalles del Usuario</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    <div class="info-grid">
+      <div class="info-item">
+        <div class="info-label">
+          <mat-icon class="info-icon">email</mat-icon>
+          <span>Email</span>
+        </div>
+        <div class="info-value">{{ data.email }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <mat-icon class="info-icon">person</mat-icon>
+          <span>Nombre</span>
+        </div>
+        <div class="info-value">{{ data.firstName }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <mat-icon class="info-icon">person_outline</mat-icon>
+          <span>Apellido</span>
+        </div>
+        <div class="info-value">{{ data.lastName }}</div>
+      </div>
+
+      <div class="info-item">
+        <div class="info-label">
+          <mat-icon class="info-icon">badge</mat-icon>
+          <span>Rol</span>
+        </div>
+        <div class="info-value">
+              <span class="role-badge" [class]="'role-' + data.role.toLowerCase()">
+                {{ getRoleLabel(data.role) }}
+              </span>
+        </div>
+      </div>
+    </div>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-flat-button mat-dialog-close class="close-dialog-button">
+      Cerrar
+    </button>
+  </mat-dialog-actions>
+</div>

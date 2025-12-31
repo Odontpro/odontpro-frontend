@@ -1,0 +1,124 @@
+.dialog-container {
+  width: 500px;
+  max-width: 90vw;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 24px 24px 16px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.header-icon {
+  color: #1976d2;
+  font-size: 28px;
+  width: 28px;
+  height: 28px;
+}
+
+h2 {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+  color: #212121;
+}
+
+.close-button {
+  color: #757575;
+}
+
+.dialog-content {
+  padding: 24px !important;
+}
+
+.edit-form {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-group {
+  width: 100%;
+}
+
+.form-field {
+  width: 100%;
+}
+
+.field-icon {
+  color: #757575;
+  margin-right: 8px;
+}
+
+.info-section {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 12px 16px;
+  background-color: #e3f2fd;
+  border-radius: 8px;
+  border-left: 4px solid #1976d2;
+  margin-top: 8px;
+}
+
+.info-icon {
+  color: #1976d2;
+  font-size: 20px;
+  width: 20px;
+  height: 20px;
+}
+
+.info-text {
+  font-size: 13px;
+  color: #1565c0;
+  line-height: 1.5;
+}
+
+.dialog-actions {
+  padding: 16px 24px !important;
+  border-top: 1px solid #e0e0e0;
+  justify-content: flex-end;
+  gap: 12px;
+}
+
+.cancel-button {
+  color: #757575;
+  border-color: #e0e0e0;
+  padding: 8px 24px;
+  font-weight: 500;
+}
+
+.cancel-button:hover {
+  background-color: #f5f5f5;
+}
+
+.save-button {
+  background-color: #1976d2;
+  color: white;
+  padding: 8px 24px;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.save-button:hover:not(:disabled) {
+  background-color: #1565c0;
+}
+
+.save-button:disabled {
+  background-color: #e0e0e0;
+  color: #9e9e9e;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  height: 0;
+}

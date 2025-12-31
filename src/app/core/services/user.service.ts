@@ -5,14 +5,8 @@ import { User } from '../../shared/models/user.model';
 import { catchError, map } from 'rxjs/operators';
 import { of, Observable } from 'rxjs';
 import {CryptoService} from './crypto.service';
-
-export interface CreateUserDto {
-  email: string;
-  password: string;
-  firstName: string;
-  lastName: string;
-  role: 'ADMIN' | 'DOCTOR' | 'ASISTENTE';
-}
+import {CreateUserDto} from '../../shared/dto/create-user.dto';
+import { UpdateUserDto } from '../../shared/dto/update-user.dto';
 
 export interface BackendUserResponse {
   id: number;
@@ -60,6 +54,22 @@ export class UserService {
       catchError(error => {
         console.error('Error fetching users:', error);
         return of([]);
+      })
+    );
+  }
+
+  updateUser(userId: number, userData: UpdateUserDto): Observable<User> {
+    const token = this.cryptoService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    return this.http.patch<BackendUserResponse>(`${this.apiUrl}/${userId}`, userData, { headers }).pipe(
+      map(response => this.transformBackendUser(response)),
+      catchError(error => {
+        console.error('Error updating user:', error);
+        throw error;
       })
     );
   }

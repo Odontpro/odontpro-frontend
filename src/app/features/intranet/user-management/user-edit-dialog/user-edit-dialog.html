@@ -1,1 +1,69 @@
-<p>user-edit-dialog works!</p>
+<div class="dialog-container">
+  <div class="dialog-header">
+    <div class="header-content">
+      <mat-icon class="header-icon">edit</mat-icon>
+      <h2 mat-dialog-title>Editar Usuario</h2>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    <form [formGroup]="editForm" class="edit-form">
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Nombre</mat-label>
+          <mat-icon matPrefix class="field-icon">person</mat-icon>
+          <input matInput formControlName="firstName" placeholder="Nombre">
+          <mat-error *ngIf="editForm.get('firstName')?.invalid">
+            {{ getErrorMessage('firstName') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Apellido</mat-label>
+          <mat-icon matPrefix class="field-icon">person_outline</mat-icon>
+          <input matInput formControlName="lastName" placeholder="Apellido">
+          <mat-error *ngIf="editForm.get('lastName')?.invalid">
+            {{ getErrorMessage('lastName') }}
+          </mat-error>
+        </mat-form-field>
+      </div>
+
+      <div class="form-group">
+        <mat-form-field appearance="outline" class="form-field">
+          <mat-label>Rol</mat-label>
+          <mat-icon matPrefix class="field-icon">badge</mat-icon>
+          <mat-select formControlName="role">
+            <mat-option *ngFor="let role of roles" [value]="role.value">
+              {{ role.label }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+
+      <div class="info-section">
+        <mat-icon class="info-icon">info</mat-icon>
+        <span class="info-text">El email no puede ser modificado: <strong>{{ data.email }}</strong></span>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions class="dialog-actions">
+    <button mat-stroked-button mat-dialog-close class="cancel-button">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      class="save-button"
+      [disabled]="editForm.invalid"
+      (click)="onSave()"
+    >
+      <mat-icon>save</mat-icon>
+      Guardar Cambios
+    </button>
+  </mat-dialog-actions>
+</div>
