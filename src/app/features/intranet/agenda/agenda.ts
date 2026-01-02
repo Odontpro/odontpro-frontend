@@ -147,6 +147,7 @@ export class Agenda implements OnInit {
       next: (appointments) => {
         this.allAppointments = appointments;
         this.distributeAppointments();
+        console.log(this.allAppointments);
       }
     });
   }

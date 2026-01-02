@@ -38,8 +38,8 @@ export class AppointmentService {
     },
     {
       id: 2,
-      nombre: 'Karen',
-      apellido: 'La fea',
+      nombre: 'Roberto',
+      apellido: 'Prueba',
       color: '#E91E63',
       especialidades: ['Endodoncia', 'Periodoncia']
     },
@@ -100,12 +100,12 @@ export class AppointmentService {
       motivo: 'Control mensual',
       duracion: 60,
       estado: 'CONFIRMADA',
-      fecha: '2025-01-09',
+      fecha: '2026-01-04',
       horaInicial: '09:00',
       horaFinal: '10:00',
       comentarios: 'Paciente requiere ajuste de brackets',
-      createdAt: '2025-01-03T10:00:00Z',
-      updatedAt: '2025-01-03T10:00:00Z',
+      createdAt: '2026-01-03T10:00:00Z',
+      updatedAt: '2026-01-03T10:00:00Z',
       historialCambios: []
     },
     {
@@ -119,11 +119,11 @@ export class AppointmentService {
       motivo: 'Tratamiento de conducto',
       duracion: 90,
       estado: 'CONFIRMADA',
-      fecha: '2025-01-09',
-      horaInicial: '09:00',
+      fecha: '2026-01-03',
+      horaInicial: '11:00',
       horaFinal: '10:30',
-      createdAt: '2025-01-03T11:00:00Z',
-      updatedAt: '2025-01-03T11:00:00Z',
+      createdAt: '2026-01-03T11:00:00Z',
+      updatedAt: '2026-01-03T11:00:00Z',
       historialCambios: []
     },
     {
@@ -137,11 +137,11 @@ export class AppointmentService {
       motivo: 'Extracción de muela',
       duracion: 45,
       estado: 'PENDIENTE',
-      fecha: '2025-01-10',
+      fecha: '2026-01-03',
       horaInicial: '11:00',
       horaFinal: '11:45',
-      createdAt: '2025-01-03T12:00:00Z',
-      updatedAt: '2025-01-03T12:00:00Z',
+      createdAt: '2026-01-03T12:00:00Z',
+      updatedAt: '2026-01-03T12:00:00Z',
       historialCambios: []
     },
     {
@@ -155,11 +155,11 @@ export class AppointmentService {
       motivo: 'Seguimiento de conducto',
       duracion: 60,
       estado: 'CONFIRMADA',
-      fecha: '2025-01-10',
+      fecha: '2026-01-01',
       horaInicial: '10:00',
       horaFinal: '11:00',
-      createdAt: '2025-01-03T13:00:00Z',
-      updatedAt: '2025-01-03T13:00:00Z',
+      createdAt: '2026-01-03T13:00:00Z',
+      updatedAt: '2026-01-03T13:00:00Z',
       historialCambios: []
     },
     {
@@ -173,12 +173,12 @@ export class AppointmentService {
       motivo: 'Revisión',
       duracion: 30,
       estado: 'CANCELADA',
-      fecha: '2025-01-10',
+      fecha: '2026-01-02',
       horaInicial: '13:00',
       horaFinal: '13:30',
       comentarios: 'Cancelado por el paciente',
-      createdAt: '2025-01-03T14:00:00Z',
-      updatedAt: '2025-01-05T09:00:00Z',
+      createdAt: '2026-01-03T14:00:00Z',
+      updatedAt: '2026-01-05T09:00:00Z',
       historialCambios: [
         {
           id: 1,
@@ -203,7 +203,7 @@ export class AppointmentService {
       motivo: 'Limpieza dental',
       duracion: 60,
       estado: 'CONFIRMADA',
-      fecha: '2025-01-11',
+      fecha: '2026-01-02',
       horaInicial: '12:00',
       horaFinal: '13:00',
       createdAt: '2025-01-03T15:00:00Z',
