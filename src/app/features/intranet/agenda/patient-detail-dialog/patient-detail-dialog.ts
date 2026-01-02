@@ -1,0 +1,104 @@
+import { Component, Inject, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { MAT_DIALOG_DATA, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
+import { MatTabsModule } from '@angular/material/tabs';
+import { MatChipsModule } from '@angular/material/chips';
+import { MatMenuModule } from '@angular/material/menu';
+import { AppointmentService} from '../../../../core/services/appointment.service';
+import { Patient, PatientTag, Appointment} from '../../../../shared/models/appointment.model';
+
+@Component({
+  selector: 'app-patient-detail-dialog',
+  standalone: true,
+  imports: [
+    CommonModule,
+    MatDialogModule,
+    MatButtonModule,
+    MatIconModule,
+    MatTabsModule,
+    MatChipsModule,
+    MatMenuModule
+  ],
+  templateUrl: './patient-detail-dialog.html',
+  styleUrl: './patient-detail-dialog.css',
+
+})
+export class PatientDetailDialog implements OnInit {
+  patient?: Patient;
+  availableTags: PatientTag[] = [];
+
+  statusLabels: any = {
+    'PENDIENTE': 'Pendiente',
+    'CONFIRMADA': 'Confirmada',
+    'EN_CURSO': 'En curso',
+    'COMPLETADA': 'Completada',
+    'CANCELADA': 'Cancelada',
+    'NO_ASISTIO': 'No asistió'
+  };
+
+  constructor(
+    @Inject(MAT_DIALOG_DATA) public data: { patientId: number; appointment: Appointment },
+    private dialogRef: MatDialogRef<PatientDetailDialog>,
+    private appointmentService: AppointmentService
+  ) {}
+
+  ngOnInit(): void {
+    this.loadPatient();
+    this.loadAvailableTags();
+  }
+
+  loadPatient(): void {
+    this.appointmentService.getPatientById(this.data.patientId).subscribe({
+      next: (patient) => {
+        this.patient = patient;
+      }
+    });
+  }
+
+  loadAvailableTags(): void {
+    this.appointmentService.getPatientTags().subscribe({
+      next: (tags) => {
+        this.availableTags = tags;
+      }
+    });
+  }
+
+  hasTag(tagId: number): boolean {
+    return this.patient?.tags.some(t => t.id === tagId) || false;
+  }
+
+  addTag(tagId: number): void {
+    if (this.patient) {
+      this.appointmentService.addTagToPatient(this.patient.id, tagId).subscribe({
+        next: (updatedPatient) => {
+          this.patient = updatedPatient;
+        }
+      });
+    }
+  }
+
+  removeTag(tagId: number): void {
+    if (this.patient) {
+      this.appointmentService.removeTagFromPatient(this.patient.id, tagId).subscribe({
+        next: (updatedPatient) => {
+          this.patient = updatedPatient;
+        }
+      });
+    }
+  }
+
+  formatDate(dateString: string): string {
+    const date = new Date(dateString);
+    return date.toLocaleDateString('es-ES', {
+      day: '2-digit',
+      month: 'short',
+      year: 'numeric'
+    });
+  }
+
+  getStatusLabel(status: string): string {
+    return this.statusLabels[status] || status;
+  }
+}

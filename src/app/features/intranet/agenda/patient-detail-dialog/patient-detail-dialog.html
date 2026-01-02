@@ -1,0 +1,168 @@
+<div class="dialog-container">
+  <!-- Header -->
+  <div class="dialog-header">
+    <div class="patient-header-info">
+      <div class="patient-avatar">
+        <mat-icon *ngIf="!patient?.foto">person</mat-icon>
+      </div>
+      <div class="patient-basic-info">
+        <h2 class="patient-name">{{ patient?.nombre }}, {{ patient?.apellido }}</h2>
+        <div class="patient-actions">
+          <button mat-button class="action-link" color="primary">
+            Abrir historia
+            <mat-icon>open_in_new</mat-icon>
+          </button>
+          <span class="patient-date">Creado el {{ formatDate(data.appointment.createdAt) }}</span>
+        </div>
+      </div>
+    </div>
+    <button mat-icon-button mat-dialog-close class="close-button">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content class="dialog-content">
+    <!-- Contact Info -->
+    <div class="info-section">
+      <div class="phone-info">
+        <mat-icon class="info-icon">phone</mat-icon>
+        <span class="phone-number">{{ patient?.telefono }}</span>
+      </div>
+
+      <div class="tags-section">
+        <mat-chip-set>
+          <mat-chip
+            *ngFor="let tag of patient?.tags"
+            [style.background-color]="tag.backgroundColor"
+            [style.color]="tag.color"
+            class="patient-tag"
+          >
+            {{ tag.nombre }}
+            <button matChipRemove (click)="removeTag(tag.id)">
+              <mat-icon>cancel</mat-icon>
+            </button>
+          </mat-chip>
+        </mat-chip-set>
+
+        <button mat-button [matMenuTriggerFor]="tagsMenu" class="add-tag-button">
+          <mat-icon>add</mat-icon>
+          Agregar
+        </button>
+
+        <mat-menu #tagsMenu="matMenu">
+          <button
+            mat-menu-item
+            *ngFor="let tag of availableTags"
+            (click)="addTag(tag.id)"
+            [disabled]="hasTag(tag.id)"
+          >
+                <span
+                  class="tag-preview"
+                  [style.background-color]="tag.backgroundColor"
+                  [style.color]="tag.color"
+                >
+                  {{ tag.nombre }}
+                </span>
+          </button>
+        </mat-menu>
+      </div>
+    </div>
+
+    <!-- General Note -->
+    <div class="note-section">
+      <h3 class="section-title">Nota general</h3>
+      <textarea
+        class="note-textarea"
+        placeholder="Escribe aquí..."
+        rows="3"
+      ></textarea>
+    </div>
+
+    <!-- Tabs -->
+    <mat-tab-group class="info-tabs">
+      <mat-tab label="Citas">
+        <div class="tab-content">
+          <div class="appointment-info-card">
+            <div class="info-row">
+              <span class="info-label">Fecha y hora:</span>
+              <span class="info-value">
+                    {{ formatDate(data.appointment.fecha) }} - {{ data.appointment.horaInicial }}
+                  </span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Doctor:</span>
+              <span class="info-value">{{ data.appointment.doctorName }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Especialidad:</span>
+              <span class="info-value">{{ data.appointment.especialidad }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Motivo:</span>
+              <span class="info-value">{{ data.appointment.motivo }}</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Duración:</span>
+              <span class="info-value">{{ data.appointment.duracion }} minutos</span>
+            </div>
+            <div class="info-row">
+              <span class="info-label">Estado:</span>
+              <span class="status-badge" [class]="'status-' + data.appointment.estado.toLowerCase()">
+                    {{ getStatusLabel(data.appointment.estado) }}
+                  </span>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Filiación">
+        <div class="tab-content">
+          <div class="filiacion-grid">
+            <div class="filiacion-item">
+              <span class="filiacion-label">Teléfono:</span>
+              <span class="filiacion-value">{{ patient?.telefono }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">E-mail:</span>
+              <span class="filiacion-value">{{ patient?.email || '-' }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">Fuente de captación:</span>
+              <span class="filiacion-value">{{ patient?.fuenteCaptacion || '-' }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">Adicional:</span>
+              <span class="filiacion-value">{{ patient?.adicional || '-' }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">N° HC:</span>
+              <span class="filiacion-value">{{ patient?.nroHistoriaClinica }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">Grupo:</span>
+              <span class="filiacion-value">{{ patient?.grupoSanguineo || '-' }}</span>
+            </div>
+            <div class="filiacion-item">
+              <span class="filiacion-label">Línea de negocio:</span>
+              <span class="filiacion-value">{{ patient?.lineaNegocio || '-' }}</span>
+            </div>
+          </div>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Presupuestos">
+        <div class="tab-content empty-state">
+          <mat-icon>receipt_long</mat-icon>
+          <p>No hay presupuestos registrados</p>
+        </div>
+      </mat-tab>
+
+      <mat-tab label="Tareas">
+        <div class="tab-content empty-state">
+          <mat-icon>task</mat-icon>
+          <p>No hay tareas pendientes</p>
+        </div>
+      </mat-tab>
+    </mat-tab-group>
+  </mat-dialog-content>
+</div>

@@ -1,1 +1,155 @@
-<p>agenda works!</p>
+<div class="agenda-container">
+  <!-- Header -->
+  <div class="agenda-header">
+    <div class="header-left">
+      <button mat-icon-button class="nav-button" (click)="previousWeek()">
+        <mat-icon>chevron_left</mat-icon>
+      </button>
+
+      <button mat-stroked-button class="today-button" (click)="goToToday()">
+        Hoy
+      </button>
+
+      <button mat-icon-button class="nav-button" (click)="nextWeek()">
+        <mat-icon>chevron_right</mat-icon>
+      </button>
+
+      <div class="date-range">
+        <span class="range-text">{{ getWeekRange() }}</span>
+      </div>
+    </div>
+
+    <div class="header-right">
+      <mat-form-field appearance="outline" class="filter-field">
+        <mat-label>Estado</mat-label>
+        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusFilterChange()">
+          <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+            {{ status.label }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <button mat-flat-button class="view-mode-button">
+        <mat-icon>view_week</mat-icon>
+        Por semana
+      </button>
+
+      <button mat-icon-button [matMenuTriggerFor]="settingsMenu" class="settings-button">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      <mat-menu #settingsMenu="matMenu">
+        <div class="menu-content" (click)="$event.stopPropagation()">
+          <div class="menu-header">Configuración</div>
+          <div class="menu-item">Vista</div>
+        </div>
+      </mat-menu>
+
+      <button mat-icon-button class="more-button">
+        <mat-icon>more_vert</mat-icon>
+      </button>
+    </div>
+  </div>
+
+  <!-- Doctor Filters Sidebar -->
+  <div class="content-wrapper">
+    <div class="doctors-sidebar">
+      <div class="sidebar-header">
+        <mat-icon class="sidebar-icon">filter_list</mat-icon>
+        <span>Todas las agendas</span>
+      </div>
+
+      <div class="doctors-list">
+        <div
+          *ngFor="let doctor of doctors"
+          class="doctor-item"
+          [class.active]="selectedDoctors.includes(doctor.id)"
+          (click)="toggleDoctorFilter(doctor.id)"
+        >
+          <div class="doctor-avatar" [style.background-color]="doctor.color">
+            <mat-icon>person</mat-icon>
+          </div>
+          <div class="doctor-info">
+            <span class="doctor-name">{{ doctor.nombre }} {{ doctor.apellido }}</span>
+          </div>
+          <button mat-icon-button class="doctor-menu-button" (click)="$event.stopPropagation()">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+        </div>
+
+        <button mat-button class="add-doctor-button">
+          <mat-icon>add</mat-icon>
+          Agregar
+        </button>
+      </div>
+    </div>
+
+    <!-- Calendar Grid -->
+    <div class="calendar-wrapper">
+      <div class="calendar-grid">
+        <!-- Header Row with Days -->
+        <div class="calendar-header-row">
+          <div class="time-column-header"></div>
+
+          <div
+            *ngFor="let day of calendarDays"
+            class="day-header"
+            [class.today]="day.isToday"
+          >
+            <div class="day-name">{{ day.dayName }}</div>
+            <div class="day-number" [class.today-number]="day.isToday">
+              {{ day.dayNumber }}
+            </div>
+          </div>
+        </div>
+
+        <!-- Time Slots and Appointments -->
+        <div class="calendar-body">
+          <div class="time-column">
+            <div *ngFor="let slot of timeSlots" class="time-slot">
+              <span class="time-label">{{ slot.time }}</span>
+            </div>
+          </div>
+
+          <div class="days-grid">
+            <div
+              *ngFor="let day of calendarDays"
+              class="day-column"
+              [class.today-column]="day.isToday"
+            >
+              <!-- Time slot backgrounds -->
+              <div *ngFor="let slot of timeSlots" class="time-slot-cell">
+                <!-- Grid line -->
+              </div>
+
+              <!-- Appointments -->
+              <div class="appointments-layer">
+                <div
+                  *ngFor="let appointment of day.appointments"
+                  class="appointment-card"
+                  [style]="getAppointmentStyle(appointment)"
+                  [ngStyle]="getAppointmentPosition(appointment)"
+                  [class.cancelled]="appointment.estado === 'CANCELADA'"
+                  (click)="openAppointmentDetail(appointment)"
+                  [matTooltip]="appointment.motivo"
+                >
+                  <div class="appointment-content">
+                    <div class="appointment-time">
+                      {{ appointment.horaInicial }}
+                    </div>
+                    <div class="appointment-patient">
+                      {{ appointment.patientName }}
+                    </div>
+                    <div class="appointment-status" *ngIf="appointment.estado === 'CONFIRMADA'">
+                      <mat-icon class="status-icon">check_circle</mat-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
