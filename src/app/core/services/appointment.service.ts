@@ -39,7 +39,7 @@ export class AppointmentService {
     {
       id: 2,
       nombre: 'Karen',
-      apellido: 'Prueba',
+      apellido: 'La fea',
       color: '#E91E63',
       especialidades: ['Endodoncia', 'Periodoncia']
     },
@@ -114,7 +114,7 @@ export class AppointmentService {
       patientId: 2,
       patientName: 'Julieta Prueba',
       doctorId: 2,
-      doctorName: 'Karen Prueba',
+      doctorName: 'Karen la horrible',
       especialidad: 'Endodoncia',
       motivo: 'Tratamiento de conducto',
       duracion: 90,
@@ -150,7 +150,7 @@ export class AppointmentService {
       patientId: 2,
       patientName: 'Julieta Prueba',
       doctorId: 2,
-      doctorName: 'Karen Prueba',
+      doctorName: 'Karen la horrible',
       especialidad: 'Endodoncia',
       motivo: 'Seguimiento de conducto',
       duracion: 60,

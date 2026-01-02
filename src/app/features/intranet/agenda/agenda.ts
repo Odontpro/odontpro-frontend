@@ -83,8 +83,8 @@ export class Agenda implements OnInit {
   }
 
   initializeTimeSlots(): void {
-    // Generar slots de 9 AM a 6 PM
-    for (let hour = 9; hour <= 18; hour++) {
+    // Generar slots de 9 AM a 8 PM para mejor visualización
+    for (let hour = 9; hour <= 20; hour++) {
       const timeString = `${hour.toString().padStart(2, '0')}:00`;
       this.timeSlots.push({ time: timeString, hour });
     }
@@ -217,21 +217,26 @@ export class Agenda implements OnInit {
     const doctor = this.doctors.find(d => d.id === appointment.doctorId);
     const duration = appointment.duracion;
 
-    // Calcular altura basada en duración (60 minutos = 60px aproximadamente)
-    const height = (duration / 60) * 60;
+    // Calcular altura basada en duración (45px por hora)
+    const height = (duration / 60) * 45;
 
     return {
       'background-color': doctor?.color || '#9e9e9e',
-      'height.px': height,
-      'min-height.px': 40
+      'height.px': Math.max(height, 30),
+      'min-height.px': 30
     };
   }
 
   getAppointmentPosition(appointment: Appointment): any {
     const [hour, minute] = appointment.horaInicial.split(':').map(Number);
 
-    // Calcular posición top basada en los minutos
-    const topOffset = (minute / 60) * 60;
+    // Calcular la posición desde las 9:00 AM
+    const startHour = 9;
+    const hoursFromStart = hour - startHour;
+    const totalMinutesFromStart = (hoursFromStart * 60) + minute;
+
+    // 45px por hora = 0.75px por minuto
+    const topOffset = (totalMinutesFromStart / 60) * 45;
 
     return {
       'top.px': topOffset
