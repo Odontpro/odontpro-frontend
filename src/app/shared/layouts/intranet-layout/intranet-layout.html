@@ -35,20 +35,9 @@
         <span matListItemTitle>Libro de reclamaciones</span>
       </a>
 
-      <a mat-list-item routerLink="/intranet/usuarios" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+      <a *ngIf="role === 'ADMIN'" mat-list-item routerLink="/intranet/usuarios" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
         <mat-icon matListItemIcon>people</mat-icon>
         <span matListItemTitle>Usuarios</span>
-      </a>
-
-      <!-- SOLO ADMIN -->
-      <a
-        *ngIf="role === 'admin'"
-        mat-list-item
-        routerLink="/intranet/pacientes"
-        routerLinkActive="active-link"
-        (click)="closeSidenavOnMobile()">
-        <mat-icon matListItemIcon>people</mat-icon>
-        <span matListItemTitle>Pacientes</span>
       </a>
 
     </mat-nav-list>

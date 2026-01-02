@@ -63,6 +63,19 @@ export class CryptoService {
     }
   }
 
+  getUserRole(): string | null {
+    const encryptedUser = localStorage.getItem('odont-user');
+    if (!encryptedUser) return null;
+
+    try {
+      const decrypted = this.decrypt<{ token: string; user: User }>(encryptedUser);
+      return decrypted?.user.role ?? null;
+    } catch (error) {
+      console.error('Error al desencriptar usuario:', error);
+      return null;
+    }
+  }
+
   getCurrentUserId(): number | null {
     const encryptedUser = localStorage.getItem('odont-user');
     if (!encryptedUser) return null;

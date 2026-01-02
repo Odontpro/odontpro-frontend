@@ -7,6 +7,7 @@ import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
 import { RouterLink, RouterOutlet } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
+import {CryptoService} from '../../../core/services/crypto.service';
 
 @Component({
   selector: 'app-intranet-layout',
@@ -30,7 +31,7 @@ export class IntranetLayout {
   isMobile: boolean = false;
   isTablet: boolean = false;
 
-  constructor(private auth: AuthService) {
+  constructor(private auth: AuthService, private cryptoService: CryptoService) {
     this.checkScreenSize();
   }
 
@@ -46,11 +47,11 @@ export class IntranetLayout {
   }
 
   get user() {
-    return this.auth.currentUser;
+    return this.cryptoService.getCurrentUser();
   }
 
   get role(): string | null {
-    return this.auth.getRole();
+    return this.cryptoService.getUserRole();
   }
 
   get sidenavMode(): 'side' | 'over' {

@@ -18,7 +18,7 @@ export class RoleGuard implements CanActivate {
       return true;
     }
 
-    this.router.navigate(['/intranet/home']);
+    this.router.navigate(['/intranet/agenda']);
     return false;
   }
 }

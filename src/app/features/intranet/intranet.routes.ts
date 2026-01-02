@@ -1,5 +1,6 @@
 import {Routes} from '@angular/router';
 import {IntranetLayout} from '../../shared/layouts/intranet-layout/intranet-layout';
+import { RoleGuard} from '../../core/guards/role.guard';
 
 export const INTRANET_ROUTES: Routes = [
   {
@@ -23,6 +24,8 @@ export const INTRANET_ROUTES: Routes = [
       },
       {
         path: 'usuarios',
+        canActivate: [RoleGuard], // 1. Aplicamos la guard aquí
+        data: { roles: ['admin'] }, // 2. Definimos que solo el rol 'admin' puede entrar
         loadComponent: () =>
           import('./user-management/user-management')
             .then(m => m.UserManagement)
