@@ -1,85 +1,163 @@
-<mat-sidenav-container class="layout">
-
-  <!-- SIDEBAR -->
-  <mat-sidenav
-    #sidenav
-    [mode]="sidenavMode"
-    [opened]="sidenavOpened"
-    class="sidenav">
-
-    <mat-toolbar color="primary" class="sidenav-header">
+<div class="layout-container">
+  <!-- DESKTOP NAVBAR -->
+  <nav class="desktop-navbar" *ngIf="!isMobile">
+    <div class="navbar-left">
       <span class="logo-text">OdontPro</span>
-      <button
-        *ngIf="isMobile"
-        mat-icon-button
-        (click)="toggleSidenav()"
-        class="close-sidenav-btn">
-        <mat-icon>close</mat-icon>
-      </button>
-    </mat-toolbar>
 
-    <mat-nav-list>
+      <div class="nav-links">
+        <a mat-button routerLink="/intranet/home" routerLinkActive="active-nav-link">
+          <mat-icon>home</mat-icon>
+          <span>Home</span>
+        </a>
 
-      <a mat-list-item routerLink="/intranet/home" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
-        <mat-icon matListItemIcon>home</mat-icon>
-        <span matListItemTitle>Home</span>
-      </a>
+        <a mat-button routerLink="/intranet/agenda" routerLinkActive="active-nav-link">
+          <mat-icon>event</mat-icon>
+          <span>Agenda</span>
+        </a>
 
-      <a mat-list-item routerLink="/intranet/agenda" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
-        <mat-icon matListItemIcon>event</mat-icon>
-        <span matListItemTitle>Agenda</span>
-      </a>
+        <a mat-button routerLink="/intranet/libro-reclamaciones" routerLinkActive="active-nav-link">
+          <mat-icon>book</mat-icon>
+          <span>Reclamaciones</span>
+        </a>
 
-      <a mat-list-item routerLink="/intranet/libro-reclamaciones" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
-        <mat-icon matListItemIcon>book</mat-icon>
-        <span matListItemTitle>Libro de reclamaciones</span>
-      </a>
+        <a *ngIf="role === 'ADMIN'" mat-button routerLink="/intranet/usuarios" routerLinkActive="active-nav-link">
+          <mat-icon>people</mat-icon>
+          <span>Usuarios</span>
+        </a>
 
-      <a *ngIf="role === 'ADMIN'" mat-list-item routerLink="/intranet/usuarios" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
-        <mat-icon matListItemIcon>people</mat-icon>
-        <span matListItemTitle>Usuarios</span>
-      </a>
-
-    </mat-nav-list>
-  </mat-sidenav>
-
-  <!-- CONTENT -->
-  <mat-sidenav-content>
-
-    <!-- HEADER -->
-    <mat-toolbar color="primary" class="toolbar-container">
-      <!-- Botón de menú hamburguesa (solo móvil) -->
-      <button
-        *ngIf="isMobile"
-        mat-icon-button
-        (click)="toggleSidenav()"
-        class="menu-toggle">
-        <mat-icon>menu</mat-icon>
-      </button>
-
-      <span class="toolbar-title" *ngIf="isMobile">OdontPro</span>
-
-      <span class="spacer"></span>
-
-      <div class="user-actions">
-        <span class="user-name" [class.hide-on-mobile]="isMobile">
-          {{ user?.firstName }} <span class="user-role">({{ role }})</span>
-        </span>
-        <button
-          mat-icon-button
-          (click)="logout()"
-          matTooltip="Cerrar sesión"
-          class="logout-btn">
-          <mat-icon>logout</mat-icon>
-        </button>
       </div>
-    </mat-toolbar>
-
-    <!-- VIEW -->
-    <div class="content">
-      <router-outlet></router-outlet>
     </div>
 
-  </mat-sidenav-content>
+    <div class="navbar-right">
+      <div class="search-container">
+        <mat-icon class="search-icon">search</mat-icon>
+        <input
+          type="text"
+          class="search-input"
+          placeholder="Buscar paciente"
+          (input)="onSearch($event)"
+        />
+      </div>
 
-</mat-sidenav-container>
+      <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+        <mat-icon>settings</mat-icon>
+      </button>
+
+      <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
+        <mat-icon>account_circle</mat-icon>
+      </button>
+
+      <mat-menu #userMenu="matMenu">
+        <div class="user-menu-header">
+          <div class="user-info">
+            <strong>{{ user?.firstName }} {{ user?.lastName }}</strong>
+            <span class="user-role-badge">{{ role }}</span>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <button mat-menu-item (click)="logout()">
+          <mat-icon>logout</mat-icon>
+          <span>Cerrar sesión</span>
+        </button>
+      </mat-menu>
+
+      <mat-menu #settingsMenu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>settings</mat-icon>
+          <span>Configuración</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>help</mat-icon>
+          <span>Ayuda</span>
+        </button>
+      </mat-menu>
+    </div>
+  </nav>
+
+  <!-- MOBILE SIDEBAR -->
+  <mat-sidenav-container class="mobile-layout" *ngIf="isMobile">
+    <mat-sidenav
+      #sidenav
+      mode="over"
+      class="mobile-sidenav">
+
+      <mat-toolbar color="primary" class="sidenav-header">
+        <span class="logo-text">OdontPro</span>
+        <button
+          mat-icon-button
+          (click)="toggleSidenav()"
+          class="close-sidenav-btn">
+          <mat-icon>close</mat-icon>
+        </button>
+      </mat-toolbar>
+
+      <mat-nav-list>
+        <a mat-list-item routerLink="/intranet/home" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+          <mat-icon matListItemIcon>home</mat-icon>
+          <span matListItemTitle>Home</span>
+        </a>
+
+        <a mat-list-item routerLink="/intranet/agenda" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+          <mat-icon matListItemIcon>event</mat-icon>
+          <span matListItemTitle>Agenda</span>
+        </a>
+
+        <a mat-list-item routerLink="/intranet/pacientes" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+          <mat-icon matListItemIcon>groups</mat-icon>
+          <span matListItemTitle>Pacientes</span>
+        </a>
+
+        <a mat-list-item routerLink="/intranet/libro-reclamaciones" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+          <mat-icon matListItemIcon>book</mat-icon>
+          <span matListItemTitle>Libro de reclamaciones</span>
+        </a>
+
+        <a *ngIf="role === 'ADMIN'" mat-list-item routerLink="/intranet/usuarios" routerLinkActive="active-link" (click)="closeSidenavOnMobile()">
+          <mat-icon matListItemIcon>people</mat-icon>
+          <span matListItemTitle>Usuarios</span>
+        </a>
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+      <!-- MOBILE HEADER -->
+      <mat-toolbar color="primary" class="mobile-toolbar">
+        <button
+          mat-icon-button
+          (click)="toggleSidenav()"
+          class="menu-toggle">
+          <mat-icon>menu</mat-icon>
+        </button>
+
+        <span class="toolbar-title">OdontPro</span>
+
+        <span class="spacer"></span>
+
+        <button mat-icon-button [matMenuTriggerFor]="mobileUserMenu">
+          <mat-icon>account_circle</mat-icon>
+        </button>
+
+        <mat-menu #mobileUserMenu="matMenu">
+          <div class="user-menu-header">
+            <strong>{{ user?.firstName }}</strong>
+            <span class="user-role-badge">{{ role }}</span>
+          </div>
+          <mat-divider></mat-divider>
+          <button mat-menu-item (click)="logout()">
+            <mat-icon>logout</mat-icon>
+            <span>Cerrar sesión</span>
+          </button>
+        </mat-menu>
+      </mat-toolbar>
+
+      <div class="content">
+        <router-outlet></router-outlet>
+      </div>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+
+  <!-- DESKTOP CONTENT -->
+  <div class="desktop-content" *ngIf="!isMobile">
+    <router-outlet></router-outlet>
+  </div>
+</div>

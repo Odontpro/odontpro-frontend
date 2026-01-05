@@ -5,9 +5,13 @@ import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import { MatListModule } from '@angular/material/list';
 import { MatIconModule } from '@angular/material/icon';
-import { RouterLink, RouterOutlet } from '@angular/router';
+import { MatMenuModule } from '@angular/material/menu';
+import { MatDividerModule } from '@angular/material/divider';
+import { MatBadgeModule } from '@angular/material/badge';
+import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
-import {CryptoService} from '../../../core/services/crypto.service';
+import { CryptoService } from '../../../core/services/crypto.service';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-intranet-layout',
@@ -18,9 +22,14 @@ import {CryptoService} from '../../../core/services/crypto.service';
     MatToolbarModule,
     MatListModule,
     MatIconModule,
+    MatMenuModule,
+    MatDividerModule,
+    MatBadgeModule,
     RouterOutlet,
     MatButtonModule,
-    RouterLink
+    RouterLink,
+    RouterLinkActive,
+    FormsModule
   ],
   templateUrl: './intranet-layout.html',
   styleUrl: './intranet-layout.css',
@@ -42,7 +51,7 @@ export class IntranetLayout {
 
   private checkScreenSize() {
     const width = window.innerWidth;
-    this.isMobile = width < 768;
+    this.isMobile = width < 1024; // Cambié a 1024 para que el navbar se muestre desde tablet en adelante
     this.isTablet = width >= 768 && width < 1024;
   }
 
@@ -52,14 +61,6 @@ export class IntranetLayout {
 
   get role(): string | null {
     return this.cryptoService.getUserRole();
-  }
-
-  get sidenavMode(): 'side' | 'over' {
-    return this.isMobile ? 'over' : 'side';
-  }
-
-  get sidenavOpened(): boolean {
-    return !this.isMobile;
   }
 
   toggleSidenav() {
@@ -72,6 +73,11 @@ export class IntranetLayout {
     if (this.isMobile && this.sidenav) {
       this.sidenav.close();
     }
+  }
+
+  onSearch(event: Event) {
+    const query = (event.target as HTMLInputElement).value;
+    console.log('Búsqueda:', query);
   }
 
   logout(): void {

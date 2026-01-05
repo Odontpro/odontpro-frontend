@@ -25,7 +25,7 @@ export const INTRANET_ROUTES: Routes = [
       {
         path: 'usuarios',
         canActivate: [RoleGuard], // 1. Aplicamos la guard aquí
-        data: { roles: ['admin'] }, // 2. Definimos que solo el rol 'admin' puede entrar
+        data: { roles: ['ADMIN'] }, // 2. Definimos que solo el rol 'admin' puede entrar
         loadComponent: () =>
           import('./user-management/user-management')
             .then(m => m.UserManagement)
