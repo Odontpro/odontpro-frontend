@@ -7,7 +7,7 @@
       <!-- Header -->
       <div class="agenda-header">
         <div class="header-left">
-          <button mat-icon-button class="nav-button" (click)="previousWeek()">
+          <button mat-icon-button class="nav-button" (click)="decrementView()">
             <mat-icon>chevron_left</mat-icon>
           </button>
 
@@ -15,12 +15,12 @@
             Hoy
           </button>
 
-          <button mat-icon-button class="nav-button" (click)="nextWeek()">
+          <button mat-icon-button class="nav-button" (click)="incrementView()">
             <mat-icon>chevron_right</mat-icon>
           </button>
 
           <div class="date-range">
-            <span class="range-text">{{ getWeekRange() }}</span>
+            <span class="range-text">{{ getRangeLabel() }}</span>
           </div>
         </div>
 

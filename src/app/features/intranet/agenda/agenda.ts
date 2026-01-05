@@ -11,7 +11,6 @@ import { AppointmentService } from '../../../core/services/appointment.service';
 import {
   Appointment,
   Doctor,
-  AppointmentFilters
 } from '../../../shared/models/appointment.model';
 import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
 import {FormsModule} from '@angular/forms';
@@ -20,10 +19,12 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import {
   CalendarEvent,
   CalendarView,
-  CalendarEventTimesChangedEvent,
-  CalendarUtils,
-  CalendarDatePipe
 } from 'angular-calendar';
+import {
+  addDays, subDays,
+  addWeeks, subWeeks,
+  addMonths, subMonths
+} from 'date-fns';
 import { Subject } from 'rxjs';
 import { startOfWeek, endOfWeek, format } from 'date-fns';
 import { es } from 'date-fns/locale'; // Para fechas en español
@@ -196,8 +197,41 @@ export class Agenda implements OnInit {
     });
   }
 
-  previousWeek() { this.viewDate = new Date(this.viewDate.setDate(this.viewDate.getDate() - 7)); }
-  nextWeek() { this.viewDate = new Date(this.viewDate.setDate(this.viewDate.getDate() + 7)); }
+  incrementView(): void {
+    if (this.view === CalendarView.Day) {
+      this.viewDate = addDays(this.viewDate, 1);
+    } else if (this.view === CalendarView.Week) {
+      this.viewDate = addWeeks(this.viewDate, 1);
+    } else if (this.view === CalendarView.Month) {
+      this.viewDate = addMonths(this.viewDate, 1);
+    }
+    this.refresh.next(); // Forzar actualización del calendario
+  }
+
+  decrementView(): void {
+    if (this.view === CalendarView.Day) {
+      this.viewDate = subDays(this.viewDate, 1);
+    } else if (this.view === CalendarView.Week) {
+      this.viewDate = subWeeks(this.viewDate, 1);
+    } else if (this.view === CalendarView.Month) {
+      this.viewDate = subMonths(this.viewDate, 1);
+    }
+    this.refresh.next();
+  }
+
+  getRangeLabel(): string {
+    if (this.view === CalendarView.Day) {
+      return format(this.viewDate, "dd 'de' MMMM yyyy", { locale: es });
+    } else if (this.view === CalendarView.Week) {
+      const start = startOfWeek(this.viewDate, { weekStartsOn: 1 });
+      const end = endOfWeek(this.viewDate, { weekStartsOn: 1 });
+      return `${format(start, 'dd MMM')} - ${format(end, 'dd MMM yyyy', { locale: es })}`;
+    } else {
+      // Modo Mes: "Enero 2026"
+      return format(this.viewDate, 'MMMM yyyy', { locale: es });
+    }
+  }
+
   goToToday() { this.viewDate = new Date(); }
 
   toggleDoctorFilter(doctorId: number): void {
