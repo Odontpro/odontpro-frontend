@@ -76,6 +76,7 @@ export class Agenda implements OnInit {
   allAppointments: Appointment[] = [];
   selectedStatus: string = 'TODOS';
   viewMode: 'week' | 'day' = 'week';
+  isSidebarVisible: boolean = true;
 
   statusOptions = [
     { value: 'TODOS', label: 'Todos' },
@@ -117,6 +118,28 @@ export class Agenda implements OnInit {
     });
   }
 
+  changeView(view: CalendarView) {
+    this.view = view;
+  }
+
+  getViewLabel(): string {
+    switch (this.view) {
+      case CalendarView.Month: return 'Mes';
+      case CalendarView.Week: return 'Por semana';
+      case CalendarView.Day: return 'Día';
+      default: return 'Vista';
+    }
+  }
+
+  getViewIcon(): string {
+    switch (this.view) {
+      case CalendarView.Month: return 'calendar_month';
+      case CalendarView.Week: return 'view_week';
+      case CalendarView.Day: return 'calendar_view_day';
+      default: return 'grid_view';
+    }
+  }
+
   filterAndMapEvents(): void {
     const filtered = this.allAppointments.filter(app => {
       const matchDoctor = this.selectedDoctors.length === 0 || this.selectedDoctors.includes(app.doctorId);
@@ -148,7 +171,7 @@ export class Agenda implements OnInit {
           beforeStart: true,
           afterEnd: true,
         },
-        draggable: true
+        draggable: false
       };
     });
 

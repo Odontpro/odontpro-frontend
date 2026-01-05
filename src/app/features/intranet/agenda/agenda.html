@@ -1,61 +1,72 @@
 <div class="agenda-container">
-  <!-- Header -->
-  <div class="agenda-header">
-    <div class="header-left">
-      <button mat-icon-button class="nav-button" (click)="previousWeek()">
-        <mat-icon>chevron_left</mat-icon>
-      </button>
 
-      <button mat-stroked-button class="today-button" (click)="goToToday()">
-        Hoy
-      </button>
-
-      <button mat-icon-button class="nav-button" (click)="nextWeek()">
-        <mat-icon>chevron_right</mat-icon>
-      </button>
-
-      <div class="date-range">
-        <span class="range-text">{{ getWeekRange() }}</span>
-      </div>
-    </div>
-
-    <div class="header-right">
-      <mat-form-field appearance="outline" class="filter-field">
-        <mat-label>Estado</mat-label>
-        <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusFilterChange()">
-          <mat-option *ngFor="let status of statusOptions" [value]="status.value">
-            {{ status.label }}
-          </mat-option>
-        </mat-select>
-      </mat-form-field>
-
-      <button mat-flat-button class="view-mode-button">
-        <mat-icon>view_week</mat-icon>
-        Por semana
-      </button>
-
-      <button mat-icon-button [matMenuTriggerFor]="settingsMenu" class="settings-button">
-        <mat-icon>settings</mat-icon>
-      </button>
-
-      <mat-menu #settingsMenu="matMenu">
-        <div class="menu-content" (click)="$event.stopPropagation()">
-          <div class="menu-header">Configuración</div>
-          <div class="menu-item">Vista</div>
-        </div>
-      </mat-menu>
-
-      <button mat-icon-button class="more-button">
-        <mat-icon>more_vert</mat-icon>
-      </button>
-    </div>
-  </div>
-
-  <!-- Doctor Filters Sidebar -->
   <div class="content-wrapper">
 
     <!-- Calendar Grid -->
     <div class="calendar-wrapper">
+      <!-- Header -->
+      <div class="agenda-header">
+        <div class="header-left">
+          <button mat-icon-button class="nav-button" (click)="previousWeek()">
+            <mat-icon>chevron_left</mat-icon>
+          </button>
+
+          <button mat-stroked-button class="today-button" (click)="goToToday()">
+            Hoy
+          </button>
+
+          <button mat-icon-button class="nav-button" (click)="nextWeek()">
+            <mat-icon>chevron_right</mat-icon>
+          </button>
+
+          <div class="date-range">
+            <span class="range-text">{{ getWeekRange() }}</span>
+          </div>
+        </div>
+
+        <div class="header-right">
+          <mat-form-field appearance="outline" class="filter-field">
+            <mat-label>Estado</mat-label>
+            <mat-select [(ngModel)]="selectedStatus" (selectionChange)="onStatusFilterChange()">
+              <mat-option *ngFor="let status of statusOptions" [value]="status.value">
+                {{ status.label }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <button mat-flat-button class="view-mode-button" [matMenuTriggerFor]="viewMenu">
+            <mat-icon>{{ getViewIcon() }}</mat-icon>
+            {{ getViewLabel() }}
+          </button>
+
+          <mat-menu #viewMenu="matMenu">
+            <button mat-menu-item (click)="changeView(CalendarView.Day)">
+              <mat-icon>calendar_view_day</mat-icon>
+              <span>Día</span>
+            </button>
+            <button mat-menu-item (click)="changeView(CalendarView.Week)">
+              <mat-icon>view_week</mat-icon>
+              <span>Semana</span>
+            </button>
+            <button mat-menu-item (click)="changeView(CalendarView.Month)">
+              <mat-icon>calendar_month</mat-icon>
+              <span>Mes</span>
+            </button>
+          </mat-menu>
+
+          <button mat-icon-button class="settings-button">
+            <mat-icon>settings</mat-icon>
+          </button>
+          <button mat-icon-button class="settings-button">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <button mat-icon-button (click)="isSidebarVisible = !isSidebarVisible" class="settings-button">
+            <mat-icon>{{ isSidebarVisible ? 'last_page' : 'first_page' }}</mat-icon>
+          </button>
+
+        </div>
+      </div>
       <ng-template #eventTemplate let-weekEvent="weekEvent" let-locale="locale">
         <div class="custom-event-card"
              [style.border-left-color]="getStatusColor(weekEvent.event.meta.appointment.estado)"
@@ -69,26 +80,50 @@
         </div>
       </ng-template>
 
-      <mwl-calendar-week-view
-        [viewDate]="viewDate"
-        [events]="events"
-        [refresh]="refresh"
-        [locale]="'es'"
-        [dayStartHour]="8"
-        [dayEndHour]="20"
-        [eventTemplate]="eventTemplate"
-        (eventClicked)="handleEventClick($event.event)">
-      </mwl-calendar-week-view>
+      <div [ngSwitch]="view">
+        <mwl-calendar-month-view
+          *ngSwitchCase="CalendarView.Month"
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="'es'"
+          [refresh]="refresh"
+          (eventClicked)="handleEventClick($event.event)">
+        </mwl-calendar-month-view>
+
+        <mwl-calendar-week-view
+          *ngSwitchCase="CalendarView.Week"
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="'es'"
+          [refresh]="refresh"
+          [dayStartHour]="8"
+          [dayEndHour]="20"
+          [eventTemplate]="eventTemplate"
+          (eventClicked)="handleEventClick($event.event)">
+        </mwl-calendar-week-view>
+
+        <mwl-calendar-day-view
+          *ngSwitchCase="CalendarView.Day"
+          [viewDate]="viewDate"
+          [events]="events"
+          [locale]="'es'"
+          [refresh]="refresh"
+          [hourSegments]="2"
+          [dayStartHour]="8"
+          [dayEndHour]="20"
+          (eventClicked)="handleEventClick($event.event)">
+        </mwl-calendar-day-view>
+      </div>
     </div>
 
 
-    <div class="doctors-sidebar">
-      <div class="sidebar-header">
+    <div class="doctors-sidebar" [class.collapsed]="!isSidebarVisible">
+      <div class="sidebar-header" *ngIf="isSidebarVisible">
         <mat-icon class="sidebar-icon">filter_list</mat-icon>
         <span>Todas las agendas</span>
       </div>
 
-      <div class="doctors-list">
+      <div class="doctors-list" *ngIf="isSidebarVisible">
         <div
           *ngFor="let doctor of doctors"
           class="doctor-item"
