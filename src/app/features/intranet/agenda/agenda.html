@@ -56,70 +56,29 @@
 
     <!-- Calendar Grid -->
     <div class="calendar-wrapper">
-      <div class="calendar-grid">
-        <!-- Header Row with Days -->
-        <div class="calendar-header-row">
-          <div class="time-column-header"></div>
-
-          <div
-            *ngFor="let day of calendarDays"
-            class="day-header"
-            [class.today]="day.isToday"
-          >
-            <div class="day-name">{{ day.dayName }}</div>
-            <div class="day-number" [class.today-number]="day.isToday">
-              {{ day.dayNumber }}
-            </div>
+      <ng-template #eventTemplate let-weekEvent="weekEvent" let-locale="locale">
+        <div class="custom-event-card"
+             [style.border-left-color]="getStatusColor(weekEvent.event.meta.appointment.estado)"
+             (click)="handleEventClick(weekEvent.event)">
+          <div class="event-title">
+            <strong>{{ weekEvent.event.title }}</strong>
+          </div>
+          <div class="event-subtitle">
+            {{ weekEvent.event.meta.appointment.motivo }}
           </div>
         </div>
+      </ng-template>
 
-        <!-- Time Slots and Appointments -->
-        <div class="calendar-body">
-          <div class="time-column">
-            <div *ngFor="let slot of timeSlots" class="time-slot">
-              <span class="time-label">{{ slot.time }}</span>
-            </div>
-          </div>
-
-          <div class="days-grid">
-            <div
-              *ngFor="let day of calendarDays"
-              class="day-column"
-              [class.today-column]="day.isToday"
-            >
-              <!-- Time slot backgrounds -->
-              <div *ngFor="let slot of timeSlots" class="time-slot-cell">
-                <!-- Grid line -->
-              </div>
-
-              <!-- Appointments -->
-              <div class="appointments-layer">
-                <div
-                  *ngFor="let appointment of day.appointments"
-                  class="appointment-card"
-                  [style]="getAppointmentStyle(appointment)"
-                  [ngStyle]="getAppointmentPosition(appointment)"
-                  [class.cancelled]="appointment.estado === 'CANCELADA'"
-                  (click)="openAppointmentDetail(appointment)"
-                  [matTooltip]="appointment.motivo"
-                >
-                  <div class="appointment-content">
-                    <div class="appointment-time">
-                      {{ appointment.horaInicial }}
-                    </div>
-                    <div class="appointment-patient">
-                      {{ appointment.patientName }}
-                    </div>
-                    <div class="appointment-status" *ngIf="appointment.estado === 'CONFIRMADA'">
-                      <mat-icon class="status-icon">check_circle</mat-icon>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <mwl-calendar-week-view
+        [viewDate]="viewDate"
+        [events]="events"
+        [refresh]="refresh"
+        [locale]="'es'"
+        [dayStartHour]="8"
+        [dayEndHour]="20"
+        [eventTemplate]="eventTemplate"
+        (eventClicked)="handleEventClick($event.event)">
+      </mwl-calendar-week-view>
     </div>
 
 

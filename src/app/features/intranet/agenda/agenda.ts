@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -15,19 +15,26 @@ import {
 } from '../../../shared/models/appointment.model';
 import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
 import {FormsModule} from '@angular/forms';
+import {CalendarModule, CalendarWeekViewComponent, DateAdapter, provideCalendar} from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+import {
+  CalendarEvent,
+  CalendarView,
+  CalendarEventTimesChangedEvent,
+  CalendarUtils,
+  CalendarDatePipe
+} from 'angular-calendar';
+import { Subject } from 'rxjs';
+import { startOfWeek, endOfWeek, format } from 'date-fns';
+import { es } from 'date-fns/locale'; // Para fechas en español
+import { addMinutes, parseISO, parse } from 'date-fns';
+import { registerLocaleData } from '@angular/common';
+import localeEs from '@angular/common/locales/es';
+import { LOCALE_ID } from '@angular/core';
 
-interface CalendarDay {
-  date: Date;
-  dayName: string;
-  dayNumber: number;
-  isToday: boolean;
-  appointments: Appointment[];
-}
+// Registramos los datos de localización para español
+registerLocaleData(localeEs);
 
-interface TimeSlot {
-  time: string;
-  hour: number;
-}
 @Component({
   selector: 'app-agenda',
   standalone: true,
@@ -40,22 +47,33 @@ interface TimeSlot {
     MatFormFieldModule,
     MatTooltipModule,
     MatMenuModule,
-    FormsModule
+    FormsModule,
+    CalendarWeekViewComponent,
+    CalendarModule
+  ],
+  providers: [
+    { provide: LOCALE_ID, useValue: 'es' }, // <--- Añade esto
+    provideCalendar({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
   ],
   templateUrl: './agenda.html',
   styleUrl: './agenda.css',
 })
 export class Agenda implements OnInit {
-  currentWeekStart: Date = new Date();
-  calendarDays: CalendarDay[] = [];
-  timeSlots: TimeSlot[] = [];
 
+  // Configuración del Calendario
+  view: CalendarView = CalendarView.Week;
+  CalendarView = CalendarView;
+  viewDate: Date = new Date();
+  refresh = new Subject<void>();
+
+  // Datos
+  events: CalendarEvent[] = [];
   doctors: Doctor[] = [];
-  selectedDoctors: number[] = []; // IDs de doctores seleccionados para filtrar
-
+  selectedDoctors: number[] = [];
   allAppointments: Appointment[] = [];
-
-  // Estados de filtro
   selectedStatus: string = 'TODOS';
   viewMode: 'week' | 'day' = 'week';
 
@@ -73,54 +91,11 @@ export class Agenda implements OnInit {
     private appointmentService: AppointmentService,
     private dialog: MatDialog
   ) {
-    this.initializeTimeSlots();
-    this.setCurrentWeek();
   }
 
   ngOnInit(): void {
     this.loadDoctors();
     this.loadAppointments();
-  }
-
-  initializeTimeSlots(): void {
-    // Generar slots de 9 AM a 8 PM para mejor visualización
-    for (let hour = 9; hour <= 20; hour++) {
-      const timeString = `${hour.toString().padStart(2, '0')}:00`;
-      this.timeSlots.push({ time: timeString, hour });
-    }
-  }
-
-  setCurrentWeek(): void {
-    const today = new Date();
-    const dayOfWeek = today.getDay();
-    // Ajustar para que la semana empiece en lunes
-    const diff = dayOfWeek === 0 ? -6 : 1 - dayOfWeek;
-
-    this.currentWeekStart = new Date(today);
-    this.currentWeekStart.setDate(today.getDate() + diff);
-    this.currentWeekStart.setHours(0, 0, 0, 0);
-
-    this.generateCalendarDays();
-  }
-
-  generateCalendarDays(): void {
-    this.calendarDays = [];
-    const dayNames = ['Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
-    const today = new Date();
-    today.setHours(0, 0, 0, 0);
-
-    for (let i = 0; i < 6; i++) { // Lunes a Sábado
-      const date = new Date(this.currentWeekStart);
-      date.setDate(this.currentWeekStart.getDate() + i);
-
-      this.calendarDays.push({
-        date: date,
-        dayName: dayNames[i],
-        dayNumber: date.getDate(),
-        isToday: date.getTime() === today.getTime(),
-        appointments: []
-      });
-    }
   }
 
   loadDoctors(): void {
@@ -134,125 +109,91 @@ export class Agenda implements OnInit {
   }
 
   loadAppointments(): void {
-    const filters: AppointmentFilters = {
-      fechaInicio: this.formatDate(this.calendarDays[0].date),
-      fechaFin: this.formatDate(this.calendarDays[this.calendarDays.length - 1].date)
-    };
-
-    if (this.selectedStatus !== 'TODOS') {
-      filters.estado = this.selectedStatus as any;
-    }
-
-    this.appointmentService.getAppointments(filters).subscribe({
+    this.appointmentService.getAppointments().subscribe({
       next: (appointments) => {
         this.allAppointments = appointments;
-        this.distributeAppointments();
-        console.log(this.allAppointments);
+        this.filterAndMapEvents();
       }
     });
   }
 
-  distributeAppointments(): void {
-    // Limpiar appointments actuales
-    this.calendarDays.forEach(day => day.appointments = []);
+  filterAndMapEvents(): void {
+    const filtered = this.allAppointments.filter(app => {
+      const matchDoctor = this.selectedDoctors.length === 0 || this.selectedDoctors.includes(app.doctorId);
+      const matchStatus = this.selectedStatus === 'TODOS' || app.estado === this.selectedStatus;
+      return matchDoctor && matchStatus;
+    });
 
-    // Filtrar por doctores seleccionados
-    const filteredAppointments = this.allAppointments.filter(app =>
-      this.selectedDoctors.includes(app.doctorId)
-    );
+    this.events = filtered.map(app => {
+      // 1. Combinamos Fecha y Hora Inicial
+      // Asumimos que app.fecha es "2026-01-05" y app.horaInicial es "09:00"
+      const start = parse(`${app.fecha} ${app.horaInicial}`, 'yyyy-MM-dd HH:mm', new Date());
 
-    // Distribuir citas en los días correspondientes
-    filteredAppointments.forEach(appointment => {
-      const appointmentDate = new Date(appointment.fecha);
-      appointmentDate.setHours(0, 0, 0, 0);
+      // 2. Calculamos la hora final sumando la duración en minutos
+      const end = addMinutes(start, app.duracion);
 
-      const day = this.calendarDays.find(d =>
-        d.date.getTime() === appointmentDate.getTime()
-      );
+      return {
+        start: start,
+        end: end,
+        title: app.patientName,
+        // Usamos el color del doctor para el evento
+        color: {
+          primary: this.getDoctorColor(app.doctorId),
+          secondary: '#E3F2FD'
+        },
+        // Pasamos TODO el objeto para tener acceso al historial y notas en el Dialog
+        meta: { appointment: app },
+        // Configuraciones de UX adicionales
+        resizable: {
+          beforeStart: true,
+          afterEnd: true,
+        },
+        draggable: true
+      };
+    });
 
-      if (day) {
-        day.appointments.push(appointment);
-      }
+    this.refresh.next();
+  }
+
+
+  getWeekRange(): string {
+    const start = startOfWeek(this.viewDate, { weekStartsOn: 1 });
+    const end = endOfWeek(this.viewDate, { weekStartsOn: 1 });
+    return `${format(start, 'dd MMM')} - ${format(end, 'dd MMM yyyy', { locale: es })}`;
+  }
+
+  handleEventClick(event: CalendarEvent): void {
+    this.openPatientDetail(event.meta.appointment);
+  }
+
+  openPatientDetail(appointment: Appointment): void {
+    this.dialog.open(PatientDetailDialog, {
+      data: { appointment },
+      width: '500px'
     });
   }
 
-  previousWeek(): void {
-    this.currentWeekStart.setDate(this.currentWeekStart.getDate() - 7);
-    this.generateCalendarDays();
-    this.loadAppointments();
-  }
-
-  nextWeek(): void {
-    this.currentWeekStart.setDate(this.currentWeekStart.getDate() + 7);
-    this.generateCalendarDays();
-    this.loadAppointments();
-  }
-
-  goToToday(): void {
-    this.setCurrentWeek();
-    this.loadAppointments();
-  }
+  previousWeek() { this.viewDate = new Date(this.viewDate.setDate(this.viewDate.getDate() - 7)); }
+  nextWeek() { this.viewDate = new Date(this.viewDate.setDate(this.viewDate.getDate() + 7)); }
+  goToToday() { this.viewDate = new Date(); }
 
   toggleDoctorFilter(doctorId: number): void {
     const index = this.selectedDoctors.indexOf(doctorId);
+
     if (index > -1) {
+      // Si ya estaba, lo quitamos (desmarcar)
       this.selectedDoctors.splice(index, 1);
     } else {
+      // Si no estaba, lo agregamos (marcar)
       this.selectedDoctors.push(doctorId);
     }
-    this.distributeAppointments();
+
+    // Crucial: Volvemos a filtrar los eventos y refrescamos la vista
+    this.filterAndMapEvents();
   }
 
   onStatusFilterChange(): void {
     this.loadAppointments();
-  }
-
-  getAppointmentsForTimeSlot(day: CalendarDay, timeSlot: TimeSlot): Appointment[] {
-    return day.appointments.filter(app => {
-      const [hour, minute] = app.horaInicial.split(':').map(Number);
-      return hour === timeSlot.hour;
-    });
-  }
-
-  getAppointmentStyle(appointment: Appointment): any {
-    const doctor = this.doctors.find(d => d.id === appointment.doctorId);
-    const duration = appointment.duracion;
-
-    // Calcular altura basada en duración (45px por hora)
-    const height = (duration / 60) * 45;
-
-    return {
-      'background-color': doctor?.color || '#9e9e9e',
-      'height.px': Math.max(height, 30),
-      'min-height.px': 30
-    };
-  }
-
-  getAppointmentPosition(appointment: Appointment): any {
-    const [hour, minute] = appointment.horaInicial.split(':').map(Number);
-
-    // Calcular la posición desde las 9:00 AM
-    const startHour = 9;
-    const hoursFromStart = hour - startHour;
-    const totalMinutesFromStart = (hoursFromStart * 60) + minute;
-
-    // 45px por hora = 0.75px por minuto
-    const topOffset = (totalMinutesFromStart / 60) * 45;
-
-    return {
-      'top.px': topOffset
-    };
-  }
-
-  openAppointmentDetail(appointment: Appointment): void {
-    this.dialog.open(PatientDetailDialog, {
-      data: {
-        patientId: appointment.patientId,
-        appointment: appointment
-      },
-      width: '600px',
-      autoFocus: false
-    });
   }
 
   formatDate(date: Date): string {
@@ -260,17 +201,6 @@ export class Agenda implements OnInit {
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const day = String(date.getDate()).padStart(2, '0');
     return `${year}-${month}-${day}`;
-  }
-
-  getWeekRange(): string {
-    const start = this.calendarDays[0];
-    const end = this.calendarDays[this.calendarDays.length - 1];
-
-    const startMonth = start.date.toLocaleDateString('es-ES', { month: 'short' });
-    const endMonth = end.date.toLocaleDateString('es-ES', { month: 'short' });
-    const year = start.date.getFullYear();
-
-    return `${start.dayNumber} ${startMonth} - ${end.dayNumber} ${endMonth} ${year}`;
   }
 
   getDoctorColor(doctorId: number): string {
