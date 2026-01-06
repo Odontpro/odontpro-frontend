@@ -8,23 +8,13 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService } from '../../../core/services/appointment.service';
-import {
-  Appointment,
-  Doctor,
-} from '../../../shared/models/appointment.model';
+import { Appointment, Doctor } from '../../../shared/models/appointment.model';
 import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule, CalendarWeekViewComponent, DateAdapter, provideCalendar} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
-import {
-  CalendarEvent,
-  CalendarView,
-} from 'angular-calendar';
-import {
-  addDays, subDays,
-  addWeeks, subWeeks,
-  addMonths, subMonths
-} from 'date-fns';
+import { CalendarEvent, CalendarView, } from 'angular-calendar';
+import { addDays, subDays, addWeeks, subWeeks, addMonths, subMonths } from 'date-fns';
 import { Subject } from 'rxjs';
 import { startOfWeek, endOfWeek, format } from 'date-fns';
 import { es } from 'date-fns/locale'; // Para fechas en español
@@ -32,6 +22,10 @@ import { addMinutes, parseISO, parse } from 'date-fns';
 import { registerLocaleData } from '@angular/common';
 import localeEs from '@angular/common/locales/es';
 import { LOCALE_ID } from '@angular/core';
+import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/material/datepicker';
+import {MatInput} from '@angular/material/input';
+import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
+import { MAT_DATE_LOCALE } from '@angular/material/core';
 
 // Registramos los datos de localización para español
 registerLocaleData(localeEs);
@@ -50,14 +44,21 @@ registerLocaleData(localeEs);
     MatMenuModule,
     FormsModule,
     CalendarWeekViewComponent,
-    CalendarModule
+    CalendarModule,
+    MatInput,
+    MatDatepickerInput,
+    MatDatepicker,
+    MatDatepickerModule,
   ],
   providers: [
+    provideDateFnsAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: es },
     { provide: LOCALE_ID, useValue: 'es' }, // <--- Añade esto
     provideCalendar({
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+
   ],
   templateUrl: './agenda.html',
   styleUrl: './agenda.css',
@@ -76,7 +77,6 @@ export class Agenda implements OnInit {
   selectedDoctors: number[] = [];
   allAppointments: Appointment[] = [];
   selectedStatus: string = 'TODOS';
-  viewMode: 'week' | 'day' = 'week';
   isSidebarVisible: boolean = true;
 
   statusOptions = [
@@ -179,11 +179,11 @@ export class Agenda implements OnInit {
     this.refresh.next();
   }
 
-
-  getWeekRange(): string {
-    const start = startOfWeek(this.viewDate, { weekStartsOn: 1 });
-    const end = endOfWeek(this.viewDate, { weekStartsOn: 1 });
-    return `${format(start, 'dd MMM')} - ${format(end, 'dd MMM yyyy', { locale: es })}`;
+  onDatePicked(newDate: Date | null): void {
+    if (newDate) {
+      this.viewDate = newDate;
+      this.refresh.next();
+    }
   }
 
   handleEventClick(event: CalendarEvent): void {
@@ -251,13 +251,6 @@ export class Agenda implements OnInit {
 
   onStatusFilterChange(): void {
     this.loadAppointments();
-  }
-
-  formatDate(date: Date): string {
-    const year = date.getFullYear();
-    const month = String(date.getMonth() + 1).padStart(2, '0');
-    const day = String(date.getDate()).padStart(2, '0');
-    return `${year}-${month}-${day}`;
   }
 
   getDoctorColor(doctorId: number): string {

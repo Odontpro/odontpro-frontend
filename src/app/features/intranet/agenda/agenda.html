@@ -11,12 +11,28 @@
             <mat-icon>chevron_left</mat-icon>
           </button>
 
-          <button mat-stroked-button class="today-button" (click)="goToToday()">
-            Hoy
-          </button>
+          <div class="datepicker-trigger-container">
+            <button mat-icon-button class="nav-button" (click)="picker.open()">
+              <mat-icon>calendar_today</mat-icon>
+            </button>
+
+            <input
+              matInput
+              [matDatepicker]="picker"
+              [(ngModel)]="viewDate"
+              (dateChange)="onDatePicked($event.value)"
+              class="hidden-input"
+              #dateInput>
+
+            <mat-datepicker #picker [touchUi]="false"></mat-datepicker>
+          </div>
 
           <button mat-icon-button class="nav-button" (click)="incrementView()">
             <mat-icon>chevron_right</mat-icon>
+          </button>
+
+          <button mat-stroked-button class="today-button" (click)="goToToday()">
+            Hoy
           </button>
 
           <div class="date-range">
