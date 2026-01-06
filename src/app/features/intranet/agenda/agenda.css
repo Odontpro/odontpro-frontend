@@ -175,57 +175,56 @@
   align-items: center;
 }
 
-.view-mode-button {
-  display: inline-flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  background-color: transparent !important;
-  color: #7dc0bf !important;
-  gap: 6px !important;
-  border: none !important;
-}
-
-.view-label-text {
-  order: 2 !important;
-  font-weight: 500;
-}
-
-.view-icon-end {
-  order: 3 !important;
-  display: flex !important;
+/* Contenedor del grupo */
+.view-toggle-group {
+  border: 1px solid rgba(125, 192, 191, 0.5) !important;
+  height: 32px;
   align-items: center;
-  margin-top: 2px; /* Ajuste para centrar el triángulo */
+  background-color: transparent !important;
+  border-radius: 8px !important;
+  overflow: hidden;
 }
 
-/* Estilo común para los iconos turquesas */
-.view-mode-button mat-icon {
-  color: #7dc0bf !important;
-  width: 20px !important;
-  height: 20px !important;
-  font-size: 20px !important;
+/* Estilo individual de cada botón */
+/* Contenedor principal */
+.view-toggle-group {
+  border: 1px solid #7dc0bf !important;
+  height: 34px;
+  border-radius: 8px !important;
+  background-color: white !important;
+  overflow: hidden;
 }
 
-.view-label {
-  font-size: 14px;
-  font-weight: 500;
-  margin: 0 4px; /* Un poco de aire alrededor del texto */
+/* Botón en estado normal (No seleccionado) */
+.view-toggle-group mat-button-toggle {
+  color: #5ba3a2 !important; /* Un tono más oscuro del turquesa para lectura */
+  font-weight: 600;
+  width: 42px;
+  border-left: 1.5px solid rgba(125, 192, 191, 1) !important;
 }
 
-.dropdown-arrow {
-  margin-top: 2px; /* Pequeño ajuste visual para centrar el triángulo */
+.view-toggle-group mat-button-toggle:first-child {
+  border-left: none !important;
 }
 
-/* Color de los iconos y texto dentro del Menú Desplegable */
-::ng-deep .custom-view-menu .mat-mdc-menu-item .mat-icon,
-::ng-deep .custom-view-menu .mat-mdc-menu-item span {
-  color: #444444; /* Color base */
+/* Botón seleccionado (Checked) */
+.view-toggle-group .mat-button-toggle-checked {
+  background-color: rgba(125, 192, 191, 0.2) !important; /* Fondo turquesa muy claro, tipo Doctocliq */
+  color: #62a6a5 !important; /* Texto verde oscuro/turquesa fuerte */
 }
 
-/* Color cuando pasas el mouse o está seleccionado */
-::ng-deep .custom-view-menu .mat-mdc-menu-item:hover .mat-icon,
-::ng-deep .custom-view-menu .mat-mdc-menu-item:hover span {
-  color: #7dc0bf !important;
+/* Eliminar el círculo de enfoque/hover gris que pone Material */
+::ng-deep .view-toggle-group .mat-button-toggle-focus-overlay {
+  display: none !important;
 }
+
+/* Opcional: Si prefieres que el seleccionado sea sólido turquesa con texto blanco */
+/*
+.view-toggle-group .mat-button-toggle-checked {
+  background-color: #7dc0bf !important;
+  color: white !important;
+}
+*/
 
 .settings-button{
   display: flex;

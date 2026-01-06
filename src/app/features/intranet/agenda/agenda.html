@@ -50,27 +50,15 @@
             </mat-select>
           </mat-form-field>
 
-          <button mat-flat-button class="view-mode-button" [matMenuTriggerFor]="viewMenu">
-
-            <span class="view-label-text">{{ getViewLabel() }}</span>
-
-            <mat-icon class="view-icon-end">arrow_drop_down</mat-icon>
-          </button>
-
-          <mat-menu #viewMenu="matMenu" class="custom-view-menu">
-            <button mat-menu-item (click)="changeView(CalendarView.Day)">
-              <mat-icon>view_day</mat-icon>
-              <span>Día</span>
-            </button>
-            <button mat-menu-item (click)="changeView(CalendarView.Week)">
-              <mat-icon>view_week</mat-icon>
-              <span>Semana</span>
-            </button>
-            <button mat-menu-item (click)="changeView(CalendarView.Month)">
-              <mat-icon>calendar_month</mat-icon>
-              <span>Mes</span>
-            </button>
-          </mat-menu>
+          <mat-button-toggle-group
+            [value]="view"
+            (change)="changeView($event.value)"
+            [hideSingleSelectionIndicator]="true"
+            class="view-toggle-group">
+            <mat-button-toggle [value]="CalendarView.Week">S</mat-button-toggle>
+            <mat-button-toggle [value]="CalendarView.Day">D</mat-button-toggle>
+            <mat-button-toggle [value]="CalendarView.Month">M</mat-button-toggle>
+          </mat-button-toggle-group>
 
           <button mat-icon-button class="settings-button">
             <mat-icon>settings</mat-icon>

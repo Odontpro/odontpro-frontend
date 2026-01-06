@@ -1,4 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -26,6 +26,8 @@ import {MatDatepicker, MatDatepickerInput, MatDatepickerModule} from '@angular/m
 import {MatInput} from '@angular/material/input';
 import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
+import {MatButtonToggleModule} from '@angular/material/button-toggle';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 // Registramos los datos de localización para español
 registerLocaleData(localeEs);
@@ -49,7 +51,10 @@ registerLocaleData(localeEs);
     MatDatepickerInput,
     MatDatepicker,
     MatDatepickerModule,
+    MatButtonToggleModule,
+    MatCheckboxModule
   ],
+  changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
     provideDateFnsAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: es },
@@ -121,15 +126,6 @@ export class Agenda implements OnInit {
 
   changeView(view: CalendarView) {
     this.view = view;
-  }
-
-  getViewLabel(): string {
-    switch (this.view) {
-      case CalendarView.Month: return 'Mes';
-      case CalendarView.Week: return 'Semana';
-      case CalendarView.Day: return 'Día';
-      default: return 'Vista';
-    }
   }
 
   filterAndMapEvents(): void {
