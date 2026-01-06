@@ -10,9 +10,8 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 16px 0;
+  padding: 20px 0 16px 0;
   color: #7dc0bf;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .header-left {
@@ -177,13 +176,60 @@
 }
 
 .view-mode-button {
-  background-color: rgba(255, 255, 255, 0.9) !important;
+  display: inline-flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  background-color: transparent !important;
   color: #7dc0bf !important;
+  gap: 6px !important;
+  border: none !important;
+}
+
+.view-label-text {
+  order: 2 !important;
   font-weight: 500;
 }
 
-.view-mode-button:hover {
-  background-color: rgba(0, 0, 0, 0.07) !important;
+.view-icon-end {
+  order: 3 !important;
+  display: flex !important;
+  align-items: center;
+  margin-top: 2px; /* Ajuste para centrar el triángulo */
+}
+
+/* Estilo común para los iconos turquesas */
+.view-mode-button mat-icon {
+  color: #7dc0bf !important;
+  width: 20px !important;
+  height: 20px !important;
+  font-size: 20px !important;
+}
+
+.view-label {
+  font-size: 14px;
+  font-weight: 500;
+  margin: 0 4px; /* Un poco de aire alrededor del texto */
+}
+
+.dropdown-arrow {
+  margin-top: 2px; /* Pequeño ajuste visual para centrar el triángulo */
+}
+
+/* Color de los iconos y texto dentro del Menú Desplegable */
+::ng-deep .custom-view-menu .mat-mdc-menu-item .mat-icon,
+::ng-deep .custom-view-menu .mat-mdc-menu-item span {
+  color: #444444; /* Color base */
+}
+
+/* Color cuando pasas el mouse o está seleccionado */
+::ng-deep .custom-view-menu .mat-mdc-menu-item:hover .mat-icon,
+::ng-deep .custom-view-menu .mat-mdc-menu-item:hover span {
+  color: #7dc0bf !important;
+}
+
+.settings-button{
+  display: flex;
+  align-items: center;
 }
 
 .settings-button,
@@ -300,7 +346,7 @@
   flex: 1;
   overflow-y: auto;
   background-color: white;
-  padding: 10px;
+  padding: 0 10px;
 }
 
 /* Tarjeta de cita personalizada */
@@ -323,6 +369,21 @@
   overflow: hidden;
   text-overflow: ellipsis;
   font-weight: 600;
+}
+
+/* Color del triángulo (flecha) del select en el header */
+.filter-field ::ng-deep .mat-mdc-select-arrow svg {
+  color: #7dc0bf !important;
+}
+
+/* Color del check (✓) en las opciones del menú desplegable */
+::ng-deep .mat-pseudo-checkbox-checked.mat-pseudo-checkbox-minimal::after {
+  color: #7dc0bf !important;
+}
+
+/* Color del texto de la opción seleccionada en el panel */
+::ng-deep .mat-mdc-option.mdc-list-item--selected .mdc-list-item__primary-text {
+  color: #7dc0bf !important;
 }
 
 /* Estilizar las líneas del calendario para que sean sutiles */

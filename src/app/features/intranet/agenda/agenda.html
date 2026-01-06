@@ -51,13 +51,15 @@
           </mat-form-field>
 
           <button mat-flat-button class="view-mode-button" [matMenuTriggerFor]="viewMenu">
-            <mat-icon>{{ getViewIcon() }}</mat-icon>
-            {{ getViewLabel() }}
+
+            <span class="view-label-text">{{ getViewLabel() }}</span>
+
+            <mat-icon class="view-icon-end">arrow_drop_down</mat-icon>
           </button>
 
-          <mat-menu #viewMenu="matMenu">
+          <mat-menu #viewMenu="matMenu" class="custom-view-menu">
             <button mat-menu-item (click)="changeView(CalendarView.Day)">
-              <mat-icon>calendar_view_day</mat-icon>
+              <mat-icon>view_day</mat-icon>
               <span>Día</span>
             </button>
             <button mat-menu-item (click)="changeView(CalendarView.Week)">

@@ -126,18 +126,9 @@ export class Agenda implements OnInit {
   getViewLabel(): string {
     switch (this.view) {
       case CalendarView.Month: return 'Mes';
-      case CalendarView.Week: return 'Por semana';
+      case CalendarView.Week: return 'Semana';
       case CalendarView.Day: return 'Día';
       default: return 'Vista';
-    }
-  }
-
-  getViewIcon(): string {
-    switch (this.view) {
-      case CalendarView.Month: return 'calendar_month';
-      case CalendarView.Week: return 'view_week';
-      case CalendarView.Day: return 'calendar_view_day';
-      default: return 'grid_view';
     }
   }
 
