@@ -1,0 +1,161 @@
+/* --- Contenedor Base --- */
+.dialog-container {
+  padding: 20px 50px;
+  position: relative;
+  background-color: white;
+}
+
+.absolute-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* --- TABS: ALINEADOS A LA IZQUIERDA Y ANCHO AUTOMÁTICO --- */
+::ng-deep .appointment-tabs .mat-mdc-tab-labels {
+  justify-content: flex-start !important; /* Alinea a la izquierda */
+  border-bottom: 1px solid #eee;
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab {
+  flex-grow: 0 !important; /* Evita que se estiren al 50% */
+  min-width: 160px !important; /* Ancho cómodo para el texto */
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab-label-active {
+  color: #0097a7 !important; /* Color turquesa de Doctocliq */
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab-indicator::before {
+  border-color: #0097a7 !important;
+}
+
+/* --- Layout Principal --- */
+.main-content {
+  display: flex;
+  padding: 25px 0;
+  gap: 40px;
+}
+
+.content-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vertical-separator {
+  width: 1px;
+  background-color: #f0f0f0;
+  align-self: stretch;
+}
+
+/* --- FILA DE CAMPO (LABEL + INPUT) --- */
+.row-field {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+}
+
+.row-label {
+  width: 120px;
+  font-size: 14px;
+  color: #777;
+  flex-shrink: 0;
+}
+
+.row-value {
+  flex: 1;
+}
+
+/* --- ÁREA DE NOTAS (OCUPANDO TODO EL ANCHO) --- */
+.notes-full-width {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.notes-label {
+  font-size: 14px;
+  color: #777;
+}
+
+.text-area-field {
+  width: 100%;
+}
+
+::ng-deep .text-area-field .mat-mdc-text-field-wrapper {
+  height: auto !important; /* Permite que el textarea crezca */
+  padding: 12px !important;
+}
+
+/* --- RE-ESTILO DE INPUTS COMPACTOS --- */
+::ng-deep .row-value .mat-mdc-form-field {
+  width: 100%;
+}
+
+::ng-deep .row-value .mat-mdc-text-field-wrapper {
+  background-color: #fff !important;
+  height: 38px !important;
+  padding: 0 12px !important;
+}
+
+::ng-deep .row-value .mat-mdc-form-field-flex {
+  height: 38px !important;
+  align-items: center !important;
+}
+
+::ng-deep .row-value .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  min-height: 38px !important;
+  display: flex;
+  align-items: center;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none !important; /* Elimina espacio extra debajo */
+}
+
+/* --- Estilos de Texto y Colores --- */
+.bold { font-weight: 700; color: #333; }
+.static-text { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.icon-teal { color: #7dc0bf; font-size: 20px; width: 20px; height: 20px; }
+.block-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; }
+.icon-info { font-size: 16px; width: 16px; height: 16px; color: #999; vertical-align: middle; }
+
+/* --- Footer --- */
+.dialog-footer {
+  display: flex;
+  padding-top: 20px;
+}
+
+.flex-spacer { flex: 1; }
+
+.delete-action {
+  color: #f44336 !important;
+  border-color: #f44336 !important;
+}
+
+.save-action {
+  background-color: #0097a7 !important;
+  color: white !important;
+  padding: 0 30px !important;
+}
+
+/* --- Estados --- */
+.cancelada ::ng-deep .mat-mdc-select-value { color: #f44336; font-weight: 600; }
+.confirmada ::ng-deep .mat-mdc-select-value { color: #4caf50; font-weight: 600; }
+
+/* --- Historial --- */
+.empty-history-state {
+  text-align: center;
+  padding: 80px;
+  color: #ccc;
+}
+.empty-history-state mat-icon { font-size: 50px; width: 50px; height: 50px; }

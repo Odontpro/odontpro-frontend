@@ -13,3 +13,6 @@ body { margin: 0; font-family: 'Poppins', sans-serif; }
 html {
   scroll-behavior: smooth;
 }
+.mdc-dialog--open .mat-mdc-dialog-surface, .mdc-dialog--closing .mat-mdc-dialog-surface {
+  border-radius: 20px;
+}

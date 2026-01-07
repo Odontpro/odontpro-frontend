@@ -10,6 +10,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService } from '../../../core/services/appointment.service';
 import { Appointment, Doctor } from '../../../shared/models/appointment.model';
 import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
+import { AppointmentDetailDialog} from './appointment-detail-dialog/appointment-detail-dialog';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule, CalendarWeekViewComponent, DateAdapter, provideCalendar} from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
@@ -174,13 +175,28 @@ export class Agenda implements OnInit {
   }
 
   handleEventClick(event: CalendarEvent): void {
-    this.openPatientDetail(event.meta.appointment);
+    this.openAppointmentDetail(event.meta.appointment);
   }
 
   openPatientDetail(appointment: Appointment): void {
     this.dialog.open(PatientDetailDialog, {
       data: { appointment },
-      width: '500px'
+      width: '1100px'
+    });
+  }
+
+  openAppointmentDetail(appointment: Appointment): void {
+    const dialogRef = this.dialog.open(AppointmentDetailDialog, {
+      data: { appointment: { ...appointment } }, // Enviamos una copia para no alterar el original antes de guardar
+      width: '1100px',
+      maxWidth: '95vw', // Para que en tablets no se desborde
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Si el resultado es true, refrescamos los datos del calendario
+        this.loadAppointments();
+      }
     });
   }
 

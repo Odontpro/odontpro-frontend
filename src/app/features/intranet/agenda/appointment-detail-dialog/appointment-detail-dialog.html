@@ -1,0 +1,143 @@
+<div class="dialog-container">
+  <button class="absolute-close" (click)="close()">
+    <mat-icon>close</mat-icon>
+  </button>
+
+  <mat-tab-group animationDuration="0ms" class="appointment-tabs">
+    <mat-tab label="Datos de la cita">
+      <div class="main-content">
+
+        <div class="content-column">
+          <div class="row-field">
+            <span class="row-label">Sucursal</span>
+            <div class="row-value static-text">
+              <mat-icon class="icon-teal">location_on</mat-icon>
+              <span>{{ data.appointment.sucursal }}</span>
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Paciente</span>
+            <div class="row-value static-text bold">
+              {{ data.appointment.patientName }}
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Doctor</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline">
+                <mat-select [(ngModel)]="data.appointment.doctorId">
+                  <mat-option *ngFor="let doc of doctors" [value]="doc.id">
+                    {{ doc.nombre }} {{ doc.apellido }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Especialidad</span>
+            <div class="row-value static-text bold">
+              {{ data.appointment.especialidad || 'Odontología general' }}
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Motivo</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline">
+                <input matInput [(ngModel)]="data.appointment.motivo">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Duración</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline">
+                <input matInput [(ngModel)]="data.appointment.duracion">
+                <mat-icon matSuffix>expand_more</mat-icon>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Estado:</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline" [ngClass]="data.appointment.estado.toLowerCase()">
+                <mat-select [(ngModel)]="data.appointment.estado">
+                  <mat-option *ngFor="let st of statuses" [value]="st">
+                    {{ st | titlecase }}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
+          </div>
+        </div>
+
+        <div class="vertical-separator"></div>
+
+        <div class="content-column">
+          <div class="row-field">
+            <span class="row-label">Fecha</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="data.appointment.fecha">
+                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                <mat-datepicker #picker></mat-datepicker>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="row-field">
+            <span class="row-label">Hora inicio</span>
+            <div class="row-value">
+              <mat-form-field appearance="outline">
+                <input matInput type="time" [(ngModel)]="data.appointment.horaInicial">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="optional-block">
+            <h4 class="block-title">Opcional</h4>
+            <div class="row-field">
+              <span class="row-label">
+                Consultorio <mat-icon class="icon-info">info_outline</mat-icon>
+              </span>
+              <div class="row-value">
+                <mat-form-field appearance="outline">
+                  <mat-select placeholder="Seleccionar">
+                    <mat-option value="1">Consultorio 1</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="notes-full-width">
+            <span class="notes-label">Nota de la cita</span>
+            <mat-form-field appearance="outline" class="text-area-field">
+              <textarea matInput rows="5" placeholder="Escribe aquí..."></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+
+      </div>
+    </mat-tab>
+
+    <mat-tab label="Historial de cambios">
+      <div class="empty-history-state">
+        <mat-icon>cloud_queue</mat-icon>
+        <p>No se encontró ninguna información</p>
+      </div>
+    </mat-tab>
+  </mat-tab-group>
+
+  <div class="dialog-footer">
+    <button mat-stroked-button class="delete-action" (click)="onDelete()">Eliminar cita</button>
+    <div class="flex-spacer"></div>
+    <button mat-button class="cancel-action" (click)="close()">Cancelar</button>
+    <button mat-flat-button class="save-action" (click)="onSave()">Guardar</button>
+  </div>
+</div>
