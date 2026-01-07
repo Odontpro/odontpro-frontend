@@ -29,7 +29,7 @@
     </div>
 
     <div class="navbar-right">
-      <button mat-icon-button>
+      <button mat-icon-button [matMenuTriggerFor]="addMenu">
         <mat-icon>add_circle</mat-icon>
       </button>
 
@@ -50,6 +50,17 @@
       <button mat-icon-button [matMenuTriggerFor]="userMenu" class="user-menu-button">
         <mat-icon>account_circle</mat-icon>
       </button>
+
+      <mat-menu #addMenu="matMenu">
+        <button mat-menu-item (click)="openAddPatientDialog()">
+          <mat-icon>person_add</mat-icon>
+          <span>Nuevo paciente</span>
+        </button>
+        <button mat-menu-item (click)="openAddAppointmentDialog()">
+          <mat-icon>library_add</mat-icon>
+          <span>Agendar cita</span>
+        </button>
+      </mat-menu>
 
       <mat-menu #userMenu="matMenu">
         <div class="user-menu-header">
@@ -75,6 +86,7 @@
           <span>Ayuda</span>
         </button>
       </mat-menu>
+
     </div>
   </nav>
 

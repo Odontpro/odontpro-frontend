@@ -1,0 +1,223 @@
+<div class="create-patient-container" [class.is-expanded]="showMoreData">
+  <div class="dialog-header">
+    <h2 mat-dialog-title>Crear nuevo paciente</h2>
+    <button mat-icon-button mat-dialog-close class="close-btn">
+      <mat-icon>close</mat-icon>
+    </button>
+  </div>
+
+  <mat-dialog-content>
+    <form [formGroup]="patientForm" class="patient-form">
+      <div class="form-layout">
+        <!-- COLUMNA IZQUIERDA: Datos Obligatorios -->
+        <div class="form-column main-data">
+          <h3 class="section-subtitle">Documentos obligatorios</h3>
+
+          <div class="field-row">
+            <label>Documento<span class="required">*</span></label>
+            <div class="input-group-split">
+              <mat-form-field appearance="outline" class="doc-type-select">
+                <mat-select formControlName="docType">
+                  <mat-option value="DNI">DNI</mat-option>
+                  <mat-option value="PAS">Pasaporte</mat-option>
+                  <mat-option value="RUC">RUC</mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="doc-number-input">
+                <input
+                  matInput
+                  formControlName="docNumber"
+                  placeholder="Número"
+                  [disabled]="patientForm.get('noDoc')?.value"
+                >
+              </mat-form-field>
+            </div>
+            <mat-checkbox formControlName="noDoc" class="no-have-check">
+              No tiene documento
+            </mat-checkbox>
+          </div>
+
+          <div class="field-row">
+            <label>Nombres<span class="required">*</span></label>
+            <mat-form-field appearance="outline" class="full-width-field">
+              <input matInput formControlName="names">
+            </mat-form-field>
+          </div>
+
+          <div class="field-spacer"></div>
+
+          <div class="field-row">
+            <label>Apellidos<span class="required">*</span></label>
+            <div class="input-group-split">
+              <mat-form-field appearance="outline" class="half-width-field">
+                <input matInput formControlName="lastNameP" placeholder="Paterno">
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="half-width-field">
+                <input matInput formControlName="lastNameM" placeholder="Materno (opcional)">
+              </mat-form-field>
+            </div>
+          </div>
+
+          <div class="field-spacer"></div>
+
+          <div class="field-row">
+            <label>Teléfono<span class="required">*</span></label>
+            <div class="input-group-split phone-group">
+              <mat-form-field appearance="outline" class="country-select-field">
+                <mat-select formControlName="countryCode">
+                  <mat-select-trigger>
+                    <div class="selected-country">
+                      <img [src]="'https://flagcdn.com/w20/' + getSelectedFlag() + '.png'" width="18" height="12">
+                      <span>{{ patientForm.get('countryCode')?.value }}</span>
+                    </div>
+                  </mat-select-trigger>
+                  <mat-option *ngFor="let country of countries" [value]="country.code">
+                    <img [src]="'https://flagcdn.com/w20/' + country.flag + '.png'" width="18" height="12">
+                    {{ country.name }} ({{ country.code }})
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="phone-input-field">
+                <input
+                  matInput
+                  formControlName="phone"
+                  type="tel"
+                  placeholder="000 000 000"
+                  [disabled]="patientForm.get('noPhone')?.value"
+                >
+              </mat-form-field>
+            </div>
+            <mat-checkbox formControlName="noPhone" class="no-have-check">
+              No tiene telefono
+            </mat-checkbox>
+          </div>
+
+          <div class="field-row-footer">
+            <mat-checkbox formControlName="hasRepresentative" class="representative-check">
+              Tiene un apoderado
+            </mat-checkbox>
+            <div class="toggle-data-link" (click)="toggleMoreData()">
+              <span>{{ showMoreData ? 'Menos datos' : 'Más datos' }}</span>
+              <mat-icon>{{ showMoreData ? 'chevron_left' : 'chevron_right' }}</mat-icon>
+            </div>
+          </div>
+        </div>
+
+        <!-- COLUMNA DERECHA: Datos Opcionales -->
+        <div class="form-column optional-data" *ngIf="showMoreData">
+          <h3 class="section-subtitle">Datos opcionales</h3>
+
+          <div class="field-row">
+            <label>Email</label>
+            <mat-form-field appearance="outline" class="full-width-field">
+              <input matInput formControlName="email" type="email">
+            </mat-form-field>
+          </div>
+
+          <div class="field-spacer"></div>
+
+          <div class="field-row">
+            <label>F. nacimiento</label>
+            <mat-form-field appearance="outline" class="full-width-field">
+              <input
+                matInput
+                [matDatepicker]="picker"
+                formControlName="birthDate"
+                readonly
+              >
+              <mat-datepicker-toggle matIconSuffix [for]="picker">
+                <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
+              </mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </div>
+
+          <div class="field-spacer"></div>
+
+          <div class="field-row">
+            <label>Sexo</label>
+            <mat-form-field appearance="outline" class="full-width-field">
+              <mat-select formControlName="gender">
+                <mat-option value="Hombre">Hombre</mat-option>
+                <mat-option value="Mujer">Mujer</mat-option>
+                <mat-option value="Mujer">Otro</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="field-spacer"></div>
+
+          <div class="field-row">
+            <label>Etiquetas</label>
+            <button
+              type="button"
+              mat-button
+              class="add-tags-btn"
+              [matMenuTriggerFor]="tagsMenu"
+            >
+              <mat-icon>add_circle_outline</mat-icon>
+              Etiquetas
+            </button>
+
+            <!-- Tags seleccionadas -->
+            <div class="selected-tags" *ngIf="selectedTags.length > 0">
+              <mat-chip-set>
+                <mat-chip
+                  *ngFor="let tag of selectedTags"
+                  [style.background-color]="tag.backgroundColor"
+                  [style.color]="tag.color"
+                  (removed)="removeTag(tag)"
+                >
+                  {{ tag.nombre }}
+                  <button matChipRemove>
+                    <mat-icon>cancel</mat-icon>
+                  </button>
+                </mat-chip>
+              </mat-chip-set>
+            </div>
+
+            <mat-menu #tagsMenu="matMenu" class="tags-menu">
+              <div class="tags-menu-content" (click)="$event.stopPropagation()">
+                <h4 class="tags-menu-title">Etiquetas</h4>
+                <div class="available-tags">
+                  <button
+                    mat-menu-item
+                    *ngFor="let tag of availableTags"
+                    (click)="toggleTag(tag)"
+                    [disabled]="isTagSelected(tag)"
+                  >
+                    <span
+                      class="tag-preview"
+                      [style.background-color]="tag.backgroundColor"
+                      [style.color]="tag.color"
+                    >
+                      {{ tag.nombre }}
+                    </span>
+                  </button>
+                </div>
+                <p class="tags-hint">
+                  Puedes crear y gestionar tus etiquetas desde Configuración, pestaña Administración, pestaña Etiquetas.
+                </p>
+              </div>
+            </mat-menu>
+          </div>
+        </div>
+      </div>
+    </form>
+  </mat-dialog-content>
+
+  <mat-dialog-actions align="center">
+    <button mat-stroked-button (click)="dialogRef.close()" class="btn-cancel">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      color="primary"
+      class="btn-create"
+      (click)="onSubmit()"
+      [disabled]="patientForm.invalid"
+    >
+      Crear
+    </button>
+  </mat-dialog-actions>
+</div>
