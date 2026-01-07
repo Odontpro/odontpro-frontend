@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, LOCALE_ID, OnInit} from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -11,7 +11,11 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-import { MatNativeDateModule } from '@angular/material/core';
+import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
+import {provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
+import {es} from 'date-fns/locale';
+import {DateAdapter, provideCalendar} from 'angular-calendar';
+import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
 
 interface PatientTag {
   id: number;
@@ -37,6 +41,16 @@ interface PatientTag {
     MatIconModule,
     MatMenuModule,
     MatChipsModule
+  ],
+  providers: [
+    provideDateFnsAdapter(),
+    { provide: MAT_DATE_LOCALE, useValue: es },
+    { provide: LOCALE_ID, useValue: 'es' }, // <--- Añade esto
+    provideCalendar({
+      provide: DateAdapter,
+      useFactory: adapterFactory,
+    }),
+
   ],
   templateUrl: './add-patient-dialog.html',
   styleUrl: './add-patient-dialog.css',
