@@ -73,7 +73,7 @@
   flex: 1;
 }
 
-/* --- ÁREA DE NOTAS (OCUPANDO TODO EL ANCHO) --- */
+/* --- ÁREA DE NOTAS --- */
 .notes-full-width {
   display: flex;
   flex-direction: column;
