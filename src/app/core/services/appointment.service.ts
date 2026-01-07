@@ -353,6 +353,11 @@ export class AppointmentService {
     return of(this.patients).pipe(delay(200));
   }
 
+  getAppointmentsByPatientId(patientId: number): Observable<Appointment[]> {
+    const filtered = this.appointments.filter(a => a.patientId === patientId);
+    return of(filtered);
+  }
+
   // Obtener paciente por ID
   getPatientById(id: number): Observable<Patient | undefined> {
     const patient = this.patients.find(p => p.id === id);

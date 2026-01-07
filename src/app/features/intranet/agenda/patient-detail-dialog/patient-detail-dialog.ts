@@ -8,6 +8,8 @@ import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService} from '../../../../core/services/appointment.service';
 import { Patient, PatientTag, Appointment} from '../../../../shared/models/appointment.model';
+import {MatFormField, MatInput} from '@angular/material/input';
+import {MatOption, MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-patient-detail-dialog',
@@ -19,7 +21,11 @@ import { Patient, PatientTag, Appointment} from '../../../../shared/models/appoi
     MatIconModule,
     MatTabsModule,
     MatChipsModule,
-    MatMenuModule
+    MatMenuModule,
+    MatFormField,
+    MatSelect,
+    MatOption,
+    MatInput
   ],
   templateUrl: './patient-detail-dialog.html',
   styleUrl: './patient-detail-dialog.css',
@@ -28,6 +34,7 @@ import { Patient, PatientTag, Appointment} from '../../../../shared/models/appoi
 export class PatientDetailDialog implements OnInit {
   patient?: Patient;
   availableTags: PatientTag[] = [];
+  patientAppointments: Appointment[] = [];
 
   statusLabels: any = {
     'PENDIENTE': 'Pendiente',
@@ -53,7 +60,17 @@ export class PatientDetailDialog implements OnInit {
     this.appointmentService.getPatientById(this.data.appointment.patientId).subscribe({
       next: (patient) => {
         this.patient = patient;
+        if(this.patient?.id){
+          this.loadPatientAppointments(this.patient.id);
+        }
       }
+    });
+  }
+
+  loadPatientAppointments(patientId: number): void {
+    // Aquí usamos la nueva función del service
+    this.appointmentService.getAppointmentsByPatientId(patientId).subscribe(apps => {
+      this.patientAppointments = apps;
     });
   }
 

@@ -1,282 +1,200 @@
-.dialog-container {
-  display: flex;
-  flex-direction: column;
+/* Layout General */
+.patient-header {
+  padding: 30px 30px;
+  border-bottom: 1px solid #f0f0f0;
+  position: relative;
 }
 
-.dialog-header {
+.header-layout {
   display: flex;
-  justify-content: space-between;
+  gap: 20px;
   align-items: flex-start;
-  padding: 24px;
-  border-bottom: 1px solid #e0e0e0;
 }
 
-.patient-header-info {
-  display: flex;
-  gap: 16px;
-  flex: 1;
-}
-
-.patient-avatar {
-  width: 64px;
-  height: 64px;
+/* Columna del Avatar */
+.avatar-column .patient-avatar,
+.avatar-column .patient-avatar-placeholder {
+  width: 85px;
+  height: 85px;
   border-radius: 50%;
-  background-color: #e0e0e0;
+  background-color: #f0f0f0;
   display: flex;
   align-items: center;
   justify-content: center;
-  overflow: hidden;
 }
 
-.patient-avatar img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+.avatar-column mat-icon { font-size: 40px; width: 40px; height: 40px; color: #999; }
 
-.patient-avatar mat-icon {
-  font-size: 36px;
-  width: 36px;
-  height: 36px;
-  color: #757575;
-}
-
-.patient-basic-info {
+/* Columna de Información (3 filas) */
+.info-column {
   flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 6px; /* Espacio entre las 3 filas */
 }
 
-.patient-name {
-  margin: 0 0 8px 0;
-  font-size: 20px;
-  font-weight: 600;
-  color: #212121;
-}
+.info-row { display: flex; align-items: center; width: 100%; }
 
-.patient-actions {
+/* Fila 1 */
+.top-row { justify-content: space-between; }
+.name-group { display: flex; align-items: center; gap: 15px; }
+.patient-name { margin: 0; font-size: 18px; font-weight: 600; color: #444; }
+.btn-open-history {
+  background-color: #0097a7 !important;
+  color: white !important;
+  height: 26px !important;
+  font-size: 11px !important;
+  padding: 0 10px !important;
+  border-radius: 4px !important;
+}
+.creation-date { color: #cbd5e0; font-size: 12px; }
+
+/* Fila 2 */
+.phone-display {
+  color: #7dc0bf;
   display: flex;
   align-items: center;
-  gap: 16px;
-}
-
-.action-link {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 13px;
-  padding: 0;
-  min-width: auto;
-}
-
-.action-link mat-icon {
-  font-size: 16px;
-  width: 16px;
-  height: 16px;
-}
-
-.patient-date {
-  font-size: 12px;
-  color: #757575;
-}
-
-.close-button {
-  color: #757575;
-}
-
-.dialog-content {
-  padding: 24px !important;
-  overflow-y: auto;
-}
-
-.info-section {
-  margin-bottom: 24px;
-}
-
-.phone-info {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  margin-bottom: 16px;
-}
-
-.info-icon {
-  color: #1976d2;
-  font-size: 20px;
-  width: 20px;
-  height: 20px;
-}
-
-.phone-number {
-  font-size: 16px;
-  font-weight: 500;
-  color: #1976d2;
-}
-
-.tags-section {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.patient-tag {
-  font-weight: 500;
-  border-radius: 16px !important;
-}
-
-.add-tag-button {
-  color: #1976d2 !important;
-  font-size: 13px;
-  padding: 4px 12px;
-  min-width: auto;
-  height: 32px;
-}
-
-.tag-preview {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 12px;
-  font-weight: 500;
-}
-
-.note-section {
-  margin-bottom: 24px;
-}
-
-.section-title {
+  gap: 6px;
   font-size: 14px;
-  font-weight: 600;
-  color: #757575;
-  margin: 0 0 12px 0;
-}
-
-.note-textarea {
-  width: 100%;
-  padding: 12px;
-  border: 1px solid #e0e0e0;
-  border-radius: 8px;
-  font-family: inherit;
-  font-size: 14px;
-  resize: vertical;
-  outline: none;
-  transition: border-color 0.2s;
-}
-
-.note-textarea:focus {
-  border-color: #1976d2;
-}
-
-.info-tabs {
-  margin-top: 16px;
-}
-
-.tab-content {
-  padding: 16px 0;
-}
-
-.appointment-info-card {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  padding: 16px;
-}
-
-.info-row {
-  display: flex;
-  justify-content: space-between;
-  padding: 8px 0;
-  border-bottom: 1px solid #e0e0e0;
-}
-
-.info-row:last-child {
-  border-bottom: none;
-}
-
-.info-label {
-  font-size: 13px;
-  color: #757575;
   font-weight: 500;
 }
+.phone-display mat-icon { font-size: 16px; width: 16px; height: 16px; }
 
-.info-value {
-  font-size: 13px;
-  color: #212121;
-  font-weight: 500;
-  text-align: right;
-}
-
-.status-badge {
-  padding: 4px 12px;
+/* Fila 3 */
+.tags-wrapper { display: flex; align-items: center; gap: 8px; }
+.tag-pill {
+  padding: 2px 10px;
   border-radius: 12px;
   font-size: 11px;
-  font-weight: 600;
-  text-transform: uppercase;
-}
-
-.status-pendiente {
-  background-color: #fff3e0;
-  color: #e65100;
-}
-
-.status-confirmada {
-  background-color: #e8f5e9;
-  color: #2e7d32;
-}
-
-.status-en_curso {
-  background-color: #e3f2fd;
-  color: #1565c0;
-}
-
-.status-completada {
-  background-color: #f5f5f5;
-  color: #616161;
-}
-
-.status-cancelada {
-  background-color: #ffebee;
-  color: #c62828;
-}
-
-.filiacion-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 16px;
-}
-
-.filiacion-item {
   display: flex;
-  flex-direction: column;
+  align-items: center;
   gap: 4px;
 }
+.tag-pill.impuntual { background: #ffe5e5; color: #f56565; }
+.tag-pill.star-pill { background: #fef3c7; color: #d97706; padding: 2px 6px; }
+.tag-pill mat-icon { font-size: 14px; width: 14px; height: 14px; }
 
-.filiacion-label {
-  font-size: 12px;
-  color: #757575;
+.add-tag-inline {
+  background: none; border: none; color: #7dc0bf;
+  font-size: 13px; cursor: pointer; display: flex; align-items: center; gap: 4px;
+}
+
+/* NOTA GENERAL - FULL WIDTH */
+.note-section-container { margin-top: 20px; padding: 0 25px; }
+.section-label { display: block; font-size: 13px; color: #718096; margin-bottom: 5px; }
+.note-full-width { width: 100% !important; }
+::ng-deep .note-full-width .mat-mdc-form-field-wrapper { padding-bottom: 0; }
+
+/* TABLA (Estilo Doctocliq) */
+.table-responsive { padding: 15px 25px; }
+.patient-table { width: 100%; border-collapse: collapse; }
+.patient-table th {
+  background-color: #0081b4;
+  color: white;
+  text-align: left;
+  padding: 10px 15px;
+  font-size: 13px;
   font-weight: 500;
 }
-
-.filiacion-value {
-  font-size: 14px;
-  color: #212121;
+.patient-table td {
+  padding: 12px 15px;
+  border-bottom: 1px solid #edf2f7;
+  font-size: 13px;
+  color: #4a5568;
 }
 
-.empty-state {
+.status-indicator { display: flex; align-items: center; gap: 5px; font-weight: 600; }
+.status-indicator.cancelada { color: #f56565; }
+.status-indicator.confirmada { color: #48bb78; }
+
+.btn-close-dialog { color: #a0aec0; }
+
+.pagination-footer{
   display: flex;
-  flex-direction: column;
+  justify-content: flex-end;
+  color: #4a5568;
+  margin-top: 10px;
+}
+
+.pagination-footer span{
+  display: flex;
   align-items: center;
   justify-content: center;
-  padding: 48px 24px;
-  color: #9e9e9e;
+}
+.pagination-footer .arrows{
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
-.empty-state mat-icon {
-  font-size: 48px;
-  width: 48px;
-  height: 48px;
-  margin-bottom: 16px;
+/* Contenedor principal de la pestaña */
+.filiacion-form {
+  padding: 20px 30px;
 }
 
-.empty-state p {
-  margin: 0;
+/* Grid de dos columnas para Label e Input */
+.form-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.form-group {
+  display: grid;
+  grid-template-columns: 180px 1fr; /* Label fijo a 180px, resto para el input */
+  align-items: center;
+  gap: 20px;
+}
+
+/* Estilo de las etiquetas (Labels) */
+.form-group label {
   font-size: 14px;
+  color: #718096; /* Gris azulado suave */
+  font-weight: 500;
+  text-align: left;
 }
+
+/* Estilo para los valores estáticos (Teléfono, Email) */
+.form-value {
+  font-size: 14px;
+  color: #2d3748;
+  padding-left: 10px;
+}
+
+/* Ajuste de los inputs de Angular Material */
+.form-group mat-form-field {
+  width: 100%;
+}
+
+::ng-deep .form-group .mat-mdc-form-field-subscript-wrapper {
+  display: none; /* Quitamos el espacio de error/pista para que queden pegaditos */
+}
+
+::ng-deep .form-group .mat-mdc-text-field-wrapper {
+  background-color: #f7fafc !important; /* Fondo muy sutil para los inputs */
+  height: 40px !important;
+}
+
+/* Botón Guardar Cambios centrado y turquesa */
+.form-actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+.btn-save {
+  background-color: #7dc0bf !important;
+  color: white !important;
+  padding: 10px 40px !important;
+  font-weight: 600 !important;
+  border-radius: 8px !important;
+  height: 45px !important;
+  font-size: 15px !important;
+  transition: background-color 0.3s ease;
+}
+
+.btn-save:hover {
+  background-color: #69a7a6 !important; /* Oscurece un poco al pasar el mouse */
+}
+
+

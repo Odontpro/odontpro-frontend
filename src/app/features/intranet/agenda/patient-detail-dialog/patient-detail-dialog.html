@@ -1,154 +1,140 @@
 <div class="dialog-container">
-  <!-- Header -->
-  <div class="dialog-header">
-    <div class="patient-header-info">
-      <div class="patient-avatar">
-        <mat-icon *ngIf="!patient?.foto">person</mat-icon>
+  <div class="patient-header">
+    <div class="header-layout">
+      <div class="avatar-column">
+        <div class="patient-avatar-placeholder" *ngIf="!patient?.foto">
+          <mat-icon>person</mat-icon>
+        </div>
+        <img [src]="patient?.foto" class="patient-avatar" *ngIf="patient?.foto">
       </div>
-      <div class="patient-basic-info">
-        <h2 class="patient-name">{{ patient?.nombre }}, {{ patient?.apellido }}</h2>
-        <div class="patient-actions">
-          <button mat-button class="action-link" color="primary">
-            Abrir historia
-            <mat-icon>open_in_new</mat-icon>
-          </button>
-          <span class="patient-date">Creado el {{ formatDate(data.appointment.createdAt) }}</span>
+
+      <div class="info-column">
+        <div class="info-row top-row">
+          <div class="name-group">
+            <h2 class="patient-name">{{ patient?.nombre }}, {{ patient?.apellido }}</h2>
+            <button mat-flat-button class="btn-open-history">
+              Abrir historia <mat-icon>open_in_new</mat-icon>
+            </button>
+          </div>
+          <button class="btn-close-dialog" mat-dialog-close><mat-icon>close</mat-icon></button>
+
+        </div>
+
+        <div class="info-row middle-row">
+          <div class="phone-display">
+            <mat-icon>phone_enabled</mat-icon>
+            <span>+51 {{ patient?.telefono }}</span>
+          </div>
+        </div>
+
+        <div class="info-row bottom-row">
+          <div class="tags-wrapper">
+            <span class="tag-pill impuntual">Impuntual <mat-icon>close</mat-icon></span>
+            <span class="tag-pill star-pill">
+              <mat-icon class="star">star</mat-icon>
+              <mat-icon class="close">close</mat-icon>
+            </span>
+            <button class="add-tag-inline">
+              <mat-icon>add_circle_outline</mat-icon> Agregar
+            </button>
+          </div>
         </div>
       </div>
     </div>
-    <button mat-icon-button mat-dialog-close class="close-button">
-      <mat-icon>close</mat-icon>
-    </button>
   </div>
 
-  <mat-dialog-content class="dialog-content">
-    <!-- Contact Info -->
-    <div class="info-section">
-      <div class="phone-info">
-        <mat-icon class="info-icon">phone</mat-icon>
-        <span class="phone-number">{{ patient?.telefono }}</span>
-      </div>
-
-      <div class="tags-section">
-        <mat-chip-set>
-          <mat-chip
-            *ngFor="let tag of patient?.tags"
-            [style.background-color]="tag.backgroundColor"
-            [style.color]="tag.color"
-            class="patient-tag"
-          >
-            {{ tag.nombre }}
-            <button matChipRemove (click)="removeTag(tag.id)">
-              <mat-icon>cancel</mat-icon>
-            </button>
-          </mat-chip>
-        </mat-chip-set>
-
-        <button mat-button [matMenuTriggerFor]="tagsMenu" class="add-tag-button">
-          <mat-icon>add</mat-icon>
-          Agregar
-        </button>
-
-        <mat-menu #tagsMenu="matMenu">
-          <button
-            mat-menu-item
-            *ngFor="let tag of availableTags"
-            (click)="addTag(tag.id)"
-            [disabled]="hasTag(tag.id)"
-          >
-                <span
-                  class="tag-preview"
-                  [style.background-color]="tag.backgroundColor"
-                  [style.color]="tag.color"
-                >
-                  {{ tag.nombre }}
-                </span>
-          </button>
-        </mat-menu>
-      </div>
+  <div class="dialog-body">
+    <div class="note-section-container">
+      <label class="section-label">Nota general</label>
+      <mat-form-field appearance="outline" class="note-full-width">
+        <textarea matInput rows="3" placeholder="Escribe aquí..."></textarea>
+      </mat-form-field>
     </div>
 
-    <!-- General Note -->
-    <div class="note-section">
-      <h3 class="section-title">Nota general</h3>
-      <textarea
-        class="note-textarea"
-        placeholder="Escribe aquí..."
-        rows="3"
-      ></textarea>
-    </div>
-
-    <!-- Tabs -->
-    <mat-tab-group class="info-tabs">
+    <mat-tab-group class="custom-tabs-styled">
       <mat-tab label="Citas">
-        <div class="tab-content">
-          <div class="appointment-info-card">
-            <div class="info-row">
-              <span class="info-label">Fecha y hora:</span>
-              <span class="info-value">
-                    {{ formatDate(data.appointment.fecha) }} - {{ data.appointment.horaInicial }}
+        <div class="table-responsive">
+          <table class="patient-table">
+            <thead>
+            <tr>
+              <th>Fecha</th>
+              <th>Doctor</th>
+              <th>Motivo</th>
+              <th>Estado</th>
+              <th>Comentario</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr *ngFor="let app of patientAppointments">
+              <td>{{ formatDate(app.fecha) }} | {{ app.horaInicial }}h</td>
+              <td>{{ app.doctorName }}</td>
+              <td>{{ app.motivo }}</td>
+              <td>
+                  <span class="status-indicator" [ngClass]="app.estado.toLowerCase()">
+                    <mat-icon *ngIf="app.estado === 'CANCELADA'">cancel</mat-icon>
+                    <mat-icon *ngIf="app.estado === 'CONFIRMADA'">check_circle</mat-icon>
+                    {{ getStatusLabel(app.estado) }}
                   </span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Doctor:</span>
-              <span class="info-value">{{ data.appointment.doctorName }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Especialidad:</span>
-              <span class="info-value">{{ data.appointment.especialidad }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Motivo:</span>
-              <span class="info-value">{{ data.appointment.motivo }}</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Duración:</span>
-              <span class="info-value">{{ data.appointment.duracion }} minutos</span>
-            </div>
-            <div class="info-row">
-              <span class="info-label">Estado:</span>
-              <span class="status-badge" [class]="'status-' + data.appointment.estado.toLowerCase()">
-                    {{ getStatusLabel(data.appointment.estado) }}
-                  </span>
+              </td>
+              <td></td>
+            </tr>
+            </tbody>
+          </table>
+          <div class="pagination-footer">
+            <span>{{ patientAppointments.length }} resultados</span>
+            <div class="arrows">
+              <mat-icon>chevron_left</mat-icon>
+              <mat-icon>chevron_right</mat-icon>
             </div>
           </div>
         </div>
       </mat-tab>
 
       <mat-tab label="Filiación">
-        <div class="tab-content">
-          <div class="filiacion-grid">
-            <div class="filiacion-item">
-              <span class="filiacion-label">Teléfono:</span>
-              <span class="filiacion-value">{{ patient?.telefono }}</span>
+        <div class="filiacion-form">
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Teléfono:</label>
+              <div class="form-value">+51 {{ patient?.telefono }}</div>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">E-mail:</span>
-              <span class="filiacion-value">{{ patient?.email || '-' }}</span>
+            <div class="form-group">
+              <label>E-mail:</label>
+              <div class="form-value">{{ patient?.email || '-' }}</div>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">Fuente de captación:</span>
-              <span class="filiacion-value">{{ patient?.fuenteCaptacion || '-' }}</span>
+            <div class="form-group">
+              <label>Fuente de captación:</label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Seleccione una opción">
+                  <mat-option value="web">Web</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">Adicional:</span>
-              <span class="filiacion-value">{{ patient?.adicional || '-' }}</span>
+            <div class="form-group">
+              <label>Adicional:</label>
+              <mat-form-field appearance="outline">
+                <input matInput [value]="patient?.adicional">
+              </mat-form-field>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">N° HC:</span>
-              <span class="filiacion-value">{{ patient?.nroHistoriaClinica }}</span>
+            <div class="form-group">
+              <label>N° HC:</label>
+              <mat-form-field appearance="outline">
+                <input matInput [value]="patient?.nroHistoriaClinica">
+              </mat-form-field>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">Grupo:</span>
-              <span class="filiacion-value">{{ patient?.grupoSanguineo || '-' }}</span>
+            <div class="form-group">
+              <label>Grupo:</label>
+              <mat-form-field appearance="outline">
+                <mat-select placeholder="Seleccione un tipo">
+                  <mat-option value="A+">A+</mat-option>
+                </mat-select>
+              </mat-form-field>
             </div>
-            <div class="filiacion-item">
-              <span class="filiacion-label">Línea de negocio:</span>
-              <span class="filiacion-value">{{ patient?.lineaNegocio || '-' }}</span>
-            </div>
+          </div>
+          <div class="form-actions">
+            <button mat-flat-button class="btn-save">Guardar cambios</button>
           </div>
         </div>
       </mat-tab>
     </mat-tab-group>
-  </mat-dialog-content>
+  </div>
 </div>
