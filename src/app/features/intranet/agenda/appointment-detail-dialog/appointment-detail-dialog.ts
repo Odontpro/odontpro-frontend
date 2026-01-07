@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { MAT_DIALOG_DATA, MatDialogRef, MatDialogModule } from '@angular/material/dialog';
+import {MAT_DIALOG_DATA, MatDialogRef, MatDialogModule, MatDialog} from '@angular/material/dialog';
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
@@ -14,6 +14,7 @@ import { AppointmentService } from '../../../../core/services/appointment.servic
 import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { es } from 'date-fns/locale';
+import { PatientDetailDialog} from '../patient-detail-dialog/patient-detail-dialog';
 
 @Component({
   selector: 'app-appointment-detail-dialog',
@@ -37,11 +38,35 @@ export class AppointmentDetailDialog implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { appointment: Appointment },
     private dialogRef: MatDialogRef<AppointmentDetailDialog>,
-    private appointmentService: AppointmentService
-  ) {}
+    private appointmentService: AppointmentService,
+    private dialog: MatDialog
+  ) {
+    console.log(this.data.appointment);
+  }
 
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
+  }
+
+  openPatientDetail(appointment: Appointment): void {
+    this.dialog.open(PatientDetailDialog, {
+      data: { appointment },
+      width: '1100px'
+    });
+  }
+
+  viewPatient(): void {
+    // 1. Guardamos la referencia de la cita actual
+    const currentAppointment = this.data.appointment;
+
+    // 2. Cerramos el diálogo actual (Detalle de Cita)
+    this.dialogRef.close();
+
+    // 3. Abrimos el detalle del paciente
+    const patientRef = this.dialog.open(PatientDetailDialog, {
+      data: { appointment: currentAppointment },
+      width: '1100px'
+    });
   }
 
   onSave() {

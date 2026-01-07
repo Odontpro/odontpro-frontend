@@ -39,7 +39,7 @@ export class PatientDetailDialog implements OnInit {
   };
 
   constructor(
-    @Inject(MAT_DIALOG_DATA) public data: { patientId: number; appointment: Appointment },
+    @Inject(MAT_DIALOG_DATA) public data: { appointment: Appointment },
     private dialogRef: MatDialogRef<PatientDetailDialog>,
     private appointmentService: AppointmentService
   ) {}
@@ -50,7 +50,7 @@ export class PatientDetailDialog implements OnInit {
   }
 
   loadPatient(): void {
-    this.appointmentService.getPatientById(this.data.patientId).subscribe({
+    this.appointmentService.getPatientById(this.data.appointment.patientId).subscribe({
       next: (patient) => {
         this.patient = patient;
       }

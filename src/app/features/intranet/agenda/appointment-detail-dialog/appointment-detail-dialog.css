@@ -129,6 +129,30 @@
 .block-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; }
 .icon-info { font-size: 16px; width: 16px; height: 16px; color: #999; vertical-align: middle; }
 
+.patient-name-link {
+  cursor: pointer;
+  transition: color 0.2s;
+}
+
+.patient-name-link:hover {
+  color: #7dc0bf;
+  text-decoration: underline;
+}
+
+.view-patient-btn {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  margin-left: 4px;
+  color: #7dc0bf !important;
+}
+
+.view-patient-btn mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
 /* --- Footer --- */
 .dialog-footer {
   display: flex;
@@ -159,3 +183,62 @@
   color: #ccc;
 }
 .empty-history-state mat-icon { font-size: 50px; width: 50px; height: 50px; }
+/* 1. Color de la línea y el texto de la pestaña activa */
+::ng-deep .mat-mdc-tab-group.mat-primary .mat-mdc-tab-indicator::before,
+::ng-deep .mat-mdc-tab-nav-bar.mat-primary .mat-mdc-tab-indicator::before {
+  border-color: #7dc0bf !important;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #7dc0bf !important;
+}
+
+/* 2. Color del botón "Guardar" (Primary) */
+.save-action,
+button[mat-flat-button].mat-primary,
+button[mat-raised-button].mat-primary {
+  background-color: #7dc0bf !important;
+  color: white !important;
+}
+
+/* 3. Color de los iconos y elementos de enfoque (Focus) */
+.icon-teal,
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow,
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #7dc0bf !important;
+}
+
+/* 4. Color del borde de los campos cuando haces clic (Focus) */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #7dc0bf !important;
+  border-width: 2px !important;
+}
+
+/* 5. Color del Datepicker (Calendario) */
+::ng-deep .mat-calendar-body-selected {
+  background-color: #7dc0bf !important;
+  color: white !important;
+}
+
+::ng-deep .mat-datepicker-toggle-active {
+  color: #7dc0bf !important;
+}
+
+/* CAMBIAR EL COLOR DE LA RAYA (INDICADOR) */
+::ng-deep .mdc-tab-indicator__content--underline {
+  border-color: #7dc0bf !important;
+  border-top-width: 3px !important; /* Grosor de la línea */
+}
+
+/* CAMBIAR EL COLOR DEL TEXTO ACTIVO */
+::ng-deep .mdc-tab--active .mdc-tab__text-label {
+  color: #7dc0bf !important;
+}
+
+/* OPCIONAL: Quitar el azul del efecto "Ripple" (el círculo al hacer clic) */
+::ng-deep .mdc-tab__ripple::before,
+::ng-deep .mdc-tab__ripple::after {
+  background-color: #7dc0bf !important;
+}
