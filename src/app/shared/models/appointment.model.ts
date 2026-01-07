@@ -112,3 +112,8 @@ export interface AppointmentFilters {
   fechaFin?: string;
   especialidad?: string;
 }
+
+export interface DurationOption {
+  label: string; // Lo que ve el usuario: "1h 30"
+  value: number; // Lo que va al backend: 90
+}

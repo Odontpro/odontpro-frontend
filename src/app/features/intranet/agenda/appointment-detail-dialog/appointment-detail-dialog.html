@@ -60,9 +60,12 @@
           <div class="row-field">
             <span class="row-label">Duración</span>
             <div class="row-value">
-              <mat-form-field appearance="outline">
-                <input matInput [(ngModel)]="data.appointment.duracion">
-                <mat-icon matSuffix>expand_more</mat-icon>
+              <mat-form-field appearance="outline" subscriptSizing="dynamic">
+                <mat-select [(ngModel)]="data.appointment.duracion">
+                  <mat-option *ngFor="let opt of durationOptions" [value]="opt.value">
+                    {{ opt.label }}
+                  </mat-option>
+                </mat-select>
               </mat-form-field>
             </div>
           </div>

@@ -15,6 +15,7 @@ import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { es } from 'date-fns/locale';
 import { PatientDetailDialog} from '../patient-detail-dialog/patient-detail-dialog';
+import { DurationOption} from '../../../../shared/models/appointment.model';
 
 @Component({
   selector: 'app-appointment-detail-dialog',
@@ -34,6 +35,7 @@ import { PatientDetailDialog} from '../patient-detail-dialog/patient-detail-dial
 export class AppointmentDetailDialog implements OnInit {
   doctors: Doctor[] = [];
   statuses: AppointmentStatus[] = ['PENDIENTE', 'CONFIRMADA', 'EN_CURSO', 'COMPLETADA', 'CANCELADA', 'NO_ASISTIO'];
+  durationOptions: DurationOption[] = [];
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { appointment: Appointment },
@@ -41,11 +43,27 @@ export class AppointmentDetailDialog implements OnInit {
     private appointmentService: AppointmentService,
     private dialog: MatDialog
   ) {
+    this.generateDurationOptions();
     console.log(this.data.appointment);
   }
 
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
+  }
+
+  generateDurationOptions() {
+    const maxMinutes = 8 * 60; // 480 minutos (8 horas)
+    const step = 30; // Intervalos de 30 min
+
+    for (let min = 30; min <= maxMinutes; min += step) {
+      const hours = Math.floor(min / 60);
+      const minutes = min % 60;
+
+      // Formato: 1h 30 o 0h 30 o 1h 00
+      const label = `${hours}h ${minutes === 0 ? '00' : minutes}`;
+
+      this.durationOptions.push({ label, value: min });
+    }
   }
 
   openPatientDetail(appointment: Appointment): void {
