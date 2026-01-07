@@ -129,22 +129,15 @@
 .block-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; }
 .icon-info { font-size: 16px; width: 16px; height: 16px; color: #999; vertical-align: middle; }
 
-.patient-name-link {
-  cursor: pointer;
-  transition: color 0.2s;
-}
-
-.patient-name-link:hover {
-  color: #7dc0bf;
-  text-decoration: underline;
-}
-
 .view-patient-btn {
   width: 32px !important;
   height: 32px !important;
   line-height: 32px !important;
   margin-left: 4px;
   color: #7dc0bf !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .view-patient-btn mat-icon {
