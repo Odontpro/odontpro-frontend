@@ -60,6 +60,7 @@
   display: flex;
   align-items: center;
   min-height: 40px;
+  margin-bottom: 5px;
 }
 
 .row-label {
@@ -95,31 +96,59 @@
   padding: 12px !important;
 }
 
-/* --- RE-ESTILO DE INPUTS COMPACTOS --- */
-::ng-deep .row-value .mat-mdc-form-field {
-  width: 100%;
+/* ============================================
+   MATERIAL FORM FIELDS - CENTRADO VERTICAL
+   ============================================ */
+::ng-deep .mat-mdc-form-field {
+  width: 98%;
 }
 
-::ng-deep .row-value .mat-mdc-text-field-wrapper {
-  background-color: #fff !important;
-  height: 38px !important;
-  padding: 0 12px !important;
+/* 1. Ajustar la altura total del contenedor */
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important; /* Centra todo el contenido verticalmente */
 }
 
-::ng-deep .row-value .mat-mdc-form-field-flex {
-  height: 38px !important;
+/* 2. Resetear el infix (donde vive el input) */
+::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px !important;
+  padding: 0 !important; /* Eliminamos el padding que lo eleva */
+  display: flex !important;
   align-items: center !important;
 }
 
-::ng-deep .row-value .mat-mdc-form-field-infix {
+/* 3. Asegurar que el input ocupe el centro */
+::ng-deep .mat-mdc-input-element {
+  font-size: 14px;
+  height: auto !important;
+  vertical-align: middle !important;
+}
+
+/* 4. Centrar los iconos (Calendario/Flechas) */
+::ng-deep .mat-mdc-form-field-icon-suffix {
   padding: 0 !important;
-  min-height: 38px !important;
-  display: flex;
-  align-items: center;
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .mat-datepicker-toggle button {
+  width: 35px !important;
+  height: 35px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 5. Estilo de los bordes (Manteniendo tu diseño) */
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #d0d0d0 !important;
 }
 
 ::ng-deep .mat-mdc-form-field-subscript-wrapper {
-  display: none !important; /* Elimina espacio extra debajo */
+  display: none;
 }
 
 /* --- Estilos de Texto y Colores --- */
