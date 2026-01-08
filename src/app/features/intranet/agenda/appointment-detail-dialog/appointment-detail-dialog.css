@@ -55,6 +55,46 @@
   align-self: stretch;
 }
 
+.custom-time-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ajuste específico para el mat-select de AM/PM */
+.period-select {
+  width: 80px; /* Ancho suficiente para AM/PM */
+}
+
+/* Quitamos los espacios internos de Material para que sea pequeño */
+::ng-deep .period-select .mat-mdc-text-field-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 8px !important;
+}
+
+::ng-deep .period-select .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Mismo estilo para los inputs manuales para que combinen */
+.time-input {
+  width: 45px;
+  height: 36px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+}
+
+.time-input:focus {
+  border-color: #0097a7;
+  border-width: 1.5px;
+}
+
 /* --- FILA DE CAMPO (LABEL + INPUT) --- */
 .row-field {
   display: flex;

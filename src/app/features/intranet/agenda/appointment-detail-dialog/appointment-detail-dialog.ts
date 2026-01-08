@@ -9,13 +9,14 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Appointment, AppointmentStatus, Doctor } from '../../../../shared/models/appointment.model';
+import { Appointment, AppointmentStatus, Doctor, APPOINTMENT_STATUS_OPTIONS } from '../../../../shared/models/appointment.model';
 import { AppointmentService } from '../../../../core/services/appointment.service';
 import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { es } from 'date-fns/locale';
 import { PatientDetailDialog} from '../patient-detail-dialog/patient-detail-dialog';
 import { DurationOption} from '../../../../shared/models/appointment.model';
+import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 
 @Component({
   selector: 'app-appointment-detail-dialog',
@@ -23,7 +24,7 @@ import { DurationOption} from '../../../../shared/models/appointment.model';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule,
     MatTabsModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatDatepickerModule, MatButtonModule, MatIconModule
+    MatDatepickerModule, MatButtonModule, MatIconModule, NgxMaterialTimepickerModule
   ],
   providers: [
     provideDateFnsAdapter(), // <--- SOLUCIÓN AL ERROR
@@ -34,8 +35,14 @@ import { DurationOption} from '../../../../shared/models/appointment.model';
 })
 export class AppointmentDetailDialog implements OnInit {
   doctors: Doctor[] = [];
-  statuses: AppointmentStatus[] = ['PENDIENTE', 'CONFIRMADA', 'EN_CURSO', 'COMPLETADA', 'CANCELADA', 'NO_ASISTIO'];
+  statuses: { value: AppointmentStatus; label: string }[] = APPOINTMENT_STATUS_OPTIONS;
   durationOptions: DurationOption[] = [];
+  // En tu clase
+  timeValues = {
+    hour: 1,
+    minute: 0,
+    period: 'PM'
+  };
 
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { appointment: Appointment },
@@ -49,6 +56,11 @@ export class AppointmentDetailDialog implements OnInit {
 
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
+    const appointment = this.data.appointment;
+    if (appointment && appointment.horaInicial) {
+      this.setTimeFromAppointment(appointment.horaInicial);
+    }
+
   }
 
   generateDurationOptions() {
@@ -64,6 +76,134 @@ export class AppointmentDetailDialog implements OnInit {
 
       this.durationOptions.push({ label, value: min });
     }
+  }
+
+  // En tu clase de componente
+
+  setTimeFromAppointment(horaStr: string) {
+    if (!horaStr) return;
+
+    // Limpiamos espacios extra por si acaso
+    horaStr = horaStr.trim();
+
+    let hour: number;
+    let minute: number;
+    let period: 'AM' | 'PM';
+
+    // 1. Detectar si trae AM o PM
+    if (horaStr.toUpperCase().includes('AM') || horaStr.toUpperCase().includes('PM')) {
+      const parts = horaStr.split(' '); // "10:00 PM" -> ["10:00", "PM"]
+      const timeParts = parts[0].split(':');
+
+      hour = parseInt(timeParts[0], 10);
+      minute = parseInt(timeParts[1], 10);
+      period = parts[1].toUpperCase() as 'AM' | 'PM';
+    }
+    // 2. Si no trae AM/PM, procesar como formato 24h (militar)
+    else {
+      const timeParts = horaStr.split(':'); // "19:00" -> ["19", "00"]
+      let rawHour = parseInt(timeParts[0], 10);
+      minute = parseInt(timeParts[1], 10);
+
+      if (rawHour >= 12) {
+        period = 'PM';
+        // Convertir 13-23 a 1-11. Si es 12, se queda como 12 PM.
+        hour = rawHour > 12 ? rawHour - 12 : 12;
+      } else {
+        period = 'AM';
+        // Convertir 0 a 12 AM. Si es 1-11, se queda igual.
+        hour = rawHour === 0 ? 12 : rawHour;
+      }
+    }
+
+    // 3. Asignar a la vista
+    this.timeValues = { hour, minute, period };
+
+    // 4. Sincronizar el string final por si acaso
+    this.formatTime();
+  }
+
+  validateTimeInput(type: 'hour' | 'minute') {
+    let value = this.timeValues[type];
+
+    // 1. Manejo de nulos o vacíos
+    // @ts-ignore
+    if (value === null || value === undefined || value === '') {
+      return;
+    }
+
+    // 2. Convertir a número si es string
+    value = Number(value);
+
+    // 3. Bloqueo de números negativos
+    if (value < 0) {
+      value = 0;
+    }
+
+    // 4. Convertir a string para validar longitud de dígitos
+    let sValue = value.toString();
+
+    // 5. Si intentan poner 3 o más dígitos, nos quedamos solo con los 2 primeros
+    if (sValue.length > 2) {
+      sValue = sValue.slice(0, 2);
+      value = parseInt(sValue, 10);
+    }
+
+    // 6. Validar rangos máximos EN TIEMPO REAL
+    if (type === 'hour') {
+      if (value > 12) {
+        value = 12;
+      }
+      if (value < 1) {
+        value = 1;
+      }
+    } else { // minute
+      if (value > 59) {
+        value = 59;
+      }
+      if (value < 0) {
+        value = 0;
+      }
+    }
+
+    // 7. Asignar el valor corregido inmediatamente
+    this.timeValues[type] = value;
+
+    // 8. Actualizar el modelo final
+    this.formatTime();
+  }
+
+  ensureValidTime(type: 'hour' | 'minute') {
+    let value = this.timeValues[type];
+
+    // Si está vacío o es null, asignar valor por defecto
+    // @ts-ignore
+    if (value === null || value === undefined || value === '') {
+      if (type === 'hour') {
+        this.timeValues[type] = 12;
+      } else {
+        this.timeValues[type] = 0;
+      }
+    } else {
+      // Asegurar que esté en el rango correcto
+      value = Number(value);
+
+      if (type === 'hour') {
+        if (value < 1) this.timeValues[type] = 1;
+        if (value > 12) this.timeValues[type] = 12;
+      } else {
+        if (value < 0) this.timeValues[type] = 0;
+        if (value > 59) this.timeValues[type] = 59;
+      }
+    }
+
+    this.formatTime();
+  }
+
+  formatTime() {
+    const hh = String(this.timeValues.hour || 12).padStart(2, '0');
+    const mm = String(this.timeValues.minute || 0).padStart(2, '0');
+    this.data.appointment.horaInicial = `${hh}:${mm} ${this.timeValues.period}`;
   }
 
   openPatientDetail(appointment: Appointment): void {

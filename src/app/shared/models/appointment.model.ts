@@ -30,6 +30,25 @@ export type AppointmentStatus =
   | 'CANCELADA'
   | 'NO_ASISTIO';
 
+export const APPOINTMENT_STATUS_OPTIONS = [
+  { value: 'PENDIENTE' as AppointmentStatus, label: 'Pendiente' },
+  { value: 'CONFIRMADA' as AppointmentStatus, label: 'Confirmada' },
+  { value: 'EN_CURSO' as AppointmentStatus, label: 'En curso' },
+  { value: 'COMPLETADA' as AppointmentStatus, label: 'Completada' },
+  { value: 'CANCELADA' as AppointmentStatus, label: 'Cancelada' },
+  { value: 'NO_ASISTIO' as AppointmentStatus, label: 'No Asistió' }
+];
+
+// Opcional: Un mapa rápido para cuando solo necesitas obtener el label desde el valor
+export const APPOINTMENT_STATUS_MAP: Record<AppointmentStatus, string> = {
+  'PENDIENTE': 'Pendiente',
+  'CONFIRMADA': 'Confirmada',
+  'EN_CURSO': 'En curso',
+  'COMPLETADA': 'Completada',
+  'CANCELADA': 'Cancelada',
+  'NO_ASISTIO': 'No Asistió'
+};
+
 export interface AppointmentChange {
   id: number;
   appointmentId: number;

@@ -75,8 +75,8 @@
             <div class="row-value">
               <mat-form-field appearance="outline" [ngClass]="data.appointment.estado.toLowerCase()">
                 <mat-select [(ngModel)]="data.appointment.estado">
-                  <mat-option *ngFor="let st of statuses" [value]="st">
-                    {{ st | titlecase }}
+                  <mat-option *ngFor="let st of statuses" [value]="st.value">
+                    {{ st.label }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -103,9 +103,36 @@
           <div class="row-field">
             <span class="row-label">Hora inicio</span>
             <div class="row-value">
-              <mat-form-field appearance="outline">
-                <input matInput type="time" [(ngModel)]="data.appointment.horaInicial">
-              </mat-form-field>
+              <div class="custom-time-picker">
+                <input
+                  type="number"
+                  class="time-input"
+                  placeholder="HH"
+                  min="1"
+                  max="12"
+                  [(ngModel)]="timeValues.hour"
+                  (input)="validateTimeInput('hour')"
+                  (blur)="ensureValidTime('hour')">
+
+                <span class="time-separator">:</span>
+
+                <input
+                  type="number"
+                  class="time-input"
+                  placeholder="MM"
+                  min="0"
+                  max="59"
+                  [(ngModel)]="timeValues.minute"
+                  (input)="validateTimeInput('minute')"
+                  (blur)="ensureValidTime('minute')">
+
+                <mat-form-field appearance="outline" class="period-select" subscriptSizing="dynamic">
+                  <mat-select [(ngModel)]="timeValues.period" (selectionChange)="formatTime()">
+                    <mat-option value="AM">AM</mat-option>
+                    <mat-option value="PM">PM</mat-option>
+                  </mat-select>
+                </mat-form-field>
+              </div>
             </div>
           </div>
 
