@@ -35,6 +35,8 @@ export class PatientDetailDialog implements OnInit {
   patient?: Patient;
   availableTags: PatientTag[] = [];
   patientAppointments: Appointment[] = [];
+  // En tu archivo .ts
+  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
   statusLabels: any = {
     'PENDIENTE': 'Pendiente',

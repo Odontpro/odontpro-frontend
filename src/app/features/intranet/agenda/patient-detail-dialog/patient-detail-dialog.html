@@ -46,8 +46,12 @@
   <div class="dialog-body">
     <div class="note-section-container">
       <label class="section-label">Nota general</label>
-      <mat-form-field appearance="outline" class="note-full-width">
-        <textarea matInput rows="3" placeholder="Escribe aquí..."></textarea>
+      <mat-form-field appearance="outline" class="note-full-width" subscriptSizing="dynamic">
+    <textarea
+      matInput
+      rows="4"
+      placeholder="Escribe aquí..."
+      > </textarea>
       </mat-form-field>
     </div>
 
@@ -102,30 +106,12 @@
               <div class="form-value">{{ patient?.email || '-' }}</div>
             </div>
             <div class="form-group">
-              <label>Fuente de captación:</label>
-              <mat-form-field appearance="outline">
-                <mat-select placeholder="Seleccione una opción">
-                  <mat-option value="web">Web</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="form-group">
-              <label>Adicional:</label>
-              <mat-form-field appearance="outline">
-                <input matInput [value]="patient?.adicional">
-              </mat-form-field>
-            </div>
-            <div class="form-group">
-              <label>N° HC:</label>
-              <mat-form-field appearance="outline">
-                <input matInput [value]="patient?.nroHistoriaClinica">
-              </mat-form-field>
-            </div>
-            <div class="form-group">
               <label>Grupo:</label>
               <mat-form-field appearance="outline">
                 <mat-select placeholder="Seleccione un tipo">
-                  <mat-option value="A+">A+</mat-option>
+                  <mat-option *ngFor="let group of bloodGroups" [value]="group">
+                    {{ group }}
+                  </mat-option>
                 </mat-select>
               </mat-form-field>
             </div>
