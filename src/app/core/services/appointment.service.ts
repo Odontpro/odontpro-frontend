@@ -1,5 +1,4 @@
 // services/appointment.service.ts
-
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
@@ -12,11 +11,15 @@ import {
   Doctor,
   PatientTag
 } from '../../shared/models/appointment.model';
+import { Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
+
+  private appointmentCreatedSource = new Subject<Appointment>();
+  appointmentCreated$ = this.appointmentCreatedSource.asObservable();
 
   // Tags predefinidas para pacientes
   private patientTags: PatientTag[] = [
@@ -213,6 +216,10 @@ export class AppointmentService {
   ];
 
   constructor() {}
+
+  notifyAppointmentCreated(appointment: Appointment) {
+    this.appointmentCreatedSource.next(appointment);
+  }
 
   // Obtener todas las citas con filtros
   getAppointments(filters?: AppointmentFilters): Observable<Appointment[]> {

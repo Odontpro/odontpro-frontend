@@ -1,4 +1,5 @@
-import { Component, OnInit, ChangeDetectionStrategy, signal } from '@angular/core';
+import {Component, OnInit, ChangeDetectionStrategy, signal, OnDestroy} from '@angular/core';
+import { Subscription } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatButtonModule } from '@angular/material/button';
@@ -69,7 +70,9 @@ registerLocaleData(localeEs);
   templateUrl: './agenda.html',
   styleUrl: './agenda.css',
 })
-export class Agenda implements OnInit {
+export class Agenda implements OnInit, OnDestroy {
+
+  private subscription: Subscription = new Subscription();
 
   // Configuración del Calendario
   view: CalendarView = CalendarView.Week;
@@ -104,6 +107,22 @@ export class Agenda implements OnInit {
   ngOnInit(): void {
     this.loadDoctors();
     this.loadAppointments();
+    const sub = this.appointmentService.appointmentCreated$.subscribe(newAppointment => {
+      console.log('Nueva cita recibida en agenda:', newAppointment);
+      this.allAppointments.push(newAppointment);
+      this.refreshCalendar(); // O tu lógica para recargar las citas
+    });
+
+    this.subscription.add(sub);
+  }
+
+  ngOnDestroy() {
+    // Muy importante para evitar fugas de memoria
+    this.subscription.unsubscribe();
+  }
+
+  refreshCalendar() {
+    // Tu lógica para volver a llamar al backend y pintar las citas
   }
 
   loadDoctors(): void {

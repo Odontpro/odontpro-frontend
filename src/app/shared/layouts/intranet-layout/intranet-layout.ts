@@ -8,13 +8,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatBadgeModule } from '@angular/material/badge';
-import { RouterLink, RouterOutlet, RouterLinkActive } from '@angular/router';
+import {RouterLink, RouterOutlet, RouterLinkActive, Router} from '@angular/router';
 import { MatButtonModule } from '@angular/material/button';
 import { CryptoService } from '../../../core/services/crypto.service';
 import { FormsModule } from '@angular/forms';
 import {AddPatientDialog} from '../../../features/intranet/agenda/add-patient-dialog/add-patient-dialog';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
-import {Appointment} from '../../models/appointment.model';
+import {AppointmentService} from '../../../core/services/appointment.service';
 import {
   AppointmentDetailDialog
 } from '../../../features/intranet/agenda/appointment-detail-dialog/appointment-detail-dialog';
@@ -47,7 +47,9 @@ export class IntranetLayout {
   isMobile: boolean = false;
   isTablet: boolean = false;
 
-  constructor(private auth: AuthService, private cryptoService: CryptoService, private dialog: MatDialog) {
+  constructor(
+    private auth: AuthService, private cryptoService: CryptoService,
+    private dialog: MatDialog, private appointmentService: AppointmentService,) {
     this.checkScreenSize();
   }
 
@@ -100,7 +102,11 @@ export class IntranetLayout {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // Si el resultado es true, algo
+        // 1. Aquí llamarías a tu API para guardar primero
+        this.appointmentService.createAppointment(result).subscribe(newApp => {
+          // 2. Notificas al servicio que la cita fue creada
+          this.appointmentService.notifyAppointmentCreated(newApp);
+        });
       }
     });
   }
