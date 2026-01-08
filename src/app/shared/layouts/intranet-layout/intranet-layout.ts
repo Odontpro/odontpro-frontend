@@ -14,6 +14,11 @@ import { CryptoService } from '../../../core/services/crypto.service';
 import { FormsModule } from '@angular/forms';
 import {AddPatientDialog} from '../../../features/intranet/agenda/add-patient-dialog/add-patient-dialog';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
+import {Appointment} from '../../models/appointment.model';
+import {
+  AppointmentDetailDialog
+} from '../../../features/intranet/agenda/appointment-detail-dialog/appointment-detail-dialog';
+import {AddAppointmentDialog} from '../../../features/intranet/agenda/add-appointment-dialog/add-appointment-dialog';
 
 @Component({
   selector: 'app-intranet-layout',
@@ -87,8 +92,17 @@ export class IntranetLayout {
     });
   }
 
-  openAddAppointmentDialog(){
+  openAddAppointmentDialog(): void {
+    const dialogRef = this.dialog.open(AddAppointmentDialog, {
+      width: '1100px',
+      maxWidth: '95vw', // Para que en tablets no se desborde
+    });
 
+    dialogRef.afterClosed().subscribe(result => {
+      if (result) {
+        // Si el resultado es true, algo
+      }
+    });
   }
 
   closeSidenavOnMobile() {

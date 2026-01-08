@@ -1,0 +1,329 @@
+/* --- Contenedor Base --- */
+.dialog-container {
+  padding: 20px 50px;
+  position: relative;
+  background-color: white;
+}
+
+.absolute-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: transparent;
+  border: none;
+  color: #999;
+  cursor: pointer;
+  z-index: 100;
+}
+
+/* --- TABS: ALINEADOS A LA IZQUIERDA Y ANCHO AUTOMÁTICO --- */
+::ng-deep .appointment-tabs .mat-mdc-tab-labels {
+  justify-content: flex-start !important; /* Alinea a la izquierda */
+  border-bottom: 1px solid #eee;
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab {
+  flex-grow: 0 !important; /* Evita que se estiren al 50% */
+  min-width: 160px !important; /* Ancho cómodo para el texto */
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab-label-active {
+  color: #0097a7 !important; /* Color turquesa de Doctocliq */
+}
+
+::ng-deep .appointment-tabs .mat-mdc-tab-indicator::before {
+  border-color: #0097a7 !important;
+}
+
+/* --- Layout Principal --- */
+.main-content {
+  display: flex;
+  padding: 25px 0;
+  gap: 40px;
+}
+
+.content-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.vertical-separator {
+  width: 1px;
+  background-color: #f0f0f0;
+  align-self: stretch;
+}
+
+.custom-time-picker {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* Ajuste específico para el mat-select de AM/PM */
+.period-select {
+  width: 80px; /* Ancho suficiente para AM/PM */
+}
+
+/* Quitamos los espacios internos de Material para que sea pequeño */
+::ng-deep .period-select .mat-mdc-text-field-wrapper {
+  display: flex !important;
+  align-items: center !important;
+  padding: 0 8px !important;
+}
+
+::ng-deep .period-select .mat-mdc-form-field-infix {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* Mismo estilo para los inputs manuales para que combinen */
+.time-input {
+  width: 45px;
+  height: 36px;
+  border: 1px solid #d0d0d0;
+  border-radius: 4px;
+  text-align: center;
+  font-size: 14px;
+  outline: none;
+}
+
+.time-input:focus {
+  border-color: #0097a7;
+  border-width: 1.5px;
+}
+
+/* --- FILA DE CAMPO (LABEL + INPUT) --- */
+.row-field {
+  display: flex;
+  align-items: center;
+  min-height: 40px;
+  margin-bottom: 5px;
+}
+
+.row-label {
+  width: 120px;
+  font-size: 14px;
+  color: #777;
+  flex-shrink: 0;
+}
+
+.row-value {
+  flex: 1;
+}
+
+/* --- ÁREA DE NOTAS --- */
+.notes-full-width {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.notes-label {
+  font-size: 14px;
+  color: #777;
+}
+
+.text-area-field {
+  width: 100%;
+}
+
+::ng-deep .text-area-field .mat-mdc-text-field-wrapper {
+  height: auto !important; /* Permite que el textarea crezca */
+  padding: 12px !important;
+}
+
+/* ============================================
+   MATERIAL FORM FIELDS - CENTRADO VERTICAL
+   ============================================ */
+::ng-deep .mat-mdc-form-field {
+  width: 98%;
+}
+
+/* 1. Ajustar la altura total del contenedor */
+::ng-deep .mat-mdc-text-field-wrapper {
+  height: 40px !important;
+  display: flex !important;
+  align-items: center !important; /* Centra todo el contenido verticalmente */
+}
+
+/* 2. Resetear el infix (donde vive el input) */
+::ng-deep .mat-mdc-form-field-infix {
+  min-height: 40px !important;
+  padding: 0 !important; /* Eliminamos el padding que lo eleva */
+  display: flex !important;
+  align-items: center !important;
+}
+
+/* 3. Asegurar que el input ocupe el centro */
+::ng-deep .mat-mdc-input-element {
+  font-size: 14px;
+  height: auto !important;
+  vertical-align: middle !important;
+}
+
+/* 4. Centrar los iconos (Calendario/Flechas) */
+::ng-deep .mat-mdc-form-field-icon-suffix {
+  padding: 0 !important;
+  display: flex !important;
+  align-items: center !important;
+}
+
+::ng-deep .mat-datepicker-toggle button {
+  width: 35px !important;
+  height: 35px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+}
+
+/* 5. Estilo de los bordes (Manteniendo tu diseño) */
+::ng-deep .mdc-notched-outline__leading,
+::ng-deep .mdc-notched-outline__notch,
+::ng-deep .mdc-notched-outline__trailing {
+  border-color: #d0d0d0 !important;
+}
+
+::ng-deep .mat-mdc-form-field-subscript-wrapper {
+  display: none;
+}
+
+/* --- Estilos de Texto y Colores --- */
+.bold { font-weight: 700; color: #333; }
+.static-text { font-size: 14px; display: flex; align-items: center; gap: 8px; }
+.icon-teal { color: #7dc0bf; font-size: 20px; width: 20px; height: 20px; }
+.block-title { font-size: 14px; font-weight: 700; margin: 15px 0 10px 0; }
+.icon-info { font-size: 16px; width: 16px; height: 16px; color: #999; vertical-align: middle; }
+
+.view-patient-btn {
+  width: 32px !important;
+  height: 32px !important;
+  line-height: 32px !important;
+  margin-left: 4px;
+  color: #7dc0bf !important;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.view-patient-btn mat-icon {
+  font-size: 18px !important;
+  width: 18px !important;
+  height: 18px !important;
+}
+
+/* --- Footer --- */
+.dialog-footer {
+  display: flex;
+  padding-top: 20px;
+}
+
+.flex-spacer { flex: 1; }
+
+.delete-action {
+  color: #f44336 !important;
+  border-color: #f44336 !important;
+}
+
+.save-action {
+  background-color: #0097a7 !important;
+  color: white !important;
+  padding: 0 30px !important;
+}
+
+/* --- Estados --- */
+.cancelada ::ng-deep .mat-mdc-select-value { color: #f44336; font-weight: 600; }
+.confirmada ::ng-deep .mat-mdc-select-value { color: #4caf50; font-weight: 600; }
+
+/* --- Historial --- */
+.empty-history-state {
+  text-align: center;
+  padding: 80px;
+  color: #ccc;
+}
+.empty-history-state mat-icon { font-size: 50px; width: 50px; height: 50px; }
+/* 1. Color de la línea y el texto de la pestaña activa */
+::ng-deep .mat-mdc-tab-group.mat-primary .mat-mdc-tab-indicator::before,
+::ng-deep .mat-mdc-tab-nav-bar.mat-primary .mat-mdc-tab-indicator::before {
+  border-color: #7dc0bf !important;
+}
+
+::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
+  color: #7dc0bf !important;
+}
+
+/* 2. Color del botón "Guardar" (Primary) */
+.save-action,
+button[mat-flat-button].mat-primary,
+button[mat-raised-button].mat-primary {
+  background-color: #7dc0bf !important;
+  color: white !important;
+}
+
+/* 3. Color de los iconos y elementos de enfoque (Focus) */
+.icon-teal,
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-select-arrow,
+::ng-deep .mat-mdc-form-field.mat-focused .mat-mdc-floating-label {
+  color: #7dc0bf !important;
+}
+
+/* 4. Color del borde de los campos cuando haces clic (Focus) */
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__leading,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__notch,
+::ng-deep .mat-mdc-form-field.mat-focused .mdc-notched-outline__trailing {
+  border-color: #7dc0bf !important;
+  border-width: 2px !important;
+}
+
+/* 5. Color del Datepicker (Calendario) */
+::ng-deep .mat-calendar-body-selected {
+  background-color: #7dc0bf !important;
+  color: white !important;
+}
+
+::ng-deep .mat-datepicker-toggle-active {
+  color: #7dc0bf !important;
+}
+
+/* CAMBIAR EL COLOR DE LA RAYA (INDICADOR) */
+::ng-deep .mdc-tab-indicator__content--underline {
+  border-color: #7dc0bf !important;
+  border-top-width: 3px !important; /* Grosor de la línea */
+}
+
+/* CAMBIAR EL COLOR DEL TEXTO ACTIVO */
+::ng-deep .mdc-tab--active .mdc-tab__text-label {
+  color: #7dc0bf !important;
+}
+
+/* OPCIONAL: Quitar el azul del efecto "Ripple" (el círculo al hacer clic) */
+::ng-deep .mdc-tab__ripple::before,
+::ng-deep .mdc-tab__ripple::after {
+  background-color: #7dc0bf !important;
+}
+
+/* Específico para el textarea de este diálogo */
+.notes-full-width ::ng-deep .mat-mdc-text-field-wrapper {
+  height: auto !important; /* Rompe el límite de 40px */
+  min-height: 100px !important;
+  align-items: flex-start !important;
+  padding-top: 10px !important;
+  background-color: white !important; /* Opcional: blanco para diferenciar */
+}
+
+.notes-full-width ::ng-deep .mat-mdc-form-field-infix {
+  height: auto !important;
+  min-height: unset !important;
+  display: block !important;
+}
+
+.dialog-footer {
+  justify-content: flex-end;
+  gap: 10px;
+  border-top: 1px solid #eee;
+  margin: 0 -50px; /* Expande al borde del padding del container */
+  padding: 20px 50px 0;
+}
