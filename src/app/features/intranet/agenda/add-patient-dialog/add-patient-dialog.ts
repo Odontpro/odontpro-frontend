@@ -1,4 +1,4 @@
-import {Component, LOCALE_ID, OnInit} from '@angular/core';
+import { Component, LOCALE_ID, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 import { MatDialogRef, MatDialogModule } from '@angular/material/dialog';
 import { CommonModule } from '@angular/common';
@@ -11,46 +11,25 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatIconModule } from '@angular/material/icon';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatChipsModule } from '@angular/material/chips';
-import {MAT_DATE_LOCALE, MatNativeDateModule} from '@angular/material/core';
-import {provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
-import {es} from 'date-fns/locale';
-import {DateAdapter, provideCalendar} from 'angular-calendar';
-import {adapterFactory} from 'angular-calendar/date-adapters/date-fns';
-
-interface PatientTag {
-  id: number;
-  nombre: string;
-  color: string;
-  backgroundColor: string;
-}
+import { MAT_DATE_LOCALE, MatNativeDateModule } from '@angular/material/core';
+import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
+import { es } from 'date-fns/locale';
+import { Patient, DocumentType, Gender, BloodGroup, availableTags, PatientTag } from '../../../../shared/models/patient.model';
+import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // Importar esto
+import { PatientService } from '../../../../core/services/patient.service'; // Ajusta la ruta
 
 @Component({
   selector: 'app-add-patient-dialog',
   standalone: true,
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatDialogModule,
-    MatButtonModule,
-    MatFormFieldModule,
-    MatInputModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    MatIconModule,
-    MatMenuModule,
-    MatChipsModule
+    CommonModule, ReactiveFormsModule, MatDialogModule, MatButtonModule,
+    MatFormFieldModule, MatInputModule, MatSelectModule, MatCheckboxModule,
+    MatDatepickerModule, MatNativeDateModule, MatIconModule, MatMenuModule, MatChipsModule
   ],
   providers: [
     provideDateFnsAdapter(),
     { provide: MAT_DATE_LOCALE, useValue: es },
-    { provide: LOCALE_ID, useValue: 'es' }, // <--- Añade esto
-    provideCalendar({
-      provide: DateAdapter,
-      useFactory: adapterFactory,
-    }),
-
+    { provide: LOCALE_ID, useValue: 'es' }
   ],
   templateUrl: './add-patient-dialog.html',
   styleUrl: './add-patient-dialog.css',
@@ -58,56 +37,71 @@ interface PatientTag {
 export class AddPatientDialog implements OnInit {
   patientForm!: FormGroup;
   showMoreData = false;
+  isSaving = false; // Flag para el estado del botón
+
+  // Usamos tus constantes globales
+  availableTags: PatientTag[] = availableTags;
   selectedTags: PatientTag[] = [];
+
+  // Opciones para los Selects basadas en Enums
+  docTypes = ['DNI', 'PASAPORTE', 'RUC', 'CARNET_EXTRANJERIA', 'OTROS'];
+  genders = [
+    { value: 'MALE', label: 'Hombre' },
+    { value: 'FEMALE', label: 'Mujer' },
+    { value: 'OTHER', label: 'Otro' }
+  ];
+  bloodGroups = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
 
   countries = [
     { name: 'Perú', code: '+51', flag: 'pe' },
-    { name: 'Venezuela', code: '+58', flag: 've' },
-    { name: 'Colombia', code: '+57', flag: 'co' },
-    { name: 'Chile', code: '+56', flag: 'cl' },
-    { name: 'Argentina', code: '+54', flag: 'ar' },
-    { name: 'España', code: '+34', flag: 'es' },
     { name: 'México', code: '+52', flag: 'mx' },
-    { name: 'Estados Unidos', code: '+1', flag: 'us' }
+    { name: 'Colombia', code: '+57', flag: 'co' }
   ];
 
-  availableTags: PatientTag[] = [
-    { id: 1, nombre: 'Nuevo', color: '#2e7d32', backgroundColor: '#e8f5e9' },
-    { id: 2, nombre: 'VIP', color: '#6a1b9a', backgroundColor: '#f3e5f5' },
-    { id: 3, nombre: 'Impuntual', color: '#d32f2f', backgroundColor: '#ffebee' },
-    { id: 4, nombre: 'Fidelizado', color: '#0288d1', backgroundColor: '#e1f5fe' },
-    { id: 5, nombre: 'Favorito', color: '#f57c00', backgroundColor: '#fff3e0' }
-  ];
+  removeTag(tag: PatientTag): void {
+    const index = this.selectedTags.findIndex(t => t.id === tag.id);
+    if (index !== -1) {
+      this.selectedTags.splice(index, 1);
+      this.patientForm.patchValue({ tags: this.selectedTags.map(t => t.id) });
+    }
+  }
 
   constructor(
     private fb: FormBuilder,
-    public dialogRef: MatDialogRef<AddPatientDialog>
+    public dialogRef: MatDialogRef<AddPatientDialog>,
+    private patientService: PatientService, // Inyectado
+    private snackBar: MatSnackBar,          // Inyectado
   ) {}
 
   ngOnInit(): void {
     this.patientForm = this.fb.group({
-      docType: ['DNI'],
-      docNumber: ['', Validators.required],
-      noDoc: [false],
-      names: ['', Validators.required],
-      lastNameP: ['', Validators.required],
-      lastNameM: [''],
-      countryCode: ['+51'],
-      phone: ['', Validators.required],
-      noPhone: [false],
-      hasRepresentative: [false],
-      // Campos opcionales
-      email: ['', Validators.email],
+      // Identificación
+      documentType: ['DNI'],
+      documentNumber: ['', Validators.required],
+      hasNoDocument: [false],
+
+      // Información Personal
+      firstName: ['', Validators.required],
+      lastNamePaternal: ['', Validators.required],
+      lastNameMaternal: [''],
       birthDate: [null],
-      gender: ['Hombre'],
-      captacionSource: [''],
-      insurance: [''],
-      tags: [[]]
+      gender: ['MALE'],
+      bloodGroup: [null],
+
+      // Contacto
+      phonePrefix: ['+51'],
+      phoneNumber: ['', Validators.required],
+      hasNoPhone: [false],
+      email: ['', [Validators.email]],
+
+      // Relaciones y Etiquetas
+      tags: [[]], // Array de IDs: number[]
+      hasGuardian: [false],
+      generalNote: ['']
     });
 
-    // Validadores condicionales para documento y teléfono
-    this.handleConditionalValidator('noDoc', 'docNumber');
-    this.handleConditionalValidator('noPhone', 'phone');
+    this.handleConditionalValidator('hasNoDocument', 'documentNumber');
+    this.handleConditionalValidator('hasNoPhone', 'phoneNumber');
   }
 
   handleConditionalValidator(checkboxName: string, inputName: string): void {
@@ -133,6 +127,7 @@ export class AddPatientDialog implements OnInit {
     this.showMoreData = !this.showMoreData;
   }
 
+  // --- Lógica de Etiquetas (Tags) ---
   toggleTag(tag: PatientTag): void {
     const index = this.selectedTags.findIndex(t => t.id === tag.id);
     if (index === -1) {
@@ -140,15 +135,8 @@ export class AddPatientDialog implements OnInit {
     } else {
       this.selectedTags.splice(index, 1);
     }
+    // Actualizamos el form con los IDs
     this.patientForm.patchValue({ tags: this.selectedTags.map(t => t.id) });
-  }
-
-  removeTag(tag: PatientTag): void {
-    const index = this.selectedTags.findIndex(t => t.id === tag.id);
-    if (index !== -1) {
-      this.selectedTags.splice(index, 1);
-      this.patientForm.patchValue({ tags: this.selectedTags.map(t => t.id) });
-    }
   }
 
   isTagSelected(tag: PatientTag): boolean {
@@ -157,19 +145,41 @@ export class AddPatientDialog implements OnInit {
 
   onSubmit(): void {
     if (this.patientForm.invalid) {
-      // Marcar todos los campos como touched para mostrar errores
-      Object.keys(this.patientForm.controls).forEach(key => {
-        this.patientForm.get(key)?.markAsTouched();
-      });
+      this.patientForm.markAllAsTouched();
       return;
     }
 
-    const formData = {
-      ...this.patientForm.value,
-      selectedTags: this.selectedTags
-    };
+    this.isSaving = true;
 
-    console.log('Datos del paciente:', formData);
-    this.dialogRef.close(formData);
+    // Creamos una copia de los valores del formulario
+    const rawData = this.patientForm.value;
+
+    // Limpiamos los campos que son strings vacíos para que viajen como undefined o null
+    const patientData = { ...rawData };
+
+
+    console.log("patientData");
+    console.log(patientData);
+
+    Object.keys(patientData).forEach(key => {
+      if (patientData[key] === '' || patientData[key] === null) {
+        delete patientData[key];
+      }
+    });
+
+    this.patientService.createPatient(patientData).subscribe({
+      next: (createdPatient) => {
+        console.log(createdPatient);
+        this.isSaving = false;
+        this.snackBar.open(`Paciente creado correctamente`, 'Cerrar', { duration: 3000 });
+        this.dialogRef.close(createdPatient);
+      },
+      error: (err) => {
+        this.isSaving = false;
+        console.error('Error al crear paciente:', err);
+      }
+    });
   }
+
+  close() { this.dialogRef.close(); }
 }

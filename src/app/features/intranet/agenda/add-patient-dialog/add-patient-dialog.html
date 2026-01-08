@@ -17,22 +17,19 @@
             <label>Documento<span class="required">*</span></label>
             <div class="input-group-split">
               <mat-form-field appearance="outline" class="doc-type-select">
-                <mat-select formControlName="docType">
-                  <mat-option value="DNI">DNI</mat-option>
-                  <mat-option value="PAS">Pasaporte</mat-option>
-                  <mat-option value="RUC">RUC</mat-option>
+                <mat-select formControlName="documentType">
+                  <mat-option *ngFor="let type of docTypes" [value]="type">{{type}}</mat-option>
                 </mat-select>
               </mat-form-field>
               <mat-form-field appearance="outline" class="doc-number-input">
                 <input
                   matInput
-                  formControlName="docNumber"
+                  formControlName="documentNumber"
                   placeholder="Número"
-                  [disabled]="patientForm.get('noDoc')?.value"
                 >
               </mat-form-field>
             </div>
-            <mat-checkbox formControlName="noDoc" class="no-have-check">
+            <mat-checkbox formControlName="hasNoDocument" class="no-have-check">
               No tiene documento
             </mat-checkbox>
           </div>
@@ -40,7 +37,7 @@
           <div class="field-row">
             <label>Nombres<span class="required">*</span></label>
             <mat-form-field appearance="outline" class="full-width-field">
-              <input matInput formControlName="names">
+              <input matInput formControlName="firstName">
             </mat-form-field>
           </div>
 
@@ -50,10 +47,10 @@
             <label>Apellidos<span class="required">*</span></label>
             <div class="input-group-split">
               <mat-form-field appearance="outline" class="half-width-field">
-                <input matInput formControlName="lastNameP" placeholder="Paterno">
+                <input matInput formControlName="lastNamePaternal" placeholder="Paterno">
               </mat-form-field>
               <mat-form-field appearance="outline" class="half-width-field">
-                <input matInput formControlName="lastNameM" placeholder="Materno (opcional)">
+                <input matInput formControlName="lastNameMaternal" placeholder="Materno (opcional)">
               </mat-form-field>
             </div>
           </div>
@@ -64,11 +61,11 @@
             <label>Teléfono<span class="required">*</span></label>
             <div class="input-group-split phone-group">
               <mat-form-field appearance="outline" class="country-select-field">
-                <mat-select formControlName="countryCode">
+                <mat-select formControlName="phonePrefix">
                   <mat-select-trigger>
                     <div class="selected-country">
                       <img [src]="'https://flagcdn.com/w20/' + getSelectedFlag() + '.png'" width="18" height="12">
-                      <span>{{ patientForm.get('countryCode')?.value }}</span>
+                      <span>{{ patientForm.get('phonePrefix')?.value }}</span>
                     </div>
                   </mat-select-trigger>
                   <mat-option *ngFor="let country of countries" [value]="country.code">
@@ -80,20 +77,19 @@
               <mat-form-field appearance="outline" class="phone-input-field">
                 <input
                   matInput
-                  formControlName="phone"
+                  formControlName="phoneNumber"
                   type="tel"
                   placeholder="000 000 000"
-                  [disabled]="patientForm.get('noPhone')?.value"
                 >
               </mat-form-field>
             </div>
-            <mat-checkbox formControlName="noPhone" class="no-have-check">
-              No tiene telefono
+            <mat-checkbox formControlName="hasNoPhone" class="no-have-check">
+              No tiene teléfono
             </mat-checkbox>
           </div>
 
           <div class="field-row-footer">
-            <mat-checkbox formControlName="hasRepresentative" class="representative-check">
+            <mat-checkbox formControlName="hasGuardian" class="representative-check">
               Tiene un apoderado
             </mat-checkbox>
             <div class="toggle-data-link" (click)="toggleMoreData()">
@@ -119,12 +115,7 @@
           <div class="field-row">
             <label>F. nacimiento</label>
             <mat-form-field appearance="outline" class="full-width-field">
-              <input
-                matInput
-                [matDatepicker]="picker"
-                formControlName="birthDate"
-                readonly
-              >
+              <input matInput [matDatepicker]="picker" formControlName="birthDate" readonly>
               <mat-datepicker-toggle matIconSuffix [for]="picker">
                 <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
               </mat-datepicker-toggle>
@@ -138,9 +129,7 @@
             <label>Sexo</label>
             <mat-form-field appearance="outline" class="full-width-field">
               <mat-select formControlName="gender">
-                <mat-option value="Hombre">Hombre</mat-option>
-                <mat-option value="Mujer">Mujer</mat-option>
-                <mat-option value="Mujer">Otro</mat-option>
+                <mat-option *ngFor="let g of genders" [value]="g.value">{{g.label}}</mat-option>
               </mat-select>
             </mat-form-field>
           </div>
@@ -149,17 +138,11 @@
 
           <div class="field-row">
             <label>Etiquetas</label>
-            <button
-              type="button"
-              mat-button
-              class="add-tags-btn"
-              [matMenuTriggerFor]="tagsMenu"
-            >
+            <button type="button" mat-button class="add-tags-btn" [matMenuTriggerFor]="tagsMenu">
               <mat-icon>add_circle_outline</mat-icon>
               Etiquetas
             </button>
 
-            <!-- Tags seleccionadas -->
             <div class="selected-tags" *ngIf="selectedTags.length > 0">
               <mat-chip-set>
                 <mat-chip
@@ -169,9 +152,7 @@
                   (removed)="removeTag(tag)"
                 >
                   {{ tag.nombre }}
-                  <button matChipRemove>
-                    <mat-icon>cancel</mat-icon>
-                  </button>
+                  <button matChipRemove><mat-icon>cancel</mat-icon></button>
                 </mat-chip>
               </mat-chip-set>
             </div>
@@ -180,27 +161,20 @@
               <div class="tags-menu-content" (click)="$event.stopPropagation()">
                 <h4 class="tags-menu-title">Etiquetas</h4>
                 <div class="available-tags">
-                  <button
-                    mat-menu-item
-                    *ngFor="let tag of availableTags"
-                    (click)="toggleTag(tag)"
-                    [disabled]="isTagSelected(tag)"
-                  >
-                    <span
-                      class="tag-preview"
-                      [style.background-color]="tag.backgroundColor"
-                      [style.color]="tag.color"
-                    >
+                  <button mat-menu-item *ngFor="let tag of availableTags" (click)="toggleTag(tag)">
+                    <span class="tag-preview"
+                          [style.background-color]="tag.backgroundColor"
+                          [style.color]="tag.color"
+                          [class.tag-selected]="isTagSelected(tag)">
                       {{ tag.nombre }}
+                      <mat-icon *ngIf="isTagSelected(tag)">check</mat-icon>
                     </span>
                   </button>
                 </div>
-                <p class="tags-hint">
-                  Puedes crear y gestionar tus etiquetas desde Configuración, pestaña Administración, pestaña Etiquetas.
-                </p>
               </div>
             </mat-menu>
           </div>
+
         </div>
       </div>
     </form>
@@ -215,9 +189,9 @@
       color="primary"
       class="btn-create"
       (click)="onSubmit()"
-      [disabled]="patientForm.invalid"
+      [disabled]="patientForm.invalid || isSaving"
     >
-      Crear
+      {{ isSaving ? 'Guardando...' : 'Crear' }}
     </button>
   </mat-dialog-actions>
 </div>

@@ -82,6 +82,21 @@ export interface Patient {
   lineaNegocio?: string;
 }
 
+export interface Patient2 {
+  id: number;
+  nombre: string;
+  apellido: string;
+  telefono: string;
+  email?: string;
+  foto?: string;
+  tags: PatientTag[];
+  nroHistoriaClinica: string;
+  grupoSanguineo?: string;
+  fuenteCaptacion?: string;
+  adicional?: string;
+  lineaNegocio?: string;
+}
+
 export interface Doctor {
   id: number;
   nombre: string;
