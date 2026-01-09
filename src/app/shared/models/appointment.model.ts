@@ -1,10 +1,16 @@
 // models/appointment.model.ts
+import {User} from './user.model';
+import {Patient} from './patient.model';
 
 export interface Appointment {
   id?: number;
 
   branch: string;       // 'Principal' por defecto
   officeId?: number;    // ID del consultorio/box
+
+  // Objetos completos que devuelve el backend
+  patient?: Patient;
+  doctor?: User;
 
   patientId: number;    // ID del paciente
   doctorId: number;     // ID del usuario (Doctor/Admin)

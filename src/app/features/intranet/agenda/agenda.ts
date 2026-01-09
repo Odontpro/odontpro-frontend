@@ -107,10 +107,13 @@ export class Agenda implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.loadDoctors();
     this.loadAppointments();
+
     const sub = this.appointmentService.appointmentCreated$.subscribe(newAppointment => {
-      console.log('Nueva cita recibida en agenda:', newAppointment);
-      this.allAppointments.push(newAppointment);
-      this.refreshCalendar(); // O tu lógica para recargar las citas
+      // Agregamos al arreglo local
+      this.allAppointments = [...this.allAppointments, newAppointment];
+
+      // Actualizamos la visualización
+      this.refreshCalendar();
     });
 
     this.subscription.add(sub);
@@ -140,6 +143,7 @@ export class Agenda implements OnInit, OnDestroy {
   loadAppointments(): void {
     this.appointmentService.getAppointments().subscribe({
       next: (appointments) => {
+        console.log(appointments);
         this.allAppointments = appointments;
         this.filterAndMapEvents();
       }

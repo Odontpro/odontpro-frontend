@@ -12,7 +12,7 @@ import {
 } from '../../shared/models/appointment.model';
 import { Subject } from 'rxjs';
 import {availableTags, Patient, PatientTag} from '../../shared/models/patient.model';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 import { environment } from './environment';
 import { map } from 'rxjs/operators';
 
@@ -230,44 +230,27 @@ export class AppointmentService {
 
   // Obtener todas las citas con filtros
   getAppointments(filters?: AppointmentFilters): Observable<Appointment[]> {
-    // Hacemos una copia de los mocks creados anteriormente
-    let filtered = [...this.appointments];
+    let params = new HttpParams();
 
     if (filters) {
-      if (filters.doctorId) {
-        filtered = filtered.filter(a => a.doctorId === filters.doctorId);
+      if (filters.doctorId) params = params.set('doctorId', filters.doctorId.toString());
+      if (filters.patientId) params = params.set('patientId', filters.patientId.toString());
+      if (filters.branch) params = params.set('branch', filters.branch);
+      if (filters.status) params = params.set('status', filters.status);
+      if (filters.specialty) params = params.set('specialty', filters.specialty);
+
+      // Para las fechas, las enviamos como string YYYY-MM-DD
+      if (filters.startDate) {
+        params = params.set('startDate', filters.startDate.toISOString().split('T')[0]);
       }
-
-      if (filters.patientId) {
-        filtered = filtered.filter(a => a.patientId === filters.patientId);
-      }
-
-      if (filters.branch) {
-        filtered = filtered.filter(a => a.branch === filters.branch);
-      }
-
-      if (filters.status) {
-        filtered = filtered.filter(a => a.status === filters.status);
-      }
-
-      if (filters.specialty) {
-        filtered = filtered.filter(a => a.specialty.toLowerCase().includes(filters.specialty!.toLowerCase()));
-      }
-
-      // Filtrado por rango de fechas (comparando objetos Date)
-      if (filters.startDate && filters.endDate) {
-        const start = new Date(filters.startDate).setHours(0, 0, 0, 0);
-        const end = new Date(filters.endDate).setHours(23, 59, 59, 999);
-
-        filtered = filtered.filter(a => {
-          const appointmentTime = new Date(a.date).getTime();
-          return appointmentTime >= start && appointmentTime <= end;
-        });
+      if (filters.endDate) {
+        params = params.set('endDate', filters.endDate.toISOString().split('T')[0]);
       }
     }
 
-    // Simulamos la respuesta del servidor con un pequeño delay
-    return of(filtered).pipe(delay(300));
+    return this.http.get<any[]>(this.apiUrl, { params }).pipe(
+      map(res => res.map(item => this.mapToAppointment(item)))
+    );
   }
 
   // Obtener cita por ID
@@ -286,19 +269,17 @@ export class AppointmentService {
   private mapToAppointment(data: any): Appointment {
     return {
       ...data,
-      // Convertimos los strings de fecha a objetos Date reales
       date: new Date(data.date),
-      createdAt: data.createdAt ? new Date(data.createdAt) : undefined,
-      updatedAt: data.updatedAt ? new Date(data.updatedAt) : undefined,
-
-      // Aseguramos que los IDs sean numéricos (por si el backend enviara strings)
-      id: Number(data.id),
-      patientId: Number(data.patientId),
-      doctorId: Number(data.doctorId),
-      officeId: data.officeId ? Number(data.officeId) : undefined,
-
-      // El resto de campos (branch, specialty, reason, status, startTime, notes)
-      // se mantienen tal cual vienen en el spread (...data)
+      createdAt: new Date(data.createdAt),
+      updatedAt: new Date(data.updatedAt),
+      // Si el backend envía el paciente/doctor, el spread (...data) los incluye,
+      // pero nos aseguramos de que el paciente también tenga sus fechas como Date si es necesario
+      patient: data.patient ? {
+        ...data.patient,
+        createdAt: new Date(data.patient.createdAt),
+        updatedAt: new Date(data.patient.updatedAt)
+      } : undefined,
+      doctor: data.doctor ? { ...data.doctor } : undefined
     };
   }
 
