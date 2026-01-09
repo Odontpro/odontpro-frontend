@@ -173,9 +173,7 @@ export class Agenda implements OnInit, OnDestroy {
       return {
         start: start,
         end: end,
-        // LLAMADA AL SERVICIO: Obtenemos el nombre formateado desde el AppointmentService
-        title: this.appointmentService.getPatientName(app.patientId),
-
+        title: app.patient?.firstName+" "+app.patient?.lastNamePaternal,
         color: {
           primary: this.getDoctorColor(app.doctorId),
           secondary: '#E3F2FD'

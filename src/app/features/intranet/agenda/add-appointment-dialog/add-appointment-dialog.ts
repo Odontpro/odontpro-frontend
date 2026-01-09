@@ -22,6 +22,7 @@ import {es} from 'date-fns/locale';
 import { format } from 'date-fns'; // Asegúrate de tener date-fns instalado
 import { CreateAppointmentDto} from '../../../../shared/models/appointment.model';
 import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {PatientService} from '../../../../core/services/patient.service';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -66,6 +67,7 @@ export class AddAppointmentDialog implements OnInit {
   constructor(
     private dialogRef: MatDialogRef<AddAppointmentDialog>,
     private appointmentService: AppointmentService,
+    private patientService: PatientService,
     @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.generateDurationOptions();
@@ -73,7 +75,7 @@ export class AddAppointmentDialog implements OnInit {
 
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
-    this.appointmentService.getPatients().subscribe(pats => this.patients = pats);
+    this.patientService.getPatients().subscribe(pats => this.patients = pats);
 
     if (this.data?.fecha) {
       // Si la fecha viene como Date, la pasamos a string yyyy-MM-dd

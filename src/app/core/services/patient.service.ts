@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from './environment';
 import { Patient } from '../../shared/models/patient.model';
-import { Observable } from 'rxjs';
+import {Observable, Subject} from 'rxjs';
 import { map } from 'rxjs/operators';
+import {Appointment} from '../../shared/models/appointment.model';
 
 @Injectable({
   providedIn: 'root'

@@ -60,14 +60,8 @@ export class PatientDetailDialog implements OnInit {
   }
 
   loadPatient(): void {
-    this.appointmentService.getPatientById(this.data.appointment.patientId).subscribe({
-      next: (patient) => {
-        this.patient = patient;
-        if(this.patient?.id){
-          this.loadPatientAppointments(this.patient.id);
-        }
-      }
-    });
+    this.patient = this.data.appointment.patient;
+    this.loadPatientAppointments(this.data.appointment.patientId);
   }
 
   loadPatientAppointments(patientId: number): void {
