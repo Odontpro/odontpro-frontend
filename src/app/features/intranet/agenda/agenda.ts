@@ -122,7 +122,9 @@ export class Agenda implements OnInit, OnDestroy {
   }
 
   refreshCalendar() {
-    // Tu lógica para volver a llamar al backend y pintar las citas
+    this.filterAndMapEvents();
+
+    this.refresh.next();
   }
 
   loadDoctors(): void {

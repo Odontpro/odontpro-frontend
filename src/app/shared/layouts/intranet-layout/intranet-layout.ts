@@ -102,7 +102,6 @@ export class IntranetLayout {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        console.log('Paciente creado desde layout:', result);
         this.appointmentService.notifyAppointmentCreated(result);
       }
     });
