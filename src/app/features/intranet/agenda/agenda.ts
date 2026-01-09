@@ -11,7 +11,6 @@ import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService } from '../../../core/services/appointment.service';
 import { Appointment } from '../../../shared/models/appointment.model';
 import { User} from '../../../shared/models/user.model';
-import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
 import { AppointmentDetailDialog} from './appointment-detail-dialog/appointment-detail-dialog';
 import {FormsModule} from '@angular/forms';
 import {CalendarModule, CalendarWeekViewComponent, DateAdapter, provideCalendar} from 'angular-calendar';
@@ -208,21 +207,26 @@ export class Agenda implements OnInit, OnDestroy {
       maxWidth: '95vw',
     });
 
-    dialogRef.afterClosed().subscribe((updatedApp: Appointment | any) => {
-      if (updatedApp && updatedApp.id) {
+    dialogRef.afterClosed().subscribe((result: any) => {
+      if (!result) return;
 
-        const index = this.allAppointments.findIndex(a => a.id === updatedApp.id);
+      // CASO 1: ELIMINACIÓN
+      if (result.deletedId) {
+        console.log('Eliminando cita localmente:', result.deletedId);
+        this.allAppointments = this.allAppointments.filter(a => a.id !== result.deletedId);
+        this.filterAndMapEvents();
+      }
 
+      // CASO 2: ACTUALIZACIÓN
+      else if (result.id) {
+        console.log('Actualizando cita localmente:', result.id);
+        const index = this.allAppointments.findIndex(a => a.id === result.id);
 
         if (index !== -1) {
-          this.allAppointments[index] = updatedApp;
-
+          this.allAppointments[index] = result;
           this.allAppointments = [...this.allAppointments];
-
           this.filterAndMapEvents();
         }
-      } else if (updatedApp === true) {
-        this.loadAppointments(); // O tu lógica de borrado local
       }
     });
   }

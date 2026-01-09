@@ -133,11 +133,7 @@ export class AppointmentService {
   }
 
   deleteAppointment(id: number | undefined): Observable<void> {
-    const index = this.appointments.findIndex(a => a.id === id);
-    if (index !== -1) {
-      this.appointments.splice(index, 1);
-    }
-    return of(void 0).pipe(delay(300));
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 
   getDoctors(): Observable<User[]> {

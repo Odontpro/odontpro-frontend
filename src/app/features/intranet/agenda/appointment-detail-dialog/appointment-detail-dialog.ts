@@ -85,7 +85,6 @@ export class AppointmentDetailDialog implements OnInit {
     );
   }
 
-
   generateDurationOptions() {
     const maxMinutes = 8 * 60; // 480 minutos (8 horas)
     const step = 30; // Intervalos de 30 min
@@ -100,8 +99,6 @@ export class AppointmentDetailDialog implements OnInit {
       this.durationOptions.push({ label, value: min });
     }
   }
-
-  // En tu clase de componente
 
   setTimeFromAppointment(horaStr: string) {
     if (!horaStr) return;
@@ -229,21 +226,11 @@ export class AppointmentDetailDialog implements OnInit {
     this.data.appointment.startTime = `${hh}:${mm} ${this.timeValues.period}`;
   }
 
-  openPatientDetail(appointment: Appointment): void {
-    this.dialog.open(PatientDetailDialog, {
-      data: { appointment },
-      width: '1100px'
-    });
-  }
-
   viewPatient(): void {
-    // 1. Guardamos la referencia de la cita actual
     const currentAppointment = this.data.appointment;
 
-    // 2. Cerramos el diálogo actual (Detalle de Cita)
     this.dialogRef.close();
 
-    // 3. Abrimos el detalle del paciente
     const patientRef = this.dialog.open(PatientDetailDialog, {
       data: { appointment: currentAppointment },
       width: '1100px'
@@ -292,9 +279,6 @@ export class AppointmentDetailDialog implements OnInit {
     });
   }
 
-  /**
-   * Convierte "02:00 PM" a "14:00" para el backend
-   */
   private convertTo24h(timeStr: string): string {
     if (!timeStr.includes('AM') && !timeStr.includes('PM')) return timeStr;
 
@@ -315,9 +299,11 @@ export class AppointmentDetailDialog implements OnInit {
   }
 
   onDelete() {
-    if (confirm('¿Estás seguro de que deseas eliminar esta cita?')) {
-      this.appointmentService.deleteAppointment(this.data.appointment.id).subscribe(() => {
-        this.dialogRef.close(true);
+    if (confirm('¿Estás seguro?')) {
+      this.appointmentService.deleteAppointment(this.data.appointment.id).subscribe({
+        next: () => {
+          this.dialogRef.close({ deletedId: this.data.appointment.id });
+        }
       });
     }
   }
