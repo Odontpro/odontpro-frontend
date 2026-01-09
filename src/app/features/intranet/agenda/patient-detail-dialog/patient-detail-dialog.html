@@ -98,16 +98,19 @@
           <div class="form-grid">
             <div class="form-group">
               <label>Teléfono:</label>
-              <div class="form-value">{{ patient?.phonePrefix +" "+ patient?.phoneNumber }}</div>
+              <div class="form-value">{{ patient?.phonePrefix }} {{ patient?.phoneNumber }}</div>
             </div>
             <div class="form-group">
               <label>E-mail:</label>
               <div class="form-value">{{ patient?.email || '-' }}</div>
             </div>
+
             <div class="form-group">
-              <label>Grupo:</label>
+              <label>Grupo Sanguíneo:</label>
               <mat-form-field appearance="outline">
-                <mat-select placeholder="Seleccione un tipo">
+                <mat-select
+                  [(ngModel)]="patient!.bloodGroup"
+                  placeholder="Seleccione un tipo">
                   <mat-option *ngFor="let group of bloodGroups" [value]="group">
                     {{ group }}
                   </mat-option>
@@ -115,8 +118,18 @@
               </mat-form-field>
             </div>
           </div>
+
           <div class="form-actions">
-            <button mat-flat-button class="btn-save">Guardar cambios</button>
+            <button
+              mat-flat-button
+              class="btn-save"
+              (click)="saveChanges()"
+              [disabled]="isLoading">
+              <mat-icon *ngIf="isLoading">
+                <mat-spinner diameter="18"></mat-spinner>
+              </mat-icon>
+              {{ isLoading ? 'Guardando...' : 'Guardar cambios' }}
+            </button>
           </div>
         </div>
       </mat-tab>

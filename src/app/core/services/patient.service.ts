@@ -20,6 +20,12 @@ export class PatientService {
     );
   }
 
+  updatePatient(id: number, data: Partial<Patient>): Observable<Patient> {
+    return this.http.patch<any>(`${this.apiUrl}/${id}`, data).pipe(
+      map(response => this.mapToPatient(response))
+    );
+  }
+
   getPatientById(id: number): Observable<Patient> {
     return this.http.get<any>(`${this.apiUrl}/${id}`).pipe(
       map(p => this.mapToPatient(p))
@@ -38,7 +44,7 @@ export class PatientService {
       // Convertimos los IDs de etiquetas a números por si vienen como strings
       tags: data.tags ? data.tags.map((t: string | number) => Number(t)) : [],
       // Aseguramos que las fechas sean objetos Date de JS
-      birthDate: data.birthDate ? new Date(data.birthDate) : undefined,
+      birthDate: data.birthDate ? new Date(data.birthDate + 'T00:00:00') : undefined,
       createdAt: new Date(data.createdAt),
       updatedAt: new Date(data.updatedAt)
     };

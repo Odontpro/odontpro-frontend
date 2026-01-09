@@ -10,7 +10,11 @@ import { AppointmentService} from '../../../../core/services/appointment.service
 import { Appointment} from '../../../../shared/models/appointment.model';
 import {MatFormField, MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
-import {Patient, PatientTag} from '../../../../shared/models/patient.model';
+import {Patient, PatientTag, BloodGroup} from '../../../../shared/models/patient.model';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
+import {FormsModule} from '@angular/forms';
+import {PatientService} from '../../../../core/services/patient.service';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-patient-detail-dialog',
@@ -26,7 +30,9 @@ import {Patient, PatientTag} from '../../../../shared/models/patient.model';
     MatFormField,
     MatSelect,
     MatOption,
-    MatInput
+    MatInput,
+    MatProgressSpinner,
+    FormsModule
   ],
   templateUrl: './patient-detail-dialog.html',
   styleUrl: './patient-detail-dialog.css',
@@ -37,7 +43,8 @@ export class PatientDetailDialog implements OnInit {
   availableTags: PatientTag[] = [];
   patientAppointments: Appointment[] = [];
   // En tu archivo .ts
-  bloodGroups: string[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  readonly bloodGroups: BloodGroup[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  isLoading = false; // 2. Variable para el estado de carga
 
   statusLabels: any = {
     'PENDIENTE': 'Pendiente',
@@ -51,7 +58,9 @@ export class PatientDetailDialog implements OnInit {
   constructor(
     @Inject(MAT_DIALOG_DATA) public data: { appointment: Appointment },
     private dialogRef: MatDialogRef<PatientDetailDialog>,
-    private appointmentService: AppointmentService
+    private appointmentService: AppointmentService,
+    private patientService: PatientService,
+    private snackBar: MatSnackBar
   ) {}
 
   ngOnInit(): void {
@@ -76,6 +85,39 @@ export class PatientDetailDialog implements OnInit {
       next: (tags) => {
         this.availableTags = tags;
       }
+    });
+  }
+
+  saveChanges(): void {
+    if (!this.patient || !this.patient.id) return;
+
+    this.isLoading = true;
+
+    // Enviamos solo el cambio del grupo sanguíneo o el objeto completo
+    // El backend con @Patch aceptará campos parciales
+    this.patientService.updatePatient(this.patient.id, {
+      bloodGroup: this.patient.bloodGroup
+    }).subscribe({
+      next: (updatedPatient) => {
+        this.isLoading = false;
+        this.patient = updatedPatient;
+        this.showNotification('Cambios guardados correctamente', 'success');
+        this.dialogRef.close(updatedPatient);
+      },
+      error: (err) => {
+        this.isLoading = false;
+        console.error('Error al actualizar paciente:', err);
+        alert('Error al guardar los cambios');
+      }
+    });
+  }
+
+  private showNotification(message: string, type: 'success' | 'error'): void {
+    this.snackBar.open(message, 'Cerrar', {
+      duration: 3000,
+      horizontalPosition: 'end',
+      verticalPosition: 'bottom',
+      panelClass: type === 'success' ? ['success-snackbar'] : ['error-snackbar']
     });
   }
 
