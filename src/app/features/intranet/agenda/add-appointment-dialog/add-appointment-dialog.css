@@ -228,10 +228,19 @@
   border-color: #f44336 !important;
 }
 
+/* Estado Normal */
 .save-action {
-  background-color: #0097a7 !important;
+  background-color: #7dc0bf !important; /* Tu color teal */
   color: white !important;
-  padding: 0 30px !important;
+  transition: opacity 0.3s ease; /* Para una transición suave */
+}
+
+/* Estado Deshabilitado */
+.save-action:disabled {
+  background-color: #cccccc !important; /* Gris claro */
+  color: #666666 !important;
+  cursor: not-allowed; /* Cambia el puntero para indicar bloqueo */
+  opacity: 0.7;
 }
 
 /* --- Estados --- */
@@ -253,14 +262,6 @@
 
 ::ng-deep .mat-mdc-tab.mdc-tab--active .mdc-tab__text-label {
   color: #7dc0bf !important;
-}
-
-/* 2. Color del botón "Guardar" (Primary) */
-.save-action,
-button[mat-flat-button].mat-primary,
-button[mat-raised-button].mat-primary {
-  background-color: #7dc0bf !important;
-  color: white !important;
 }
 
 /* 3. Color de los iconos y elementos de enfoque (Focus) */

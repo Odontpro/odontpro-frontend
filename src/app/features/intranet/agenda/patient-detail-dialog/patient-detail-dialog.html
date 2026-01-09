@@ -2,16 +2,15 @@
   <div class="patient-header">
     <div class="header-layout">
       <div class="avatar-column">
-        <div class="patient-avatar-placeholder" *ngIf="!patient?.foto">
+        <div class="patient-avatar-placeholder">
           <mat-icon>person</mat-icon>
         </div>
-        <img [src]="patient?.foto" class="patient-avatar" *ngIf="patient?.foto">
       </div>
 
       <div class="info-column">
         <div class="info-row top-row">
           <div class="name-group">
-            <h2 class="patient-name">{{ patient?.nombre }}, {{ patient?.apellido }}</h2>
+            <h2 class="patient-name">{{ patient?.firstName }}, {{ patient?.lastNamePaternal + " " + patient?.lastNameMaternal }}</h2>
             <button mat-flat-button class="btn-open-history">
               Abrir historia <mat-icon>open_in_new</mat-icon>
             </button>
@@ -23,7 +22,7 @@
         <div class="info-row middle-row">
           <div class="phone-display">
             <mat-icon>phone_enabled</mat-icon>
-            <span>+51 {{ patient?.telefono }}</span>
+            <span>{{ patient?.phonePrefix +" "+ patient?.phoneNumber }}</span>
           </div>
         </div>
 
@@ -70,14 +69,14 @@
             </thead>
             <tbody>
             <tr *ngFor="let app of patientAppointments">
-              <td>{{ formatDate(app.fecha) }} | {{ app.horaInicial }}h</td>
-              <td>{{ app.doctorName }}</td>
-              <td>{{ app.motivo }}</td>
+              <td>{{ formatDate(app.date) }} | {{ app.startTime }}h</td>
+              <td>{{ app.doctorId }}</td>
+              <td>{{ app.reason }}</td>
               <td>
-                  <span class="status-indicator" [ngClass]="app.estado.toLowerCase()">
-                    <mat-icon *ngIf="app.estado === 'CANCELADA'">cancel</mat-icon>
-                    <mat-icon *ngIf="app.estado === 'CONFIRMADA'">check_circle</mat-icon>
-                    {{ getStatusLabel(app.estado) }}
+                  <span class="status-indicator" [ngClass]="app.status.toLowerCase()">
+                    <mat-icon *ngIf="app.status === 'CANCELADA'">cancel</mat-icon>
+                    <mat-icon *ngIf="app.status === 'CONFIRMADA'">check_circle</mat-icon>
+                    {{ getStatusLabel(app.status) }}
                   </span>
               </td>
               <td></td>
@@ -99,7 +98,7 @@
           <div class="form-grid">
             <div class="form-group">
               <label>Teléfono:</label>
-              <div class="form-value">+51 {{ patient?.telefono }}</div>
+              <div class="form-value">{{ patient?.phonePrefix +" "+ patient?.phoneNumber }}</div>
             </div>
             <div class="form-group">
               <label>E-mail:</label>

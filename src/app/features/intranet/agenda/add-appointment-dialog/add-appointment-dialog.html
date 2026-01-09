@@ -11,7 +11,7 @@
             <span class="row-label">Sucursal</span>
             <div class="row-value static-text">
               <mat-icon class="icon-teal">location_on</mat-icon>
-              <span>{{ appointment.sucursal }}</span>
+              <span>{{ appointment.branch }}</span>
             </div>
           </div>
 
@@ -21,7 +21,7 @@
               <mat-form-field appearance="outline">
                 <mat-select [(ngModel)]="appointment.patientId" placeholder="Seleccionar paciente">
                   <mat-option *ngFor="let pat of patients" [value]="pat.id">
-                    {{ pat.nombre }} {{ pat.apellido }}
+                    {{ pat.firstName }} {{ pat.lastNamePaternal }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>
@@ -45,7 +45,7 @@
             <span class="row-label">Especialidad</span>
             <div class="row-value">
               <mat-form-field appearance="outline">
-                <input matInput [(ngModel)]="appointment.especialidad" placeholder="Ej. Ortodoncia">
+                <input matInput [(ngModel)]="appointment.specialty" placeholder="Ej. Ortodoncia">
               </mat-form-field>
             </div>
           </div>
@@ -54,7 +54,7 @@
             <span class="row-label">Motivo</span>
             <div class="row-value">
               <mat-form-field appearance="outline">
-                <input matInput [(ngModel)]="appointment.motivo">
+                <input matInput [(ngModel)]="appointment.reason">
               </mat-form-field>
             </div>
           </div>
@@ -63,7 +63,7 @@
             <span class="row-label">Duración</span>
             <div class="row-value">
               <mat-form-field appearance="outline" subscriptSizing="dynamic">
-                <mat-select [(ngModel)]="appointment.duracion">
+                <mat-select [(ngModel)]="appointment.duration">
                   <mat-option *ngFor="let opt of durationOptions" [value]="opt.value">
                     {{ opt.label }}
                   </mat-option>
@@ -75,8 +75,8 @@
           <div class="row-field">
             <span class="row-label">Estado</span>
             <div class="row-value">
-              <mat-form-field appearance="outline" [ngClass]="appointment.estado.toLowerCase()">
-                <mat-select [(ngModel)]="appointment.estado">
+              <mat-form-field appearance="outline" [ngClass]="appointment.status.toLowerCase()">
+                <mat-select [(ngModel)]="appointment.status">
                   <mat-option *ngFor="let st of statuses" [value]="st.value">
                     {{ st.label }}
                   </mat-option>
@@ -93,7 +93,7 @@
             <span class="row-label">Fecha</span>
             <div class="row-value">
               <mat-form-field appearance="outline">
-                <input matInput [matDatepicker]="picker" [(ngModel)]="appointment.fecha">
+                <input matInput [matDatepicker]="picker" [(ngModel)]="appointment.date">
                 <mat-datepicker-toggle matIconSuffix [for]="picker">
                   <mat-icon matDatepickerToggleIcon>calendar_today</mat-icon>
                 </mat-datepicker-toggle>
@@ -138,7 +138,7 @@
           <div class="notes-full-width">
             <span class="notes-label">Nota de la cita</span>
             <mat-form-field appearance="outline" class="text-area-field">
-              <textarea matInput rows="4" [(ngModel)]="appointment.notas" placeholder="Escribe aquí..."></textarea>
+              <textarea matInput rows="4" [(ngModel)]="appointment.notes"></textarea>
             </mat-form-field>
           </div>
         </div>
@@ -147,7 +147,19 @@
   </mat-tab-group>
 
   <div class="dialog-footer">
-    <button mat-button class="cancel-action" (click)="close()">Cancelar</button>
-    <button mat-flat-button class="save-action" (click)="onSave()">Agregar Cita</button>
+    <button mat-button class="cancel-action" (click)="close()" [disabled]="isSaving">
+      Cancelar
+    </button>
+    <button
+      mat-flat-button
+      class="save-action"
+      (click)="onSave()"
+      [disabled]="isFormInvalid() || isSaving"
+    >
+      <mat-icon *ngIf="isSaving">
+        <mat-spinner diameter="18"></mat-spinner>
+      </mat-icon>
+      {{ isSaving ? 'Guardando...' : 'Agregar Cita' }}
+    </button>
   </div>
 </div>

@@ -1,34 +1,36 @@
 // models/appointment.model.ts
 
 export interface Appointment {
-  id: number;
-  sucursal: string;
-  patientId: number;
-  patientName: string;
-  doctorId: number;
-  doctorName: string;
-  especialidad: string;
-  motivo: string;
-  duracion: number; // en minutos
-  estado: AppointmentStatus;
-  fecha: string; // ISO date string
-  horaInicial: string; // HH:mm format
-  horaFinal: string; // calculado automáticamente
-  opcional?: string;
-  comentarios?: string;
-  notas?: string;
-  createdAt: string;
-  updatedAt: string;
-  historialCambios: AppointmentChange[];
+  id?: number;
+
+  branch: string;       // 'Principal' por defecto
+  officeId?: number;    // ID del consultorio/box
+
+  patientId: number;    // ID del paciente
+  doctorId: number;     // ID del usuario (Doctor/Admin)
+
+  specialty: string;    // Especialidad (ej: 'Ortodoncia')
+  reason: string;       // Motivo de la consulta
+  duration: number;     // Duración en minutos (ej: 30, 45, 60)
+  status: AppointmentStatus;
+
+  date: Date;           // Fecha de la cita (YYYY-MM-DD)
+  startTime: string;    // Hora inicial en formato 24h (ej: '14:30')
+
+  notes?: string;       // Nota de la cita (Long text)
+
+  createdAt?: Date;
+  updatedAt?: Date;
 }
 
-export type AppointmentStatus =
-  | 'PENDIENTE'
-  | 'CONFIRMADA'
-  | 'EN_CURSO'
-  | 'COMPLETADA'
-  | 'CANCELADA'
-  | 'NO_ASISTIO';
+export enum AppointmentStatus {
+  PENDIENTE = 'PENDIENTE',
+  CONFIRMADA = 'CONFIRMADA',
+  EN_CURSO = 'EN_CURSO',
+  COMPLETADA = 'COMPLETADA',
+  CANCELADA = 'CANCELADA',
+  NO_ASISTIO = 'NO_ASISTIO'
+}
 
 export const APPOINTMENT_STATUS_OPTIONS = [
   { value: 'PENDIENTE' as AppointmentStatus, label: 'Pendiente' },
@@ -38,64 +40,6 @@ export const APPOINTMENT_STATUS_OPTIONS = [
   { value: 'CANCELADA' as AppointmentStatus, label: 'Cancelada' },
   { value: 'NO_ASISTIO' as AppointmentStatus, label: 'No Asistió' }
 ];
-
-// Opcional: Un mapa rápido para cuando solo necesitas obtener el label desde el valor
-export const APPOINTMENT_STATUS_MAP: Record<AppointmentStatus, string> = {
-  'PENDIENTE': 'Pendiente',
-  'CONFIRMADA': 'Confirmada',
-  'EN_CURSO': 'En curso',
-  'COMPLETADA': 'Completada',
-  'CANCELADA': 'Cancelada',
-  'NO_ASISTIO': 'No Asistió'
-};
-
-export interface AppointmentChange {
-  id: number;
-  appointmentId: number;
-  userId: number;
-  userName: string;
-  campo: string;
-  valorAnterior: string;
-  valorNuevo: string;
-  fecha: string;
-}
-
-export interface PatientTag {
-  id: number;
-  nombre: string;
-  color: string;
-  backgroundColor: string;
-}
-
-export interface Patient {
-  id: number;
-  nombre: string;
-  apellido: string;
-  telefono: string;
-  email?: string;
-  foto?: string;
-  tags: PatientTag[];
-  nroHistoriaClinica: string;
-  grupoSanguineo?: string;
-  fuenteCaptacion?: string;
-  adicional?: string;
-  lineaNegocio?: string;
-}
-
-export interface Patient2 {
-  id: number;
-  nombre: string;
-  apellido: string;
-  telefono: string;
-  email?: string;
-  foto?: string;
-  tags: PatientTag[];
-  nroHistoriaClinica: string;
-  grupoSanguineo?: string;
-  fuenteCaptacion?: string;
-  adicional?: string;
-  lineaNegocio?: string;
-}
 
 export interface Doctor {
   id: number;
@@ -107,44 +51,51 @@ export interface Doctor {
 
 // DTO para crear cita
 export interface CreateAppointmentDto {
-  sucursal: string;
-  patientId: number;
-  doctorId: number;
-  especialidad: string;
-  motivo: string;
-  duracion: number;
-  fecha: string;
-  horaInicial: string;
-  opcional?: string;
-  comentarios?: string;
-  notas?: string;
+  branch: string;           // Por defecto 'Principal'
+  officeId?: number;        // ID del consultorio (opcional)
+
+  patientId: number;        // ID del paciente seleccionado
+  doctorId: number;         // ID del doctor asignado
+
+  specialty: string;        // Ej: 'Ortodoncia'
+  reason: string;           // Ej: 'Control mensual'
+  duration: number;         // Minutos (ej: 30)
+  status: AppointmentStatus; // 'PENDIENTE', etc.
+
+  date: string;             // Fecha en formato ISO string '2026-01-08'
+  startTime: string;        // Hora formato 24h '16:00'
+
+  notes?: string;           // Nota de la cita
 }
 
 // DTO para actualizar cita
 export interface UpdateAppointmentDto {
-  sucursal?: string;
-  patientId?: number;
-  doctorId?: number;
-  especialidad?: string;
-  motivo?: string;
-  duracion?: number;
-  estado?: AppointmentStatus;
-  fecha?: string;
-  horaInicial?: string;
-  opcional?: string;
-  comentarios?: string;
-  notas?: string;
+  branch: string;           // Por defecto 'Principal'
+  officeId?: number;        // ID del consultorio (opcional)
+
+  patientId: number;        // ID del paciente seleccionado
+  doctorId: number;         // ID del doctor asignado
+
+  specialty: string;        // Ej: 'Ortodoncia'
+  reason: string;           // Ej: 'Control mensual'
+  duration: number;         // Minutos (ej: 30)
+  status: AppointmentStatus; // 'PENDIENTE', etc.
+
+  date: string;             // Fecha en formato ISO string '2026-01-08'
+  startTime: string;        // Hora formato 24h '16:00'
+
+  notes?: string;           // Nota de la cita
 }
 
 // Filtros para el calendario
 export interface AppointmentFilters {
   doctorId?: number;
   patientId?: number;
-  sucursal?: string;
-  estado?: AppointmentStatus;
-  fechaInicio?: string;
-  fechaFin?: string;
-  especialidad?: string;
+  branch?: string;           // Antes sucursal
+  status?: AppointmentStatus; // Antes estado
+  specialty?: string;        // Antes especialidad
+  startDate?: Date;          // Antes fechaInicio
+  endDate?: Date;            // Antes fechaFin
 }
 
 export interface DurationOption {

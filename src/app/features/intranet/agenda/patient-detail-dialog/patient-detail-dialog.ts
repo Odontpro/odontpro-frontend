@@ -7,9 +7,10 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatChipsModule } from '@angular/material/chips';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService} from '../../../../core/services/appointment.service';
-import { Patient, PatientTag, Appointment} from '../../../../shared/models/appointment.model';
+import { Appointment} from '../../../../shared/models/appointment.model';
 import {MatFormField, MatInput} from '@angular/material/input';
 import {MatOption, MatSelect} from '@angular/material/select';
+import {Patient, PatientTag} from '../../../../shared/models/patient.model';
 
 @Component({
   selector: 'app-patient-detail-dialog',
@@ -84,31 +85,17 @@ export class PatientDetailDialog implements OnInit {
     });
   }
 
-  hasTag(tagId: number): boolean {
-    return this.patient?.tags.some(t => t.id === tagId) || false;
-  }
-
-  addTag(tagId: number): void {
-    if (this.patient) {
-      this.appointmentService.addTagToPatient(this.patient.id, tagId).subscribe({
-        next: (updatedPatient) => {
-          this.patient = updatedPatient;
-        }
-      });
-    }
-  }
-
   removeTag(tagId: number): void {
-    if (this.patient) {
+    /*if (this.patient) {
       this.appointmentService.removeTagFromPatient(this.patient.id, tagId).subscribe({
         next: (updatedPatient) => {
           this.patient = updatedPatient;
         }
       });
-    }
+    }*/
   }
 
-  formatDate(dateString: string): string {
+  formatDate(dateString: Date): string {
     const date = new Date(dateString);
     return date.toLocaleDateString('es-ES', {
       day: '2-digit',

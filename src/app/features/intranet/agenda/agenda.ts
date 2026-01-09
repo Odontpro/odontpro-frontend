@@ -100,7 +100,7 @@ export class Agenda implements OnInit, OnDestroy {
 
   constructor(
     private appointmentService: AppointmentService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
   ) {
   }
 
@@ -151,30 +151,29 @@ export class Agenda implements OnInit, OnDestroy {
   filterAndMapEvents(): void {
     const filtered = this.allAppointments.filter(app => {
       const matchDoctor = this.selectedDoctors.length === 0 || this.selectedDoctors.includes(app.doctorId);
-      const matchStatus = this.selectedStatus === 'TODOS' || app.estado === this.selectedStatus;
+      const matchStatus = this.selectedStatus === 'TODOS' || app.status === this.selectedStatus;
       return matchDoctor && matchStatus;
     });
 
     this.events = filtered.map(app => {
-      // 1. Combinamos Fecha y Hora Inicial
-      // Asumimos que app.fecha es "2026-01-05" y app.horaInicial es "09:00"
-      const start = parse(`${app.fecha} ${app.horaInicial}`, 'yyyy-MM-dd HH:mm', new Date());
+      // Combinamos Fecha y Hora Inicial usando los nuevos nombres de atributos
+      const dateStr = format(app.date, 'yyyy-MM-dd');
+      const start = parse(`${dateStr} ${app.startTime}`, 'yyyy-MM-dd HH:mm', new Date());
 
-      // 2. Calculamos la hora final sumando la duración en minutos
-      const end = addMinutes(start, app.duracion);
+      // Calculamos la hora final
+      const end = addMinutes(start, app.duration);
 
       return {
         start: start,
         end: end,
-        title: app.patientName,
-        // Usamos el color del doctor para el evento
+        // LLAMADA AL SERVICIO: Obtenemos el nombre formateado desde el AppointmentService
+        title: this.appointmentService.getPatientName(app.patientId),
+
         color: {
           primary: this.getDoctorColor(app.doctorId),
           secondary: '#E3F2FD'
         },
-        // Pasamos TODO el objeto para tener acceso al historial y notas en el Dialog
         meta: { appointment: app },
-        // Configuraciones de UX adicionales
         resizable: {
           beforeStart: true,
           afterEnd: true,

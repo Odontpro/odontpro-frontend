@@ -10,17 +10,18 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
-  Appointment,
-  APPOINTMENT_STATUS_OPTIONS,
-  AppointmentStatus,
+  APPOINTMENT_STATUS_OPTIONS, AppointmentStatus,
   Doctor,
-  DurationOption,
-  Patient
+  DurationOption
 } from '../../../../shared/models/appointment.model';
+import { Patient } from '../../../../shared/models/patient.model';
 import { AppointmentService } from '../../../../core/services/appointment.service';
 import {provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
 import {MAT_DATE_LOCALE} from '@angular/material/core';
 import {es} from 'date-fns/locale';
+import { format } from 'date-fns'; // Asegúrate de tener date-fns instalado
+import { CreateAppointmentDto} from '../../../../shared/models/appointment.model';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-add-appointment-dialog',
@@ -28,7 +29,7 @@ import {es} from 'date-fns/locale';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule,
     MatButtonModule, MatDatepickerModule, MatFormFieldModule, MatInputModule,
-    MatIconModule, MatSelectModule, MatTabsModule
+    MatIconModule, MatSelectModule, MatTabsModule, MatProgressSpinner
   ],
   providers: [
     provideDateFnsAdapter(), // <--- SOLUCIÓN AL ERROR
@@ -39,22 +40,25 @@ import {es} from 'date-fns/locale';
 })
 export class AddAppointmentDialog implements OnInit {
   doctors: Doctor[] = [];
-  patients: Patient[] = []; // Nueva lista
+  patients: Patient[] = [];
   statuses = APPOINTMENT_STATUS_OPTIONS;
   durationOptions: DurationOption[] = [];
 
-  // Objeto inicializado para el formulario
-  appointment: any = {
-    sucursal: 'Principal',
-    patientId: null,
-    doctorId: null,
-    especialidad: '',
-    motivo: '',
-    duracion: 30,
-    estado: 'PENDIENTE',
-    fecha: new Date(),
-    horaInicial: '',
-    notas: ''
+  isSaving = false; // Estado para el botón de carga
+
+  // Usamos el modelo en inglés desde el inicio
+  appointment: CreateAppointmentDto = {
+    branch: 'Principal',
+    patientId: 0,
+    doctorId: 0,
+    specialty: '',
+    reason: '',
+    duration: 30,
+    status: AppointmentStatus.PENDIENTE,
+    date: format(new Date(), 'yyyy-MM-dd'),
+    startTime: '',
+    notes: '',
+    officeId: undefined
   };
 
   timeValues = { hour: 10, minute: 0, period: 'AM' };
@@ -69,12 +73,11 @@ export class AddAppointmentDialog implements OnInit {
 
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
-    // Asumiendo que tienes un método para pacientes
     this.appointmentService.getPatients().subscribe(pats => this.patients = pats);
 
-    // Si recibimos fecha desde el calendario (clic en un día)
     if (this.data?.fecha) {
-      this.appointment.fecha = this.data.fecha;
+      // Si la fecha viene como Date, la pasamos a string yyyy-MM-dd
+      this.appointment.date = format(this.data.fecha, 'yyyy-MM-dd');
     }
     this.formatTime();
   }
@@ -86,6 +89,15 @@ export class AddAppointmentDialog implements OnInit {
       const label = `${hours}h ${minutes === 0 ? '00' : minutes}`;
       this.durationOptions.push({ label, value: min });
     }
+  }
+
+  // Validador para el botón
+  isFormInvalid(): boolean {
+    return !this.appointment.patientId ||
+      !this.appointment.doctorId ||
+      !this.appointment.specialty?.trim() ||
+      !this.appointment.reason?.trim() ||
+      !this.appointment.startTime;
   }
 
   validateTimeInput(type: 'hour' | 'minute') {
@@ -102,17 +114,34 @@ export class AddAppointmentDialog implements OnInit {
   }
 
   formatTime() {
-    const hh = String(this.timeValues.hour || 12).padStart(2, '0');
+    // Convertimos el formato AM/PM a 24h para el startTime del DTO
+    let hour = this.timeValues.hour;
+    if (this.timeValues.period === 'PM' && hour < 12) hour += 12;
+    if (this.timeValues.period === 'AM' && hour === 12) hour = 0;
+
+    const hh = String(hour).padStart(2, '0');
     const mm = String(this.timeValues.minute || 0).padStart(2, '0');
-    this.appointment.horaInicial = `${hh}:${mm} ${this.timeValues.period}`;
+
+    this.appointment.startTime = `${hh}:${mm}`;
   }
 
   onSave() {
-    if (!this.appointment.patientId || !this.appointment.doctorId) {
-      alert("Por favor seleccione paciente y doctor");
-      return;
-    }
-    this.dialogRef.close(this.appointment);
+    if (this.isFormInvalid()) return;
+
+    this.isSaving = true;
+
+    // Ya tenemos el objeto construido en 'this.appointment' siguiendo el CreateAppointmentDto
+    this.appointmentService.createAppointment(this.appointment).subscribe({
+      next: (res) => {
+        this.isSaving = false;
+        this.dialogRef.close(res);
+      },
+      error: (err) => {
+        this.isSaving = false;
+        console.error(err);
+        alert("Error al crear la cita");
+      }
+    });
   }
 
   close() { this.dialogRef.close(); }

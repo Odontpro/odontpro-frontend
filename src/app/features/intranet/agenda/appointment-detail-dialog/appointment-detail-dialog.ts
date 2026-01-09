@@ -57,8 +57,8 @@ export class AppointmentDetailDialog implements OnInit {
   ngOnInit() {
     this.appointmentService.getDoctors().subscribe(docs => this.doctors = docs);
     const appointment = this.data.appointment;
-    if (appointment && appointment.horaInicial) {
-      this.setTimeFromAppointment(appointment.horaInicial);
+    if (appointment && appointment.startTime) {
+      this.setTimeFromAppointment(appointment.startTime);
     }
 
   }
@@ -203,7 +203,7 @@ export class AppointmentDetailDialog implements OnInit {
   formatTime() {
     const hh = String(this.timeValues.hour || 12).padStart(2, '0');
     const mm = String(this.timeValues.minute || 0).padStart(2, '0');
-    this.data.appointment.horaInicial = `${hh}:${mm} ${this.timeValues.period}`;
+    this.data.appointment.startTime = `${hh}:${mm} ${this.timeValues.period}`;
   }
 
   openPatientDetail(appointment: Appointment): void {
@@ -230,7 +230,7 @@ export class AppointmentDetailDialog implements OnInit {
   onSave() {
     // Aquí llamarías a tu servicio para persistir los datos
     // Simulamos una actualización con el ID del usuario actual (ej. 1)
-    this.appointmentService.updateAppointment(
+    /*this.appointmentService.updateAppointment(
       this.data.appointment.id,
       this.data.appointment,
       1,
@@ -241,7 +241,7 @@ export class AppointmentDetailDialog implements OnInit {
         this.dialogRef.close(true); // Cerramos enviando 'true' para indicar que hubo cambios
       },
       error: (err) => console.error('Error al actualizar:', err)
-    });
+    });*/
   }
 
   onDelete() {

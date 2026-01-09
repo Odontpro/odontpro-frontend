@@ -4,14 +4,14 @@ import { Observable, of } from 'rxjs';
 import { delay } from 'rxjs/operators';
 import {
   Appointment,
+  AppointmentStatus,
   CreateAppointmentDto,
   UpdateAppointmentDto,
   AppointmentFilters,
-  Patient,
   Doctor,
-  PatientTag
 } from '../../shared/models/appointment.model';
 import { Subject } from 'rxjs';
+import {availableTags, Patient, PatientTag} from '../../shared/models/patient.model';
 
 @Injectable({
   providedIn: 'root'
@@ -59,161 +59,164 @@ export class AppointmentService {
   private patients: Patient[] = [
     {
       id: 1,
-      nombre: 'Romeo',
-      apellido: 'Prueba',
-      telefono: '916623244',
+      documentType: 'DNI',
+      documentNumber: '72458930',
+      hasNoDocument: false,
+      firstName: 'Romeo',
+      lastNamePaternal: 'Prueba',
+      lastNameMaternal: 'García',
+      phonePrefix: '+51',
+      phoneNumber: '916623244',
+      hasNoPhone: false,
       email: 'romeo@example.com',
-      tags: [this.patientTags[0], this.patientTags[1]], // Impuntual y VIP
-      nroHistoriaClinica: '0',
-      fuenteCaptacion: 'Referido',
-      adicional: 'adicional',
-      grupoSanguineo: 'O+'
+      gender: 'MALE',
+      bloodGroup: 'O+',
+      tags: [1, 2], // IDs de 'Nuevo' y 'VIP'
+      hasGuardian: false,
+      generalNote: 'Paciente referido de la sucursal Norte. Requiere control mensual.',
+      createdAt: new Date('2026-01-01T10:00:00'),
+      updatedAt: new Date('2026-01-01T10:00:00')
     },
     {
       id: 2,
-      nombre: 'Julieta',
-      apellido: 'Prueba',
-      telefono: '987654321',
+      documentType: 'DNI',
+      documentNumber: '12345678',
+      hasNoDocument: false,
+      firstName: 'Julieta',
+      lastNamePaternal: 'Prueba',
+      lastNameMaternal: 'Sánchez',
+      phonePrefix: '+51',
+      phoneNumber: '987654321',
+      hasNoPhone: false,
       email: 'julieta@example.com',
-      tags: [this.patientTags[2]], // Primera vez
-      nroHistoriaClinica: '1',
-      grupoSanguineo: 'A+'
+      gender: 'FEMALE',
+      bloodGroup: 'A+',
+      tags: [3], // ID de 'Impuntual'
+      hasGuardian: false,
+      birthDate: new Date('1998-05-20'),
+      generalNote: 'Primera vez en el consultorio.',
+      createdAt: new Date('2026-01-02T11:30:00'),
+      updatedAt: new Date('2026-01-02T11:30:00')
     },
     {
       id: 3,
-      nombre: 'Homero',
-      apellido: 'Prueba',
-      telefono: '912345678',
-      tags: [this.patientTags[3]], // Tratamiento largo
-      nroHistoriaClinica: '2',
-      grupoSanguineo: 'B+'
+      documentType: 'PASAPORTE',
+      documentNumber: 'A98765432',
+      hasNoDocument: false,
+      firstName: 'Homero',
+      lastNamePaternal: 'Prueba',
+      lastNameMaternal: 'Simpson',
+      phonePrefix: '+51',
+      phoneNumber: '912345678',
+      hasNoPhone: false,
+      gender: 'OTHER',
+      bloodGroup: 'B+',
+      tags: [4], // ID de 'Fidelizado'
+      hasGuardian: true,
+      generalNote: 'Tratamiento de ortodoncia largo plazo.',
+      createdAt: new Date('2026-01-03T09:15:00'),
+      updatedAt: new Date('2026-01-03T09:15:00')
     }
   ];
 
-  // Citas de prueba
   private appointments: Appointment[] = [
-    {
-      id: 1,
-      sucursal: 'Principal',
-      patientId: 1,
-      patientName: 'Romeo Prueba',
-      doctorId: 1,
-      doctorName: 'Carlos Rodriguez',
-      especialidad: 'Ortodoncia',
-      motivo: 'Control mensual',
-      duracion: 60,
-      estado: 'CONFIRMADA',
-      fecha: '2026-01-04',
-      horaInicial: '09:00',
-      horaFinal: '10:00',
-      comentarios: 'Paciente requiere ajuste de brackets',
-      createdAt: '2026-01-03T10:00:00Z',
-      updatedAt: '2026-01-03T10:00:00Z',
-      historialCambios: []
-    },
-    {
-      id: 2,
-      sucursal: 'Principal',
-      patientId: 2,
-      patientName: 'Julieta Prueba',
-      doctorId: 2,
-      doctorName: 'Karen la horrible',
-      especialidad: 'Endodoncia',
-      motivo: 'Tratamiento de conducto',
-      duracion: 90,
-      estado: 'CONFIRMADA',
-      fecha: '2026-01-03',
-      horaInicial: '11:00',
-      horaFinal: '10:30',
-      createdAt: '2026-01-03T11:00:00Z',
-      updatedAt: '2026-01-03T11:00:00Z',
-      historialCambios: []
-    },
-    {
-      id: 3,
-      sucursal: 'Principal',
-      patientId: 3,
-      patientName: 'Homero Prueba',
-      doctorId: 3,
-      doctorName: 'Homero Prueba',
-      especialidad: 'Cirugía',
-      motivo: 'Extracción de muela',
-      duracion: 45,
-      estado: 'PENDIENTE',
-      fecha: '2026-01-03',
-      horaInicial: '11:00',
-      horaFinal: '11:45',
-      createdAt: '2026-01-03T12:00:00Z',
-      updatedAt: '2026-01-03T12:00:00Z',
-      historialCambios: []
-    },
-    {
-      id: 4,
-      sucursal: 'Principal',
-      patientId: 2,
-      patientName: 'Julieta Prueba',
-      doctorId: 2,
-      doctorName: 'Karen la horrible',
-      especialidad: 'Endodoncia',
-      motivo: 'Seguimiento de conducto',
-      duracion: 60,
-      estado: 'CONFIRMADA',
-      fecha: '2026-01-01',
-      horaInicial: '10:00',
-      horaFinal: '11:00',
-      createdAt: '2026-01-03T13:00:00Z',
-      updatedAt: '2026-01-03T13:00:00Z',
-      historialCambios: []
-    },
-    {
-      id: 5,
-      sucursal: 'Principal',
-      patientId: 1,
-      patientName: 'Romeo Prueba',
-      doctorId: 1,
-      doctorName: 'Carlos Rodriguez',
-      especialidad: 'Ortodoncia',
-      motivo: 'Revisión',
-      duracion: 30,
-      estado: 'CANCELADA',
-      fecha: '2026-01-02',
-      horaInicial: '13:00',
-      horaFinal: '13:30',
-      comentarios: 'Cancelado por el paciente',
-      createdAt: '2026-01-03T14:00:00Z',
-      updatedAt: '2026-01-05T09:00:00Z',
-      historialCambios: [
-        {
-          id: 1,
-          appointmentId: 5,
-          userId: 1,
-          userName: 'Admin Sistema',
-          campo: 'estado',
-          valorAnterior: 'CONFIRMADA',
-          valorNuevo: 'CANCELADA',
-          fecha: '2025-01-05T09:00:00Z'
-        }
-      ]
-    },
-    {
-      id: 6,
-      sucursal: 'Principal',
-      patientId: 2,
-      patientName: 'Julieta Prueba',
-      doctorId: 2,
-      doctorName: 'Karen Prueba',
-      especialidad: 'Periodoncia',
-      motivo: 'Limpieza dental',
-      duracion: 60,
-      estado: 'CONFIRMADA',
-      fecha: '2026-01-02',
-      horaInicial: '12:00',
-      horaFinal: '13:00',
-      createdAt: '2025-01-03T15:00:00Z',
-      updatedAt: '2025-01-03T15:00:00Z',
-      historialCambios: []
-    }
-  ];
+  {
+    id: 1,
+    branch: 'Principal',
+    officeId: 1,
+    patientId: 1,
+    doctorId: 1,
+    specialty: 'Ortodoncia',
+    reason: 'Control mensual',
+    duration: 60,
+    status: AppointmentStatus.CONFIRMADA,
+    date: new Date('2026-01-04'),
+    startTime: '09:00',
+    notes: 'Paciente requiere ajuste de brackets',
+    createdAt: new Date('2026-01-03T10:00:00Z'),
+    updatedAt: new Date('2026-01-03T10:00:00Z')
+  },
+  {
+    id: 2,
+    branch: 'Principal',
+    officeId: 2,
+    patientId: 2,
+    doctorId: 2,
+    specialty: 'Endodoncia',
+    reason: 'Tratamiento de conducto',
+    duration: 90,
+    status: AppointmentStatus.CONFIRMADA,
+    date: new Date('2026-01-03'),
+    startTime: '11:00',
+    notes: '',
+    createdAt: new Date('2026-01-03T11:00:00Z'),
+    updatedAt: new Date('2026-01-03T11:00:00Z')
+  },
+  {
+    id: 3,
+    branch: 'Principal',
+    officeId: 1,
+    patientId: 3,
+    doctorId: 3,
+    specialty: 'Cirugía',
+    reason: 'Extracción de muela',
+    duration: 45,
+    status: AppointmentStatus.PENDIENTE,
+    date: new Date('2026-01-03'),
+    startTime: '11:00',
+    notes: '',
+    createdAt: new Date('2026-01-03T12:00:00Z'),
+    updatedAt: new Date('2026-01-03T12:00:00Z')
+  },
+  {
+    id: 4,
+    branch: 'Principal',
+    officeId: 2,
+    patientId: 2,
+    doctorId: 2,
+    specialty: 'Endodoncia',
+    reason: 'Seguimiento de conducto',
+    duration: 60,
+    status: AppointmentStatus.CONFIRMADA,
+    date: new Date('2026-01-01'),
+    startTime: '10:00',
+    notes: '',
+    createdAt: new Date('2026-01-03T13:00:00Z'),
+    updatedAt: new Date('2026-01-03T13:00:00Z')
+  },
+  {
+    id: 5,
+    branch: 'Principal',
+    officeId: 1,
+    patientId: 1,
+    doctorId: 1,
+    specialty: 'Ortodoncia',
+    reason: 'Revisión',
+    duration: 30,
+    status: AppointmentStatus.CANCELADA,
+    date: new Date('2026-01-02'),
+    startTime: '13:00',
+    notes: 'Cancelado por el paciente',
+    createdAt: new Date('2026-01-03T14:00:00Z'),
+    updatedAt: new Date('2026-01-08T09:00:00Z')
+  },
+  {
+    id: 6,
+    branch: 'Principal',
+    officeId: 3,
+    patientId: 2,
+    doctorId: 2,
+    specialty: 'Periodoncia',
+    reason: 'Limpieza dental',
+    duration: 60,
+    status: AppointmentStatus.COMPLETADA, // Cambiado a Completada para usar el nuevo estado
+    date: new Date('2026-01-02'),
+    startTime: '12:00',
+    notes: '',
+    createdAt: new Date('2026-01-03T15:00:00Z'),
+    updatedAt: new Date('2026-01-03T15:00:00Z')
+  }
+];
 
   constructor() {}
 
@@ -223,31 +226,43 @@ export class AppointmentService {
 
   // Obtener todas las citas con filtros
   getAppointments(filters?: AppointmentFilters): Observable<Appointment[]> {
+    // Hacemos una copia de los mocks creados anteriormente
     let filtered = [...this.appointments];
 
     if (filters) {
       if (filters.doctorId) {
         filtered = filtered.filter(a => a.doctorId === filters.doctorId);
       }
+
       if (filters.patientId) {
         filtered = filtered.filter(a => a.patientId === filters.patientId);
       }
-      if (filters.sucursal) {
-        filtered = filtered.filter(a => a.sucursal === filters.sucursal);
+
+      if (filters.branch) {
+        filtered = filtered.filter(a => a.branch === filters.branch);
       }
-      if (filters.estado) {
-        filtered = filtered.filter(a => a.estado === filters.estado);
+
+      if (filters.status) {
+        filtered = filtered.filter(a => a.status === filters.status);
       }
-      if (filters.especialidad) {
-        filtered = filtered.filter(a => a.especialidad === filters.especialidad);
+
+      if (filters.specialty) {
+        filtered = filtered.filter(a => a.specialty.toLowerCase().includes(filters.specialty!.toLowerCase()));
       }
-      if (filters.fechaInicio && filters.fechaFin) {
+
+      // Filtrado por rango de fechas (comparando objetos Date)
+      if (filters.startDate && filters.endDate) {
+        const start = new Date(filters.startDate).setHours(0, 0, 0, 0);
+        const end = new Date(filters.endDate).setHours(23, 59, 59, 999);
+
         filtered = filtered.filter(a => {
-          return a.fecha >= filters.fechaInicio! && a.fecha <= filters.fechaFin!;
+          const appointmentTime = new Date(a.date).getTime();
+          return appointmentTime >= start && appointmentTime <= end;
         });
       }
     }
 
+    // Simulamos la respuesta del servidor con un pequeño delay
     return of(filtered).pipe(delay(300));
   }
 
@@ -259,90 +274,68 @@ export class AppointmentService {
 
   // Crear cita
   createAppointment(data: CreateAppointmentDto): Observable<Appointment> {
-    const patient = this.patients.find(p => p.id === data.patientId);
-    const doctor = this.doctors.find(d => d.id === data.doctorId);
+    // 1. Validamos que el paciente y el doctor existan en nuestros mocks locales
+    const patientExists = this.patients.some(p => p.id === data.patientId);
+    const doctorExists = this.doctors.some(d => d.id === data.doctorId);
 
-    if (!patient || !doctor) {
-      throw new Error('Paciente o doctor no encontrado');
+    if (!patientExists || !doctorExists) {
+      throw new Error('Paciente o doctor no encontrado en la base de datos local');
     }
 
-    // Calcular hora final
-    const [hours, minutes] = data.horaInicial.split(':').map(Number);
-    const endMinutes = hours * 60 + minutes + data.duracion;
-    const endHours = Math.floor(endMinutes / 60);
-    const endMins = endMinutes % 60;
-    const horaFinal = `${String(endHours).padStart(2, '0')}:${String(endMins).padStart(2, '0')}`;
-
+    // 2. Creamos el objeto siguiendo la interfaz Appointment
     const newAppointment: Appointment = {
       id: this.appointments.length + 1,
-      ...data,
-      patientName: `${patient.nombre} ${patient.apellido}`,
-      doctorName: `${doctor.nombre} ${doctor.apellido}`,
-      horaFinal,
-      estado: 'PENDIENTE',
-      createdAt: new Date().toISOString(),
-      updatedAt: new Date().toISOString(),
-      historialCambios: []
+      branch: data.branch || 'Principal',
+      officeId: data.officeId,
+      patientId: data.patientId,
+      doctorId: data.doctorId,
+      specialty: data.specialty,
+      reason: data.reason,
+      duration: data.duration,
+      status: data.status || AppointmentStatus.PENDIENTE,
+      date: new Date(data.date), // Convertimos el string del DTO a objeto Date
+      startTime: data.startTime,
+      notes: data.notes || '',
+      createdAt: new Date(),
+      updatedAt: new Date()
     };
 
+    // 3. Guardamos localmente y retornamos
     this.appointments.push(newAppointment);
     return of(newAppointment).pipe(delay(500));
   }
 
   // Actualizar cita
-  updateAppointment(id: number, data: UpdateAppointmentDto, userId: number, userName: string): Observable<Appointment> {
+  updateAppointment(id: number, data: UpdateAppointmentDto): Observable<Appointment> {
     const index = this.appointments.findIndex(a => a.id === id);
 
     if (index === -1) {
       throw new Error('Cita no encontrada');
     }
 
-    const oldAppointment = { ...this.appointments[index] };
-    const changes: any[] = [];
+    // 1. Obtenemos la cita actual
+    const currentAppointment = this.appointments[index];
 
-    // Registrar cambios
-    Object.keys(data).forEach(key => {
-      const oldValue = (oldAppointment as any)[key];
-      const newValue = (data as any)[key];
-
-      if (oldValue !== newValue && newValue !== undefined) {
-        changes.push({
-          id: oldAppointment.historialCambios.length + changes.length + 1,
-          appointmentId: id,
-          userId,
-          userName,
-          campo: key,
-          valorAnterior: String(oldValue || ''),
-          valorNuevo: String(newValue),
-          fecha: new Date().toISOString()
-        });
-      }
-    });
-
-    // Actualizar cita
-    this.appointments[index] = {
-      ...oldAppointment,
+    // 2. Aplicamos los cambios del DTO
+    // Nota: Al usar spread operator (...) sobre el DTO parcial,
+    // solo se sobrescriben los campos que vienen en 'data'
+    const updatedAppointment: Appointment = {
+      ...currentAppointment,
       ...data,
-      updatedAt: new Date().toISOString(),
-      historialCambios: [...oldAppointment.historialCambios, ...changes]
+      // Aseguramos que si viene una fecha en string se convierta a Date
+      date: data.date ? new Date(data.date) : currentAppointment.date,
+      updatedAt: new Date()
     };
 
-    // Recalcular hora final si cambió duración u hora inicial
-    if (data.duracion || data.horaInicial) {
-      const horaInicial = data.horaInicial || this.appointments[index].horaInicial;
-      const duracion = data.duracion || this.appointments[index].duracion;
-      const [hours, minutes] = horaInicial.split(':').map(Number);
-      const endMinutes = hours * 60 + minutes + duracion;
-      const endHours = Math.floor(endMinutes / 60);
-      const endMins = endMinutes % 60;
-      this.appointments[index].horaFinal = `${String(endHours).padStart(2, '0')}:${String(endMins).padStart(2, '0')}`;
-    }
+    // 3. Actualizamos nuestra "base de datos" local
+    this.appointments[index] = updatedAppointment;
 
-    return of(this.appointments[index]).pipe(delay(500));
+    // 4. Retornamos la cita actualizada con un pequeño delay simulando red
+    return of(updatedAppointment).pipe(delay(500));
   }
 
   // Eliminar cita
-  deleteAppointment(id: number): Observable<void> {
+  deleteAppointment(id: number | undefined): Observable<void> {
     const index = this.appointments.findIndex(a => a.id === id);
     if (index !== -1) {
       this.appointments.splice(index, 1);
@@ -358,6 +351,11 @@ export class AppointmentService {
   // Obtener todos los pacientes
   getPatients(): Observable<Patient[]> {
     return of(this.patients).pipe(delay(200));
+  }
+
+  getPatientName(id: number): string {
+    const patient = this.patients.find(p => p.id === id);
+    return patient ? `${patient.firstName} ${patient.lastNamePaternal}` : 'Desconocido';
   }
 
   getAppointmentsByPatientId(patientId: number): Observable<Appointment[]> {
@@ -379,14 +377,19 @@ export class AppointmentService {
   // Agregar tag a paciente
   addTagToPatient(patientId: number, tagId: number): Observable<Patient> {
     const patient = this.patients.find(p => p.id === patientId);
-    const tag = this.patientTags.find(t => t.id === tagId);
+    const tagExists = availableTags.some(t => t.id === tagId);
 
-    if (!patient || !tag) {
-      throw new Error('Paciente o tag no encontrado');
+    if (!patient) {
+      throw new Error('Paciente no encontrado');
     }
 
-    if (!patient.tags.find(t => t.id === tagId)) {
-      patient.tags.push(tag);
+    if (!tagExists) {
+      throw new Error('La etiqueta con ID ' + tagId + ' no existe en el catálogo');
+    }
+
+    // En el nuevo modelo, tags es number[]
+    if (!patient.tags.includes(tagId)) {
+      patient.tags.push(tagId);
     }
 
     return of(patient).pipe(delay(300));
@@ -400,7 +403,9 @@ export class AppointmentService {
       throw new Error('Paciente no encontrado');
     }
 
-    patient.tags = patient.tags.filter(t => t.id !== tagId);
+    // Filtramos el array de IDs numéricos
+    patient.tags = patient.tags.filter(id => id !== tagId);
+
     return of(patient).pipe(delay(300));
   }
 }
