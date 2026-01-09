@@ -201,24 +201,28 @@ export class Agenda implements OnInit, OnDestroy {
     this.openAppointmentDetail(event.meta.appointment);
   }
 
-  openPatientDetail(appointment: Appointment): void {
-    this.dialog.open(PatientDetailDialog, {
-      data: { appointment },
-      width: '1100px'
-    });
-  }
-
   openAppointmentDetail(appointment: Appointment): void {
     const dialogRef = this.dialog.open(AppointmentDetailDialog, {
-      data: { appointment: { ...appointment } }, // Enviamos una copia para no alterar el original antes de guardar
+      data: { appointment: { ...appointment } },
       width: '1100px',
-      maxWidth: '95vw', // Para que en tablets no se desborde
+      maxWidth: '95vw',
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      if (result) {
-        // Si el resultado es true, refrescamos los datos del calendario
-        this.loadAppointments();
+    dialogRef.afterClosed().subscribe((updatedApp: Appointment | any) => {
+      if (updatedApp && updatedApp.id) {
+
+        const index = this.allAppointments.findIndex(a => a.id === updatedApp.id);
+
+
+        if (index !== -1) {
+          this.allAppointments[index] = updatedApp;
+
+          this.allAppointments = [...this.allAppointments];
+
+          this.filterAndMapEvents();
+        }
+      } else if (updatedApp === true) {
+        this.loadAppointments(); // O tu lógica de borrado local
       }
     });
   }

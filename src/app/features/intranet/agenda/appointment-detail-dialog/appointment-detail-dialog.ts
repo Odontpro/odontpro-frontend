@@ -9,7 +9,13 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatButtonModule } from '@angular/material/button';
 import { MatIconModule } from '@angular/material/icon';
-import { Appointment, AppointmentStatus, Doctor, APPOINTMENT_STATUS_OPTIONS } from '../../../../shared/models/appointment.model';
+import {
+  Appointment,
+  AppointmentStatus,
+  Doctor,
+  APPOINTMENT_STATUS_OPTIONS,
+  UpdateAppointmentDto
+} from '../../../../shared/models/appointment.model';
 import { AppointmentService } from '../../../../core/services/appointment.service';
 import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
@@ -19,6 +25,7 @@ import { DurationOption} from '../../../../shared/models/appointment.model';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
 import {MatTooltip} from '@angular/material/tooltip';
 import {User} from '../../../../shared/models/user.model';
+import {MatProgressSpinner} from '@angular/material/progress-spinner';
 
 @Component({
   selector: 'app-appointment-detail-dialog',
@@ -26,7 +33,7 @@ import {User} from '../../../../shared/models/user.model';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule,
     MatTabsModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatDatepickerModule, MatButtonModule, MatIconModule, NgxMaterialTimepickerModule, MatTooltip
+    MatDatepickerModule, MatButtonModule, MatIconModule, NgxMaterialTimepickerModule, MatTooltip, MatProgressSpinner
   ],
   providers: [
     provideDateFnsAdapter(), // <--- SOLUCIÓN AL ERROR
@@ -39,6 +46,7 @@ export class AppointmentDetailDialog implements OnInit {
   doctors: User[] = [];
   statuses: { value: AppointmentStatus; label: string }[] = APPOINTMENT_STATUS_OPTIONS;
   durationOptions: DurationOption[] = [];
+  isSaving = false; // Flag para el estado de carga
   // En tu clase
   timeValues = {
     hour: 1,
@@ -64,6 +72,19 @@ export class AppointmentDetailDialog implements OnInit {
     }
 
   }
+
+  isFormInvalid(): boolean {
+    const app = this.data.appointment;
+    return (
+      !app.doctorId ||
+      !app.specialty?.trim() ||
+      !app.reason?.trim() ||
+      !app.startTime ||
+      !app.date ||
+      !app.status
+    );
+  }
+
 
   generateDurationOptions() {
     const maxMinutes = 8 * 60; // 480 minutos (8 horas)
@@ -230,20 +251,67 @@ export class AppointmentDetailDialog implements OnInit {
   }
 
   onSave() {
-    // Aquí llamarías a tu servicio para persistir los datos
-    // Simulamos una actualización con el ID del usuario actual (ej. 1)
-    /*this.appointmentService.updateAppointment(
-      this.data.appointment.id,
-      this.data.appointment,
-      1,
-      'Usuario Actual'
-    ).subscribe({
+    if (this.isFormInvalid()) return;
+
+    this.isSaving = true;
+    const app = this.data.appointment;
+
+    const date = new Date(app.date);
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+
+    const dateString = `${year}-${month}-${day}`; // Resultado: "2026-01-08" fijo
+
+    // 2. Corregir la Hora (Convertir "02:00 PM" -> "14:00")
+    const startTime24h = this.convertTo24h(app.startTime);
+
+    const updateDto: UpdateAppointmentDto = {
+      branch: app.branch,
+      officeId: app.officeId ?? undefined,
+      patientId: app.patientId,
+      doctorId: app.doctorId,
+      specialty: app.specialty,
+      reason: app.reason,
+      duration: app.duration,
+      status: app.status,
+      date: dateString,
+      startTime: startTime24h, // <--- Enviamos formato 24h
+      notes: app.notes
+    };
+
+    this.appointmentService.updateAppointment(app.id, updateDto).subscribe({
       next: (updatedApp) => {
-        console.log('Cita actualizada:', updatedApp);
-        this.dialogRef.close(true); // Cerramos enviando 'true' para indicar que hubo cambios
+        this.isSaving = false;
+        this.dialogRef.close(updatedApp);
       },
-      error: (err) => console.error('Error al actualizar:', err)
-    });*/
+      error: (err) => {
+        this.isSaving = false;
+        console.error('Error:', err);
+      }
+    });
+  }
+
+  /**
+   * Convierte "02:00 PM" a "14:00" para el backend
+   */
+  private convertTo24h(timeStr: string): string {
+    if (!timeStr.includes('AM') && !timeStr.includes('PM')) return timeStr;
+
+    const [time, modifier] = timeStr.split(' ');
+    let [hours, minutes] = time.split(':');
+
+    if (hours === '12') {
+      hours = '00';
+    }
+
+    if (modifier === 'PM') {
+      hours = (parseInt(hours, 10) + 12).toString().padStart(2, '0');
+    } else {
+      hours = hours.padStart(2, '0');
+    }
+
+    return `${hours}:${minutes}`;
   }
 
   onDelete() {
