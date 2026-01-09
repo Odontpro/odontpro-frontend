@@ -62,16 +62,16 @@
             <tr>
               <th>Fecha</th>
               <th>Doctor</th>
-              <th>Motivo</th>
+              <th>Especialidad</th>
               <th>Estado</th>
-              <th>Comentario</th>
+              <th>Motivo</th>
             </tr>
             </thead>
             <tbody>
             <tr *ngFor="let app of patientAppointments">
               <td>{{ formatDate(app.date) }} | {{ app.startTime }}h</td>
-              <td>{{ app.doctorId }}</td>
-              <td>{{ app.reason }}</td>
+              <td>{{ app.doctor?.firstName }}</td>
+              <td>{{ app.specialty }}</td>
               <td>
                   <span class="status-indicator" [ngClass]="app.status.toLowerCase()">
                     <mat-icon *ngIf="app.status === 'CANCELADA'">cancel</mat-icon>
@@ -79,7 +79,7 @@
                     {{ getStatusLabel(app.status) }}
                   </span>
               </td>
-              <td></td>
+              <td>{{ app.reason }}</td>
             </tr>
             </tbody>
           </table>

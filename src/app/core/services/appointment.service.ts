@@ -248,8 +248,13 @@ export class AppointmentService {
   }
 
   getAppointmentsByPatientId(patientId: number): Observable<Appointment[]> {
-    const filtered = this.appointments.filter(a => a.patientId === patientId);
-    return of(filtered);
+    const url = `${this.apiUrl}/patient/${patientId}`;
+
+    return this.http.get<any[]>(url).pipe(
+      map((response: any[]) => {
+        return response.map(appointment => this.mapToAppointment(appointment));
+      })
+    );
   }
 
   // Obtener tags disponibles
