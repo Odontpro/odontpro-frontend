@@ -12,11 +12,15 @@ import {
 } from '../../shared/models/appointment.model';
 import { Subject } from 'rxjs';
 import {availableTags, Patient, PatientTag} from '../../shared/models/patient.model';
+import { HttpClient } from '@angular/common/http';
+import { environment } from './environment';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AppointmentService {
+  private apiUrl = `${environment.apiUrl}appointments`;
 
   private appointmentCreatedSource = new Subject<Appointment>();
   appointmentCreated$ = this.appointmentCreatedSource.asObservable();
@@ -218,7 +222,7 @@ export class AppointmentService {
   }
 ];
 
-  constructor() {}
+  constructor(private http: HttpClient) {}
 
   notifyAppointmentCreated(appointment: Appointment) {
     this.appointmentCreatedSource.next(appointment);
@@ -274,36 +278,31 @@ export class AppointmentService {
 
   // Crear cita
   createAppointment(data: CreateAppointmentDto): Observable<Appointment> {
-    // 1. Validamos que el paciente y el doctor existan en nuestros mocks locales
-    const patientExists = this.patients.some(p => p.id === data.patientId);
-    const doctorExists = this.doctors.some(d => d.id === data.doctorId);
-
-    if (!patientExists || !doctorExists) {
-      throw new Error('Paciente o doctor no encontrado en la base de datos local');
-    }
-
-    // 2. Creamos el objeto siguiendo la interfaz Appointment
-    const newAppointment: Appointment = {
-      id: this.appointments.length + 1,
-      branch: data.branch || 'Principal',
-      officeId: data.officeId,
-      patientId: data.patientId,
-      doctorId: data.doctorId,
-      specialty: data.specialty,
-      reason: data.reason,
-      duration: data.duration,
-      status: data.status || AppointmentStatus.PENDIENTE,
-      date: new Date(data.date), // Convertimos el string del DTO a objeto Date
-      startTime: data.startTime,
-      notes: data.notes || '',
-      createdAt: new Date(),
-      updatedAt: new Date()
-    };
-
-    // 3. Guardamos localmente y retornamos
-    this.appointments.push(newAppointment);
-    return of(newAppointment).pipe(delay(500));
+    return this.http.post<any>(this.apiUrl, data).pipe(
+      map(res => this.mapToAppointment(res))
+    );
   }
+
+  private mapToAppointment(data: any): Appointment {
+    return {
+      ...data,
+      // Convertimos los strings de fecha a objetos Date reales
+      date: new Date(data.date),
+      createdAt: data.createdAt ? new Date(data.createdAt) : undefined,
+      updatedAt: data.updatedAt ? new Date(data.updatedAt) : undefined,
+
+      // Aseguramos que los IDs sean numéricos (por si el backend enviara strings)
+      id: Number(data.id),
+      patientId: Number(data.patientId),
+      doctorId: Number(data.doctorId),
+      officeId: data.officeId ? Number(data.officeId) : undefined,
+
+      // El resto de campos (branch, specialty, reason, status, startTime, notes)
+      // se mantienen tal cual vienen en el spread (...data)
+    };
+  }
+
+
 
   // Actualizar cita
   updateAppointment(id: number, data: UpdateAppointmentDto): Observable<Appointment> {

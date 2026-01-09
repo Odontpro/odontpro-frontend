@@ -102,11 +102,8 @@ export class IntranetLayout {
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
-        // 1. Aquí llamarías a tu API para guardar primero
-        this.appointmentService.createAppointment(result).subscribe(newApp => {
-          // 2. Notificas al servicio que la cita fue creada
-          this.appointmentService.notifyAppointmentCreated(newApp);
-        });
+        console.log('Paciente creado desde layout:', result);
+        this.appointmentService.notifyAppointmentCreated(result);
       }
     });
   }
