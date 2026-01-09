@@ -9,7 +9,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatMenuModule } from '@angular/material/menu';
 import { AppointmentService } from '../../../core/services/appointment.service';
-import { Appointment, Doctor } from '../../../shared/models/appointment.model';
+import { Appointment } from '../../../shared/models/appointment.model';
+import { User} from '../../../shared/models/user.model';
 import { PatientDetailDialog} from './patient-detail-dialog/patient-detail-dialog';
 import { AppointmentDetailDialog} from './appointment-detail-dialog/appointment-detail-dialog';
 import {FormsModule} from '@angular/forms';
@@ -82,7 +83,7 @@ export class Agenda implements OnInit, OnDestroy {
 
   // Datos
   events: CalendarEvent[] = [];
-  doctors: Doctor[] = [];
+  doctors: User[] = [];
   selectedDoctors: number[] = [];
   allAppointments: Appointment[] = [];
   selectedStatus: string = 'TODOS';
@@ -282,7 +283,7 @@ export class Agenda implements OnInit, OnDestroy {
 
   getDoctorColor(doctorId: number): string {
     const doctor = this.doctors.find(d => d.id === doctorId);
-    return doctor?.color || '#9e9e9e';
+    return '#9e9e9e';
   }
 
   getStatusColor(status: string): string {

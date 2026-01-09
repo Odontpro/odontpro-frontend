@@ -17,6 +17,8 @@ import { es } from 'date-fns/locale';
 import { PatientDetailDialog} from '../patient-detail-dialog/patient-detail-dialog';
 import { DurationOption} from '../../../../shared/models/appointment.model';
 import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
+import {MatTooltip} from '@angular/material/tooltip';
+import {User} from '../../../../shared/models/user.model';
 
 @Component({
   selector: 'app-appointment-detail-dialog',
@@ -24,7 +26,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
   imports: [
     CommonModule, FormsModule, ReactiveFormsModule, MatDialogModule,
     MatTabsModule, MatFormFieldModule, MatInputModule, MatSelectModule,
-    MatDatepickerModule, MatButtonModule, MatIconModule, NgxMaterialTimepickerModule
+    MatDatepickerModule, MatButtonModule, MatIconModule, NgxMaterialTimepickerModule, MatTooltip
   ],
   providers: [
     provideDateFnsAdapter(), // <--- SOLUCIÓN AL ERROR
@@ -34,7 +36,7 @@ import { NgxMaterialTimepickerModule } from 'ngx-material-timepicker';
   styleUrl: './appointment-detail-dialog.css',
 })
 export class AppointmentDetailDialog implements OnInit {
-  doctors: Doctor[] = [];
+  doctors: User[] = [];
   statuses: { value: AppointmentStatus; label: string }[] = APPOINTMENT_STATUS_OPTIONS;
   durationOptions: DurationOption[] = [];
   // En tu clase

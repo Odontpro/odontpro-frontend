@@ -11,9 +11,9 @@ import { MatSelectModule } from '@angular/material/select';
 import { MatTabsModule } from '@angular/material/tabs';
 import {
   APPOINTMENT_STATUS_OPTIONS, AppointmentStatus,
-  Doctor,
   DurationOption
 } from '../../../../shared/models/appointment.model';
+import {User} from '../../../../shared/models/user.model';
 import { Patient } from '../../../../shared/models/patient.model';
 import { AppointmentService } from '../../../../core/services/appointment.service';
 import {provideDateFnsAdapter} from '@angular/material-date-fns-adapter';
@@ -39,7 +39,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
   styleUrl: './add-appointment-dialog.css',
 })
 export class AddAppointmentDialog implements OnInit {
-  doctors: Doctor[] = [];
+  doctors: User[] = [];
   patients: Patient[] = [];
   statuses = APPOINTMENT_STATUS_OPTIONS;
   durationOptions: DurationOption[] = [];

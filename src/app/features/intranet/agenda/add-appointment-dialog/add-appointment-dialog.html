@@ -34,7 +34,7 @@
               <mat-form-field appearance="outline">
                 <mat-select [(ngModel)]="appointment.doctorId" placeholder="Seleccionar doctor">
                   <mat-option *ngFor="let doc of doctors" [value]="doc.id">
-                    {{ doc.nombre }} {{ doc.apellido }}
+                    {{ doc.firstName }} {{ doc.lastName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

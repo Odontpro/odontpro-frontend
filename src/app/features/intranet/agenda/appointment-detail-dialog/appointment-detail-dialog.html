@@ -20,7 +20,7 @@
             <span class="row-label">Paciente</span>
             <div class="row-value static-text bold">
               <span class="patient-name-link">
-                {{ data.appointment.patientId }}
+                {{ data.appointment.patient?.firstName+" "+data.appointment.patient?.lastNamePaternal }}
               </span>
               <button mat-icon-button class="view-patient-btn" (click)="viewPatient()" matTooltip="Ver ficha del paciente">
                 <mat-icon>visibility</mat-icon>
@@ -34,7 +34,7 @@
               <mat-form-field appearance="outline">
                 <mat-select [(ngModel)]="data.appointment.doctorId">
                   <mat-option *ngFor="let doc of doctors" [value]="doc.id">
-                    {{ doc.nombre }} {{ doc.apellido }}
+                    {{ doc.firstName }} {{ doc.lastName }}
                   </mat-option>
                 </mat-select>
               </mat-form-field>

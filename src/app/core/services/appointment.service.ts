@@ -12,9 +12,11 @@ import {
 } from '../../shared/models/appointment.model';
 import { Subject } from 'rxjs';
 import {availableTags, Patient, PatientTag} from '../../shared/models/patient.model';
-import { HttpClient, HttpParams } from '@angular/common/http';
+import {HttpClient, HttpHeaders, HttpParams} from '@angular/common/http';
 import { environment } from './environment';
 import { map } from 'rxjs/operators';
+import { User} from '../../shared/models/user.model';
+import {CryptoService} from './crypto.service';
 
 @Injectable({
   providedIn: 'root'
@@ -222,7 +224,7 @@ export class AppointmentService {
   }
 ];
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private cryptoService: CryptoService) {}
 
   notifyAppointmentCreated(appointment: Appointment) {
     this.appointmentCreatedSource.next(appointment);
@@ -324,8 +326,16 @@ export class AppointmentService {
   }
 
   // Obtener todos los doctores
-  getDoctors(): Observable<Doctor[]> {
-    return of(this.doctors).pipe(delay(200));
+
+  getDoctors(): Observable<User[]> {
+    const token = this.cryptoService.getToken();
+
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Ahora llamamos al endpoint real del módulo de usuarios
+    return this.http.get<User[]>(`${environment.apiUrl}users/doctors`,{ headers });
   }
 
   // Obtener todos los pacientes
