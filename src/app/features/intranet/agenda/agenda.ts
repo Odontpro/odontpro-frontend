@@ -30,6 +30,7 @@ import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import { Router } from '@angular/router';
 
 // Registramos los datos de localización para español
 registerLocaleData(localeEs);
@@ -101,6 +102,7 @@ export class Agenda implements OnInit, OnDestroy {
   constructor(
     private appointmentService: AppointmentService,
     private dialog: MatDialog,
+    private router: Router,
   ) {
   }
 
@@ -302,5 +304,9 @@ export class Agenda implements OnInit, OnDestroy {
       'NO_ASISTIO': '#d32f2f'
     };
     return colors[status] || '#9e9e9e';
+  }
+
+  redirectToUser() {
+    this.router.navigate(['/intranet/usuarios']);
   }
 }
