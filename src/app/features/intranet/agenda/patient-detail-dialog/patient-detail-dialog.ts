@@ -15,6 +15,7 @@ import {MatProgressSpinner} from '@angular/material/progress-spinner';
 import {FormsModule} from '@angular/forms';
 import {PatientService} from '../../../../core/services/patient.service';
 import {MatSnackBar} from '@angular/material/snack-bar';
+import {MatDivider} from '@angular/material/list';
 
 @Component({
   selector: 'app-patient-detail-dialog',
@@ -32,7 +33,8 @@ import {MatSnackBar} from '@angular/material/snack-bar';
     MatOption,
     MatInput,
     MatProgressSpinner,
-    FormsModule
+    FormsModule,
+    MatDivider
   ],
   templateUrl: './patient-detail-dialog.html',
   styleUrl: './patient-detail-dialog.css',
@@ -44,6 +46,7 @@ export class PatientDetailDialog implements OnInit {
   patientAppointments: Appointment[] = [];
   // En tu archivo .ts
   readonly bloodGroups: BloodGroup[] = ['A+', 'A-', 'B+', 'B-', 'AB+', 'AB-', 'O+', 'O-'];
+  selectedTags: PatientTag[] = [];
   isLoading = false; // 2. Variable para el estado de carga
 
   statusLabels: any = {
@@ -70,7 +73,19 @@ export class PatientDetailDialog implements OnInit {
 
   loadPatient(): void {
     this.patient = this.data.appointment.patient;
+    if (this.patient?.tags) {
+      this.resolvePatientTags(this.patient.tags);
+    }
     this.loadPatientAppointments(this.data.appointment.patientId);
+  }
+
+  resolvePatientTags(tagIds: number[]): void {
+    this.patientService.getPatientTags(tagIds).subscribe({
+      next: (tags) => {
+        this.selectedTags = tags;
+      },
+      error: (err) => console.error('Error cargando etiquetas del paciente', err)
+    });
   }
 
   loadPatientAppointments(patientId: number): void {
@@ -121,14 +136,48 @@ export class PatientDetailDialog implements OnInit {
     });
   }
 
+  // Función para remover la etiqueta del paciente
   removeTag(tagId: number): void {
-    /*if (this.patient) {
-      this.appointmentService.removeTagFromPatient(this.patient.id, tagId).subscribe({
-        next: (updatedPatient) => {
-          this.patient = updatedPatient;
-        }
-      });
-    }*/
+    if (!this.patient) return;
+
+    // Actualizamos localmente el array de tags
+    this.patient.tags = this.patient.tags.filter(id => id !== tagId);
+
+    this.patientService.updatePatient(this.patient.id, { tags: this.patient.tags }).subscribe({
+      next: () => {
+        // 3. Refrescamos los objetos completos de selectedTags
+        this.resolvePatientTags(this.patient!.tags);
+        this.showNotification('Etiqueta eliminada', 'success');
+      }
+    });
+  }
+
+  // Función para el toggle desde el menú
+  toggleTag(tag: PatientTag): void {
+    if (!this.patient) return;
+
+    const index = this.patient.tags.indexOf(tag.id);
+
+    if (index > -1) {
+      this.patient.tags.splice(index, 1);
+    } else {
+      this.patient.tags.push(tag.id);
+    }
+
+    this.patientService.updatePatient(this.patient.id, { tags: this.patient.tags }).subscribe({
+      next: () => {
+        this.resolvePatientTags(this.patient!.tags);
+      }
+    });
+  }
+
+  // Verifica si una etiqueta específica está en el array de tags del paciente
+  isTagSelected(tag: PatientTag): boolean {
+    if (!this.patient || !this.patient.tags) return false;
+
+    // Convertimos todo a String para una comparación segura
+    const tagIdStr = String(tag.id);
+    return this.patient.tags.some(id => String(id) === tagIdStr);
   }
 
   formatDate(dateString: Date): string {

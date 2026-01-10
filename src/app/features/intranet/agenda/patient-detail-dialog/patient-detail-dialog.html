@@ -28,16 +28,54 @@
 
         <div class="info-row bottom-row">
           <div class="tags-wrapper">
-            <span class="tag-pill impuntual">Impuntual <mat-icon>close</mat-icon></span>
-            <span class="tag-pill star-pill">
-              <mat-icon class="star">star</mat-icon>
-              <mat-icon class="close">close</mat-icon>
+            <span *ngFor="let tag of selectedTags"
+                  class="tag-pill"
+                  [style.background-color]="tag.backgroundColor"
+                  [style.color]="tag.color">
+              <mat-icon *ngIf="tag.nombre.toLowerCase().includes('vip') || tag.id === 1" class="star">
+                star
+              </mat-icon>
+              {{ tag.nombre }}
+              <mat-icon class="close" (click)="removeTag(tag.id)">close</mat-icon>
             </span>
-            <button class="add-tag-inline">
+
+            <button class="add-tag-inline" [matMenuTriggerFor]="tagsMenu">
               <mat-icon>add_circle_outline</mat-icon> Agregar
             </button>
+
           </div>
         </div>
+        <mat-menu #tagsMenu="matMenu" class="tags-menu-panel">
+          <div class="tags-menu-content" (click)="$event.stopPropagation()">
+            <h4 class="tags-menu-title">Etiquetas</h4>
+
+            <div class="available-tags-grid">
+              <button type="button"
+                      class="tag-selection-item"
+                      *ngFor="let tag of availableTags"
+                      (click)="toggleTag(tag)">
+                <span class="tag-preview"
+                      [style.background-color]="tag.backgroundColor"
+                      [style.color]="tag.color"
+                      [class.tag-selected]="isTagSelected(tag)">
+                  {{ tag.nombre }}
+                  <mat-icon *ngIf="isTagSelected(tag)" class="check-icon">check</mat-icon>
+                </span>
+              </button>
+            </div>
+
+            <mat-divider></mat-divider>
+
+            <div class="tags-menu-footer">
+              <p>
+                Crea y gestiona tus etiquetas desde
+                <a href="/settings/tags" class="manage-link">
+                  aquí <mat-icon>open_in_new</mat-icon>
+                </a>
+              </p>
+            </div>
+          </div>
+        </mat-menu>
       </div>
     </div>
   </div>

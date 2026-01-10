@@ -160,8 +160,12 @@
             <mat-menu #tagsMenu="matMenu" class="tags-menu">
               <div class="tags-menu-content" (click)="$event.stopPropagation()">
                 <h4 class="tags-menu-title">Etiquetas</h4>
+
                 <div class="available-tags">
-                  <button mat-menu-item *ngFor="let tag of availableTags" (click)="toggleTag(tag)">
+                  <button type="button"
+                          class="tag-button"
+                          *ngFor="let tag of availableTags"
+                          (click)="toggleTag(tag)">
                     <span class="tag-preview"
                           [style.background-color]="tag.backgroundColor"
                           [style.color]="tag.color"
@@ -170,6 +174,17 @@
                       <mat-icon *ngIf="isTagSelected(tag)">check</mat-icon>
                     </span>
                   </button>
+                </div>
+
+                <mat-divider></mat-divider>
+
+                <div class="tags-menu-footer">
+                  <p>
+                    Crea y gestiona tus etiquetas desde
+                    <a href="/settings/tags" class="manage-link">
+                      aquí <mat-icon>open_in_new</mat-icon>
+                    </a>
+                  </p>
                 </div>
               </div>
             </mat-menu>

@@ -16,7 +16,8 @@ import { provideDateFnsAdapter } from '@angular/material-date-fns-adapter';
 import { es } from 'date-fns/locale';
 import { Patient, DocumentType, Gender, BloodGroup, availableTags, PatientTag } from '../../../../shared/models/patient.model';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar'; // Importar esto
-import { PatientService } from '../../../../core/services/patient.service'; // Ajusta la ruta
+import { PatientService } from '../../../../core/services/patient.service';
+import {MatDivider} from '@angular/material/list'; // Ajusta la ruta
 
 @Component({
   selector: 'app-add-patient-dialog',
@@ -24,7 +25,7 @@ import { PatientService } from '../../../../core/services/patient.service'; // A
   imports: [
     CommonModule, ReactiveFormsModule, MatDialogModule, MatButtonModule,
     MatFormFieldModule, MatInputModule, MatSelectModule, MatCheckboxModule,
-    MatDatepickerModule, MatNativeDateModule, MatIconModule, MatMenuModule, MatChipsModule
+    MatDatepickerModule, MatNativeDateModule, MatIconModule, MatMenuModule, MatChipsModule, MatDivider
   ],
   providers: [
     provideDateFnsAdapter(),
