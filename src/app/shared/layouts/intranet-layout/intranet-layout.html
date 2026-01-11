@@ -6,22 +6,22 @@
 
       <div class="nav-links">
         <a mat-button routerLink="/intranet/home" routerLinkActive="active-nav-link">
-          <mat-icon>home</mat-icon>
           <span>Home</span>
         </a>
 
         <a mat-button routerLink="/intranet/agenda" routerLinkActive="active-nav-link">
-          <mat-icon>event</mat-icon>
           <span>Agenda</span>
         </a>
 
+        <a mat-button routerLink="/intranet/pacientes" routerLinkActive="active-nav-link">
+          <span>Pacientes</span>
+        </a>
+
         <a mat-button routerLink="/intranet/libro-reclamaciones" routerLinkActive="active-nav-link">
-          <mat-icon>book</mat-icon>
           <span>Reclamaciones</span>
         </a>
 
         <a *ngIf="role === 'ADMIN'" mat-button routerLink="/intranet/usuarios" routerLinkActive="active-nav-link">
-          <mat-icon>people</mat-icon>
           <span>Usuarios</span>
         </a>
 
