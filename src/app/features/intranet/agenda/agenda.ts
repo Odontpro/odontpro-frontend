@@ -31,6 +31,14 @@ import { MAT_DATE_LOCALE } from '@angular/material/core';
 import {MatButtonToggleModule} from '@angular/material/button-toggle';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 import { Router } from '@angular/router';
+import {
+  MatDrawer,
+  MatDrawerContainer,
+  MatDrawerContent,
+  MatDrawerMode,
+  MatSidenavModule
+} from '@angular/material/sidenav';
+import { ChangeDetectorRef } from '@angular/core'; // Asegúrate de importar esto
 
 // Registramos los datos de localización para español
 registerLocaleData(localeEs);
@@ -55,7 +63,10 @@ registerLocaleData(localeEs);
     MatDatepicker,
     MatDatepickerModule,
     MatButtonToggleModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatDrawerContainer,
+    MatDrawer,
+    MatDrawerContent
   ],
   changeDetection: ChangeDetectionStrategy.OnPush,
   providers: [
@@ -89,6 +100,9 @@ export class Agenda implements OnInit, OnDestroy {
   selectedStatus: string = 'TODOS';
   isSidebarVisible: boolean = true;
 
+  drawerMode: MatDrawerMode = 'side';
+  hasBackdrop: boolean = false;
+
   statusOptions = [
     { value: 'TODOS', label: 'Todos' },
     { value: 'PENDIENTE', label: 'Pendiente' },
@@ -103,28 +117,44 @@ export class Agenda implements OnInit, OnDestroy {
     private appointmentService: AppointmentService,
     private dialog: MatDialog,
     private router: Router,
+    private cdr: ChangeDetectorRef
   ) {
   }
 
   ngOnInit(): void {
+
+    this.updateDrawerMode();
+    window.addEventListener('resize', () => this.updateDrawerMode());
+
     this.loadDoctors();
     this.loadAppointments();
 
     const sub = this.appointmentService.appointmentCreated$.subscribe(newAppointment => {
-      // Agregamos al arreglo local
       this.allAppointments = [...this.allAppointments, newAppointment];
 
-      // Actualizamos la visualización
       this.refreshCalendar();
     });
 
     this.subscription.add(sub);
   }
 
-  ngOnDestroy() {
-    // Muy importante para evitar fugas de memoria
+  updateDrawerMode(): void {
+    const isMobile = window.innerWidth <= 1024;
+    this.drawerMode = isMobile ? 'over' : 'side';
+    this.hasBackdrop = isMobile;
+
+    if (isMobile && this.isSidebarVisible) {
+      this.isSidebarVisible = false;
+    }
+
+    this.cdr.markForCheck(); // <--- OBLIGATORIO para OnPush
+  }
+
+  ngOnDestroy(): void {
+    window.removeEventListener('resize', () => this.updateDrawerMode());
     this.subscription.unsubscribe();
   }
+
 
   refreshCalendar() {
     this.filterAndMapEvents();
@@ -138,6 +168,7 @@ export class Agenda implements OnInit, OnDestroy {
         this.doctors = doctors;
         // Por defecto, mostrar todos los doctores
         this.selectedDoctors = doctors.map(d => d.id);
+        this.cdr.markForCheck();
       }
     });
   }
@@ -261,9 +292,14 @@ export class Agenda implements OnInit, OnDestroy {
     } else if (this.view === CalendarView.Week) {
       const start = startOfWeek(this.viewDate, { weekStartsOn: 1 });
       const end = endOfWeek(this.viewDate, { weekStartsOn: 1 });
-      return `${format(start, 'dd MMM')} - ${format(end, 'dd MMM yyyy', { locale: es })}`;
+
+      // Se agrega locale: es al inicio del rango también
+      const startFormatted = format(start, 'dd MMM', { locale: es });
+      const endFormatted = format(end, 'dd MMM yyyy', { locale: es });
+
+      return `${startFormatted} - ${endFormatted}`;
     } else {
-      // Modo Mes: "Enero 2026"
+      // Modo Mes: "enero 2026"
       return format(this.viewDate, 'MMMM yyyy', { locale: es });
     }
   }

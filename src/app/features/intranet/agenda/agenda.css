@@ -1,8 +1,43 @@
 .agenda-container {
-  height: 100vh;
+  height: calc(100vh - 64px); /* Ajusta según el alto de tu navbar principal */
+  background: transparent;
+}
+
+.doctors-sidebar-drawer {
+  width: 280px;
+  border-left: 1px solid #e0e0e0;
+  background-color: white !important;
+}
+
+/* Mobile Adjustments */
+@media (max-width: 1024px) {
+  .doctors-sidebar-drawer {
+    width: 260px;
+    box-shadow: -4px 0 10px rgba(0,0,0,0.1);
+  }
+}
+
+.calendar-content-wrapper {
+  overflow: hidden;
   display: flex;
   flex-direction: column;
-  background-color: #f5f7fa;
+  background-color: white;
+}
+
+.calendar-wrapper {
+  height: 100%;
+  padding: 0 20px;
+  display: flex;
+  flex-direction: column;
+}
+
+.calendar-view-container {
+  flex: 1;
+  overflow-y: auto;
+}
+
+::ng-deep .mat-drawer-backdrop.mat-drawer-shown {
+  background-color: rgba(0, 0, 0, 0.25) !important;
 }
 
 /* Header */
@@ -10,14 +45,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 20px 0 16px 0;
+  padding: 16px 0;
   color: #7dc0bf;
+  border-bottom: 1px solid #f0f0f0;
 }
 
-.header-left {
+.header-left, .header-right {
   display: flex;
   align-items: center;
-  gap: 4px;
+  gap: 8px;
 }
 
 .nav-button {
@@ -110,12 +146,6 @@
   color: #666;
   font-weight: 600;
   font-size: 11px;
-}
-
-.header-right {
-  display: flex;
-  align-items: center;
-  gap: 8px; /* Espaciado entre botones según la imagen */
 }
 
 .filter-field {
@@ -218,14 +248,6 @@
   display: none !important;
 }
 
-/* Opcional: Si prefieres que el seleccionado sea sólido turquesa con texto blanco */
-/*
-.view-toggle-group .mat-button-toggle-checked {
-  background-color: #7dc0bf !important;
-  color: white !important;
-}
-*/
-
 .settings-button{
   display: flex;
   align-items: center;
@@ -245,18 +267,56 @@
 
 /* Doctors Sidebar */
 .doctors-sidebar {
-  width: 280px;
-  background-color: white;
-  border-left: 1px solid #e0e0e0;
+  height: 100%;
   display: flex;
   flex-direction: column;
-  transition: width 0.3s ease; /* Efecto de cierre suave */
-
+  background-color: white; /* Asegúrate de que tenga fondo */
 }
 
 .doctors-sidebar.collapsed {
   width: 0;
   border: none;
+}
+
+/* RESPONSIVE LOGIC (Tablet & Mobile) */
+@media (max-width: 1024px) {
+  .doctors-sidebar {
+    width: 100%;
+  }
+
+  /* Cuando está visible en mobile, lo movemos a su posición 0 */
+  .doctors-sidebar.is-visible-mobile {
+    transform: translateX(0);
+  }
+
+  /* Overlay de fondo para oscurecer el calendario cuando el sidebar está abierto */
+  .sidebar-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.3);
+    z-index: 999;
+    display: block;
+  }
+
+  .doctors-sidebar.collapsed {
+    width: 280px; /* En mobile el width no cambia, cambia el transform */
+  }
+}
+
+/* DESKTOP LOGIC (>= 1025px) */
+@media (min-width: 1025px) {
+  .sidebar-overlay {
+    display: none; /* No existe overlay en desktop */
+  }
+
+  .doctors-sidebar.collapsed {
+    width: 0;
+    border: none;
+    overflow: hidden;
+  }
 }
 
 .sidebar-header {
