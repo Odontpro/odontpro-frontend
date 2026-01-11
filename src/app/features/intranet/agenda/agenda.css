@@ -50,13 +50,18 @@
   border-bottom: 1px solid #f0f0f0;
 }
 
-.header-left, .header-right {
+.header-left {
+  display: flex;
+  align-items: center;
+}
+
+.header-right {
   display: flex;
   align-items: center;
   gap: 8px;
 }
 
-.nav-button {
+.nav-button, .arrow-nav {
   color: #7dc0bf !important;
 }
 
@@ -284,6 +289,10 @@
     width: 100%;
   }
 
+  .today-button {
+    display: none;
+  }
+
   /* Cuando está visible en mobile, lo movemos a su posición 0 */
   .doctors-sidebar.is-visible-mobile {
     transform: translateX(0);
@@ -303,6 +312,15 @@
 
   .doctors-sidebar.collapsed {
     width: 280px; /* En mobile el width no cambia, cambia el transform */
+  }
+}
+
+@media (max-width: 768px) {
+  .date-range{
+    display:none;
+  }
+  .arrow-nav{
+    display: none;
   }
 }
 

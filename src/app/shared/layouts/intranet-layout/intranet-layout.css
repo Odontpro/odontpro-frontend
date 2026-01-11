@@ -197,6 +197,7 @@
   align-items: center;
   min-height: 64px !important;
   padding: 0 16px;
+  background-color: #3d5a6b;
 }
 
 .close-sidenav-btn {
@@ -231,6 +232,12 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   z-index: 10;
   position: relative;
+  background-color: #3d5a6b;
+  color: white;
+}
+
+.mobile-toolbar button{
+  color: white;
 }
 
 .menu-toggle {

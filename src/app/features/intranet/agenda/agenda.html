@@ -4,7 +4,7 @@
     <div class="calendar-wrapper">
       <div class="agenda-header">
         <div class="header-left">
-          <button mat-icon-button class="nav-button" (click)="decrementView()">
+          <button mat-icon-button class="arrow-nav" (click)="decrementView()">
             <mat-icon>chevron_left</mat-icon>
           </button>
 
@@ -17,7 +17,7 @@
             <mat-datepicker #picker [touchUi]="false"></mat-datepicker>
           </div>
 
-          <button mat-icon-button class="nav-button" (click)="incrementView()">
+          <button mat-icon-button class="arrow-nav" (click)="incrementView()">
             <mat-icon>chevron_right</mat-icon>
           </button>
           <button mat-stroked-button class="today-button" (click)="goToToday()">Hoy</button>
