@@ -36,25 +36,6 @@ export class AppointmentService {
     { id: 5, nombre: 'Requiere seguimiento', color: '#388e3c', backgroundColor: '#e8f5e9' }
   ];
 
-  private appointments: Appointment[] = [
-  {
-    id: 1,
-    branch: 'Principal',
-    officeId: 1,
-    patientId: 1,
-    doctorId: 1,
-    specialty: 'Ortodoncia',
-    reason: 'Control mensual',
-    duration: 60,
-    status: AppointmentStatus.CONFIRMADA,
-    date: new Date('2026-01-04'),
-    startTime: '09:00',
-    notes: 'Paciente requiere ajuste de brackets',
-    createdAt: new Date('2026-01-03T10:00:00Z'),
-    updatedAt: new Date('2026-01-03T10:00:00Z')
-  }
-];
-
   constructor(private http: HttpClient, private cryptoService: CryptoService) {}
 
   notifyAppointmentCreated(appointment: Appointment) {
@@ -94,10 +75,10 @@ export class AppointmentService {
   }
 
   // Obtener cita por ID
-  getAppointmentById(id: number): Observable<Appointment | undefined> {
+  /*getAppointmentById(id: number): Observable<Appointment | undefined> {
     const appointment = this.appointments.find(a => a.id === id);
     return of(appointment).pipe(delay(200));
-  }
+  }*/
 
   createAppointment(data: CreateAppointmentDto): Observable<Appointment> {
     return this.http.post<any>(this.apiUrl, data).pipe(

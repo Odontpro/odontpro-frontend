@@ -4,6 +4,7 @@ import { environment } from './environment';
 import {Patient, PatientTag} from '../../shared/models/patient.model';
 import {Observable, of, Subject} from 'rxjs';
 import {delay, map} from 'rxjs/operators';
+import {Appointment} from '../../shared/models/appointment.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,14 @@ import {delay, map} from 'rxjs/operators';
 export class PatientService {
   private apiUrl = `${environment.apiUrl}patients`;
 
+  private patientCreatedSource = new Subject<Patient>();
+  patientCreated$ = this.patientCreatedSource.asObservable();
+
   constructor(private http: HttpClient) { }
+
+  notifyPatientCreated(patient: Patient) {
+    this.patientCreatedSource.next(patient);
+  }
 
   // Tags predefinidas para pacientes
   private patientTags: PatientTag[] = [

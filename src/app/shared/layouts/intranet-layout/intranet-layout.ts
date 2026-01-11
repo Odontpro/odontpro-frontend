@@ -19,6 +19,7 @@ import {
   AppointmentDetailDialog
 } from '../../../features/intranet/agenda/appointment-detail-dialog/appointment-detail-dialog';
 import {AddAppointmentDialog} from '../../../features/intranet/agenda/add-appointment-dialog/add-appointment-dialog';
+import {PatientService} from '../../../core/services/patient.service';
 
 @Component({
   selector: 'app-intranet-layout',
@@ -49,7 +50,8 @@ export class IntranetLayout {
 
   constructor(
     private auth: AuthService, private cryptoService: CryptoService,
-    private dialog: MatDialog, private appointmentService: AppointmentService,) {
+    private dialog: MatDialog, private appointmentService: AppointmentService,
+    private patientService: PatientService,) {
     this.checkScreenSize();
   }
 
@@ -89,7 +91,7 @@ export class IntranetLayout {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         console.log('Paciente creado:', result);
-        // Aquí llamarías a tu servicio para guardar
+        this.patientService.notifyPatientCreated(result);
       }
     });
   }

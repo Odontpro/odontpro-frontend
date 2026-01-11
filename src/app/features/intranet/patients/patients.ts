@@ -11,9 +11,10 @@ import { MatSelectModule } from "@angular/material/select";
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatSortModule, Sort } from "@angular/material/sort";
-
+import { ChangeDetectorRef } from '@angular/core'; // Asegúrate de importar esto
 import { Patient } from '../../../shared/models/patient.model';
 import { PatientService } from '../../../core/services/patient.service';
+import {Subscription} from 'rxjs';
 
 @Component({
   selector: 'app-patients',
@@ -35,6 +36,8 @@ import { PatientService } from '../../../core/services/patient.service';
   styleUrl: './patients.css',
 })
 export class Patients implements OnInit {
+
+  private subscription: Subscription = new Subscription();
   patients: Patient[] = [];
   filteredPatients: Patient[] = [];
   // Columnas actualizadas según tu requerimiento
@@ -44,11 +47,24 @@ export class Patients implements OnInit {
   constructor(
     private patientService: PatientService,
     private snackBar: MatSnackBar,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) {}
 
   ngOnInit(): void {
     this.loadPatients();
+
+    const sub = this.patientService.patientCreated$.subscribe(newPatient => {
+      this.patients = [...this.patients, newPatient];
+
+      this.filteredPatients = [...this.patients];
+
+      this.cdr.markForCheck();
+
+      this.snackBar.open('Paciente agregado con éxito', 'Cerrar', { duration: 2000 });
+    });
+
+    this.subscription.add(sub);
   }
 
   loadPatients(): void {
