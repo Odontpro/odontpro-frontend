@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from "@angular/forms";
 import { Router } from '@angular/router';
@@ -35,7 +35,7 @@ import {Subscription} from 'rxjs';
   templateUrl: './patients.html',
   styleUrl: './patients.css',
 })
-export class Patients implements OnInit {
+export class Patients implements OnInit, OnDestroy {
 
   private subscription: Subscription = new Subscription();
   patients: Patient[] = [];
@@ -65,6 +65,10 @@ export class Patients implements OnInit {
     });
 
     this.subscription.add(sub);
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 
   loadPatients(): void {
