@@ -1,10 +1,95 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Endodoncia</h1>
+    <img src="https://picsum.photos/1920/600?endodontics" alt="Endodoncia" class="banner-image">
+    <h1 class="banner-title">Especialidad en Endodoncia</h1>
+  </section>
+
+  <section class="info-especialidad-section">
+    <div class="info-container">
+      <div class="info-image">
+        <img src="https://picsum.photos/600/400?tooth-anatomy" alt="Anatomía Dental">
+      </div>
+      <div class="info-content">
+        <h2 class="info-title">Ciencia y Biología de la Pulpa</h2>
+        <div class="info-text">
+          <p class="quote">
+            <em>"La Endodoncia abarca las ciencias clínicas y de base biológica, incluida la prevención y tratamiento de las enfermedades de la pulpa dental."</em>
+          </p>
+          <p>Siguiendo las directrices de <strong>Berman & Hargreaves</strong>, nuestro protocolo garantiza la preservación de la pieza dental mediante técnicas de desinfección avanzada.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tabs-detalles-section">
+    <div class="tabs-container">
+      <h2 class="section-main-title">Protocolo: Fases Operatorias</h2>
+      <div class="tabs-header">
+        <button *ngFor="let tab of tabsFases; let i = index"
+                class="tab-btn" [class.active]="tabActiva === i" (click)="tabActiva = i">
+          {{ tab.titulo }}
+        </button>
+      </div>
+      <div class="tab-content-body">
+        <div class="tab-pane-active">
+          <h3>{{ tabsFases[tabActiva].subtitulo }}</h3>
+          <p class="tab-intro">{{ tabsFases[tabActiva].intro }}</p>
+          <div class="grid-contenido">
+            <div *ngFor="let item of tabsFases[tabActiva].detalles" class="card-detalle">
+              <img [src]="item.imgUrl" [alt]="item.nombre">
+              <div class="card-text">
+                <h4>{{ item.nombre }}</h4>
+                <p class="short-description">{{ item.descripcion }}</p>
+                <mat-accordion class="custom-accordion">
+                  <mat-expansion-panel [expanded]="item.abierto" (opened)="item.abierto = true" (closed)="item.abierto = false" flat>
+                    <mat-expansion-panel-header>
+                      <mat-panel-title>{{ item.abierto ? 'Cerrar' : 'Detalles Técnicos' }}</mat-panel-title>
+                    </mat-expansion-panel-header>
+                    <div class="expansion-content" [innerHTML]="item.detalleExtendido"></div>
+                  </mat-expansion-panel>
+                </mat-accordion>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="video-section">
+    <div class="video-container">
+      <div class="video-player">
+        <img src="https://picsum.photos/600/600?medical-seal" class="video-element" alt="Obturación">
+      </div>
+      <div class="video-content">
+        <h2 class="video-title">{{ faseObturacion.titulo }}</h2>
+        <p class="video-description">{{ faseObturacion.descripcion }}</p>
+        <ul class="video-benefits">
+          <li *ngFor="let punto of faseObturacion.puntos">{{ punto }}</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="casos-section">
+    <div class="casos-header">
+      <h2 class="casos-main-title">Éxito y Preservación</h2>
+      <h3 class="casos-subtitle">Fases de Finalización</h3>
+    </div>
+    <div class="caso-container">
+      <div class="info-side">
+        <h2 class="caso-titulo">{{ fasesFinales[faseFinalActiva].titulo }}</h2>
+        <p class="caso-descripcion">{{ fasesFinales[faseFinalActiva].descripcion }}</p>
+      </div>
+      <div class="casos-selector-mobile">
+        <button *ngFor="let fase of fasesFinales; let i = index"
+                class="caso-btn" [class.active]="faseFinalActiva === i" (click)="seleccionarFaseFinal(i)">
+          {{ fase.titulo }}
+        </button>
+      </div>
+    </div>
   </section>
 
 </div>

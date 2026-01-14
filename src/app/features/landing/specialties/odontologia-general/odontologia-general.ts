@@ -34,7 +34,9 @@ export class OdontologiaGeneral implements OnDestroy {
         { nombre: "Fase 1: Diagnóstico", descripcion: "Historia clínica, examen ATM e intrabucal (Imágenes 1-5)", imgUrl: "https://picsum.photos/400/300?1" },
         { nombre: "Fase 2: Terapia Control", descripcion: "Eliminación de infección y motivación (Imágenes 6-10)", imgUrl: "https://picsum.photos/400/300?2" },
         { nombre: "Fase 3: Preparación", descripcion: "Protección dentino-pulpar y biomecánica (Imágenes 11-15)", imgUrl: "https://picsum.photos/400/300?3" },
-        { nombre: "Fase 4: Restauración", descripcion: "Técnica incremental y grabado ácido (Imágenes 16-20)", imgUrl: "https://picsum.photos/400/300?4" }
+        { nombre: "Fase 4: Restauración", descripcion: "Técnica incremental y grabado ácido (Imágenes 16-20)", imgUrl: "https://picsum.photos/400/300?4" },
+        { nombre: "Fase 5: Restauración Clase V", descripcion: "Tratamiento de lesiones cervicales con retracción gingival, bisel en esmalte y materiales de baja contracción (Imágenes 21-25)", imgUrl: "https://picsum.photos/400/300?5" },
+        { nombre: "Fase 6: Restauración Clase VI", descripcion: "Reconstrucción de cúspides y bordes incisales con énfasis en la resistencia al desgaste y oclusión (Imágenes 26-30)", imgUrl: "https://picsum.photos/400/300?6" }
       ]
     },
     {

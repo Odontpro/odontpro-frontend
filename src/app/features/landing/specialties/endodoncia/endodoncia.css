@@ -1,14 +1,24 @@
 /* ============================================
-   LAYOUT PRINCIPAL
+   1. VARIABLES Y LAYOUT PRINCIPAL
    ============================================ */
+:host {
+  --primary: #7dc0bf;
+  --primary-dark: #6bafae;
+  --bg-light: #f8f9fa;
+  --text-main: #666;
+  --text-dark: #333;
+  --white: #ffffff;
+}
+
 .especialidad-page {
   min-height: calc(100vh - 64px);
-  background-color: white;
-  padding-top: 64px; /* Espacio para el header fijo */
+  background-color: var(--white);
+  padding-top: 64px; /* Ajuste para header fijo */
+  font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
 }
 
 /* ============================================
-   SECCIÓN 1: BANNER
+   2. SECCIÓN 1: BANNER
    ============================================ */
 .banner-section {
   position: relative;
@@ -36,7 +46,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Tinte blanco semi-transparente */
+  background-color: rgba(255, 255, 255, 0.85);
   z-index: 2;
 }
 
@@ -45,9 +55,456 @@
   z-index: 3;
   font-size: 50px;
   font-weight: 600;
-  color: #7dc0bf;
+  color: var(--primary);
   text-align: center;
   margin: 0;
   text-transform: capitalize;
   letter-spacing: 2px;
+}
+
+/* ============================================
+   3. SECCIÓN 2: INFO / DEFINICIÓN
+   ============================================ */
+.info-especialidad-section {
+  padding: 80px 40px;
+  background: var(--bg-light);
+}
+
+.info-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.info-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 12px;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+}
+
+.info-title {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--primary);
+  margin-bottom: 24px;
+}
+
+.info-text {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  color: var(--text-main);
+  text-align: justify;
+}
+
+.quote {
+  border-left: 4px solid var(--primary);
+  padding-left: 20px;
+  font-style: italic;
+  margin-bottom: 25px;
+  color: var(--text-dark);
+}
+
+/* ============================================
+   4. SECCIÓN 3: TABS Y GRID (PROTOCOLOS)
+   ============================================ */
+.tabs-detalles-section {
+  padding: 80px 20px;
+  background: var(--white);
+}
+
+.section-main-title {
+  text-align: center;
+  color: var(--primary);
+  font-size: 2.5rem;
+  margin-bottom: 40px;
+  font-weight: 300;
+}
+
+.tabs-header {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 50px;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 12px 30px;
+  border: 2px solid var(--primary);
+  background: transparent;
+  color: var(--primary);
+  border-radius: 50px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.tab-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  box-shadow: 0 4px 15px rgba(125, 192, 191, 0.4);
+}
+
+.tab-content-body h3 {
+  text-align: center;
+  font-size: 1.8rem;
+  color: var(--text-dark);
+  margin-bottom: 10px;
+}
+
+.tab-intro {
+  text-align: center;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  color: var(--text-main);
+  font-size: 1.1rem;
+}
+
+.grid-contenido {
+  display: grid;
+  /* Mantiene el diseño de columnas que ya tienes */
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+
+  /* ESTO ES LO QUE SOLUCIONA TU PROBLEMA: */
+  /* Evita que las tarjetas se estiren para llenar la fila */
+  align-items: start;
+}
+
+.card-detalle {
+  background: var(--bg-light);
+  border-radius: 15px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+  transition: transform 0.3s ease;
+  border-bottom: 5px solid var(--primary);
+
+  /* Aseguramos que la tarjeta solo ocupe el espacio de su contenido */
+  height: fit-content;
+}
+
+.card-detalle:hover {
+  transform: translateY(-5px);
+}
+
+.card-detalle img {
+  width: 100%;
+  height: 220px;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 25px;
+}
+
+.card-text h4 {
+  color: var(--primary);
+  font-size: 1.25rem;
+  margin-bottom: 12px;
+}
+
+.card-text p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: var(--text-main);
+  margin: 0;
+}
+
+.expand-toggle {
+  background: none;
+  border: none;
+  color: #7dc0bf;
+  font-weight: 700;
+  cursor: pointer;
+  padding: 10px 0;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+}
+.expansion-panel {
+  display: none; /* Por defecto oculto */
+  opacity: 0;
+  background-color: #f9fdfd;
+  border-radius: 8px;
+  transition: grid-template-rows 0.4s ease-out, opacity 0.3s ease;
+}
+
+.expansion-panel.show {
+  display: block; /* Solo se muestra en el que tiene la clase .show */
+  opacity: 1;
+  margin-top: 15px;
+  border: 1px solid #e0f2f1;
+}
+
+/* ============================================
+   CUSTOM MATERIAL EXPANSION PANEL
+   ============================================ */
+/* Quitamos el estilo por defecto de Material para que se integre a la card */
+.custom-accordion .mat-expansion-panel {
+  background: transparent !important;
+  box-shadow: none !important;
+}
+
+.custom-accordion .mat-expansion-panel-header {
+  margin-top: 10px;
+  padding: 0 10px !important;
+}
+
+.custom-accordion .mat-expansion-panel-header:hover {
+  background: transparent !important;
+}
+
+.custom-accordion .mat-panel-title {
+  color: #7dc0bf;
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: 0.85rem;
+}
+
+/* Estilos para el contenido del PDF inyectado */
+:host ::ng-deep .expansion-content {
+  padding: 10px 0;
+  color: #444;
+  font-size: 0.9rem;
+  line-height: 1.6;
+}
+
+:host ::ng-deep .expansion-content ul {
+  padding-left: 20px;
+  margin: 0;
+}
+
+:host ::ng-deep .expansion-content li {
+  margin-bottom: 8px;
+}
+
+:host ::ng-deep .expansion-content strong {
+  color: #333;
+}
+
+/* ============================================
+   5. SECCIÓN 4: CIRUGÍA BUCAL (VIDEO/IMG)
+   ============================================ */
+.video-section {
+  padding: 80px 40px;
+  background: var(--bg-light);
+}
+
+.video-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 60px;
+  align-items: center;
+}
+
+.video-player img {
+  width: 100%;
+  border-radius: 15px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+}
+
+.video-title {
+  font-size: 2.2rem;
+  font-weight: 700;
+  line-height: 1.2;
+  color: var(--text-dark);
+  margin-bottom: 20px;
+}
+
+.video-description {
+  font-size: 1.1rem;
+  color: var(--text-main);
+  margin-bottom: 25px;
+  line-height: 1.7;
+}
+
+.video-benefits {
+  list-style: none;
+  padding: 0;
+}
+
+.video-benefits li {
+  padding: 12px 0 12px 35px;
+  position: relative;
+  font-size: 1rem;
+  color: var(--text-main);
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+}
+
+.video-benefits li::before {
+  content: "✓";
+  color: var(--primary);
+  position: absolute;
+  left: 0;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+/* ============================================
+   6. SECCIÓN 5: PREPARACIÓN (SELECTOR)
+   ============================================ */
+.casos-section {
+  padding: 80px 40px;
+  background: var(--white);
+}
+
+.casos-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.casos-main-title {
+  font-size: 2.2rem;
+  color: #666;
+  margin-bottom: 5px;
+}
+
+.casos-subtitle {
+  font-size: 2.2rem;
+  font-weight: 700;
+  color: var(--primary);
+  text-transform: uppercase;
+}
+
+.caso-container {
+  max-width: 1000px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1.5fr 1fr;
+  gap: 40px;
+  align-items: center;
+  background: var(--bg-light);
+  padding: 50px;
+  border-radius: 20px;
+}
+
+.caso-titulo {
+  font-size: 2.5rem;
+  color: var(--primary);
+  margin-bottom: 20px;
+}
+
+.caso-descripcion {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  color: var(--text-main);
+}
+
+.casos-selector-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.caso-btn {
+  background: var(--white);
+  color: var(--primary);
+  border: 2px solid var(--primary);
+  padding: 15px 20px;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  transition: all 0.3s;
+  text-align: left;
+}
+
+.caso-btn.active {
+  background: var(--primary);
+  color: var(--white);
+  transform: scale(1.05);
+}
+
+/* ============================================
+   7. SECCIÓN 6: CTA FINAL
+   ============================================ */
+.cta-section {
+  position: relative;
+  width: 100%;
+  height: 450px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.cta-background {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.cta-overlay {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.6));
+  z-index: 2;
+}
+
+.cta-content {
+  position: relative;
+  z-index: 3;
+  text-align: center;
+  color: var(--white);
+  padding: 0 20px;
+}
+
+.cta-title {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 20px;
+}
+
+.cta-description {
+  font-size: 1.3rem;
+  margin-bottom: 35px;
+}
+
+.cta-button {
+  background: var(--primary);
+  color: var(--white);
+  border: none;
+  padding: 18px 50px;
+  font-size: 1.2rem;
+  font-weight: 600;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: 0.3s;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+.cta-button:hover {
+  background: var(--primary-dark);
+  transform: translateY(-5px);
+}
+
+/* ============================================
+   8. RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 992px) {
+  .info-container, .video-container, .caso-container {
+    grid-template-columns: 1fr;
+    gap: 40px;
+    padding: 30px;
+  }
+
+  .banner-title { font-size: 35px; }
+  .cta-title { font-size: 2.2rem; }
+
+  .info-content { order: 2; }
+  .info-image { order: 1; }
+}
+
+@media (max-width: 600px) {
+  .tab-btn { width: 100%; }
+  .section-main-title { font-size: 1.8rem; }
 }
