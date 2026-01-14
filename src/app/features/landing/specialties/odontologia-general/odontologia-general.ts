@@ -19,152 +19,69 @@ interface Caso {
 })
 export class OdontologiaGeneral implements OnDestroy {
 
-  isMuted = true;
-
-  casos: Caso[] = [
-    {
-      id: 1,
-      titulo: 'SONRISAS',
-      subtitulo: 'TOP',
-      descripcion: 'Una paciente insatisfecha con sus carillas de resina nos visitó en busca de un cambio. Decidimos mejorar su sonrisa diseñando y colocando 10 carillas de cerámica ultrafinas. El resultado fue una sonrisa más natural y estética.',
-      imagenAntes: 'odontologia-restauradora/OG-C1-ANTES.png',
-      imagenDespues: 'odontologia-restauradora/OG-C1-DESPUES.png'
-    },
-    {
-      id: 2,
-      titulo: 'SONRISAS',
-      subtitulo: 'TOP',
-      descripcion: 'El tratamiento consistió en colocar carillas dentales de resina a nuestro paciente, cerramos espacios entre los dientes y de esta forma mejoramos las proporciones para conseguir una sonrisa más armónica.',
-      imagenAntes: 'odontologia-restauradora/OG-C2-ANTES.png',
-      imagenDespues: 'odontologia-restauradora/OG-C2-DESPUES.png'
-    },
-    {
-      id: 3,
-      titulo: 'SONRISAS',
-      subtitulo: 'TOP',
-      descripcion: 'En este caso nuestra paciente requería una rehabilitación oral compleja, ya que presentaba pérdida dental y ósea, por lo que fue necesaria la colocación de implantes dentales, sumado a injerto de tejido óseo y finalmente un diseño de sonrisa con la colocación de carillas dentales, logrando excelentes resultados a nivel estético y de funcionalidad.',
-      imagenAntes: 'odontologia-restauradora/OG-C3-ANTES.png',
-      imagenDespues: 'odontologia-restauradora/OG-C3-DESPUES.png'
-    },
-  ];
-
-  casoActual = 0;
+  tabActiva = 0;
   sliderPosition = 50;
   isDragging = false;
-  isAnimating = false;
+  casoActual = 0;
+
+  // MAPEO DE LAS 14 PÁGINAS DEL PDF
+  tabsEspecialidad = [
+    {
+      titulo: "Protocolo (Fases 1-6)",
+      subtitulo: "Fases de Barrancos Mooney",
+      intro: "Protocolo integral para restauraciones de alta longevidad.",
+      detalles: [
+        { nombre: "Fase 1: Diagnóstico", descripcion: "Historia clínica, examen ATM e intrabucal (Imágenes 1-5)", imgUrl: "https://picsum.photos/400/300?1" },
+        { nombre: "Fase 2: Terapia Control", descripcion: "Eliminación de infección y motivación (Imágenes 6-10)", imgUrl: "https://picsum.photos/400/300?2" },
+        { nombre: "Fase 3: Preparación", descripcion: "Protección dentino-pulpar y biomecánica (Imágenes 11-15)", imgUrl: "https://picsum.photos/400/300?3" },
+        { nombre: "Fase 4: Restauración", descripcion: "Técnica incremental y grabado ácido (Imágenes 16-20)", imgUrl: "https://picsum.photos/400/300?4" }
+      ]
+    },
+    {
+      titulo: "Clasificación de Black",
+      subtitulo: "Tipos de Cavidades y Restauraciones",
+      intro: "Tratamiento específico según la localización de la lesión.",
+      detalles: [
+        { nombre: "Clase I", descripcion: "Fosas y fisuras en oclusal. (Imágenes 21-23)", imgUrl: "https://picsum.photos/400/300?5" },
+        { nombre: "Clase II", descripcion: "Superficies proximales de molares. (Imágenes 24-26)", imgUrl: "https://picsum.photos/400/300?6" },
+        { nombre: "Clase III y IV", descripcion: "Dientes anteriores con/sin compromiso incisal. (Imágenes 27-29)", imgUrl: "https://picsum.photos/400/300?7" },
+        { nombre: "Clase V", descripcion: "Cuellos dentales / Abfracciones. (Imágenes 30-32)", imgUrl: "https://picsum.photos/400/300?8" }
+      ]
+    },
+    {
+      titulo: "Técnicas Especiales (DME)",
+      subtitulo: "Deep Margin Elevation",
+      intro: "Técnica avanzada para márgenes profundos sin cirugía.",
+      detalles: [
+        { nombre: "Aislamiento Absoluto", descripcion: "Uso de dique de goma y clamps especiales. (Imágenes 33-35)", imgUrl: "https://picsum.photos/400/300?9" },
+        { nombre: "Elevación de Margen", descripcion: "Uso de matrices seccionales y resinas flow. (Imágenes 36-38)", imgUrl: "https://picsum.photos/400/300?10" },
+        { nombre: "Ajuste Oclusal", descripcion: "Papel de articular de 8 micras y guías. (Imágenes 39-45)", imgUrl: "https://picsum.photos/400/300?11" }
+      ]
+    }
+  ];
+
+  casos = [
+    { id: 1, titulo: 'SONRISAS TOP', descripcion: '10 carillas de cerámica ultrafinas.', imagenAntes: 'https://picsum.photos/800/600?before1', imagenDespues: 'https://picsum.photos/800/600?after1' },
+    { id: 2, titulo: 'REHABILITACIÓN', descripcion: 'Cierre de diastemas con resina.', imagenAntes: 'https://picsum.photos/800/600?before2', imagenDespues: 'https://picsum.photos/800/600?after2' }
+  ];
 
   constructor(private ngZone: NgZone) {}
 
-  get casoSeleccionado(): Caso {
-    return this.casos[this.casoActual];
-  }
+  get casoSeleccionado() { return this.casos[this.casoActual]; }
+  seleccionarCaso(i: number) { this.casoActual = i; this.sliderPosition = 50; }
 
-  seleccionarCaso(index: number) {
-    this.casoActual = index;
-    this.sliderPosition = 50;
-  }
-
-  onMouseDown(event: MouseEvent) {
-    // Evitar que el drag se active si se hace click en los labels
-    const target = event.target as HTMLElement;
-    if (target.classList.contains('image-label') || target.closest('.image-label')) {
-      return;
-    }
-
-    event.preventDefault();
-    this.isDragging = true;
-    this.updateSliderPosition(event);
-  }
-
-  onMouseMove(event: MouseEvent) {
-    if (this.isDragging) {
-      event.preventDefault();
-      this.updateSliderPosition(event);
-    }
-  }
-
-  onMouseUp() {
-    this.isDragging = false;
-  }
-
-  // Click en cualquier parte de la imagen para mover el slider
-  onImageClick(event: MouseEvent) {
-    const target = event.target as HTMLElement;
-
-    // Si se hace click en el handle o en los labels, no hacer nada
-    if (target.closest('.slider-handle') || target.closest('.image-label')) {
-      return;
-    }
-
-    // Solo mover si no estamos arrastrando
-    if (!this.isDragging) {
-      this.updateSliderPosition(event);
-    }
-  }
-
-// Click en el label "Antes" - mueve el slider completamente a la derecha
-  onAntesClick(event: MouseEvent) {
-    event.stopPropagation();
-    this.animateSlider(100);
-  }
-
-  // Click en el label "Después" - mueve el slider completamente a la izquierda
-  onDespuesClick(event: MouseEvent) {
-    event.stopPropagation();
-    this.animateSlider(0);
-  }
-
-  // Anima el slider hacia una posición específica con mejor rendimiento
-  private animateSlider(targetPosition: number) {
-    if (this.isAnimating) return;
-
-    this.isAnimating = true;
-    const startPosition = this.sliderPosition;
-    const distance = targetPosition - startPosition;
-    const duration = 400; // Reducido a 400ms para mayor velocidad
-    const startTime = performance.now();
-
-    const animate = (currentTime: number) => {
-      const elapsed = currentTime - startTime;
-      const progress = Math.min(elapsed / duration, 1);
-
-      // Función de easing más suave
-      const easeProgress = progress < 0.5
-        ? 4 * progress * progress * progress
-        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
-
-      // NgZone.run fuerza el change detection
-      this.ngZone.run(() => {
-        this.sliderPosition = startPosition + (distance * easeProgress);
-      });
-
-      if (progress < 1) {
-        requestAnimationFrame(animate);
-      } else {
-        this.ngZone.run(() => {
-          this.sliderPosition = targetPosition;
-          this.isAnimating = false;
-        });
-      }
-    };
-
-    requestAnimationFrame(animate);
-  }
-
-  private updateSliderPosition(event: MouseEvent) {
+  updateSliderPosition(event: MouseEvent) {
     const container = (event.target as HTMLElement).closest('.image-comparison');
-    if (!container) return;
-
-    const rect = container.getBoundingClientRect();
-    const x = event.clientX - rect.left;
-    this.sliderPosition = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    if (container) {
+      const rect = container.getBoundingClientRect();
+      const x = event.clientX - rect.left;
+      this.sliderPosition = Math.max(0, Math.min(100, (x / rect.width) * 100));
+    }
   }
 
-  toggleSound(video: HTMLVideoElement) {
-    this.isMuted = false;
-    video.muted = false;
-    video.volume = 1;
-  }
+  onMouseDown(e: MouseEvent) { this.isDragging = true; this.updateSliderPosition(e); }
+  onMouseMove(e: MouseEvent) { if (this.isDragging) this.updateSliderPosition(e); }
+  onMouseUp() { this.isDragging = false; }
 
 
   ngOnDestroy() {

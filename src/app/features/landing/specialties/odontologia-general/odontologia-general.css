@@ -535,6 +535,90 @@
   flex-shrink: 0;
 }
 
+/* Hereda tus estilos anteriores y añade estos: */
+
+.tabs-detalles-section {
+  padding: 60px 20px;
+  background: #fff;
+}
+
+.tabs-container {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.tabs-header {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  margin-bottom: 40px;
+}
+
+.tab-btn {
+  padding: 12px 20px;
+  border: none;
+  background: #f0f0f0;
+  color: #666;
+  border-radius: 30px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: 0.3s;
+}
+
+.tab-btn.active {
+  background: #7dc0bf;
+  color: white;
+}
+
+.tab-content-body {
+  animation: fadeIn 0.5s ease;
+}
+
+.grid-contenido {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 25px;
+  margin-top: 30px;
+}
+
+.card-detalle {
+  background: #f8f9fa;
+  border-radius: 12px;
+  overflow: hidden;
+  border-bottom: 4px solid #7dc0bf;
+  transition: transform 0.3s;
+}
+
+.card-detalle:hover {
+  transform: translateY(-5px);
+}
+
+.card-detalle img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 15px;
+}
+
+.card-text h4 {
+  color: #7dc0bf;
+  margin-bottom: 10px;
+}
+
+.card-text p {
+  font-size: 0.9rem;
+  color: #555;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* ============================================
    RESPONSIVE - SECCIONES NUEVAS
    ============================================ */
