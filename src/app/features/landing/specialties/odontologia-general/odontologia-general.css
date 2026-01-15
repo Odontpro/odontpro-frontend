@@ -614,6 +614,98 @@
   color: #555;
 }
 
+/* Contenedor principal del carrusel */
+.especialidad-carousel-wrapper {
+  position: relative;
+  width: 100%;
+  padding: 0 50px; /* Espacio para los botones */
+  margin-top: 30px;
+}
+
+.especialidad-overflow {
+  overflow: hidden;
+  width: 100%;
+}
+
+/* El grid que se mueve */
+.especialidad-grid {
+  display: flex;
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.fase-card-wrapper {
+  padding: 15px; /* Espaciado entre tarjetas */
+  box-sizing: border-box;
+}
+
+/* Estilo de la tarjeta (Card) */
+.card-detalle {
+  background: #ffffff;
+  border-radius: 12px;
+  overflow: hidden;
+  height: 100%;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  border-bottom: 4px solid #7dc0bf;
+  transition: transform 0.3s ease;
+}
+
+.card-detalle img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.card-text {
+  padding: 20px;
+}
+
+.card-text h4 {
+  color: #7dc0bf;
+  margin-bottom: 10px;
+  font-size: 1.1rem;
+}
+
+.card-text p {
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Botones de Navegación */
+.carousel-nav-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: white;
+  border: 2px solid #7dc0bf;
+  color: #7dc0bf;
+  cursor: pointer;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.3s ease;
+}
+
+.carousel-nav-btn:disabled {
+  opacity: 0.3;
+  cursor: not-allowed;
+  border-color: #ccc;
+  color: #ccc;
+}
+
+.carousel-nav-btn.prev { left: 0; }
+.carousel-nav-btn.next { right: 0; }
+
+.carousel-nav-btn:hover:not(:disabled) {
+  background: #7dc0bf;
+  color: white;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }

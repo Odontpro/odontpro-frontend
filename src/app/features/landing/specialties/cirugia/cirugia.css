@@ -1,14 +1,12 @@
-/* ============================================
-   LAYOUT PRINCIPAL
-   ============================================ */
-.especialidad-page {
-  min-height: calc(100vh - 64px);
-  background-color: white;
-  padding-top: 64px; /* Espacio para el header fijo */
-}
+/* Layout General */
+.especialidad-page { padding-top: 64px; background: #fff; overflow-x: hidden; }
+.container-cirugia { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+.text-center { text-align: center; }
+.max-600 { max-width: 600px; margin: 0 auto 40px; }
 
+/* Banner */
 /* ============================================
-   SECCIÓN 1: BANNER
+   2. SECCIÓN 1: BANNER
    ============================================ */
 .banner-section {
   position: relative;
@@ -36,7 +34,7 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Tinte blanco semi-transparente */
+  background-color: rgba(255, 255, 255, 0.85);
   z-index: 2;
 }
 
@@ -50,4 +48,145 @@
   margin: 0;
   text-transform: capitalize;
   letter-spacing: 2px;
+}
+
+/* Definición y Bloques de Texto */
+.definicion-section .container-cirugia, .seguridad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.tag { color: #7dc0bf; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+.text-block h2 { font-size: 2.8rem; margin-bottom: 30px; color: #2c3e50; line-height: 1.2}
+.quote { border-left: 5px solid #7dc0bf; padding-left: 20px; font-style: italic; font-size: 1.2rem; margin-bottom: 25px; color: #555; }
+.image-block img { width: 100%; border-radius: 40px 5px; box-shadow: 15px 15px 0 #7dc0bf10; }
+
+/* Carrusel */
+.protocolo-section { background: #fcfcfc; }
+.section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: #333; }
+.carousel-wrapper { position: relative; padding: 0 50px; }
+.carousel-overflow { overflow: hidden; }
+.carousel-grid { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
+.fase-card-wrapper { padding: 15px; box-sizing: border-box; }
+.card-cirugia { background: white; border-radius: 15px; overflow: hidden; box-shadow: 0 10px 30px rgba(0,0,0,0.05); border-bottom: 4px solid #7dc0bf; height: 100%; }
+.card-cirugia img { width: 100%; height: 200px; object-fit: cover; }
+.card-body { padding: 25px; }
+.card-body h4 { color: #7dc0bf; margin-bottom: 10px; font-size: 1.1rem; }
+.card-body p { font-size: 0.9rem; color: #777; line-height: 1.5; }
+
+.carousel-nav-btn { position: absolute; top: 50%; transform: translateY(-50%); width: 45px; height: 45px; border-radius: 50%; background: white; border: 2px solid #7dc0bf; color: #7dc0bf; cursor: pointer; z-index: 10; transition: 0.3s; }
+.carousel-nav-btn:hover:not(:disabled) { background: #7dc0bf; color: white; }
+.carousel-nav-btn.prev { left: 0; }
+.carousel-nav-btn.next { right: 0; }
+.carousel-nav-btn:disabled { opacity: 0.3; }
+/* Parallax */
+.parallax-section {
+  position: relative;
+  background-image: url('https://res.cloudinary.com/dgz0buqcx/image/upload/v1768414055/Imagen3_vlv2sl.jpg');
+  background-attachment: fixed;
+  background-size: cover;
+  padding: 120px 0;
+  color: #fff;
+}
+.parallax-overlay { position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: rgba(30, 47, 65, 0.9); }
+.relative { position: relative; z-index: 2; }
+.white-text { font-size: 3rem; margin-bottom: 60px; text-align: center; }
+.procedimientos-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.proc-item { background: rgba(255,255,255,0.05); padding: 40px; border-radius: 20px; border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px); }
+.proc-item h3 { color: #7dc0bf; margin-bottom: 15px; }
+
+/* Sutura Card */
+.sutura-info { padding: 60px 20px; background: #2c3e50; }
+.sutura-card { max-width: 900px; margin: 0 auto; background: #fff; padding: 50px; border-radius: 30px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.2); }
+.sutura-card h3 { color: #7dc0bf; font-size: 2rem; margin-bottom: 20px; }
+
+/* ============================================
+   SECCIÓN CUIDADOS POST-QUIRÚRGICOS
+   ============================================ */
+
+.cuidados-section {
+  background-color: #fcfcfc;
+  padding: 60px 20px;
+  border-top: 1px solid #fcfcfc;
+}
+
+.cuidados-section h2 {
+  font-size: 2.8rem;
+  color: #2c3e50;
+  margin-bottom: 15px;
+  font-weight: 700;
+  line-height: 2.5rem;
+}
+
+.max-600 {
+  max-width: 600px;
+  margin: 0 auto 60px;
+  color: #666;
+  font-size: 1.1rem;
+  line-height: 1.6;
+}
+
+.icon-grid-cuidados {
+  display: flex;
+  justify-content: center;
+  gap: 80px; /* Espacio entre iconos */
+  flex-wrap: wrap;
+  margin-top: 100px;
+}
+
+.icon-box {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: all 0.4s ease;
+  width: 180px;
+}
+
+.icon-box span {
+  font-size: 4.5rem; /* Tamaño del emoji o icono */
+  margin-bottom: 20px;
+  display: block;
+  filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
+  transition: transform 0.3s ease;
+}
+
+.icon-box p {
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 1.2rem;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-top: 40px;
+}
+
+/* Efecto al pasar el mouse */
+.icon-box:hover {
+  transform: translateY(-15px);
+}
+
+.icon-box:hover span {
+  transform: scale(1.2);
+}
+
+/* Decoración inferior para los nombres */
+.icon-box p::after {
+  content: '';
+  display: block;
+  width: 40px;
+  height: 3px;
+  background: #7dc0bf;
+  margin: 8px auto 0;
+  border-radius: 2px;
+}
+
+/* Mobile */
+@media (max-width: 900px) {
+  .definicion-section .container-cirugia, .seguridad-grid { grid-template-columns: 1fr; text-align: center; }
+  .banner-title { font-size: 2.8rem; }
+  .parallax-section { background-attachment: scroll; }
+  .icon-grid-cuidados {
+    gap: 40px;
+  }
+  .icon-box {
+    width: 140px;
+  }
+  .icon-box span {
+    font-size: 3.5rem;
+  }
 }

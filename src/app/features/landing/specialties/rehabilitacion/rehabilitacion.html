@@ -1,10 +1,96 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Rehabilitacion Oral</h1>
+    <img src="https://picsum.photos/1920/600?dentistry-gold" alt="Rehabilitación" class="banner-image">
+    <h1 class="banner-title">Rehabilitación Oral</h1>
+  </section>
+
+  <section class="filosofia-section">
+    <div class="container-rehab">
+      <div class="text-block">
+        <span class="tag">Ciencia Oclusal</span>
+        <h2>Más allá de la estética</h2>
+        <p>Según los principios de <strong>Heartwell & Rahn</strong>, la rehabilitación oral no se limita a reemplazar dientes; busca la estabilidad del sistema estomatognático. Esto incluye la salud de la ATM, el equilibrio muscular y la correcta distribución de fuerzas oclusales.</p>
+        <p>Analizamos cada caso mediante el montaje en <strong>Articulador Semiajustable</strong>, lo que nos permite predecir el comportamiento de las restauraciones antes de tocarlas.</p>
+      </div>
+      <div class="image-block">
+        <img src="https://picsum.photos/600/400?medical-study" alt="Estudio de Oclusión">
+      </div>
+    </div>
+  </section>
+
+  <section class="tabs-detalles-section">
+    <div class="tabs-container">
+      <h2 class="section-title">Protocolos por Especialidad</h2>
+      <div class="tabs-header">
+        <button *ngFor="let tab of tabsEspecialidad; let i = index"
+                class="tab-btn" [class.active]="tabActiva === i" (click)="cambiarTab(i)">
+          {{ tab.titulo }}
+        </button>
+      </div>
+
+      <div class="carousel-wrapper">
+        <button class="carousel-nav-btn prev" (click)="prevFase()" [disabled]="currentFaseIndex === 0">❮</button>
+        <div class="carousel-overflow">
+          <div class="carousel-grid" [style.transform]="'translateX(-' + (currentFaseIndex * (100 / fasesPerPage)) + '%)'">
+            <div class="fase-card-wrapper" *ngFor="let item of tabsEspecialidad[tabActiva].detalles" [style.flex]="'0 0 ' + (100 / fasesPerPage) + '%'">
+              <div class="card-rehab">
+                <img [src]="item.imgUrl" alt="Paso Clínico">
+                <div class="card-body">
+                  <h4>{{ item.nombre }}</h4>
+                  <p>{{ item.descripcion }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-nav-btn next" (click)="nextFase()" [disabled]="currentFaseIndex >= tabsEspecialidad[tabActiva].detalles.length - fasesPerPage">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="oclusion-info-section">
+    <div class="container-rehab">
+      <h2 class="section-title white">Componentes de la Estabilidad Oclusal</h2>
+      <div class="oclusion-grid">
+        <div class="oclusion-item">
+          <div class="icon">📏</div>
+          <h3>Dimensión Vertical</h3>
+          <p>Mantenimiento de la altura facial inferior para soporte muscular y articular.</p>
+        </div>
+        <div class="oclusion-item">
+          <div class="icon">⚖️</div>
+          <h3>Guía Anterior</h3>
+          <p>Protección mutua donde los dientes anteriores desocluyen a los posteriores.</p>
+        </div>
+        <div class="oclusion-item">
+          <div class="icon">🔄</div>
+          <h3>Relación Céntrica</h3>
+          <p>Posición articular fisiológica independiente del contacto dental.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-section">
+    <div class="container-rehab flex-reverse">
+      <div class="text-block">
+        <span class="tag">Biomateriales</span>
+        <h2>Zirconio y Cerámica Pura</h2>
+        <p>Utilizamos materiales con propiedades ópticas similares al esmalte natural. La tecnología CAD/CAM nos permite fabricar restauraciones con un ajuste marginal de micras, eliminando el error humano y aumentando la longevidad del tratamiento.</p>
+      </div>
+      <div class="image-block">
+        <img src="https://picsum.photos/600/400?digital-dentistry" alt="CAD/CAM">
+      </div>
+    </div>
+  </section>
+
+  <section class="footer-rehab">
+    <div class="mantenimiento-banner">
+      <h3>Garantía de éxito a largo plazo</h3>
+      <p>El seguimiento incluye férulas de descarga, control de contactos cada 6 meses y protocolos de higiene específicos para prótesis.</p>
+    </div>
   </section>
 
 </div>

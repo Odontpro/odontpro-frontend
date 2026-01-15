@@ -24,6 +24,9 @@ export class OdontologiaGeneral implements OnDestroy {
   isDragging = false;
   casoActual = 0;
 
+  currentFaseIndex = 0;
+  fasesPerPage = 3; // Cuántas tarjetas se ven a la vez (puedes ajustarlo)
+
   // MAPEO DE LAS 14 PÁGINAS DEL PDF
   tabsEspecialidad = [
     {
@@ -67,7 +70,32 @@ export class OdontologiaGeneral implements OnDestroy {
     { id: 2, titulo: 'REHABILITACIÓN', descripcion: 'Cierre de diastemas con resina.', imagenAntes: 'https://picsum.photos/800/600?before2', imagenDespues: 'https://picsum.photos/800/600?after2' }
   ];
 
-  constructor(private ngZone: NgZone) {}
+  constructor(private ngZone: NgZone) {
+    this.updatePerPage();
+    window.onresize = () => this.updatePerPage();
+  }
+
+  updatePerPage() {
+    this.fasesPerPage = window.innerWidth < 768 ? 1 : (window.innerWidth < 1100 ? 2 : 3);
+  }
+
+  nextFase() {
+    const totalFases = this.tabsEspecialidad[this.tabActiva].detalles.length;
+    if (this.currentFaseIndex < totalFases - this.fasesPerPage) {
+      this.currentFaseIndex++;
+    }
+  }
+
+  prevFase() {
+    if (this.currentFaseIndex > 0) {
+      this.currentFaseIndex--;
+    }
+  }
+
+  cambiarTab(index: number) {
+    this.tabActiva = index;
+    this.currentFaseIndex = 0; // Reiniciar carrusel al cambiar de pestaña
+  }
 
   get casoSeleccionado() { return this.casos[this.casoActual]; }
   seleccionarCaso(i: number) { this.casoActual = i; this.sliderPosition = 50; }

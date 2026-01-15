@@ -23,29 +23,52 @@
 
   <section class="tabs-detalles-section">
     <div class="tabs-container">
+      <h2 class="section-main-title">Protocolo de Tratamiento</h2>
+
       <div class="tabs-header">
         <button *ngFor="let tab of tabsEspecialidad; let i = index"
                 class="tab-btn"
                 [class.active]="tabActiva === i"
-                (click)="tabActiva = i">
+                (click)="cambiarTab(i)">
           {{ tab.titulo }}
         </button>
       </div>
 
       <div class="tab-content-body">
-        <div class="tab-pane-active">
-          <h3>{{ tabsEspecialidad[tabActiva].subtitulo }}</h3>
-          <p class="tab-intro">{{ tabsEspecialidad[tabActiva].intro }}</p>
+        <h3>{{ tabsEspecialidad[tabActiva].subtitulo }}</h3>
+        <p class="tab-intro">{{ tabsEspecialidad[tabActiva].intro }}</p>
 
-          <div class="grid-contenido">
-            <div *ngFor="let item of tabsEspecialidad[tabActiva].detalles" class="card-detalle">
-              <img [src]="item.imgUrl" alt="Paso clínico">
-              <div class="card-text">
-                <h4>{{ item.nombre }}</h4>
-                <p>{{ item.descripcion }}</p>
+        <div class="especialidad-carousel-wrapper">
+
+          <button class="carousel-nav-btn prev"
+                  (click)="prevFase()"
+                  [disabled]="currentFaseIndex === 0">❮</button>
+
+          <div class="especialidad-overflow">
+            <div class="especialidad-grid"
+                 [style.transform]="'translateX(-' + (currentFaseIndex * (100 / fasesPerPage)) + '%)'">
+
+              <div class="fase-card-wrapper"
+                   *ngFor="let item of tabsEspecialidad[tabActiva].detalles"
+                   [style.flex]="'0 0 ' + (100 / fasesPerPage) + '%'">
+
+                <div class="card-detalle">
+                  <div class="card-image-wrapper">
+                    <img [src]="item.imgUrl" [alt]="item.nombre">
+                  </div>
+                  <div class="card-text">
+                    <h4>{{ item.nombre }}</h4>
+                    <p>{{ item.descripcion }}</p>
+                  </div>
+                </div>
+
               </div>
             </div>
           </div>
+
+          <button class="carousel-nav-btn next"
+                  (click)="nextFase()"
+                  [disabled]="currentFaseIndex >= tabsEspecialidad[tabActiva].detalles.length - fasesPerPage">❯</button>
         </div>
       </div>
     </div>

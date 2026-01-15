@@ -1,10 +1,122 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Cirugia Bucal</h1>
+    <img src="https://picsum.photos/1920/600?surgery-blue" alt="Cirugía Bucal" class="banner-image">
+    <h1 class="banner-title">Cirugía Bucal</h1>
+  </section>
+
+  <section class="definicion-section">
+    <div class="container-cirugia">
+      <div class="text-block">
+        <span class="tag">Concepto Especializado</span>
+        <h2>Diagnóstico y Rehabilitación</h2>
+        <p class="quote">"La Cirugía Bucal tiene por objeto el diagnóstico y tratamiento quirúrgico de las enfermedades de los huesos maxilares, dientes y tejidos blandos."</p>
+        <p>Basamos nuestra práctica en los principios de <strong>José Luis Ceballos García</strong>, integrando la patología quirúrgica general para resolver defectos congénitos o adquiridos, tanto estéticos como funcionales.</p>
+      </div>
+      <div class="image-block card-float">
+        <img src="https://picsum.photos/600/400?anatomy" alt="Anatomía Quirúrgica">
+      </div>
+    </div>
+  </section>
+
+  <section class="protocolo-section">
+    <div class="container-cirugia">
+      <h2 class="section-title">Flujo Quirúrgico Completo</h2>
+      <div class="carousel-wrapper">
+        <button class="carousel-nav-btn prev" (click)="prevFase()" [disabled]="currentFaseIndex === 0">❮</button>
+        <div class="carousel-overflow">
+          <div class="carousel-grid" [style.transform]="'translateX(-' + (currentFaseIndex * (100 / fasesPerPage)) + '%)'">
+            <div class="fase-card-wrapper" *ngFor="let fase of fasesCompletas" [style.flex]="'0 0 ' + (100 / fasesPerPage) + '%'">
+              <div class="card-cirugia">
+                <img [src]="fase.imgUrl" alt="Paso Quirúrgico">
+                <div class="card-body">
+                  <h4>{{ fase.nombre }}</h4>
+                  <p>{{ fase.descripcion }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <button class="carousel-nav-btn next" (click)="nextFase()" [disabled]="currentFaseIndex >= fasesCompletas.length - fasesPerPage">❯</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="parallax-section">
+    <div class="parallax-overlay"></div>
+    <div class="container-cirugia relative">
+      <h2 class="white-text">Tratamientos Especializados</h2>
+      <div class="procedimientos-grid">
+        <div class="proc-item">
+          <h3>Exodoncia de Cordales</h3>
+          <p>Sección coronaria y uso de elevadores Cryer con fuerza controlada.</p>
+        </div>
+        <div class="proc-item">
+          <h3>Quistectomía</h3>
+          <p>Enucleación completa de membrana para prevenir recidivas.</p>
+        </div>
+        <div class="proc-item">
+          <h3>Apicectomía</h3>
+          <p>Sección apical y obturación retrógrada en casos de fracaso endodóntico.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="seguridad-section">
+    <div class="container-cirugia">
+      <div class="seguridad-grid">
+        <div class="image-block">
+          <img src="https://picsum.photos/600/400?doctor-writing" alt="Evaluación Médica">
+        </div>
+        <div class="text-block">
+          <span class="tag">Protocolo de Seguridad</span>
+          <h2>Evaluación Sistémica</h2>
+          <p>Cada acto quirúrgico inicia con una <strong>Declaración Jurada de Salud</strong>. Identificamos alergias, antecedentes de hemorragia o patologías cardíacas para garantizar que el procedimiento sea 100% seguro para usted.</p>
+          <ul class="stats-mini">
+            <li><strong>Asepsia:</strong> Control estricto de esterilización.</li>
+            <li><strong>Emergencia:</strong> Protocolos de derivación inmediata.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="sutura-info">
+    <div class="container-rehab">
+      <div class="sutura-card">
+        <h3>Técnica de Síntesis</h3>
+        <p>Utilizamos materiales de última generación como <strong>Monocryl® 4/0</strong>. Nuestra técnica asegura que los bordes de la herida se aproximen sin tensión, evitando la isquemia y acelerando la cicatrización natural.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="cuidados-section">
+    <div class="container-cirugia text-center">
+      <span class="tag">Recuperación</span>
+      <h2>Compromiso Post-Quirúrgico</h2>
+      <p class="max-600">Para garantizar el éxito de la cirugía de acuerdo al protocolo de Gay Escoda, siga estas indicaciones durante las primeras 48 horas.</p>
+
+      <div class="icon-grid-cuidados">
+        <div class="icon-box">
+          <span>🧊</span>
+          <p>Frío Local</p>
+        </div>
+        <div class="icon-box">
+          <span>💊</span>
+          <p>Analgesia</p>
+        </div>
+        <div class="icon-box">
+          <span>🍎</span>
+          <p>Dieta Blanda</p>
+        </div>
+        <div class="icon-box">
+          <span>💤</span>
+          <p>Reposo</p>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>
