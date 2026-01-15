@@ -51,3 +51,205 @@
   text-transform: capitalize;
   letter-spacing: 2px;
 }
+
+.container-rad { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
+.tag { color: #7dc0bf; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; display: block; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; color: #2c3e50; }
+
+/* Intro con Efecto Escáner */
+.intro-section .container-rad { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.quote-box { background: #f8fbfb; border-left: 4px solid #7dc0bf; padding: 25px; margin-top: 30px; font-style: italic; }
+.image-display { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
+.image-display img { width: 100%; display: block; }
+
+.scan-effect {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 4px;
+  background: #7dc0bf;
+  box-shadow: 0 0 15px #7dc0bf;
+  z-index: 2;
+  animation: scan 3s infinite ease-in-out;
+}
+
+@keyframes scan {
+  0% { top: 0%; }
+  50% { top: 100%; }
+  100% { top: 0%; }
+}
+
+/* ============================================
+   SECCIÓN SEGURIDAD PARALLAX (REDISEÑO)
+   ============================================ */
+.seguridad-parallax {
+  position: relative;
+  background-image: url('https://res.cloudinary.com/dgz0buqcx/image/upload/v1768414055/Imagen3_vlv2sl.jpg');
+  background-attachment: fixed;
+  background-position: center;
+  background-size: cover;
+  padding: 140px 0;
+  color: white;
+  text-align: center;
+}
+
+.parallax-overlay {
+  position: absolute;
+  top: 0; left: 0; width: 100%; height: 100%;
+  /* Degradado para dar profundidad */
+  background: linear-gradient(135deg, rgba(30, 47, 65, 0.95) 0%, rgba(12, 20, 28, 0.9) 100%);
+  z-index: 1;
+}
+
+.white-text {
+  position: relative;
+  font-size: 3.5rem;
+  font-weight: 800;
+  margin-bottom: 10px;
+  letter-spacing: -1px;
+  color: white!important;
+  z-index: 100!important;
+  line-height: 1.5rem;
+}
+
+.white-p {
+  position: relative;
+  font-size: 1.3rem;
+  color: #7dc0bf;
+  margin-bottom: 70px;
+  font-weight: 300;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  line-height: 3rem;
+  z-index: 100!important;
+}
+
+/* Grilla de Seguridad */
+.seguridad-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 30px;
+  position: relative;
+  z-index: 2;
+}
+
+.seg-item {
+  position: relative;
+  padding: 50px 30px;
+  background: rgba(255, 255, 255, 0.03);
+  backdrop-filter: blur(12px);
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+  overflow: hidden;
+}
+
+/* El punto que parece un sensor parpadeando */
+.dot {
+  width: 12px;
+  height: 12px;
+  background-color: #7dc0bf;
+  border-radius: 50%;
+  margin: 0 auto 25px;
+  box-shadow: 0 0 15px #7dc0bf;
+  animation: pulse-sensor 2s infinite;
+}
+
+@keyframes pulse-sensor {
+  0% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(125, 192, 191, 0.7); }
+  70% { transform: scale(1.2); opacity: 0.8; box-shadow: 0 0 0 15px rgba(125, 192, 191, 0); }
+  100% { transform: scale(1); opacity: 1; box-shadow: 0 0 0 0 rgba(125, 192, 191, 0); }
+}
+
+.seg-item h3 {
+  font-size: 1.5rem;
+  margin-bottom: 15px;
+  color: #fff;
+  font-weight: 600;
+}
+
+.seg-item p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.7);
+}
+
+/* Efecto Hover: Glow Turquesa */
+.seg-item:hover {
+  transform: translateY(-15px);
+  background: rgba(255, 255, 255, 0.07);
+  border-color: rgba(125, 192, 191, 0.5);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4), inset 0 0 20px rgba(125, 192, 191, 0.1);
+}
+
+.seg-item:hover h3 {
+  color: #7dc0bf;
+}
+
+/* Decoración tecnológica en las esquinas */
+.seg-item::before {
+  content: "";
+  position: absolute;
+  top: 0; left: 0; width: 40px; height: 40px;
+  border-top: 2px solid rgba(125, 192, 191, 0.3);
+  border-left: 2px solid rgba(125, 192, 191, 0.3);
+  border-radius: 24px 0 0 0;
+}
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .white-text { font-size: 2.5rem; }
+  .seguridad-parallax { background-attachment: scroll; }
+}
+
+/* Tech Cards */
+.tech-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
+.tech-card {
+  background: #fff;
+  border-radius: 20px;
+  border: 1px solid #eee;
+  padding: 40px;
+  transition: 0.3s;
+  border-top: 5px solid #7dc0bf;
+}
+.tech-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
+.tech-card h3 { color: #2c3e50; margin-bottom: 20px; }
+.benefit { color: #7dc0bf; margin-top: 15px; }
+
+/* Stepper de Interpretación */
+.proceso-section { background: #fcfcfc; }
+.proceso-stepper { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
+.step {
+  display: flex;
+  gap: 30px;
+  padding: 30px;
+  background: #fff;
+  border-radius: 15px;
+  cursor: pointer;
+  transition: 0.3s;
+  border-left: 5px solid transparent;
+}
+.step.active { border-left-color: #7dc0bf; box-shadow: 0 10px 25px rgba(0,0,0,0.05); transform: translateX(10px); }
+.step-number { font-size: 2rem; font-weight: 800; color: #eee; transition: 0.3s; }
+.step.active .step-number { color: #7dc0bf; }
+.step-info h4 { font-size: 1.3rem; color: #2c3e50; margin-bottom: 5px; }
+
+/* Nota Crítica Final */
+.nota-critica { padding-bottom: 120px; }
+.card-nota {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #2c3e50;
+  color: #fff;
+  padding: 60px;
+  border-radius: 30px;
+  position: relative;
+}
+.alert-icon { font-size: 3rem; display: block; margin-bottom: 20px; }
+.card-nota h3 { color: #7dc0bf; margin-bottom: 20px; }
+.small { font-size: 0.9rem; margin-top: 20px; opacity: 0.7; }
+
+/* Responsive */
+@media (max-width: 900px) {
+  .intro-section .container-rad { grid-template-columns: 1fr; text-align: center; }
+  .banner-title { font-size: 2.2rem; }
+  .seguridad-parallax { background-attachment: scroll; }
+}

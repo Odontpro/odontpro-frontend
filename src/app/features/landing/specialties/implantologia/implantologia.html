@@ -1,10 +1,61 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Implantologia</h1>
+    <img src="https://picsum.photos/1920/600?surgery-implants" alt="Implantología" class="banner-image">
+    <h1 class="banner-title">Implantología Oral</h1>
+  </section>
+
+  <section class="intro-tecnica">
+    <div class="container-imp">
+      <div class="definicion-box">
+        <span class="tag">Misch's Contemporary Implant Dentistry</span>
+        <p class="main-quote">
+          "La Implantología es la restitución de la función y estética mediante la conexión estructural y funcional directa entre el hueso vivo y la superficie de un implante bajo carga funcional."
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="protocolo-fases">
+    <div class="container-imp">
+      <h2 class="section-h2">Protocolo Integral de Misch (6 Fases)</h2>
+      <div class="fases-grid">
+        <div class="fase-card" *ngFor="let fase of fasesMisch">
+          <div class="fase-header">
+            <span class="fase-number">{{fase.num}}</span>
+            <h3>{{fase.titulo}}</h3>
+          </div>
+          <div class="fase-body">
+            <p>{{fase.desc}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="parallax-misch">
+    <div class="overlay-misch"></div>
+    <div class="container-imp relative">
+      <h2>"La biología dicta el tiempo,<br> la biomecánica dicta el diseño."</h2>
+    </div>
+  </section>
+
+  <section class="consejos-section">
+    <div class="container-imp">
+      <div class="consejos-wrapper">
+        <div class="consejos-header">
+          <span class="tag">Síntesis de Misch y Consensos EAO/ITI</span>
+          <h2>Consejos Clave del Protocolo</h2>
+        </div>
+        <div class="consejos-list">
+          <div class="consejo-item" *ngFor="let consejo of consejosClave; let i = index">
+            <span class="consejo-index">0{{i+1}}</span>
+            <p>{{consejo}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>

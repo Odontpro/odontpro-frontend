@@ -1,10 +1,98 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Radiologia Oral y maxilofacial</h1>
+    <img src="https://picsum.photos/1920/600?xray-machine" alt="Radiología" class="banner-image">
+    <h1 class="banner-title">Radiología Oral y Maxilofacial</h1>
+  </section>
+
+  <section class="intro-section">
+    <div class="container-rad">
+      <div class="text-content">
+        <span class="tag">Ciencia de Diagnóstico</span>
+        <h2>Interpretación y Protección</h2>
+        <p>Basamos nuestra práctica en los estándares de <strong>White & Pharoah</strong>, enfocándonos no solo en la toma de imágenes, sino en el estudio profundo de la patología mediante radiación electromagnética y acústica.</p>
+        <div class="quote-box">
+          <p>"La radiología es un servicio al diagnóstico clínico, no un fin en sí mismo."</p>
+        </div>
+      </div>
+      <div class="image-display">
+        <div class="scan-effect"></div>
+        <img src="https://picsum.photos/600/400?medical-scan" alt="Análisis 3D">
+      </div>
+    </div>
+  </section>
+
+  <section class="seguridad-parallax">
+    <div class="parallax-overlay"></div>
+    <div class="container-rad relative">
+      <h2 class="white-text">Compromiso ALARA</h2>
+      <p class="white-p">Protección máxima bajo estándares internacionales</p>
+
+      <div class="seguridad-grid">
+        <div class="seg-item">
+          <div class="dot"></div>
+          <h3>Colimación Rectangular</h3>
+          <p>Restricción precisa del haz de rayos X para proteger los tejidos sanos adyacentes al área de interés.</p>
+        </div>
+
+        <div class="seg-item">
+          <div class="dot"></div>
+          <h3>Protección Biológica</h3>
+          <p>Blindaje mediante delantales de plomo y collares tiroideos que bloquean la radiación dispersa de forma efectiva.</p>
+        </div>
+
+        <div class="seg-item">
+          <div class="dot"></div>
+          <h3>Captura Digital</h3>
+          <p>Tecnología de sensores CMOS que permite obtener imágenes de alta fidelidad con la menor dosis posible (ALARA).</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="tech-grid-section">
+    <div class="container-rad">
+      <h2 class="section-title">Tecnologías de Diagnóstico</h2>
+      <div class="tech-cards">
+        <div class="tech-card" *ngFor="let tech of tecnologias">
+          <div class="tech-header">
+            <h3>{{ tech.titulo }}</h3>
+          </div>
+          <div class="tech-body">
+            <p><strong>Uso:</strong> {{ tech.uso }}</p>
+            <p class="benefit"><strong>Ventaja:</strong> {{ tech.ventaja }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="proceso-section">
+    <div class="container-rad">
+      <h2 class="section-title">Flujo de Interpretación Radiológica</h2>
+      <div class="proceso-stepper">
+        <div class="step" *ngFor="let step of procesoInterpretacion; let i = index"
+             [class.active]="etapaActiva === i" (mouseenter)="seleccionarEtapa(i)">
+          <div class="step-number">{{ step.fase }}</div>
+          <div class="step-info">
+            <h4>{{ step.titulo }}</h4>
+            <p>{{ step.desc }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="nota-critica">
+    <div class="container-rad text-center">
+      <div class="card-nota">
+        <span class="alert-icon">⚖️</span>
+        <h3>Criterio Ético de Selección</h3>
+        <p>"La mejor radiografía es la que no se toma, a menos que sea necesaria para establecer un diagnóstico o guiar un tratamiento."</p>
+        <p class="small">Priorizamos la jerarquía diagnóstica: Examen clínico ➔ Técnica 2D ➔ CBCT 3D.</p>
+      </div>
+    </div>
   </section>
 
 </div>
