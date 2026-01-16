@@ -618,7 +618,6 @@
 .especialidad-carousel-wrapper {
   position: relative;
   width: 100%;
-  padding: 0 50px; /* Espacio para los botones */
   margin-top: 30px;
 }
 
@@ -638,8 +637,6 @@
   padding: 15px; /* Espaciado entre tarjetas */
   box-sizing: border-box;
 }
-
-/* Estilo de la tarjeta (Card) */
 .card-detalle {
   background: #ffffff;
   border-radius: 12px;
@@ -650,9 +647,19 @@
   transition: transform 0.3s ease;
 }
 
+.card-detalle:hover {
+  transform: translateY(-5px);
+}
+
+.card-image-wrapper {
+  width: 100%;
+  height: 220px;
+  overflow: hidden;
+}
+
 .card-detalle img {
   width: 100%;
-  height: 200px;
+  height: 100%;
   object-fit: cover;
 }
 
@@ -677,8 +684,8 @@
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
-  width: 40px;
-  height: 40px;
+  width: 45px;
+  height: 45px;
   border-radius: 50%;
   background: white;
   border: 2px solid #7dc0bf;
@@ -689,6 +696,9 @@
   align-items: center;
   justify-content: center;
   transition: all 0.3s ease;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+  font-size: 18px;
+  font-weight: bold;
 }
 
 .carousel-nav-btn:disabled {
@@ -698,23 +708,44 @@
   color: #ccc;
 }
 
-.carousel-nav-btn.prev { left: 0; }
-.carousel-nav-btn.next { right: 0; }
+.carousel-nav-btn.prev {
+  left: -50px;
+}
+
+.carousel-nav-btn.next {
+  right: -50px;
+}
 
 .carousel-nav-btn:hover:not(:disabled) {
   background: #7dc0bf;
   color: white;
+  transform: translateY(-50%) scale(1.1);
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(10px); }
   to { opacity: 1; transform: translateY(0); }
 }
+/* DESKTOP: 3 cards */
+@media (min-width: 1100px) {
+  /* Ya está manejado por el TS: fasesPerPage = 3 */
+}
 
-/* Ajustes para Tablets */
-@media (max-width: 1024px) {
-  .especialidad-carousel-wrapper {
-    padding: 0 40px; /* Reducimos espacio lateral */
+/* TABLET: 2 cards */
+@media (max-width: 1099px) and (min-width: 768px) {
+  /* Ya está manejado por el TS: fasesPerPage = 2 */
+
+  .carousel-nav-btn {
+    width: 40px;
+    height: 40px;
+  }
+
+  .carousel-nav-btn.prev {
+    left: -15px;
+  }
+
+  .carousel-nav-btn.next {
+    right: -15px;
   }
 
   .card-text h4 {
@@ -722,19 +753,68 @@
   }
 }
 
-/* Ajustes para Móviles */
+/* MÓVIL: 1 card */
 @media (max-width: 767px) {
+  /* Ya está manejado por el TS: fasesPerPage = 1 */
+
+  .tab-content-body{
+    text-align: center;
+  }
+
+  .tabs-detalles-section {
+    padding: 40px 20px 60px 20px;
+    background: #fff;
+  }
+
+  .carousel-nav-btn {
+    width: 35px;
+    height: 35px;
+    font-size: 16px;
+  }
+
+  .carousel-nav-btn.prev {
+    left: -10px;
+  }
+
+  .carousel-nav-btn.next {
+    right: -10px;
+  }
+
+  .fase-card-wrapper {
+    padding: 10px;
+  }
+
+  .card-image-wrapper {
+    height: 180px;
+  }
+
+  .card-text {
+    padding: 15px;
+  }
+
+  .card-text h4 {
+    font-size: 0.95rem;
+  }
+
+  .card-text p {
+    font-size: 0.85rem;
+  }
+
   .tabs-container {
     padding: 20px 10px;
   }
 
+  .section-main-title{
+    text-align: center;
+  }
+
   .tabs-header {
     display: flex;
-    overflow-x: auto; /* Permitir scroll horizontal en los botones de pestañas */
+    overflow-x: auto;
     white-space: nowrap;
     gap: 10px;
     padding-bottom: 10px;
-    justify-content: flex-start;
+    justify-content: center;
   }
 
   .tab-btn {
@@ -742,36 +822,7 @@
     font-size: 0.85rem;
     flex: 0 0 auto;
   }
-
-  .especialidad-carousel-wrapper {
-    padding: 0 0; /* Quitamos padding para ganar espacio */
-  }
-
-  /* Posicionamos las flechas más pequeñas o abajo si estorban */
-  .carousel-nav-btn {
-    width: 32px;
-    height: 32px;
-    top: auto;
-    bottom: -45px; /* Las movemos debajo del carrusel en móvil */
-    transform: none;
-  }
-
-  .carousel-nav-btn.prev { left: calc(50% - 40px); }
-  .carousel-nav-btn.next { right: calc(50% - 40px); }
-
-  .tab-content-body {
-    margin-bottom: 60px; /* Espacio para las flechas inferiores */
-  }
-
-  .card-detalle img {
-    height: 180px;
-  }
-
-  .section-main-title {
-    font-size: 1.8rem;
-  }
 }
-
 /* ============================================
    RESPONSIVE - SECCIONES NUEVAS
    ============================================ */
@@ -783,6 +834,7 @@
 
   .video-title {
     font-size: 1.75rem;
+    text-align: center;
   }
 
   .cta-content {
@@ -866,6 +918,7 @@
 @media (max-width: 992px) {
   .banner-title {
     font-size: 3rem;
+    line-height: 1.2;
   }
 
   .casos-header {
