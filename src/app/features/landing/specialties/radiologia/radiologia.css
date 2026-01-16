@@ -50,11 +50,12 @@
   margin: 0;
   text-transform: capitalize;
   letter-spacing: 2px;
+  line-height: 1.2;
 }
 
 .container-rad { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
 .tag { color: #7dc0bf; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; display: block; }
-.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; color: #2c3e50; }
+.section-title { text-align: center; font-size: 2.5rem; margin-bottom: 60px; color: #2c3e50; line-height: 1.2}
 
 /* Intro con Efecto Escáner */
 .intro-section .container-rad { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
@@ -194,11 +195,6 @@
   border-radius: 24px 0 0 0;
 }
 
-/* Responsivo */
-@media (max-width: 768px) {
-  .white-text { font-size: 2.5rem; }
-  .seguridad-parallax { background-attachment: scroll; }
-}
 
 /* Tech Cards */
 .tech-cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
@@ -246,6 +242,14 @@
 .alert-icon { font-size: 3rem; display: block; margin-bottom: 20px; }
 .card-nota h3 { color: #7dc0bf; margin-bottom: 20px; }
 .small { font-size: 0.9rem; margin-top: 20px; opacity: 0.7; }
+
+/* Responsivo */
+@media (max-width: 768px) {
+  .white-text { font-size: 2.5rem; line-height: 1.2; }
+  .seguridad-parallax { background-attachment: scroll; }
+  .container-rad { padding: 10px 20px; }
+  .alert-icon { text-align: center; padding-bottom: 30px; !important;}
+}
 
 /* Responsive */
 @media (max-width: 900px) {
