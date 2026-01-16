@@ -44,6 +44,7 @@
   margin: 0;
   text-transform: capitalize;
   letter-spacing: 2px;
+  line-height: 1.2;
 }
 .container-imp { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
 .container-imp h2{ line-height: 1.5; }
@@ -188,4 +189,6 @@
   .main-quote { font-size: 1.4rem; }
   .parallax-misch h2 { font-size: 1.8rem; }
   .parallax-misch { background-attachment: scroll; }
+  .section-h2 { font-size: 2rem; }
+  .consejos-header{ text-align: center; }
 }
