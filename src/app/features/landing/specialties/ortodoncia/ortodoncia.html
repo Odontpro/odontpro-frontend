@@ -1,477 +1,101 @@
 <div class="especialidad-page">
-  <!-- SECCIÓN 1: BANNER -->
+
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Ortodoncia" class="banner-image">
-    <h1 class="banner-title">Ortodoncia</h1>
+    <img src="https://picsum.photos/1920/600?ortho-braces" alt="Ortodoncia Proffit" class="banner-image">
+    <h1 class="banner-title">Ortodoncia Contemporánea</h1>
   </section>
 
-  <!-- SECCIÓN 2: DEFINICIÓN -->
-  <section class="definicion-section">
-    <div class="container">
-      <div class="definicion-card">
-        <p class="definicion-texto">{{ definicion.texto }}</p>
-        <p class="definicion-autor">{{ definicion.autor }}</p>
+  <section class="intro-tecnica bg-grey">
+    <div class="container-ort">
+      <div class="definicion-split">
+        <div class="def-image">
+
+          <img src="https://picsum.photos/800/600?radiology-ortho" alt="Cefalometría">
+          <div class="frame-decorator"></div>
+        </div>
+        <div class="def-text">
+          <span class="tag">Dr. William R. Proffit</span>
+          <p class="main-quote">
+            "La Ortodoncia es el estudio, prevención y tratamiento de las anomalías de forma, posición y función de las estructuras dentomaxilofaciales."
+          </p>
+          <div class="author-line"></div>
+        </div>
       </div>
     </div>
   </section>
 
-  <!-- SECCIÓN 3: CONTENIDO CON TABS -->
-  <section class="contenido-section">
-    <div class="container">
-      <mat-tab-group class="especialidad-tabs" id="tab-group-nav" animationDuration="300ms" dynamicHeight [(selectedIndex)]="activeTabIndex">
+  <section class="diagnostico-extenso">
+    <div class="container-ort">
+      <div class="header-center">
+        <span class="tag">Fase Clínica I</span>
+        <h2>Diagnóstico Integral Obligatorio</h2>
+        <p>No iniciamos tratamiento sin la documentación completa que exige el protocolo Proffit.</p>
+      </div>
+      <div class="diag-grid-ext">
+        <div class="diag-card-mini" *ngFor="let doc of documentacion">
+          <h4>{{doc.item}}</h4>
+          <p>{{doc.desc}}</p>
+        </div>
+      </div>
+      <div class="extra-photo">
 
-        <!-- TAB 1: DIAGNÓSTICO INTEGRAL -->
-        <mat-tab label="Diagnóstico Integral">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE I: DIAGNÓSTICO INTEGRAL ORTODÓNCICO</h2>
-
-            <!-- Historia Clínica -->
-            <div class="subseccion" *ngFor="let subseccion of diagnostico.subsecciones">
-              <h3 class="subseccion-titulo">{{ subseccion.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of subseccion.items">{{ item }}</li>
-              </ul>
-            </div>
-
-            <!-- Documentación Complementaria -->
-            <div class="subseccion">
-              <h3 class="subseccion-titulo">{{ diagnostico.documentacion.titulo }}</h3>
-
-              <div class="apartado" *ngFor="let apartado of diagnostico.documentacion.apartados">
-                <h4 class="apartado-subtitulo">{{ apartado.subtitulo }}</h4>
-                <ul class="lista-items">
-                  <li *ngFor="let item of apartado.items">{{ item }}</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Análisis Cefalométrico -->
-            <div class="subseccion">
-              <h3 class="subseccion-titulo">{{ diagnostico.analisis.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of diagnostico.analisis.items">{{ item }}</li>
-              </ul>
-            </div>
-
-            <!-- Diagnóstico Final -->
-            <div class="subseccion">
-              <h3 class="subseccion-titulo">{{ diagnostico.diagnosticoFinal.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of diagnostico.diagnosticoFinal.items">{{ item }}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 2: TIPOS DE TRATAMIENTO -->
-        <mat-tab label="Tipos de Tratamiento">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE II: TIPOS DE TRATAMIENTO ORTODÓNCICO</h2>
-
-            <!-- Ortodoncia Interceptiva -->
-            <div class="tratamiento-card">
-              <h3 class="tratamiento-titulo">{{ tiposTratamiento.interceptiva.titulo }}</h3>
-              <p class="tratamiento-objetivo"><strong>Objetivo:</strong> {{ tiposTratamiento.interceptiva.objetivo }}</p>
-              <p class="tratamiento-edad"><strong>Edad:</strong> {{ tiposTratamiento.interceptiva.edad }}</p>
-              <h4 class="procedimientos-titulo">Procedimientos comunes:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let proc of tiposTratamiento.interceptiva.procedimientos">{{ proc }}</li>
-              </ul>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of tiposTratamiento.interceptiva.imagenes" [src]="img" alt="Ortodoncia Interceptiva" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Ortopedia Dentofacial -->
-            <div class="tratamiento-card">
-              <h3 class="tratamiento-titulo">{{ tiposTratamiento.ortopedia.titulo }}</h3>
-              <p class="tratamiento-objetivo"><strong>Objetivo:</strong> {{ tiposTratamiento.ortopedia.objetivo }}</p>
-              <p class="tratamiento-edad"><strong>Edad:</strong> {{ tiposTratamiento.ortopedia.edad }}</p>
-              <h4 class="procedimientos-titulo">Aparatología:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let aparato of tiposTratamiento.ortopedia.aparatologia">
-                  <strong>{{ aparato.tipo }}:</strong> {{ aparato.items }}
-                </li>
-              </ul>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of tiposTratamiento.ortopedia.imagenes" [src]="img" alt="Ortopedia Dentofacial" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Ortodoncia Correctiva -->
-            <div class="tratamiento-card">
-              <h3 class="tratamiento-titulo">{{ tiposTratamiento.correctiva.titulo }}</h3>
-              <p class="tratamiento-objetivo"><strong>Objetivo:</strong> {{ tiposTratamiento.correctiva.objetivo }}</p>
-              <h4 class="procedimientos-titulo">Tipos de Brackets:</h4>
-
-              <div class="tipo-bracket" *ngFor="let tipo of tiposTratamiento.correctiva.tipos">
-                <h5 class="bracket-nombre">{{ tipo.nombre }}</h5>
-                <p *ngIf="tipo.ventajas"><strong>Ventajas:</strong> {{ tipo.ventajas }}</p>
-                <p *ngIf="tipo.desventajas"><strong>Desventajas:</strong> {{ tipo.desventajas }}</p>
-                <p *ngIf="tipo.sistemas"><strong>Sistemas:</strong> {{ tipo.sistemas }}</p>
-                <p *ngIf="tipo.pasivos"><strong>Pasivos:</strong> {{ tipo.pasivos }}</p>
-                <p *ngIf="tipo.activos"><strong>Activos:</strong> {{ tipo.activos }}</p>
-                <ul *ngIf="tipo.subtipos" class="lista-items">
-                  <li *ngFor="let subtipo of tipo.subtipos">{{ subtipo }}</li>
-                </ul>
-              </div>
-
-              <div class="imagenes-grid">
-                <img *ngFor="let img of tiposTratamiento.correctiva.imagenes" [src]="img" alt="Brackets" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Alineadores -->
-            <div class="tratamiento-card">
-              <h3 class="tratamiento-titulo">{{ tiposTratamiento.alineadores.titulo }}</h3>
-              <p><strong>Sistemas principales:</strong> {{ tiposTratamiento.alineadores.sistemas }}</p>
-
-              <h4 class="procedimientos-titulo">Ventajas:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let ventaja of tiposTratamiento.alineadores.ventajas">{{ ventaja }}</li>
-              </ul>
-
-              <h4 class="procedimientos-titulo">Limitaciones:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let limitacion of tiposTratamiento.alineadores.limitaciones">{{ limitacion }}</li>
-              </ul>
-
-              <h4 class="procedimientos-titulo">Indicaciones ideales:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let indicacion of tiposTratamiento.alineadores.indicaciones">{{ indicacion }}</li>
-              </ul>
-
-              <div class="imagenes-grid">
-                <img *ngFor="let img of tiposTratamiento.alineadores.imagenes" [src]="img" alt="Alineadores" class="tratamiento-img">
-              </div>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 3: ADITAMENTOS AUXILIARES -->
-        <mat-tab label="Aditamentos Auxiliares">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE III: ADITAMENTOS AUXILIARES CONTEMPORÁNEOS</h2>
-
-            <!-- Microimplantes -->
-            <div class="aditamento-card">
-              <h3 class="aditamento-titulo">{{ aditamentos.microimplantes.titulo }}</h3>
-
-              <h4 class="procedimientos-titulo">Usos:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let uso of aditamentos.microimplantes.usos">{{ uso }}</li>
-              </ul>
-
-              <h4 class="procedimientos-titulo">Características:</h4>
-              <ul class="lista-items">
-                <li *ngFor="let caract of aditamentos.microimplantes.caracteristicas">{{ caract }}</li>
-              </ul>
-
-              <div class="imagenes-grid">
-                <img *ngFor="let img of aditamentos.microimplantes.imagenes" [src]="img" alt="Microimplantes" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Disyuntores -->
-            <div class="aditamento-card">
-              <h3 class="aditamento-titulo">{{ aditamentos.disyuntores.titulo }}</h3>
-
-              <h4 class="procedimientos-titulo">{{ aditamentos.disyuntores.expansion.subtitulo }}</h4>
-              <ul class="lista-items">
-                <li *ngFor="let tipo of aditamentos.disyuntores.expansion.tipos">{{ tipo }}</li>
-              </ul>
-
-              <h4 class="procedimientos-titulo">{{ aditamentos.disyuntores.mandibular.subtitulo }}</h4>
-              <p>{{ aditamentos.disyuntores.mandibular.descripcion }}</p>
-
-              <div class="imagenes-grid">
-                <img *ngFor="let img of aditamentos.disyuntores.imagenes" [src]="img" alt="Disyuntores" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Aparatología Extrabucal -->
-            <div class="aditamento-card">
-              <h3 class="aditamento-titulo">{{ aditamentos.extrabucal.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of aditamentos.extrabucal.items">{{ item }}</li>
-              </ul>
-            </div>
-
-            <!-- Otros Aditamentos -->
-            <div class="aditamento-card">
-              <h3 class="aditamento-titulo">{{ aditamentos.otros.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of aditamentos.otros.items">{{ item }}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 4: ETAPAS DEL TRATAMIENTO -->
-        <mat-tab label="Etapas del Tratamiento">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE IV: ETAPAS DEL TRATAMIENTO CON BRACKETS</h2>
-
-            <!-- Etapa 1 -->
-            <div class="etapa-card">
-              <h3 class="etapa-titulo">{{ etapasBrackets.etapa1.titulo }}</h3>
-              <p><strong>Arcos iniciales:</strong> {{ etapasBrackets.etapa1.arcos }}</p>
-              <p><strong>Duración:</strong> {{ etapasBrackets.etapa1.duracion }}</p>
-              <p><strong>Objetivo:</strong> {{ etapasBrackets.etapa1.objetivo }}</p>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of etapasBrackets.etapa1.imagenes" [src]="img" alt="Etapa 1" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Etapa 2 -->
-            <div class="etapa-card">
-              <h3 class="etapa-titulo">{{ etapasBrackets.etapa2.titulo }}</h3>
-              <p><strong>Arcos intermedios:</strong> {{ etapasBrackets.etapa2.arcos }}</p>
-              <ul class="lista-items">
-                <li *ngFor="let obj of etapasBrackets.etapa2.objetivos">{{ obj }}</li>
-              </ul>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of etapasBrackets.etapa2.imagenes" [src]="img" alt="Etapa 2" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Etapa 3 -->
-            <div class="etapa-card">
-              <h3 class="etapa-titulo">{{ etapasBrackets.etapa3.titulo }}</h3>
-              <p><strong>Arcos finales:</strong> {{ etapasBrackets.etapa3.arcos }}</p>
-              <ul class="lista-items">
-                <li *ngFor="let proc of etapasBrackets.etapa3.procedimientos">{{ proc }}</li>
-              </ul>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of etapasBrackets.etapa3.imagenes" [src]="img" alt="Etapa 3" class="tratamiento-img">
-              </div>
-            </div>
-
-            <!-- Etapa 4 -->
-            <div class="etapa-card">
-              <h3 class="etapa-titulo">{{ etapasBrackets.etapa4.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let proc of etapasBrackets.etapa4.procedimientos">{{ proc }}</li>
-              </ul>
-              <div class="imagenes-grid">
-                <img *ngFor="let img of etapasBrackets.etapa4.imagenes" [src]="img" alt="Etapa 4" class="tratamiento-img">
-              </div>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 5: RETENCIÓN Y ESTABILIDAD -->
-        <mat-tab label="Retención y Estabilidad">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE V: RETENCIÓN Y ESTABILIDAD</h2>
-
-            <!-- Tipos de Retenedores -->
-            <div class="retencion-card">
-              <h3 class="retencion-titulo">1. Tipos de Retenedores</h3>
-
-              <div class="tipo-retenedor">
-                <h4 class="tipo-titulo">{{ retencion.tipos.fijos.titulo }}</h4>
-                <ul class="lista-items">
-                  <li *ngFor="let item of retencion.tipos.fijos.items">{{ item }}</li>
-                </ul>
-              </div>
-
-              <div class="tipo-retenedor">
-                <h4 class="tipo-titulo">{{ retencion.tipos.removibles.titulo }}</h4>
-                <ul class="lista-items">
-                  <li *ngFor="let item of retencion.tipos.removibles.items">{{ item }}</li>
-                </ul>
-              </div>
-            </div>
-
-            <!-- Protocolo de Retención -->
-            <div class="retencion-card">
-              <h3 class="retencion-titulo">{{ retencion.protocolo.titulo }}</h3>
-
-              <div class="fase-retencion" *ngFor="let fase of retencion.protocolo.fases">
-                <h4 class="fase-nombre">{{ fase.nombre }}</h4>
-                <p><strong>Descripción:</strong> {{ fase.descripcion }}</p>
-                <p><strong>Control:</strong> {{ fase.control }}</p>
-              </div>
-            </div>
-
-            <!-- Factores de Recidiva -->
-            <div class="retencion-card">
-              <h3 class="retencion-titulo">{{ retencion.recidiva.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let factor of retencion.recidiva.factores">{{ factor }}</li>
-              </ul>
-            </div>
-
-            <div class="imagenes-grid">
-              <img *ngFor="let img of retencion.imagenes" [src]="img" alt="Retención" class="tratamiento-img">
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 6: MANTENIMIENTO PERIODONTAL -->
-        <mat-tab label="Mantenimiento Periodontal">
-          <div class="tab-content">
-            <h2 class="tab-title">FASE VI: MANTENIMIENTO PERIODONTAL EN ORTODONCIA</h2>
-
-            <!-- Control de Higiene -->
-            <div class="mantenimiento-card">
-              <h3 class="mantenimiento-titulo">{{ mantenimiento.higiene.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of mantenimiento.higiene.items">{{ item }}</li>
-              </ul>
-            </div>
-
-            <!-- Monitoreo Periodontal -->
-            <div class="mantenimiento-card">
-              <h3 class="mantenimiento-titulo">{{ mantenimiento.periodontal.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of mantenimiento.periodontal.items">{{ item }}</li>
-              </ul>
-            </div>
-
-            <!-- Emergencias -->
-            <div class="mantenimiento-card">
-              <h3 class="mantenimiento-titulo">{{ mantenimiento.emergencias.titulo }}</h3>
-              <ul class="lista-items">
-                <li *ngFor="let item of mantenimiento.emergencias.items">{{ item }}</li>
-              </ul>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-        <!-- TAB 7: CONSIDERACIONES FINALES -->
-        <mat-tab label="Consideraciones Finales">
-          <div class="tab-content">
-            <h2 class="tab-title">CONSIDERACIONES FINALES (Basadas en Proffit)</h2>
-
-            <div class="consideraciones-lista">
-              <div class="consideracion-item" *ngFor="let consideracion of consideraciones; let i = index">
-                <div class="consideracion-numero">{{ i + 1 }}</div>
-                <p class="consideracion-texto">{{ consideracion }}</p>
-              </div>
-            </div>
-
-            <div class="conclusion-card">
-              <p class="conclusion-texto">{{ conclusion }}</p>
-            </div>
-          </div>
-          <div class="navigation-buttons">
-            <button
-              mat-stroked-button
-              [disabled]="activeTabIndex === 0"
-              (click)="prevTab()">
-              Atrás
-            </button>
-
-            <button
-              mat-raised-button
-              color="primary"
-              [disabled]="activeTabIndex === TOTAL_TABS - 1"
-              (click)="nextTab()">
-              Siguiente
-            </button>
-          </div>
-        </mat-tab>
-
-      </mat-tab-group>
+        <img src="https://picsum.photos/1200/400?dental-models" alt="Modelos de Estudio">
+      </div>
     </div>
   </section>
+
+  <section class="cefalometria-section bg-grey">
+    <div class="container-ort split-grid-reverse">
+      <div class="cefa-text">
+        <span class="tag">Análisis Esquelético</span>
+        <h2>Patrones de Crecimiento</h2>
+        <p>Determinamos si el paciente es Hiper, Normo o Hipodivergente para predecir la estabilidad.</p>
+        <div class="cefa-list">
+          <span class="cefa-badge" *ngFor="let c of analisisCefalo">{{c}}</span>
+        </div>
+        <p class="cefa-note">Evaluamos problemas sagitales, verticales y transversales mediante el análisis de tejidos blandos y duros.</p>
+      </div>
+      <div class="cefa-image">
+
+        <img src="https://picsum.photos/600/500?ortho-analysis" alt="Análisis Facial">
+      </div>
+    </div>
+  </section>
+
+  <section class="planificacion-section">
+    <div class="container-ort">
+      <h2 class="section-h2 text-center">Etapas del Tratamiento Correctivo</h2>
+      <div class="etapas-timeline">
+        <div class="etapa-box" *ngFor="let etapa of etapasClinicas">
+          <div class="etapa-header">
+            <span class="etapa-number">{{etapa.fase}}</span>
+            <h3>{{etapa.titulo}}</h3>
+          </div>
+          <p>{{etapa.detalle}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="retencion-dark">
+    <div class="container-ort">
+      <div class="maint-split">
+        <div class="maint-text">
+          <h2 class="gold-text">Estabilidad Post-Tratamiento</h2>
+          <p>La retención es una fase activa. El crecimiento residual y los hábitos parafuncionales son factores críticos de recidiva.</p>
+          <ul class="maint-list">
+            <li>Retenedores Fijos (Barra Lingual 3-3).</li>
+            <li>Retenedores Removibles (Placa Hawley / Termoformados).</li>
+            <li>Control de salud periodontal cada 6 meses.</li>
+          </ul>
+        </div>
+        <div class="maint-image">
+
+          <img src="https://picsum.photos/500/300?retainer" alt="Retención Ortodóncica">
+        </div>
+      </div>
+    </div>
+  </section>
+
 </div>

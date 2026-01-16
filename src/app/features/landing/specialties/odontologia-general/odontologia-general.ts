@@ -1,4 +1,4 @@
-import { Component, OnDestroy, NgZone } from '@angular/core';
+import { Component, OnDestroy, OnInit, NgZone, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 interface Caso {
@@ -17,7 +17,7 @@ interface Caso {
   templateUrl: './odontologia-general.html',
   styleUrl: './odontologia-general.css',
 })
-export class OdontologiaGeneral implements OnDestroy {
+export class OdontologiaGeneral implements OnDestroy, OnInit {
 
   tabActiva = 0;
   sliderPosition = 50;
@@ -69,6 +69,15 @@ export class OdontologiaGeneral implements OnDestroy {
     { id: 1, titulo: 'SONRISAS TOP', descripcion: '10 carillas de cerámica ultrafinas.', imagenAntes: 'https://picsum.photos/800/600?before1', imagenDespues: 'https://picsum.photos/800/600?after1' },
     { id: 2, titulo: 'REHABILITACIÓN', descripcion: 'Cierre de diastemas con resina.', imagenAntes: 'https://picsum.photos/800/600?before2', imagenDespues: 'https://picsum.photos/800/600?after2' }
   ];
+
+  ngOnInit() {
+    this.updatePerPage();
+  }
+
+  @HostListener('window:resize')
+  onResize() {
+    this.updatePerPage();
+  }
 
   constructor(private ngZone: NgZone) {
     this.updatePerPage();

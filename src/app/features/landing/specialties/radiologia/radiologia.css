@@ -215,7 +215,7 @@
 .benefit { color: #7dc0bf; margin-top: 15px; }
 
 /* Stepper de Interpretación */
-.proceso-section { background: #fcfcfc; }
+.proceso-section { background: #f8f9fa; }
 .proceso-stepper { display: flex; flex-direction: column; gap: 20px; max-width: 800px; margin: 0 auto; }
 .step {
   display: flex;

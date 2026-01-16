@@ -711,6 +711,67 @@
   to { opacity: 1; transform: translateY(0); }
 }
 
+/* Ajustes para Tablets */
+@media (max-width: 1024px) {
+  .especialidad-carousel-wrapper {
+    padding: 0 40px; /* Reducimos espacio lateral */
+  }
+
+  .card-text h4 {
+    font-size: 1rem;
+  }
+}
+
+/* Ajustes para Móviles */
+@media (max-width: 767px) {
+  .tabs-container {
+    padding: 20px 10px;
+  }
+
+  .tabs-header {
+    display: flex;
+    overflow-x: auto; /* Permitir scroll horizontal en los botones de pestañas */
+    white-space: nowrap;
+    gap: 10px;
+    padding-bottom: 10px;
+    justify-content: flex-start;
+  }
+
+  .tab-btn {
+    padding: 10px 20px;
+    font-size: 0.85rem;
+    flex: 0 0 auto;
+  }
+
+  .especialidad-carousel-wrapper {
+    padding: 0 0; /* Quitamos padding para ganar espacio */
+  }
+
+  /* Posicionamos las flechas más pequeñas o abajo si estorban */
+  .carousel-nav-btn {
+    width: 32px;
+    height: 32px;
+    top: auto;
+    bottom: -45px; /* Las movemos debajo del carrusel en móvil */
+    transform: none;
+  }
+
+  .carousel-nav-btn.prev { left: calc(50% - 40px); }
+  .carousel-nav-btn.next { right: calc(50% - 40px); }
+
+  .tab-content-body {
+    margin-bottom: 60px; /* Espacio para las flechas inferiores */
+  }
+
+  .card-detalle img {
+    height: 180px;
+  }
+
+  .section-main-title {
+    font-size: 1.8rem;
+  }
+}
+
 /* ============================================
    RESPONSIVE - SECCIONES NUEVAS
    ============================================ */

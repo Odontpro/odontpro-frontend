@@ -46,7 +46,8 @@
 
           <div class="especialidad-overflow">
             <div class="especialidad-grid"
-                 [style.transform]="'translateX(-' + (currentFaseIndex * (100 / fasesPerPage)) + '%)'">
+                 [style.transform]="'translateX(-' + (currentFaseIndex * (100 / fasesPerPage)) + '%)'"
+            >
 
               <div class="fase-card-wrapper"
                    *ngFor="let item of tabsEspecialidad[tabActiva].detalles"

@@ -58,7 +58,7 @@
 .image-block img { width: 100%; border-radius: 40px 5px; box-shadow: 15px 15px 0 #7dc0bf10; }
 
 /* Carrusel */
-.protocolo-section { background: #fcfcfc; }
+.protocolo-section { background: #f8f9fa; }
 .section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: #333; }
 .carousel-wrapper { position: relative; padding: 0 50px; }
 .carousel-overflow { overflow: hidden; }
@@ -101,9 +101,9 @@
    ============================================ */
 
 .cuidados-section {
-  background-color: #fcfcfc;
+  background-color: #f8f9fa;
   padding: 60px 20px;
-  border-top: 1px solid #fcfcfc;
+  border-top: 1px solid #f8f9fa;
 }
 
 .cuidados-section h2 {

@@ -1,10 +1,81 @@
 <div class="especialidad-page">
 
-  <!-- SECCIÓN 1: BANNER -->
   <section class="banner-section">
     <div class="banner-overlay"></div>
-    <img src="banners/main-background.jpg" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Odontologia Estetica</h1>
+    <img src="https://picsum.photos/1920/600?dentistry-aesthetic" alt="Estética Dental" class="banner-image">
+    <h1 class="banner-title">Odontología Estética</h1>
+  </section>
+
+  <section class="intro-tecnica bg-grey">
+    <div class="container-est">
+      <div class="definicion-split">
+        <div class="def-image">
+
+          <img src="https://picsum.photos/800/600?smile-harmony" alt="Armonía Facial">
+          <div class="frame-decorator"></div>
+        </div>
+        <div class="def-text">
+          <span class="tag">Chu, S. J., & Hochman, M. N. (2017)</span>
+          <p class="main-quote">
+            "La Odontología Estética es el arte y ciencia del diagnóstico, tratamiento y mantenimiento de la belleza natural de la sonrisa, integrando la salud oral, la función oclusal y la armonía facial."
+          </p>
+          <div class="author-line"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="etapas-section">
+    <div class="container-est">
+      <h2 class="section-h2">Etapas del Protocolo Estético</h2>
+      <div class="etapas-grid">
+        <div class="etapa-card" *ngFor="let etapa of etapasPrincipales">
+          <span class="etapa-num">{{etapa.num}}</span>
+          <h3>{{etapa.titulo}}</h3>
+          <p>{{etapa.desc}}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="diseno-sonrisa bg-grey">
+    <div class="container-est">
+      <div class="diseno-flex">
+        <div class="diseno-text">
+          <span class="tag">Workflow Digital y Analógico</span>
+          <h2>Diseño de Sonrisa Paso a Paso</h2>
+
+          <p>Siguiendo los principios de la proporción áurea (1:1.618), transformamos la percepción visual del paciente.</p>
+
+          <div class="fases-list">
+            <div class="fase-item" *ngFor="let f of fasesDiseno">
+              <div class="fase-dot"></div>
+              <div class="fase-info">
+                <h4>{{f.fase}}: {{f.titulo}}</h4>
+                <p>{{f.detalle}}</p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="diseno-image">
+          <img src="https://picsum.photos/600/700?smile-design-process" alt="Smile Design Analysis">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="mantenimiento-estetico">
+    <div class="container-est">
+      <div class="maint-card-final">
+        <h2 class="maint-title">Longevidad Estética</h2>
+        <p class="maint-p">Control a los 7 y 30 días, seguido de limpiezas profesionales cada 4-6 meses con pastas no abrasivas.</p>
+        <div class="check-grid">
+          <div class="check-item"><span class="check-icon">✔</span> Salud Gingival</div>
+          <div class="check-item"><span class="check-icon">✔</span> Estabilidad del Color</div>
+          <div class="check-item"><span class="check-icon">✔</span> Integridad Marginal</div>
+        </div>
+      </div>
+    </div>
   </section>
 
 </div>
