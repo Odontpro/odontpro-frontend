@@ -7,51 +7,6 @@
   padding-top: 64px;
 }
 
-/* ============================================
-   SECCIÓN 1: BANNER
-   ============================================ */
-.banner-section {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9);
-  z-index: 2;
-}
-
-.banner-title {
-  position: relative;
-  z-index: 3;
-  font-size: 50px;
-  font-weight: 600;
-  color: #7dc0bf;
-  text-align: center;
-  margin: 0;
-  text-transform: capitalize;
-  letter-spacing: 2px;
-  line-height: 1.1;
-}
 .especialidad-page { padding-top: 64px; background: #fff; }
 .bg-grey { background-color: #fcfcfc !important; }
 .container-ort { max-width: 1200px; margin: 0 auto; padding: 100px 20px; }
@@ -98,7 +53,6 @@
 @media (max-width: 900px) {
   .definicion-split, .split-grid-reverse, .maint-split { grid-template-columns: 1fr; }
   .cefa-image { order: 2; }
-  .banner-title{ font-size: 35px; }
   .main-quote {text-align: center; }
   .tag { text-align: center; }
   .author-line { width: 50px; height: 3px; background: #7dc0bf; margin-top: 30px; }

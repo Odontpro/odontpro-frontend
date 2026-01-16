@@ -1,10 +1,11 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
 
 @Component({
   selector: 'app-rehabilitacion',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BannerEspecialidad],
   templateUrl: './rehabilitacion.html',
   styleUrl: './rehabilitacion.css',
 })

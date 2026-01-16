@@ -18,51 +18,6 @@
 }
 
 /* ============================================
-   2. SECCIÓN 1: BANNER
-   ============================================ */
-.banner-section {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.85);
-  z-index: 2;
-}
-
-.banner-title {
-  position: relative;
-  z-index: 3;
-  font-size: 50px;
-  font-weight: 600;
-  color: var(--primary);
-  text-align: center;
-  margin: 0;
-  text-transform: capitalize;
-  letter-spacing: 2px;
-}
-
-/* ============================================
    3. SECCIÓN 2: INFO / DEFINICIÓN
    ============================================ */
 .info-especialidad-section {
@@ -528,8 +483,6 @@
     line-height: 1.2;
   }
 
-
-  .banner-title { font-size: 35px; line-height: 1.2;}
   .cta-title { font-size: 2.2rem; }
   .info-title { line-height: 1.2; }
   .section-main-title { line-height: 1.2; }

@@ -7,52 +7,6 @@
   padding-top: 64px; /* Espacio para el header fijo */
 }
 
-/* ============================================
-   SECCIÓN 1: BANNER
-   ============================================ */
-.banner-section {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Tinte blanco semi-transparente */
-  z-index: 2;
-}
-
-.banner-title {
-  position: relative;
-  z-index: 3;
-  font-size: 50px;
-  font-weight: 600;
-  color: #7dc0bf;
-  text-align: center;
-  margin: 0;
-  text-transform: capitalize;
-  letter-spacing: 2px;
-  line-height: 1.2;
-}
-
 /* Layout Global y Alternancia */
 .especialidad-page { padding-top: 64px; background: #fff; }
 .bg-grey { background-color: #f9f9f9 !important; }
@@ -95,7 +49,6 @@
   .definicion-split, .diseno-flex { grid-template-columns: 1fr; }
   .def-image { order: 2; }
   .def-text { order: 1; }
-  .banner-title{ font-size: 45px; }
   .main-quote {text-align: center; font-size: 20px; }
   .tag { text-align: center; }
   .author-line { width: 50px; height: 3px; background: #7dc0bf; margin-top: 30px; }

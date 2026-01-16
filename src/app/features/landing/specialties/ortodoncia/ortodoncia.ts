@@ -1,10 +1,11 @@
 import { CommonModule } from '@angular/common';
 import {Component} from '@angular/core';
+import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
 
 @Component({
   selector: 'app-ortodoncia',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BannerEspecialidad],
   templateUrl: './ortodoncia.html',
   styleUrl: './ortodoncia.css',
 })

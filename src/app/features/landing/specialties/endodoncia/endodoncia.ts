@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
+import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
 
 @Component({
   selector: 'app-endodoncia',
   standalone: true,
-  imports: [CommonModule, MatExpansionModule],
+  imports: [CommonModule, MatExpansionModule, BannerEspecialidad],
   templateUrl: './endodoncia.html',
   styleUrl: './endodoncia.css',
 })

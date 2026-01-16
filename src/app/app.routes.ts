@@ -3,6 +3,9 @@ import {AuthGuard} from './core/guards/auth.guard';
 import {GuestGuard} from './core/guards/guest.guard';
 import {PublicLayout} from './shared/layouts/public-layout/public-layout';
 import {Book} from './features/landing/book/book';
+import {
+  FundamentosRestauradora
+} from './features/landing/specialties/odontologia-general/fundamentos-restauradora/fundamentos-restauradora';
 
 export const routes: Routes = [
 
@@ -46,6 +49,12 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/landing/specialties/odontologia-general/odontologia-general')
             .then(m => m.OdontologiaGeneral)
+      },
+      {
+        path: 'especialidades/odontologia-restauradora/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/odontologia-general/fundamentos-restauradora/fundamentos-restauradora')
+            .then(m => m.FundamentosRestauradora)
       },
       {
         path: 'especialidades/ortodoncia',

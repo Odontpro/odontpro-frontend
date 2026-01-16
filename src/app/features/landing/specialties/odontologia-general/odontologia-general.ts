@@ -1,5 +1,7 @@
 import { Component, OnDestroy, OnInit, NgZone, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
 
 interface Caso {
   id: number;
@@ -13,7 +15,7 @@ interface Caso {
 @Component({
   selector: 'app-odontologia-general',
   standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule, BannerEspecialidad],
   templateUrl: './odontologia-general.html',
   styleUrl: './odontologia-general.css',
 })
@@ -79,7 +81,7 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
     this.updatePerPage();
   }
 
-  constructor(private ngZone: NgZone) {
+  constructor(private ngZone: NgZone, private router: Router) {
     this.updatePerPage();
     window.onresize = () => this.updatePerPage();
   }
@@ -122,6 +124,10 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
   onMouseMove(e: MouseEvent) { if (this.isDragging) this.updateSliderPosition(e); }
   onMouseUp() { this.isDragging = false; }
 
+  irAFundamentos() {
+    // Aquí pones la ruta que definas para la página de "Fundamentos Científicos"
+    this.router.navigate(['/especialidades/odontologia-restauradora/fundamentos']);
+  }
 
   ngOnDestroy() {
     this.isDragging = false;

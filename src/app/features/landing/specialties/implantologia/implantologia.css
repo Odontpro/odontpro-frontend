@@ -1,51 +1,6 @@
 /* Layout Base */
 .especialidad-page { padding-top: 64px; background: #fff; overflow-x: hidden; }
 
-/* ============================================
-   SECCIÓN 1: BANNER
-   ============================================ */
-.banner-section {
-  position: relative;
-  width: 100%;
-  height: 300px;
-  overflow: hidden;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-image {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: 1;
-}
-
-.banner-overlay {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgba(255, 255, 255, 0.9); /* Tinte blanco semi-transparente */
-  z-index: 2;
-}
-
-.banner-title {
-  position: relative;
-  z-index: 3;
-  font-size: 50px;
-  font-weight: 600;
-  color: #7dc0bf;
-  text-align: center;
-  margin: 0;
-  text-transform: capitalize;
-  letter-spacing: 2px;
-  line-height: 1.2;
-}
 .container-imp { max-width: 1200px; margin: 0 auto; padding: 80px 20px; }
 .container-imp h2{ line-height: 1.5; }
 .tag { color: #7dc0bf; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; display: block; }
@@ -185,7 +140,6 @@
 
 /* Responsivo */
 @media (max-width: 768px) {
-  .banner-title { font-size: 2.5rem; }
   .main-quote { font-size: 1.4rem; }
   .parallax-misch h2 { font-size: 1.8rem; }
   .parallax-misch { background-attachment: scroll; }

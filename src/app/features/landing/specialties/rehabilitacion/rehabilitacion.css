@@ -11,39 +11,6 @@
   padding: 80px 20px;
 }
 
-/* Banner */
-.banner-section {
-  position: relative;
-  height: 350px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.banner-image {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.banner-overlay {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-  background: rgba(255, 255, 255, 0.85);
-  z-index: 1;
-}
-
-.banner-title {
-  position: relative;
-  z-index: 2;
-  font-size: 3.5rem;
-  color: #7dc0bf;
-  font-weight: 700;
-  letter-spacing: 2px;
-}
-
 /* Filosofía y Texto */
 .filosofia-section { display: flex; align-items: center; }
 .container-rehab { display: flex; gap: 60px; align-items: center; }
@@ -198,6 +165,5 @@
 /* Responsive */
 @media (max-width: 900px) {
   .container-rehab { flex-direction: column; text-align: center; }
-  .banner-title { font-size: 2.2rem; }
   .carousel-wrapper { padding: 0; }
 }

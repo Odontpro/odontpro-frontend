@@ -1,0 +1,5 @@
+.especialidad-page {
+  min-height: calc(100vh - 64px);
+  background-color: white;
+  padding-top: 64px; /* Espacio para el header fijo */
+}

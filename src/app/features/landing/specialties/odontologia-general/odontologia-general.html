@@ -1,10 +1,5 @@
 <div class="especialidad-page">
-
-  <section class="banner-section">
-    <div class="banner-overlay"></div>
-    <img src="https://picsum.photos/1920/600?medical=1" alt="Odontología Restauradora" class="banner-image">
-    <h1 class="banner-title">Odontología Restauradora</h1>
-  </section>
+  <app-banner-especialidad [titulo]="'Odontología Restauradora'"></app-banner-especialidad>
 
   <section class="info-especialidad-section">
     <div class="info-container">
@@ -131,10 +126,19 @@
 
   <section class="cta-section">
     <div class="cta-overlay"></div>
-    <img src="https://picsum.photos/1200/400?clinic=1" class="cta-background">
+    <img src="https://picsum.photos/1200/400?dentistry=scientific" class="cta-background">
+
     <div class="cta-content">
       <h2 class="cta-title">Recupera la funcionalidad de tu sonrisa</h2>
-      <button class="cta-button">Agendar Cita Especializada</button>
+      <p class="cta-description">Basamos cada tratamiento en evidencia clínica y protocolos internacionales de vanguardia.</p>
+
+      <div class="cta-actions">
+        <button class="cta-button">Agendar Cita Especializada</button>
+
+        <button class="cta-button-outline" (click)="irAFundamentos()">
+          Ver Fundamentos Científicos
+        </button>
+      </div>
     </div>
   </section>
 
