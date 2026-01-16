@@ -51,15 +51,15 @@
 }
 
 /* Definición y Bloques de Texto */
-.definicion-section .container-cirugia, .seguridad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
+.definicion-section .container-cirugia, .seguridad-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
 .tag { color: #7dc0bf; font-weight: 700; text-transform: uppercase; font-size: 0.9rem; letter-spacing: 2px; margin-bottom: 20px; display: block; }
 .text-block h2 { font-size: 2.8rem; margin-bottom: 30px; color: #2c3e50; line-height: 1.2}
-.quote { border-left: 5px solid #7dc0bf; padding-left: 20px; font-style: italic; font-size: 1.2rem; margin-bottom: 25px; color: #555; }
+.quote { border-left: 5px solid #7dc0bf; padding-left: 20px; font-style: italic; font-size: 1.1rem; margin-bottom: 25px; color: #555; }
 .image-block img { width: 100%; border-radius: 40px 5px; box-shadow: 15px 15px 0 #7dc0bf10; }
 
 /* Carrusel */
 .protocolo-section { background: #f8f9fa; }
-.section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: #333; }
+.section-title { text-align: center; font-size: 2.2rem; margin-bottom: 50px; color: #333; line-height: 1.2 }
 .carousel-wrapper { position: relative; padding: 0 50px; }
 .carousel-overflow { overflow: hidden; }
 .carousel-grid { display: flex; transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1); }
@@ -139,8 +139,8 @@
 }
 
 .icon-box span {
-  font-size: 4.5rem; /* Tamaño del emoji o icono */
-  margin-bottom: 20px;
+  font-size: 3rem; /* Tamaño del emoji o icono */
+  margin-bottom: 15px;
   display: block;
   filter: drop-shadow(0 10px 15px rgba(0,0,0,0.1));
   transition: transform 0.3s ease;
@@ -178,7 +178,15 @@
 /* Mobile */
 @media (max-width: 900px) {
   .definicion-section .container-cirugia, .seguridad-grid { grid-template-columns: 1fr; text-align: center; }
-  .banner-title { font-size: 2.8rem; }
+  .banner-title { font-size: 2rem; }
+  .text-block h2 { font-size: 2rem;}
+  .quote { font-size: 1rem; line-height: 1.5; }
+  .section-title { margin-bottom: 40px; line-height: 1.2 }
+  .carousel-wrapper { padding: 0 10px; }
+  .white-text { font-size: 2.5rem; margin-bottom: 60px; line-height: 1.2; }
+  .relative { padding: 10px 20px; }
+  .sutura-card h3 { line-height: 1.2; }
+  .text-center{ padding: 50px 20px}
   .parallax-section { background-attachment: scroll; }
   .icon-grid-cuidados {
     gap: 40px;
