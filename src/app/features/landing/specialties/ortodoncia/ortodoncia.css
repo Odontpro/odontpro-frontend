@@ -50,6 +50,7 @@
   margin: 0;
   text-transform: capitalize;
   letter-spacing: 2px;
+  line-height: 1.1;
 }
 .especialidad-page { padding-top: 64px; background: #fff; }
 .bg-grey { background-color: #fcfcfc !important; }
@@ -97,4 +98,14 @@
 @media (max-width: 900px) {
   .definicion-split, .split-grid-reverse, .maint-split { grid-template-columns: 1fr; }
   .cefa-image { order: 2; }
+  .banner-title{ font-size: 35px; }
+  .main-quote {text-align: center; }
+  .tag { text-align: center; }
+  .author-line { width: 50px; height: 3px; background: #7dc0bf; margin-top: 30px; }
+  .frame-decorator { left: 0; top: 10px; }
+  .container-ort { padding: 50px 30px; }
+  .cefa-text {text-align: center; }
+  .cefa-list { justify-content: center; }
+  .section-h2{text-align: center; }
+
 }
