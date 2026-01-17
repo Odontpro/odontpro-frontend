@@ -2,4 +2,121 @@
   min-height: calc(100vh - 64px);
   background-color: white;
   padding-top: 64px; /* Espacio para el header fijo */
+
+  overflow-x: hidden;
+}.scientific-container {
+   max-width: 1000px;
+   margin: 0 auto;
+   padding: 80px 20px;
+   color: #333;
+   line-height: 1.8;
+ }
+
+/* Títulos y Etiquetas */
+.tag-clinical {
+  background: #7dc0bf;
+  color: white;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.phase-num {
+  color: #7dc0bf;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.phase-header h2 {
+  font-size: 2rem;
+  margin-top: 5px;
+  color: #2c3e50;
+}
+
+/* Bloques de Contenido */
+.phase-block { padding: 80px 0; }
+.bg-grey {
+  background-color: #fcfcfc;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  width: auto;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Imágenes y Referencias */
+.ref-label {
+  font-size: 0.75rem;
+  color: #999;
+  font-family: monospace;
+  margin-bottom: 5px;
+}
+
+img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+/* Listas y Tarjetas */
+.clinical-list { padding-left: 20px; }
+.clinical-list li { margin-bottom: 12px; }
+
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 15px;
+  margin-top: 30px;
+}
+
+.mini-card {
+  background: white;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #eee;
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Clasificación de Black */
+.black-classification {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Estilo Final Oscuro */
+.bg-dark {
+  background: #2c3e50;
+  color: white;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 80px calc(50vw - 50%);
+  width: auto;
+  text-align: center;
+}
+
+.white-text { color: white !important; }
+
+/* Responsive */
+@media (max-width: 768px) {
+  .split, .black-classification { grid-template-columns: 1fr; }
+  .phase-header h2 { font-size: 1.5rem; }
 }
