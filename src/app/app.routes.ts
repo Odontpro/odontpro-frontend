@@ -39,6 +39,12 @@ export const routes: Routes = [
             .then(m => m.Endodoncia)
       },
       {
+        path: 'especialidades/endodoncia/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/endodoncia/fundamentos-endodoncia/fundamentos-endodoncia')
+            .then(m => m.FundamentosEndodoncia)
+      },
+      {
         path: 'especialidades/implantologia',
         loadComponent: () =>
           import('./features/landing/specialties/implantologia/implantologia')
