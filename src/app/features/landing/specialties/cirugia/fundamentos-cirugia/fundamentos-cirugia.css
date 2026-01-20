@@ -45,7 +45,6 @@
   background-color: white;
 }
 
-/* Colores y Fondos */
 .bg-grey {
   position: relative;
   z-index: 1;
@@ -69,35 +68,60 @@
 
 .phase-header h2 {
   color: #2c3e50;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
 }
 
-.definition-box {
+.definition-card {
   border-left: 5px solid #7dc0bf;
-  padding: 25px;
+  padding: 30px;
   background: #fcfcfc;
-  margin-bottom: 40px;
+  margin-bottom: 50px;
 }
 
-/* Imágenes Reales */
+/* Imágenes */
 img {
   width: 100%;
   border-radius: 12px;
   margin: 20px 0;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.08);
   object-fit: cover;
 }
 
-.protocol-detail {
-  background: white;
-  padding: 15px 20px;
-  border-left: 3px solid #7dc0bf;
-  border-radius: 4px;
-  font-size: 0.95rem;
+/* Grillas y Listas */
+.grid-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+  margin: 20px 0;
 }
 
-.phase-block {
-  padding: 60px 0;
+.mini-card {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  border-top: 3px solid #7dc0bf;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+  font-size: 0.9rem;
+}
+
+.split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+.check-list {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.check {
+  padding: 15px;
+  border-left: 3px solid #7dc0bf;
+  background: #fcfcfc;
+  border-radius: 0 8px 8px 0;
 }
 
 /* Banner de Conclusión */
@@ -105,7 +129,7 @@ img {
   background: #7dc0bf;
   color: white;
   padding: 80px 40px;
-  margin-top: 60px;
+  margin-top: 80px;
   margin-left: calc(-50vw + 50%);
   margin-right: calc(-50vw + 50%);
   width: 100vw;
@@ -117,17 +141,9 @@ img {
   margin: 0 auto;
 }
 
-.conclusion-content h2 {
-  font-size: 2.5rem;
-  margin-bottom: 30px;
-}
-
-.conclusion-content p {
-  font-size: 1.1rem;
-  line-height: 1.8;
-  margin-bottom: 20px;
-}
+.conclusion-content h2 { font-size: 2.5rem; margin-bottom: 30px; }
 
 @media (max-width: 768px) {
+  .split, .grid-cards { grid-template-columns: 1fr; }
   .conclusion-banner { padding: 40px 20px; }
 }
