@@ -51,6 +51,12 @@ export const routes: Routes = [
             .then(m => m.Implantologia)
       },
       {
+        path: 'especialidades/implantologia/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/implantologia/fundamentos-implantologia/fundamentos-implantologia')
+            .then(m => m.FundamentosImplantologia)
+      },
+      {
         path: 'especialidades/odontologia-restauradora',
         loadComponent: () =>
           import('./features/landing/specialties/odontologia-general/odontologia-general')
@@ -69,10 +75,22 @@ export const routes: Routes = [
             .then(m => m.Ortodoncia)
       },
       {
+        path: 'especialidades/ortodoncia/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/ortodoncia/fundamentos-ortodoncia/fundamentos-ortodoncia')
+            .then(m => m.FundamentosOrtodoncia)
+      },
+      {
         path: 'especialidades/radiologia',
         loadComponent: () =>
           import('./features/landing/specialties/radiologia/radiologia')
             .then(m => m.Radiologia)
+      },
+      {
+        path: 'especialidades/radiologia/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/radiologia/fundamentos-radiologia/fundamentos-radiologia')
+            .then(m => m.FundamentosRadiologia)
       },
       {
         path: 'especialidades/rehabilitacion',
@@ -81,12 +99,23 @@ export const routes: Routes = [
             .then(m => m.Rehabilitacion)
       },
       {
+        path: 'especialidades/rehabilitacion/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/rehabilitacion/fundamentos-rehabilitacion/fundamentos-rehabilitacion')
+            .then(m => m.FundamentosRehabilitacion)
+      },
+      {
         path: 'especialidades/odontologia-estetica',
         loadComponent: () =>
           import('./features/landing/specialties/odontologia-estetica/odontologia-estetica')
             .then(m => m.OdontologiaEstetica)
       },
-
+      {
+        path: 'especialidades/odontologia-estetica/fundamentos',
+        loadComponent: () =>
+          import('./features/landing/specialties/odontologia-estetica/fundamentos-estetica/fundamentos-estetica')
+            .then(m => m.FundamentosEstetica)
+      },
       {
         path: 'login',
         canActivate: [GuestGuard],
