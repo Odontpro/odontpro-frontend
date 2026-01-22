@@ -10,9 +10,9 @@
 }
 
 .scientific-container {
-  max-width: 1100px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 40px 20px 80px 20px;
+  padding: 80px 20px 0 20px;
   color: #333;
   line-height: 1.8;
 }
@@ -47,6 +47,9 @@
 
 h4, h3, h2 {
   margin: 0;
+}
+h3{
+  margin-top: 10px;
 }
 
 .phase-header h2 {
@@ -87,7 +90,7 @@ h4, h3, h2 {
    ========================================================================== */
 
 .definition-card {
-  margin-bottom: 30px;
+  margin-bottom: 5px;
 }
 
 .split {
@@ -102,6 +105,17 @@ h4, h3, h2 {
   display: flex;
   gap: 40px;
   align-items: stretch;
+}
+
+.split.image-dominant {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* Texto más chico, imagen más grande */
+  gap: 60px; /* Aumentamos el espacio para que respire mejor */
+  align-items: start; /* Alinea el texto arriba si la imagen es muy larga */
+}
+
+.split.image-dominant .image-side {
+  width: 100%;
 }
 
 .text-side {
@@ -122,7 +136,7 @@ h4, h3, h2 {
 }
 
 .clinical-list li {
-  margin-bottom: 12px;
+  margin-bottom: 5px;
 }
 
 .warning-box li {
