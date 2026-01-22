@@ -41,6 +41,41 @@
   text-align: center;
 }
 
+.bg-img {
+  background-image: url('https://res.cloudinary.com/dgz0buqcx/image/upload/v1769035164/Imagen1_rasns0.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  position: relative;
+  padding: 80px 0;
+
+  /* --- ESTO ES LO QUE FALTA PARA EL FULL WIDTH --- */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  width: auto;
+  /* ----------------------------------------------- */
+}
+
+/* Asegúrate de que el pseudo-elemento ::before también cubra el área extendida */
+.bg-img::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 1;
+}
+
+.bg-img > div {
+  position: relative;
+  z-index: 2; /* Pone el contenido por encima de la capa */
+}
+
+
 /* ==========================================================================
    2. TIPOGRAFÍA Y ETIQUETAS
    ========================================================================== */
@@ -89,6 +124,10 @@ h3{
    3. COMPONENTES (CARDS, LISTAS, BLOQUES)
    ========================================================================== */
 
+.main-definition-card {
+  margin-bottom: 80px !important;
+}
+
 .definition-card {
   margin-bottom: 5px;
 }
@@ -116,6 +155,19 @@ h3{
 
 .split.image-dominant .image-side {
   width: 100%;
+}
+
+.split.text-dominant {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr; /* Texto más grande, imagen más pequeña */
+  gap: 50px;
+  align-items: start;
+}
+
+.split.text-dominant .image-side {
+  width: 100%;
+  position: sticky; /* Opcional: la imagen se queda fija mientras bajas el texto largo */
+  top: 20px;
 }
 
 .text-side {
@@ -228,12 +280,6 @@ img {
 .col-2 { grid-column: span 3; } /* 2 fotos (3+3=6) */
 .col-1 { grid-column: span 6; } /* 1 foto (Full width) */
 
-/* Variantes para Radiografías/Bottom */
-.col-2-bottom {
-  grid-column: span 3;
-  height: 140px;
-}
-
 .col-1-bottom {
   grid-column: span 6;
   height: 150px !important;
@@ -261,6 +307,31 @@ img {
 
 /* Móvil */
 @media (max-width: 600px) {
+  .phase-content.split {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de fila a columna */
+    gap: 20px;
+    width: 100%;
+  }
+
+  .phase-content.split .text-side,
+  .phase-content.split .image-side {
+    width: 100% !important; /* Fuerza el ancho total */
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* Ajuste opcional para invertir el orden si quieres que la imagen salga arriba */
+  .phase-content.split.image-dominant {
+    flex-direction: column-reverse;
+  }
+
+  /* Asegura que las imágenes dentro de la grilla ocupen el ancho disponible */
+  .custom-dental-grid-2 {
+    grid-template-columns: 1fr; /* O 1fr 1fr si quieres mantener 2 miniaturas */
+    gap: 10px;
+  }
+
   .phase-header h2, h2 {
     font-size: 1.5rem;
   }
@@ -295,12 +366,22 @@ img {
   .custom-dental-grid-2,
   .custom-dental-grid-3,
   .custom-dental-grid-4 {
+    display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
   }
 
-  .col-1, .col-2, .col-3, .col-2-bottom {
-    grid-column: span 1; /* Todas ocupan la mitad del ancho */
+  /* Si quieres que la imagen grande de arriba ocupe todo el ancho */
+  .col-1 {
+    grid-column: span 2;
+    height: auto !important; /* Deja que la imagen grande mantenga su proporción */
+  }
+
+  .col-2, .col-3 {
+    grid-column: span 1;
     height: 120px !important;
+    object-fit: cover; /* Evita que la imagen se estire feo */
   }
 
   /* Si quieres que una imagen sea pantalla completa en móvil */
@@ -313,6 +394,14 @@ img {
   }
 
   .bg-grey {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+  }
+
+  .bg-img {
     margin-left: 0;
     margin-right: 0;
     padding-left: 0;
