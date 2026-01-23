@@ -1,84 +1,429 @@
+/* ==========================================================================
+   1. LAYOUT GENERAL Y CONTENEDORES
+   ========================================================================== */
+
 .especialidad-page {
   min-height: calc(100vh - 64px);
   background-color: white;
   padding-top: 64px; /* Espacio para el header fijo */
-
   overflow-x: hidden;
 }
+
 .scientific-container {
-  max-width: 1000px;
+  max-width: 1200px;
   margin: 0 auto;
-  padding: 60px 20px;
-  line-height: 1.8;
+  padding: 80px 20px 0 20px;
   color: #333;
+  line-height: 1.8;
 }
 
-/* Manejo de Fondos Extendidos sin Scroll Horizontal */
-.bg-grey, .bg-dark {
+/* Bloques de fondo extendido (Full Width Backgrounds) */
+.phase-block {
+  padding: 80px 0;
+}
+
+.bg-grey {
+  background-color: #fcfcfc;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  width: auto;
+}
+
+.bg-dark {
+  background: #2c3e50;
+  color: white;
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding: 80px calc(50vw - 50%);
+  width: auto;
+  text-align: center;
+}
+
+.bg-img {
+  background-image: url('https://res.cloudinary.com/dgz0buqcx/image/upload/v1769035164/Imagen1_rasns0.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
   position: relative;
-  z-index: 1;
+  padding: 80px 0;
+
+  /* --- ESTO ES LO QUE FALTA PARA EL FULL WIDTH --- */
+  margin-left: calc(-50vw + 50%);
+  margin-right: calc(-50vw + 50%);
+  padding-left: calc(50vw - 50%);
+  padding-right: calc(50vw - 50%);
+  width: auto;
+  /* ----------------------------------------------- */
 }
 
-.bg-grey::before, .bg-dark::before {
+/* Asegúrate de que el pseudo-elemento ::before también cubra el área extendida */
+.bg-img::before {
   content: "";
   position: absolute;
   top: 0;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 100vw;
-  height: 100%;
-  z-index: -1;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, 0.85);
+  z-index: 1;
 }
 
-.bg-grey::before { background-color: #fcfcfc; }
-.bg-dark::before { background-color: #2c3e50; }
-
-.white-text { color: white; }
-
-/* Estructura de Fases */
-.phase-block { padding: 80px 0; }
-.phase-num { color: #7dc0bf; font-weight: 800; letter-spacing: 2px; font-size: 0.9rem; }
-.phase-header h2 { font-size: 2rem; margin-bottom: 30px; color: #2c3e50; }
-
-.split { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
-
-/* Tarjetas y Grillas */
-.grid-2-cols, .dual-box { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-.tech-card, .box-item {
-  background: white;
-  padding: 30px;
-  border-radius: 12px;
-  border: 1px solid #eee;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.03);
+.bg-img > div {
+  position: relative;
+  z-index: 2; /* Pone el contenido por encima de la capa */
 }
 
-.info-grid { display: flex; gap: 20px; margin-bottom: 30px; }
-.info-item { flex: 1; background: #f0f7f7; padding: 20px; border-radius: 8px; border-left: 4px solid #7dc0bf; }
 
-/* Imágenes */
-.ref-label { font-size: 0.75rem; color: #999; font-family: monospace; margin-bottom: 8px; }
-img { width: 100%; border-radius: 10px; display: block; }
-.image-full { margin-top: 20px; }
+/* ==========================================================================
+   2. TIPOGRAFÍA Y ETIQUETAS
+   ========================================================================== */
 
-.img-row {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 10px;
-  margin-top: 15px;
+h4, h3, h2 {
+  margin: 0;
+}
+h3{
+  margin-top: 10px;
 }
 
-/* Definición */
+.phase-header h2 {
+  font-size: 2rem;
+  margin-top: 5px;
+  color: #2c3e50;
+}
+
+.white-text {
+  color: white !important;
+}
+
+.tag-clinical {
+  background: #7dc0bf;
+  color: white;
+  padding: 4px 12px;
+  font-size: 0.8rem;
+  font-weight: bold;
+  border-radius: 4px;
+}
+
+.phase-num {
+  color: #7dc0bf;
+  font-weight: 800;
+  letter-spacing: 2px;
+  font-size: 0.9rem;
+}
+
+.ref-label {
+  font-size: 0.75rem;
+  color: #999;
+  font-family: monospace;
+  margin-bottom: 5px;
+}
+
+/* ==========================================================================
+   3. COMPONENTES (CARDS, LISTAS, BLOQUES)
+   ========================================================================== */
+
+.main-definition-card {
+  margin-bottom: 80px !important;
+}
+
 .definition-card {
-  border-left: 5px solid #7dc0bf;
-  padding: 30px 40px;
-  background: #f9f9f9;
-  margin-bottom: 40px;
+  margin-bottom: 5px;
 }
-.main-definition { font-size: 1.3rem; font-style: italic; color: #444; }
 
-/* Responsive */
-@media (max-width: 768px) {
-  .split, .grid-2-cols, .dual-box, .img-row { grid-template-columns: 1fr; }
-  .img-row { grid-template-columns: 1fr 1fr; }
-  .phase-header h2 { font-size: 1.6rem; }
+.split {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 40px;
+  align-items: center;
+}
+
+/* Ajuste específico para alineación de texto y fotos */
+.phase-content.split {
+  display: flex;
+  gap: 40px;
+  align-items: stretch;
+}
+
+.split.image-dominant {
+  display: grid;
+  grid-template-columns: 0.8fr 1.2fr; /* Texto más chico, imagen más grande */
+  gap: 60px; /* Aumentamos el espacio para que respire mejor */
+  align-items: start; /* Alinea el texto arriba si la imagen es muy larga */
+}
+
+.split.image-dominant .image-side {
+  width: 100%;
+}
+
+.split.text-dominant {
+  display: grid;
+  grid-template-columns: 1.3fr 0.7fr; /* Texto más grande, imagen más pequeña */
+  gap: 50px;
+  align-items: start;
+}
+
+.split.text-dominant .image-side {
+  width: 100%;
+  position: sticky; /* Opcional: la imagen se queda fija mientras bajas el texto largo */
+  top: 20px;
+}
+
+.text-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.clinical-list {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  padding-left: 20px; /* Recuperado de .clinical-list original */
+}
+
+.clinical-list li {
+  margin-bottom: 5px;
+}
+
+.warning-box li {
+  margin-bottom: 5px !important;
+}
+
+.black-classification {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+  margin: 40px 0;
+}
+
+/* ==========================================================================
+   4. IMÁGENES Y MULTIMEDIA GENERAL
+   ========================================================================== */
+
+img {
+  width: 100%;
+  border-radius: 12px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+}
+
+.image-side {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  justify-content: space-around;
+}
+
+.main-document img {
+  width: 100%;
+  background: #f9f9f9;
+  border-radius: 8px;
+  margin-bottom: 15px;
+}
+
+/* ==========================================================================
+   5. SISTEMAS DE GRILLAS DENTALES (GRILLAS ESPECÍFICAS)
+   ========================================================================== */
+
+.gallery-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+  margin-top: 20px;
+}
+
+/* Contenedores base de grilla de 6 columnas */
+.custom-dental-grid,
+.custom-dental-grid-2,
+.custom-dental-grid-3,
+.custom-dental-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+}
+
+/* Estilos específicos por grupo de grilla */
+.custom-dental-grid img {
+  width: 100%;
+  height: 110px;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.custom-dental-grid-2 img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.custom-dental-grid-3 img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+  margin-bottom: 50px;
+}
+
+.custom-dental-grid-4 img {
+  width: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+/* Clases de control de ancho de columnas (Spans) */
+.col-3 { grid-column: span 2; } /* 3 fotos (2+2+2=6) */
+.col-2 { grid-column: span 3; } /* 2 fotos (3+3=6) */
+.col-1 { grid-column: span 6; } /* 1 foto (Full width) */
+
+.col-1-bottom {
+  grid-column: span 6;
+  height: 150px !important;
+}
+
+/* ==========================================================================
+   6. RESPONSIVE / MEDIA QUERIES
+   ========================================================================== */
+
+/* Tablet y Desktop pequeño */
+@media (max-width: 992px) {
+  .split {
+    flex-direction: column; /* Apila el contenido verticalmente */
+    gap: 30px;
+  }
+
+  .text-side, .image-side {
+    width: 100%;
+  }
+
+  .scientific-container {
+    padding: 20px;
+  }
+}
+
+/* Móvil */
+@media (max-width: 600px) {
+  .phase-content.split {
+    display: flex;
+    flex-direction: column; /* Cambia la dirección de fila a columna */
+    gap: 20px;
+    width: 100%;
+  }
+
+  .phase-content.split .text-side,
+  .phase-content.split .image-side {
+    width: 100% !important; /* Fuerza el ancho total */
+    max-width: 100%;
+    padding: 0;
+  }
+
+  /* Ajuste opcional para invertir el orden si quieres que la imagen salga arriba */
+  .phase-content.split.image-dominant {
+    flex-direction: column-reverse;
+  }
+
+  /* Asegura que las imágenes dentro de la grilla ocupen el ancho disponible */
+  .custom-dental-grid-2 {
+    grid-template-columns: 1fr; /* O 1fr 1fr si quieres mantener 2 miniaturas */
+    gap: 10px;
+  }
+
+  .phase-header h2, h2 {
+    font-size: 1.5rem;
+  }
+  .main-definition,
+  .text-side p,
+  .clinical-list li {
+    text-align: justify;
+    text-justify: inter-word; /* Mejora el espaciado entre palabras en navegadores modernos */
+    hyphens: auto;           /* Divide las palabras largas con guiones para evitar huecos */
+    -webkit-hyphens: auto;
+    -ms-hyphens: auto;
+    line-height: 1.6;        /* Un poco más apretado para móvil mejora la lectura */
+  }
+
+  .custom-dental-grid-3 img {
+    margin-bottom: 0;
+  }
+
+  /* Ajuste de márgenes para que el texto no toque los bordes del móvil */
+  .scientific-container {
+    padding: 20px 15px;
+  }
+
+  /* Evitar que las sub-listas pierdan la alineación */
+  .sub-list {
+    padding-left: 15px;
+    text-align: left; /* Opcional: a veces las listas cortas se ven mejor a la izquierda */
+  }
+
+  /* Ajustamos las grillas para que en móvil sean máximo 2 columnas */
+  .custom-dental-grid,
+  .custom-dental-grid-2,
+  .custom-dental-grid-3,
+  .custom-dental-grid-4 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+    width: 100%;
+  }
+
+  /* Si quieres que la imagen grande de arriba ocupe todo el ancho */
+  .col-1 {
+    grid-column: span 2;
+    height: auto !important; /* Deja que la imagen grande mantenga su proporción */
+  }
+
+  .col-2, .col-3 {
+    grid-column: span 1;
+    height: 120px !important;
+    object-fit: cover; /* Evita que la imagen se estire feo */
+  }
+
+  /* Si quieres que una imagen sea pantalla completa en móvil */
+  .col-full-mobile {
+    grid-column: span 2;
+  }
+
+  .phase-block {
+    padding: 40px 0;
+  }
+
+  .bg-grey {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+  }
+
+  .bg-img {
+    margin-left: 0;
+    margin-right: 0;
+    padding-left: 0;
+    padding-right: 0;
+    width: auto;
+  }
+}
+
+/* ==========================================================================
+   5. UTILIDADES EXTRAS
+   ========================================================================== */
+.bg-dark {
+  background: #2c3e50;
+  color: white;
+  padding: 60px 20px;
+  text-align: center;
+}
+
+cite {
+  display: block;
+  font-size: 0.9rem;
+  color: #777;
+  margin-top: 10px;
+  font-style: italic;
 }
