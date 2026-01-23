@@ -1,186 +1,325 @@
 <div class="especialidad-page">
-  <app-banner-especialidad [titulo]="'Fundamentos de Implantología'"></app-banner-especialidad>
+  <app-banner-especialidad [titulo]="'Fundamentos de Implantologia'"></app-banner-especialidad>
 
   <div class="scientific-container">
 
-    <section class="doc-section">
-      <div class="definition-box">
-        <span class="tag-clinical">Concepto Académico</span>
-        <p>
-          La <strong>Implantología Oral</strong> es la disciplina que se ocupa de la rehabilitación funcional y estética mediante la colocación de un sustituto biológico (implante dental). Se fundamenta en la <strong>osteointegración</strong>, definida como la conexión directa, estructural y funcional entre el hueso vivo y la superficie del implante bajo carga funcional.
-        </p>
-        <cite>— Misch, C. E. (2020). Misch's Contemporary Implant Dentistry.</cite>
-      </div>
-    </section>
+    <div class="definition-card">
+      <span class="tag-clinical">Definición Académica</span>
+      <p class="main-definition">
+        La <strong>Implantología Oral</strong> es la disciplina de la Odontología que se ocupa de la rehabilitación funcional y estética del paciente edéntulo parcial o total mediante la colocación de un sustituto biológico (el implante dental) en los huesos maxilares, que sirve como soporte para una prótesis dental. Su fundamento científico es el proceso biológico de la osteointegración, definida como la conexión directa, estructural y funcional, entre el hueso vivo y ordenado y la superficie de un implante bajo carga funcional. Es una especialidad que requiere la integración de principios biológicos, biomecánicos, protésicos y estéticos para lograr un éxito a largo plazo.
+      </p>
+      <cite>— Misch, C. E. (Editado por Resnik, R. R.). (2020). Misch's Contemporary Implant Dentistry (4th ed.). Elsevier.</cite>
+    </div>
 
     <section class="phase-block">
-      <div class="phase-header">
-        <span class="phase-num">FASE 1</span>
-        <h2>Diagnóstico Integral y Planificación Protésica-Guiada</h2>
-      </div>
-      <div class="phase-content">
-        <p class="obj"><strong>Objetivo:</strong> Determinar la viabilidad del tratamiento y definir la posición ideal basada en la prótesis final.</p>
+      <div>
+        <div class="phase-content split ">
+          <div class="text-side">
+            <span class="phase-num">Capítulo 1</span>
+            <h2>"Rationale for Dental Implants" (Páginas 1-15)</h2>
+            <p class="obj">En este capítulo, Misch establece la filosofía de la especialidad, definiendo su objetivo final como la "rehabilitación oral" y no solo la colocación de un implante.</p>
 
-        <div class="protocol-grid">
-          <div class="protocol-item">
-            <span class="item-num">1</span>
-            <h4>Historia Médica y Dental Exhaustiva</h4>
-            <p>Evaluación de riesgos absolutos y relativos: diabetes no controlada, tabaquismo activo (>10 cigarrillos/día), bisfosfonatos y parafunciones (bruxismo).</p>
-          </div>
-          <div class="protocol-item">
-            <span class="item-num">2</span>
-            <h4>Análisis Clínico de la Zona Edéntula</h4>
-            <p>Evaluación del espacio inter-oclusal, anchura del reborde alveolar y calidad de la encía queratinizada.</p>
-          </div>
-          <div class="protocol-item">
-            <span class="item-num">3</span>
-            <h4>Estudio Radiográfico Avanzado</h4>
-            <p>Uso obligatorio de <strong>CBCT (Tomografía)</strong>. Localización del canal mandibular, seno maxilar y medición de la densidad ósea (Unidades Hounsfield).</p>
-          </div>
-          <div class="protocol-item">
-            <span class="item-num">4</span>
-            <h4>Encerado Diagnóstico y Guía Quirúrgica</h4>
-            <p>Planificación de la posición del diente ideal para confeccionar la guía que dirija la inserción del implante.</p>
+            <hr>
+
+            <span class="phase-num">FASE 1</span>
+            <h2>DIAGNÓSTICO INTEGRAL Y PLANIFICACIÓN PROTÉSICA GUIADA</h2>
+            <p class="obj"><strong>Objetivo:</strong> Determinar la viabilidad del tratamiento, planificar la prótesis final y definir la posición ideal de los implantes.</p>
+
+
+
+            <h3>Procedimientos (Diagnóstico Misch):</h3>
+            <ul class="clinical-list">
+              <li>
+                <strong>1. Historia Médica y Dental Exhaustiva:</strong>
+                <span>Evaluar riesgos absolutos y relativos (diabetes no controlada, osteoporosis bajo bifosfonatos IV, radioterapia en zona).</span>
+              </li>
+
+              <li>
+                <strong>2. Examen Clínico Extrabucal e Intrabucal:</strong>
+                <ul class="sub-list">
+                  <li>Labios, sonrisa, fonética.</li>
+                  <li>Relación maxilo-mandibular (Clase I, II, III).</li>
+                  <li>Apertura bucal (mínimo 40-50 mm para procedimiento posterior).</li>
+                </ul>
+              </li>
+
+              <li>
+                <strong>3. Diagnóstico Periodontal Obligatorio:</strong>
+                <ul class="sub-list">
+                  <li>Índices de placa y sangrado.</li>
+                  <li>Sondeo periodontal completo (6 puntos por diente) para diagnosticar y tratar periodontitis activa (contraindicación relativa hasta su control).</li>
+                  <li>Evaluar fenotipo periodontal (grueso/delgado).</li>
+                  <li>Movilidad dental.</li>
+                </ul>
+              </li>
+            </ul>
           </div>
         </div>
-
       </div>
+
     </section>
 
     <section class="phase-block bg-grey">
-      <div class="phase-header">
-        <span class="phase-num">FASE 2</span>
-        <h2>Fase Quirúrgica (Colocación del Implante)</h2>
-      </div>
       <div class="phase-content split">
         <div class="text-side">
-          <p class="obj"><strong>Objetivo:</strong> Colocar el implante de forma atraumática para permitir la osteointegración.</p>
-          <div class="protocol-list">
-            <div class="list-step">
-              <strong>1. Preparación del Lecho:</strong> Fresado secuencial con velocidad controlada e irrigación profusa con suero fisiológico para evitar la necrosis térmica del hueso (>47°C).
-            </div>
-            <div class="list-step">
-              <strong>2. Inserción del Implante:</strong> Control del torque de inserción (Ncm) para asegurar estabilidad primaria.
-            </div>
-            <div class="list-step">
-              <strong>3. Protocolos de Cierre:</strong> Selección entre técnica sumergida (2 etapas) o no sumergida (1 etapa) con pilar de cicatrización.
-            </div>
-          </div>
+          <ul class="clinical-list">
+            <li><strong>4. Diagnóstico Protésico (Lo Primero):</strong>
+              <ul class="sub-list">
+                <li>Análisis del Espacio Protésico: Altura, ancho y relación con antagonista.</li>
+                <li>Tipo de Prótesis Planeada: Corona unitaria, puente implantosoportado, sobredentadura.</li>
+                <li>Diseño de la Sonrisa y Mock-up estético-funcional.</li>
+              </ul>
+            </li>
+
+            <li><strong>5. Imagenología Tridimensional (Protocolo Misch):</strong>
+              <ul class="sub-list">
+                <li>Radiografía Panorámica: Evaluación inicial, altura ósea aproximada.</li>
+                <li><strong>TOMOGRAFÍA COMPUTARIZADA DE HAZ CÓNICO (CBCT) OBLIGATORIA:</strong> Para:
+                  <ul class="sub-list">
+                    <li>Medición exacta de altura, ancho y densidad ósea (Clasificación de hueso Misch: D1-D4).</li>
+                    <li>Identificación de estructuras anatómicas críticas (nervio dentario inferior, seno maxilar, foramen mentoniano).</li>
+                    <li>Planificación virtual 3D del implante (posición, longitud, diámetro, angulación) usando software específico (ex: NobelClinician, coDiagnostiX).</li>
+                    <li>Guía Quirúrgica Estereolitográfica: Fabricada a partir de la planificación 3D, para transferir la posición planificada al acto quirúrgico con precisión.</li>
+                  </ul>
+                </li>
+              </ul>
+            </li>
+          </ul>
+
+
+
+          <hr>
+
+          <span class="phase-num">FASE 2</span>
+          <h2>TERAPIA PRE-IMPLANTARIA (Preparación del Terreno Biológico)</h2>
+          <p class="obj"><strong>Objetivo:</strong> Crear un entorno oral sano y establecer una arquitectura de tejidos óptima.</p>
+
+          <ul class="clinical-list">
+            <li><strong>1. Terapia Periodontal Completa:</strong> Raspado y alisado radicular. En casos severos, cirugías resectivas o regenerativas. El paciente debe estar en fase de mantenimiento periodontal.</li>
+            <li><strong>2. Exodoncias y Alveoloplastias:</strong> Extracción de dientes con mal pronóstico y remodelación del reborde alveolar.</li>
+            <li><strong>3. Regeneración Ósea Guiada (ROG) o Elevación de Seno Maxilar:</strong> Si el volumen óseo es insuficiente (principio de prostodoncia primero). Estas cirugías pueden ser simultáneas o previas a la colocación del implante.</li>
+            <li><strong>4. Ortodoncia Preprotésica:</strong> Para cerrar espacios, abrir espacio para implantes o corregir inclinaciones dentarias.</li>
+          </ul>
         </div>
         <div class="image-side">
-          <p class="ref-label">[Imagen de referencia: Proceso de fresado e inserción]</p>
-          <img src="https://picsum.photos/600/400?implant-drill" alt="Proceso quirúrgico">
+          <div class="custom-dental-grid-2">
+            <img src="https://picsum.photos/400/300?8" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="phase-block ">
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">FASE 3</span>
+          <h2>CIRUGÍA IMPLANTAR (Colocación del Implante)</h2>
+          <p class="obj"><strong>Objetivo:</strong> Insertar el implante en la posición tridimensional planificada, preservando la vitalidad ósea.</p>
+
+          <h3>Protocolo Quirúrgico (Principios de Misch):</h3>
+          <ul class="clinical-list">
+            <li><strong>1. Asepsia y Antisepsia:</strong> Lavado quirúrgico, campo estéril, enjuague de clorhexidina 0.12%.</li>
+            <li><strong>2. Anestesia Local.</strong></li>
+            <li><strong>3. Incisión y Diseño del Colgajo:</strong> Técnica de colgajo de espesor total o, cuando sea posible, técnica transmucosa (sin colgajo) usando la guía quirúrgica.</li>
+            <li><strong>4. Secuencia de Fresado (Osteotomía):</strong>
+              <ul class="sub-list">
+                <li>Refrigeración constante con suero fisiológico estéril frío.</li>
+                <li>Uso de fresas en secuencia progresiva (de menor a mayor diámetro) a velocidad controlada (&lt; 800 RPM bajo carga).</li>
+                <li>Respetar la posición 3D planificada (coronal/apical, vestíbulo lingual, mesio-distal).</li>
+              </ul>
+            </li>
+            <li><strong>5. Inserción del Implante:</strong> A velocidad lenta (15-30 RPM) con un torque de inserción controlado. El implante se coloca a nivel de la cresta ósea o ligeramente subcrestal (0.5-1 mm).</li>
+            <li><strong>6. Colocación del Tapón de Cura o Pilar de Cicatrización.</strong></li>
+            <li><strong>7. Cierre Primario:</strong> Técnica con colgajo o adaptación de la encía perimplantar (técnica sin colgajo).</li>
+          </ul>
+
+          <hr>
+
+          <span class="phase-num">FASE 4</span>
+          <h2>OSTEOINTEGRACIÓN (Fase de Curación)</h2>
+          <p class="obj"><strong>Objetivo:</strong> Permitir la formación de hueso nuevo en contacto directo con la superficie del implante.</p>
+
+
+
+          <h3>Procedimientos:</h3>
+          <ul class="clinical-list">
+            <li><strong>1. Tiempos de Curación (Misch):</strong> Varían según la densidad ósea y la estabilidad primaria (torque de inserción).
+              <ul class="sub-list">
+                <li>Mandíbula (hueso D1-D2): 2-3 meses.</li>
+                <li>Maxilar (hueso D3-D4): 4-6 meses.</li>
+                <li>Carga Inmediata/Temprana: Solo en casos seleccionados con alta estabilidad primaria (&gt;35Ncm) y oclusión protegida.</li>
+              </ul>
+            </li>
+            <li><strong>2. Control Post-operatorio:</strong> A los 7-10 días para retirar suturas.</li>
+            <li><strong>3. Prótesis Provisional:</strong> Removible (con alivio en la zona) o fija sobre dientes adyacentes, sin contacto con el implante en cicatrización.</li>
+          </ul>
+        </div>
+        <div class="image-side">
+          <div class="custom-dental-grid-3">
+            <img src="https://picsum.photos/400/300?8" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="phase-block bg-grey">
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">FASE 5</span>
+          <h2>RESTAURACIÓN PROTÉSICA (Fase Rehabilitadora)</h2>
+          <p class="obj"><strong>Objetivo:</strong> Diseñar, fabricar y colocar la prótesis definitiva que transmita fuerzas funcionales de forma adecuada al implante y al hueso.</p>
+
+
+
+          <h3>Sub-fases:</h3>
+          <ul class="clinical-list">
+            <li>
+              <strong>1. Toma de Impresiones de Precisión:</strong>
+              <ul class="sub-list">
+                <li>Uso de copings de transferencia (convencional) o escaneado intraoral (digital).</li>
+                <li>Impresión a nivel del implante o a nivel del pilar personalizado.</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>2. Registro de Relación Maxilo-Mandibular:</strong>
+              <span>Montaje en articulador semiajustable.</span>
+            </li>
+
+            <li>
+              <strong>3. Pruebas de Estructura y Estética:</strong>
+              <ul class="sub-list">
+                <li>Prueba del pilar personalizado (en metal o zirconio).</li>
+                <li>Prueba de la cerámica (en cerámica o resina).</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>4. Diseño de la Prótesis (Principios Biomecánicos Misch):</strong>
+              <ul class="sub-list">
+                <li>Pasiva total del ajuste del pilar sobre el implante.</li>
+                <li>Eje de carga axial siempre que sea posible.</li>
+                <li>Proporción Corona-Implante (C/I) favorable (idealmente < 1.5).</li>
+                <li>Material protésico: Zirconia, cerámica feldespática, metal-cerámica, acrílico (para sobredentaduras).</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>5. Cementado o Atornillado:</strong>
+              <ul class="sub-list">
+                <li>Prótesis atornillada: Permite recuperabilidad, requiere acceso oclusal.</li>
+                <li>Prótesis cementada: Estética superior, más difícil de recuperar.</li>
+                <li>Usar cemento provisional (óxido de zinc eugenol sin eugenol) o definitivo según diseño.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="image-side">
+          <div class="custom-dental-grid-2">
+            <img src="https://picsum.photos/400/300?8" class="col-2" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-2" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+          </div>
         </div>
       </div>
     </section>
 
     <section class="phase-block">
-      <div class="phase-header">
-        <span class="phase-num">FASE 3</span>
-        <h2>Fase de Osteointegración (Cicatrización Biológica)</h2>
-      </div>
-      <div class="phase-content">
-        <p class="obj"><strong>Objetivo:</strong> Permitir la formación de hueso alrededor del implante sin cargas mecánicas prematuras.</p>
-        <div class="biological-grid">
-          <div class="bio-card">
-            <h4>1. Tiempos de Espera</h4>
-            <p>Mandíbula: 3-4 meses. Maxilar: 4-6 meses (debido a la densidad ósea tipo D3/D4).</p>
-          </div>
-          <div class="bio-card">
-            <h4>2. Control Post-operatorio</h4>
-            <p>Retiro de suturas a los 7-10 días y monitoreo de la salud de los tejidos blandos.</p>
-          </div>
-          <div class="bio-card">
-            <h4>3. Segunda Cirugía</h4>
-            <p>Si aplica, conexión del pilar para conformar el perfil de emergencia de la encía.</p>
-          </div>
-        </div>
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">FASE 6</span>
+          <h2>MANTENIMIENTO PERI-IMPLANTAR (Fase Crítica de Supervivencia a Largo Plazo)</h2>
+          <p class="obj"><strong>Objetivo:</strong> Monitorizar la salud de los tejidos peri-implantares y prevenir las complicaciones biológicas (mucositis, periimplantitis) y mecánicas.</p>
 
-      </div>
-    </section>
 
-    <section class="phase-block bg-grey">
-      <div class="phase-header">
-        <span class="phase-num">FASE 4</span>
-        <h2>Fase Protésica (Rehabilitación)</h2>
-      </div>
-      <div class="phase-content split-alt">
-        <div class="image-side">
-          <p class="ref-label">[Imagen de referencia: Corona sobre implante]</p>
-          <img src="https://picsum.photos/600/400?dental-crown" alt="Prótesis final">
+
+          <h3>Protocolo de Mantenimiento (Basado en Consenso de la Academia Europea de Osteointegración- EAO):</h3>
+          <ul class="clinical-list">
+            <li>
+              <strong>1. Evaluación Clínica Periódica (cada 6-12 meses):</strong>
+              <ul class="sub-list">
+                <li><strong>Sangrado al Sondeo (BOP):</strong> Indicador primario de inflamación.</li>
+                <li><strong>Profundidad de Sondaje Peri-Implantar (PSP):</strong> Valores estables (< 5 mm sin sangrado). Aumentos >2 mm son señal de alarma.</li>
+                <li><strong>Movilidad (con torqueométro)</strong>.</li>
+                <li><strong>Presencia de supuración</strong>.</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>2. Evaluación Radiográfica Anual:</strong>
+              <span>Radiografía periapical para evaluar pérdida ósea marginal (>0.2 mm/año es patológico).</span>
+            </li>
+
+            <li>
+              <strong>3. Higiene Peri-Implantar Personalizada:</strong>
+              <ul class="sub-list">
+                <li><strong>Instrumentación profesional:</strong> Con curetas de plástico, titanio o grafito. NUNCA con curetas de acero (rayan el implante).</li>
+                <li><strong>Instrucción al paciente:</strong> Cepillos interproximales especiales (ej: TePe Implant Care), sedas no deshilachables, irrigadores.</li>
+              </ul>
+            </li>
+
+            <li>
+              <strong>4. Re-torqueo de Tornillos de Pilar y Prótesis:</strong>
+              <span>Según las recomendaciones del fabricante (generalmente a los 6 meses y 1 año).</span>
+            </li>
+
+            <li>
+              <strong>5. Detectar y Tratar Complicaciones Tempranamente:</strong>
+              <ul class="sub-list">
+                <li><strong>Mucositis Peri-Implantar (BOP sin pérdida ósea):</strong> Terapia mecánica y antisépticos (clorhexidina 0.12%).</li>
+                <li><strong>Periimplantitis (BOP + pérdida ósea):</strong> Desbridamiento con instrumentos específicos, terapia láser, antibióticos locales/tópicos y, en casos avanzados, cirugía resectiva o regenerativa.</li>
+              </ul>
+            </li>
+          </ul>
         </div>
         <div class="text-side">
-          <div class="protocol-list">
-            <div class="list-step"><strong>1. Toma de Impresiones:</strong> Uso de transfer (cubeta abierta/cerrada) o escaneo intraoral digital.</div>
-            <div class="list-step"><strong>2. Pruebas de Estructura:</strong> Verificación del ajuste pasivo (Test de Sheffield), estética y oclusión.</div>
-            <div class="list-step"><strong>3. Instalación:</strong> Fijación atornillada o cementada sobre el pilar.</div>
-            <div class="list-step"><strong>4. Ajuste Oclusal:</strong> Control de fuerzas para evitar la sobrecarga biomecánica.</div>
-          </div>
+          <span class="phase-num">SÍNTESIS</span>
+          <h2>CONSEJOS CLAVE DEL PROTOCOLO (Síntesis de Misch y Consensos EAO/ITI)</h2>
+
+
+
+          <ul class="clinical-list">
+            <li>
+              <strong>1. "La prótesis planifica la cirugía, no al revés" (Principio de Prostodoncia Primero):</strong>
+              <span>Decide el tipo de corona/dentadura antes de elegir el implante.</span>
+            </li>
+
+            <li>
+              <strong>2. "La osteointegración no es un milagro, es una respuesta biológica predecible a un trauma controlado":</strong>
+              <span>La técnica quirúrgica atraumática y el diseño del implante son clave.</span>
+            </li>
+
+            <li>
+              <strong>3. "No existe implante sin mantenimiento":</strong>
+              <span>La periimplantitis es la principal causa de fracaso a largo plazo. Un programa de mantenimiento es obligatorio.</span>
+            </li>
+
+            <li>
+              <strong>4. "La biología dicta el tiempo, la biomecánica dicta el diseño":</strong>
+              <span>Respeta los tiempos de osteointegración según la calidad ósea y diseña la prótesis para distribuir las fuerzas.</span>
+            </li>
+
+            <li>
+              <strong>5. "Más implantes no siempre es mejor. Implantes estratégicamente colocados es la clave":</strong>
+              <span>Sigue los conceptos de zonas de prótesis (Misch) y consideraciones biomecánicas para determinar el número y posición.</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <br>
+      <div class="text-side">
+        <div class="definition-card" style="margin-top: 20px; border-left: 4px solid #cc0000; background-color: #fffafa; padding: 20px;">
+          <p>
+            Este protocolo, que integra la filosofía de Misch con los últimos consensos internacionales (ITI, EAO), proporciona un marco riguroso, desde el diagnóstico hasta el mantenimiento de por vida, para lograr resultados predecibles y exitosos en Implantología Oral.
+          </p>
         </div>
       </div>
     </section>
 
-    <section class="phase-block">
-      <div class="phase-header">
-        <span class="phase-num">FASE 5</span>
-        <h2>Fase de Mantenimiento y Control</h2>
-      </div>
-      <div class="phase-content">
-        <div class="maintenance-grid">
-          <div class="m-item">
-            <strong>1. Higiene Específica:</strong> Cepillos interproximales y seda dental especial (Superfloss).
-          </div>
-          <div class="m-item">
-            <strong>2. Visitas de Seguimiento:</strong> Evaluación clínica del sondaje y estabilidad cada 6 meses.
-          </div>
-          <div class="m-item">
-            <strong>3. Monitoreo Radiográfico:</strong> Radiografías periapicales anuales para medir pérdida ósea marginal.
-          </div>
-        </div>
-      </div>
-    </section>
 
-    <section class="phase-block bg-grey">
-      <div class="phase-header">
-        <span class="phase-num">FASE 6</span>
-        <h2>Tratamiento de Complicaciones</h2>
-      </div>
-      <div class="phase-content dual-panel">
-        <div class="panel">
-          <h4>1. Mucositis Peri-Implantar</h4>
-          <p>Inflamación reversible. Tratamiento mediante desbridamiento mecánico y clorhexidina al 0.12%.</p>
-        </div>
-        <div class="panel">
-          <h4>2. Periimplantitis</h4>
-          <p>Pérdida ósea activa. Requiere terapia láser, antibióticos locales o cirugía regenerativa avanzada.</p>
-        </div>
-      </div>
-    </section>
-
-    <section class="misch-section">
-      <div class="misch-container">
-        <h2 class="misch-title">CONSEJOS CLAVE DEL PROTOCOLO</h2>
-        <p class="misch-subtitle">Síntesis de Misch y Consensos EAO/ITI</p>
-
-        <div class="misch-grid">
-          <div class="misch-card">
-            <p>"La prótesis planifica la cirugía, no al revés". Decide la corona antes de elegir el implante.</p>
-          </div>
-          <div class="misch-card">
-            <p>"La osteointegración es una respuesta biológica predecible a un trauma quirúrgico controlado".</p>
-          </div>
-          <div class="misch-card">
-            <p>"No existe implante sin mantenimiento". La periimplantitis es la principal causa de fracaso tardío.</p>
-          </div>
-          <div class="misch-card">
-            <p>"La biología dicta el tiempo, la biomecánica dicta el diseño". Respeta la cicatrización ósea.</p>
-          </div>
-          <div class="misch-card">
-            <p>"Más implantes no siempre es mejor". La posición estratégica es la clave del éxito.</p>
-          </div>
-        </div>
-      </div>
-    </section>
 
   </div>
 </div>

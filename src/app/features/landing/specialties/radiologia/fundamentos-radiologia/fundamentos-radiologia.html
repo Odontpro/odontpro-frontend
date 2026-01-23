@@ -1,119 +1,413 @@
 <div class="especialidad-page">
-  <app-banner-especialidad [titulo]="'Fundamentos de Radiología Oral y Maxilofacial'"></app-banner-especialidad>
+  <app-banner-especialidad [titulo]="'Fundamentos de Radiologia y Maxilofacial'"></app-banner-especialidad>
 
   <div class="scientific-container">
 
-    <section class="doc-section">
-      <div class="definition-box">
-        <span class="tag-clinical">Estudio e Interpretación</span>
-        <p>
-          Es la rama que se ocupa de la generación e interpretación de imágenes mediante radiación para diagnosticar y planificar tratamientos de enfermedades en los maxilares y tejidos circundantes. Su práctica exige el dominio de la <strong>protección radiológica</strong>, la anatomía y la patología.
-        </p>
-        <cite>— White, S. C., & Pharoah, M. J. (Oral Radiology: Principles and Interpretation, 2018)</cite>
-      </div>
-    </section>
+    <div class="definition-card">
+      <span class="tag-clinical">Definición Académica</span>
+      <p class="main-definition">
+        La <strong>Radiología Oral y Maxilofacial</strong> es la rama de la odontología y la medicina que se ocupa del estudio e interpretación de las imágenes obtenidas mediante diversos tipos de radiación electromagnética y acústica, con el fin de diagnosticar, evaluar y planificar el tratamiento de las enfermedades, anomalías y condiciones normales de los maxilares, estructuras dentales, tejidos circundantes y regiones anatómicas relacionadas en la cabeza y el cuello. Su práctica requiere el conocimiento de la producción de imágenes, la protección radiológica, la anatomía radiográfica y la patología.
+      </p>
+      <cite>— White, S. C., & Pharoah, M. J. (2018). Oral Radiology: Principles and Interpretation (8th ed.). Elsevier.</cite>
+    </div>
 
     <section class="phase-block">
-      <div class="phase-header">
-        <span class="phase-num">ETAPA 1</span>
-        <h2>Protección y Justificación (Protocolo ALARA)</h2>
-      </div>
-      <div class="phase-content">
-        <p class="obj"><strong>Objetivo:</strong> Garantizar que cada exposición sea segura y estrictamente necesaria.</p>
+      <div>
+        <div class="phase-content split ">
+          <div class="text-side">
+            <span class="phase-num">PRINCIPIOS RADIOLÓGICOS</span>
+            <h2>1. Principios de Justificación y Optimización (ALARA)</h2>
 
-        <div class="alara-grid">
-          <div class="alara-card">
-            <h4>Justificación</h4>
-            <p>Ningún examen se realiza sin indicación clínica. El beneficio debe superar el riesgo.</p>
+            <ul class="clinical-list">
+              <li>
+                <strong>Justificación:</strong> Ningún examen radiográfico debe realizarse sin una indicación clínica válida. El beneficio diagnóstico debe superar el riesgo mínimo.
+              </li>
+              <li>
+                <strong>Optimización (Principio ALARA - As Low As Reasonably Achievable):</strong> Utilizar la mínima dosis de radiación posible para obtener la imagen diagnóstica necesaria. Esto incluye:
+                <ul class="sub-list">
+                  <li>Colimación rectangular.</li>
+                  <li>Uso de delantal plomado y collar tiroideo.</li>
+                  <li>Técnica de exposición correcta (kVp, mA, tiempo).</li>
+                  <li>Películas rápidas o sensores digitales.</li>
+                </ul>
+              </li>
+              <li>
+                <strong>Evaluación de Riesgo vs. Beneficio:</strong> Considerar edad, estado de salud, área a examinar y alternativas (ej. examen clínico, imágenes sin radiación).
+              </li>
+            </ul>
+
+
+
+            <hr>
+
+            <h2>3. Clasificación de las Técnicas de Imagen</h2>
+
+            <ul class="clinical-list">
+              <li>
+                <strong>1. Imágenes Intraorales:</strong> El receptor se coloca dentro de la boca.
+              </li>
+              <li>
+                <strong>2. Imágenes Extraorales:</strong> El receptor se coloca fuera de la boca.
+              </li>
+              <li>
+                <strong>3. Técnicas Avanzadas (Imagenología Maxilofacial):</strong>
+                <ul class="sub-list">
+                  <li>Tomografía Computarizada de Haz Cónico (CBCT).</li>
+                  <li>Tomografía Computarizada Multislice (CT).</li>
+                  <li>Resonancia Magnética (RM).</li>
+                  <li>Ultrasonido (US).</li>
+                  <li>Gammagrafía ósea.</li>
+                </ul>
+              </li>
+            </ul>
+
+
           </div>
-          <div class="alara-card">
-            <h4>Optimización</h4>
-            <p>Uso de <strong>colimación rectangular</strong> y sensores digitales para minimizar la dosis.</p>
-          </div>
-          <div class="alara-card">
-            <h4>Protección</h4>
-            <p>Uso obligatorio de <strong>delantal plomado y collar tiroideo</strong> para blindaje del paciente.</p>
+
+          <div class="image-side">
+            <div class="custom-dental-grid-2">
+              <img src="https://res.cloudinary.com/dgz0buqcx/image/upload/v1769035164/Imagen1_rasns0.jpg" class="col-1" alt="Foto 1">
+              <img src="https://res.cloudinary.com/dgz0buqcx/image/upload/v1769035164/Imagen1_rasns0.jpg" class="col-1" alt="Foto 1">
+            </div>
           </div>
         </div>
-        <p class="ref-label">[Ref. Imágenes 1 y 2 - Pág. 1]</p>
-
       </div>
     </section>
 
     <section class="phase-block bg-grey">
-      <div class="phase-header">
-        <span class="phase-num">ETAPA 2</span>
-        <h2>Adquisición de Imagen y Técnicas</h2>
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">ETAPA 2</span>
+          <h2>TÉCNICAS RADIOGRÁFICAS Y SUS APLICACIONES</h2>
+          <p class="obj">Se desarrolla en los tres grandes grupos de técnicas, con indicaciones y limitaciones específicas.</p>
+
+          <hr>
+
+          <span class="phase-num">Fase 1</span>
+          <h2>RADIOGRAFÍAS INTRAORALES</h2>
+          <p class="obj"><strong>Objetivo:</strong> Visualizar con alto detalle dientes individuales, sus estructuras de soporte y el hueso alveolar adyacente.</p>
+
+          <h3>A. Radiografía Periapical (Técnica de Bisección o Paralelismo):</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales:</strong>
+              <ul class="sub-list">
+                <li>1. Diagnóstico de patología periapical (periodontitis apical, quistes).</li>
+                <li>2. Evaluación de traumatismos dentales (fracturas radiculares, luxaciones).</li>
+                <li>3. Control post-tratamiento endodóntico.</li>
+                <li>4. Evaluación periodontal (altura del hueso alveolar, cálculos).</li>
+                <li>5. Estudio pre-operatorio (exodoncias, cirugía periapical).</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones:</strong>
+              <ul class="sub-list">
+                <li>Área limitada: Muestra solo 2-3 dientes por toma.</li>
+                <li>Superposición: Dificulta la evaluación de estructuras en planos múltiples.</li>
+                <li>Distorsión: Con la técnica de bisección, puede haber alargamiento o acortamiento.</li>
+                <li>No evalúa relaciones anatómicas en 3D.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>B. Radiografía Interproximal o "Bite-Wing":</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales:</strong>
+              <ul class="sub-list">
+                <li>1. Detección de caries interproximales (principal indicación), especialmente en esmalte y dentina superficial/media.</li>
+                <li>2. Evaluación de la cresta ósea alveolar en coronas.</li>
+                <li>3. Visualización de restauraciones y sus márgenes.</li>
+                <li>4. Monitorización de caries recurrentes.</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones:</strong>
+              <ul class="sub-list">
+                <li>No visualiza ápices radiculares.</li>
+                <li>Poca utilidad en caries oclusales profundas o vestibulares/linguales.</li>
+                <li>Dificulta evaluación de furcas en molares.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>C. Radiografía Oclusal:</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales:</strong>
+              <ul class="sub-list">
+                <li>1. Localización de dientes incluidos o supernumerarios (especialmente caninos).</li>
+                <li>2. Evaluación de fracturas de maxilar o mandíbula (corporales, sinfisis).</li>
+                <li>3. Visualización de sialolitos en el conducto de Wharton o Stenon.</li>
+                <li>4. Estudio de quistes o lesiones expansivas grandes.</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones:</strong>
+              <ul class="sub-list">
+                <li>Imagen con distorsión y superposición.</li>
+                <li>Resolución anatómica menor que la periapical.</li>
+                <li>Dosis de radiación mayor al cubrir un área extensa.</li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="image-side">
+          <div class="custom-dental-grid-3">
+            <img src="https://picsum.photos/400/300?8" class="col-2" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-2" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?8" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-2" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?9" class="col-2" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?8" class="col-1" alt="Procedimiento 1">
+          </div>
+        </div>
       </div>
+    </section>
 
-      <div class="technique-grid">
-        <div class="tech-item">
-          <span class="phase-tag">Fase I: Intraoral</span>
-          <p>Técnicas <strong>Periapicales</strong> (bisectriz/paralelismo), <strong>Bitewing</strong> para caries y <strong>Oclusales</strong> para localización de dientes retenidos.</p>
-        </div>
-        <div class="tech-item">
-          <span class="phase-tag">Fase II: Extraoral 2D</span>
-          <p><strong>Ortopantomografía (Panorámica)</strong> para visión general y <strong>Telerradiografía</strong> para estudios cefalométricos.</p>
+    <section class="phase-block ">
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">Fase 2</span>
+          <h2>RADIOGRAFÍAS EXTRAORALES</h2>
+          <p class="obj"><strong>Objetivo:</strong> Evaluar estructuras más amplias del complejo maxilofacial, cráneo y relaciones anatómicas.</p>
 
-        </div>
+          <h3>A. Radiografía Panorámica (Ortopantomografía):</h3>
 
-        <div class="tech-item">
-          <span class="phase-tag">Fase III: Imagen 3D</span>
-          <p><strong>CBCT (Tomografía de Haz Cónico)</strong> para visión tridimensional exacta. RMN para tejidos blandos y ATM.</p>
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales (Principales según White):</strong>
+              <ul class="sub-list">
+                <li>1. Evaluación inicial general (dentición completa, presencia/ausencia de dientes, desarrollo).</li>
+                <li>2. Valoración de terceros molares (posición, relación con nervio dentario inferior).</li>
+                <li>3. Diagnóstico de grandes lesiones óseas (quistes, tumores, displasias).</li>
+                <li>4. Evaluación de traumatismos maxilofaciales (fracturas de cóndilo, rama, cuerpo).</li>
+                <li>5. Planificación pre-implante (visión general de altura ósea y senos maxilares).</li>
+                <li>6. Evaluación de alteraciones de la ATM (estructuras óseas condilares).</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones (Críticas):</strong>
+              <ul class="sub-list">
+                <li>Imagen tomográfica de capa fina: Estructuras fuera de la "zona de enfoque" aparecen borrosas o distorsionadas.</li>
+                <li>Baja resolución: No es adecuada para detectar caries incipientes, evaluar detalles periodontales finos o patología periapical temprana.</li>
+                <li>Distorsiones geométricas y magnificación: Dificulta las mediciones precisas (aproximadamente 25% de aumento, variable).</li>
+                <li>Superposición de estructuras: Columna cervical sobre cuerpos mandibulares, lengua sobre paladar.</li>
+                <li>No proporciona información 3D.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>B. Telerradiografía Lateral de Cráneo (Cefalometría):</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales:</strong>
+              <ul class="sub-list">
+                <li>1. Análisis cefalométrico para ortodoncia/ortopedia: Diagnóstico de discrepancias esqueléticas (Clase II, III, patrones verticales).</li>
+                <li>2. Evaluación de crecimiento y desarrollo craneofacial.</li>
+                <li>3. Planificación quirúrgica ortognática.</li>
+                <li>4. Estudio de vía aérea faríngea (SAHS).</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones:</strong>
+              <ul class="sub-list">
+                <li>Proyección bidimensional de una estructura 3D (superposición de hemicaráneos).</li>
+                <li>La posición de la cabeza afecta significativamente las mediciones.</li>
+                <li>No evalúa asimetrías.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>C. Proyecciones Específicas para ATM:</h3>
+          <p class="obj">Serie Transcraneal, Transorbital, Transfaringea:</p>
+          <ul class="clinical-list">
+            <li><strong>Indicación:</strong> Evaluación básica de los movimientos y posición condilar.</li>
+            <li><strong>Limitación:</strong> Extrema superposición de estructuras, baja utilidad diagnóstica actual. En desuso frente a CBCT.</li>
+          </ul>
         </div>
-        <div class="tech-item">
-          <span class="phase-tag">Fase IV: Calidad</span>
-          <p>Control de parámetros (kVp, mA) y posicionamiento preciso para evitar artefactos por movimiento.</p>
+        <div class="image-side">
+          <div class="custom-dental-grid-2">
+            <img src="https://picsum.photos/400/300?8" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 2">
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="phase-block bg-grey">
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">Fase 3</span>
+          <h2>IMAGENOLOGÍA AVANZADA MAXILOFACIAL</h2>
+          <p class="obj"><strong>Objetivo:</strong> Obtener información tridimensional y de tejidos blandos para diagnósticos complejos y planificación quirúrgica.</p>
+
+          <h3>A. Tomografía Computarizada de Haz Cónico (CBCT):</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales (Consenso Internacional - White & Pharoah):</strong>
+              <ul class="sub-list">
+                <li>1. Implantes Dentales: Evaluación 3D de altura, ancho, densidad ósea y relación con estructuras vitales (nervio dentario, seno maxilar).</li>
+                <li>2. Endodoncia: Diagnóstico de fracturas radiculares verticales, anatomía compleja de conductos, reabsorciones, perforaciones.</li>
+                <li>3. Patología Quística/Tumoral: Delimitación exacta, relación con corticales, efecto en estructuras vecinas.</li>
+                <li>4. Dientes Incluidos/Retenidos: Localización 3D precisa (especialmente caninos), relación con raíces adyacentes.</li>
+                <li>5. Traumatología: Diagnóstico de fracturas alveolares, de cóndilo, de reborde (no visibles en 2D).</li>
+                <li>6. ATM: Evaluación de osteoartrosis, fracturas, anomalías estructurales óseas.</li>
+                <li>7. Vías Aéreas: Para planificación de cirugía ortognática o SAHS.</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones y Precauciones:</strong>
+              <ul class="sub-list">
+                <li>Dosis de radiación mayor que técnicas 2D (aunque menor que CT médico). DEBE JUSTIFICARSE.</li>
+                <li>Artefactos: Por metal (restauraciones, implantes) que pueden enmascarar estructuras.</li>
+                <li>Resolución de tejidos blandos limitada: No sustituye a la RM para evaluar disco articular o médula ósea.</li>
+                <li>Principio FOV (Field of View): Usar el FOV más pequeño posible que cubra el área de interés.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>B. Resonancia Magnética (RM):</h3>
+
+
+
+          <ul class="clinical-list">
+            <li><strong>Indicaciones Principales:</strong>
+              <ul class="sub-list">
+                <li>1. Evaluación del disco articular de la ATM (desplazamientos, perforaciones).</li>
+                <li>2. Estudio de médula ósea (osteomielitis, tumores, infiltración).</li>
+                <li>3. Imagen de tejidos blandos (tumores de glándulas salivales, masas en cuello, músculos).</li>
+              </ul>
+            </li>
+            <li><strong>Limitaciones:</strong>
+              <ul class="sub-list">
+                <li>No visualiza estructuras óseas corticales finas con detalle.</li>
+                <li>Contraindicada en pacientes con marcapasos, ciertos implantes metálicos.</li>
+                <li>Costo elevado y menor disponibilidad.</li>
+              </ul>
+            </li>
+          </ul>
+
+          <hr>
+
+          <h3>C. Tomografía Computarizada Multislice (CT):</h3>
+
+          <ul class="clinical-list">
+            <li><strong>Indicación Principal:</strong> Evaluación de traumatismos maxilofaciales complejos (fracturas orbitarias, craneofaciales, de base de cráneo) y tumores malignos extensos con invasión de estructuras profundas.</li>
+            <li><strong>Limitación:</strong> Dosis de radiación significativamente mayor que CBCT. Uso restringido a indicaciones médicas severas.</li>
+          </ul>
+        </div>
+        <div class="image-side">
+          <div class="custom-dental-grid-2">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/300?9" class="col-1" alt="Procedimiento 1">
+          </div>
         </div>
       </div>
     </section>
 
     <section class="phase-block">
-      <div class="phase-header">
-        <span class="phase-num">ETAPA 3</span>
-        <h2>Interpretación e Informe Radiológico</h2>
-      </div>
-      <div class="phase-content">
-        <div class="interpretation-box">
-          <div class="analysis-list">
-            <h4>Análisis Sistemático:</h4>
-            <ul>
-              <li><strong>Localización:</strong> Posición y extensión exacta.</li>
-              <li><strong>Bordes:</strong> Definición (corticalizados vs. mal definidos).</li>
-              <li><strong>Estructura:</strong> Radiolúcida, radiopaca o mixta.</li>
-              <li><strong>Efectos:</strong> Desplazamiento o reabsorción de estructuras vecinas.</li>
-            </ul>
-          </div>
-          <div class="report-box">
-            <p>El radiólogo actúa como <strong>consultor clínico</strong>. El informe debe incluir hallazgos, diagnóstico diferencial y recomendaciones.</p>
-            <p class="ref-label">[Ref. Imagen 12 - Pág. 6]</p>
+      <div class="phase-content split">
+        <div class="text-side">
+          <span class="phase-num">ETAPA 3</span>
+          <h2>INTERPRETACIÓN, INFORME Y CONTROL DE CALIDAD</h2>
+
+          <h3>1. Metodología Sistemática de Interpretación Radiológica:</h3>
+          <p class="obj">Fórmula "ABCDE" (White & Pharoah):</p>
+
+          <ul class="clinical-list">
+            <li><strong>1. Análisis de la Anatomía normal.</strong></li>
+            <li><strong>2. Búsqueda de la Base ósea (cortícales, trabéculas).</strong></li>
+            <li><strong>3. Características de la lesión o hallazgo (Contorno, Consistencia, Calcificaciones).</strong></li>
+            <li><strong>4. Diagnóstico diferencial.</strong></li>
+            <li><strong>5. Evaluación clínica (correlacionar con signos y síntomas).</strong></li>
+          </ul>
+
+
+
+          <hr>
+
+          <h3>2. Emisión del Informe Radiológico:</h3>
+          <ul class="clinical-list">
+            <li>Debe incluir: Datos del paciente, técnica utilizada, hallazgos descriptivos, diagnóstico diferencial y recomendaciones.</li>
+            <li>El radiólogo oral es un consultor, no emite solo la imagen.</li>
+          </ul>
+
+          <hr>
+
+          <h3>3. Programa de Garantía de Calidad:</h3>
+          <ul class="clinical-list">
+            <li>Control periódico del equipo (colimación, haz, cronómetro).</li>
+            <li>Evaluación de la técnica del personal.</li>
+            <li>Revisión de dosis administradas.</li>
+            <li>Mantenimiento de procesadoras (analógicas) o sensores (digitales).</li>
+          </ul>
+        </div>
+        <div class="image-side">
+          <div class="custom-dental-grid-2">
+            <img src="https://picsum.photos/400/700?8" class="col-2" alt="Procedimiento 1">
+            <img src="https://picsum.photos/400/700?9" class="col-2" alt="Procedimiento 2">
           </div>
         </div>
+      </div>
+      <br>
+      <div class="text-side">
+        <div class="definition-card" style="
+              margin: 30px 0;
+              padding: 25px;
+              background-color: #fffafa; /* Rojo casi blanco */
+              border-left: 5px solid #cc0000;
+              border-radius: 0 8px 8px 0;
+              box-shadow: 2px 2px 10px rgba(0,0,0,0.05);
+          ">
+          <p style="margin-top: 0; color: #333; line-height: 1.6;">
+            <strong style="color: #cc0000;">Nota Crítica Final (Principio de White):</strong>
+            "La mejor radiografía es la que no se toma, a menos que sea necesaria para establecer un diagnóstico o guiar un tratamiento que beneficie al paciente."
+          </p>
 
+          <p style="font-weight: bold; margin-bottom: 10px; color: #444;">La selección de la técnica debe seguir una jerarquía:</p>
+
+          <ol style="margin-bottom: 20px; color: #555; line-height: 1.8;">
+            <li>Examen clínico.</li>
+            <li>Técnica 2D de menor dosis que proporcione la información (ej. periapical antes que panorámica).</li>
+            <li>CBCT solo cuando la información 3D sea crucial para la toma de decisiones y no pueda obtenerse de otro modo.</li>
+          </ol>
+
+          <p style="margin-bottom: 0; font-style: italic; color: #666; border-top: 1px solid #eee; padding-top: 15px;">
+            La radiología es una especialidad de servicio al diagnóstico clínico, no un fin en sí mismo.
+          </p>
+        </div>
       </div>
     </section>
 
-    <section class="white-note-section">
-      <div class="white-container">
-        <h2 class="white-title">PRINCIPIO DE WHITE</h2>
-        <p class="white-quote">"La mejor radiografía es la que no se toma, a menos que sea necesaria para establecer un diagnóstico que beneficie al paciente."</p>
-
-        <div class="hierarchy-grid">
-          <div class="h-card">
-            <span class="h-num">1</span>
-            <p>Examen Clínico Primero</p>
-          </div>
-          <div class="h-card">
-            <span class="h-num">2</span>
-            <p>Técnica 2D (Menor Dosis)</p>
-          </div>
-          <div class="h-card">
-            <span class="h-num">3</span>
-            <p>CBCT 3D (Solo si es crucial)</p>
-          </div>
+    <section class="phase-block bg-grey">
+      <div class="image-side">
+        <div class="custom-dental-grid-4">
+          <img src="https://picsum.photos/400/300?17" class="col-1" alt="Preparación">
+          <img src="https://picsum.photos/400/300?18" class="col-3" alt="Impresión Digital">
+          <img src="https://picsum.photos/400/300?19" class="col-3" alt="Prueba en boca">
+          <img src="https://picsum.photos/400/300?19" class="col-3" alt="Prueba en boca">
         </div>
       </div>
     </section>
+
 
   </div>
 </div>
