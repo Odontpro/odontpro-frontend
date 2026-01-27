@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {Component} from '@angular/core';
 import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-ortodoncia',
@@ -10,6 +11,13 @@ import {BannerEspecialidad} from '../../../../shared/components/banner-especiali
   styleUrl: './ortodoncia.css',
 })
 export class Ortodoncia {
+
+  constructor(private router: Router) {}
+
+  irAFundamentos() {
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
+  }
 
   documentacion = [
     { item: "Historia Clínica", desc: "Antecedentes sistémicos, hábitos (succión digital/deglución atípica) y herencia." },

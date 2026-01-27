@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import {Component} from '@angular/core';
 import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-implantologia',
@@ -10,6 +11,13 @@ import {BannerEspecialidad} from '../../../../shared/components/banner-especiali
   styleUrl: './implantologia.css',
 })
 export class Implantologia {
+
+  constructor(private router: Router) {}
+
+  irAFundamentos() {
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
+  }
 
   fasesMisch = [
     {

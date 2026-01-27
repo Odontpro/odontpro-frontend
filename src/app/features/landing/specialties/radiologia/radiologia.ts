@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-radiologia',
@@ -11,6 +12,13 @@ import {BannerEspecialidad} from '../../../../shared/components/banner-especiali
 })
 export class Radiologia {
   etapaActiva = 0;
+
+  constructor(private router: Router) {}
+
+  irAFundamentos() {
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
+  }
 
   tecnologias = [
     {

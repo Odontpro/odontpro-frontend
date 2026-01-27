@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component, NgZone} from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatExpansionModule } from '@angular/material/expansion';
 import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-endodoncia',
@@ -14,6 +15,13 @@ import {BannerEspecialidad} from '../../../../shared/components/banner-especiali
 
 export class Endodoncia {
   tabActiva = 0;
+
+  constructor(private router: Router) {}
+
+  irAFundamentos() {
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
+  }
 
   // FASES 1 A 4: EL PROCESO OPERATORIO
   tabsFases = [

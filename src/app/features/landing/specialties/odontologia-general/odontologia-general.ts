@@ -125,8 +125,8 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
   onMouseUp() { this.isDragging = false; }
 
   irAFundamentos() {
-    // Aquí pones la ruta que definas para la página de "Fundamentos Científicos"
-    this.router.navigate(['/especialidades/odontologia-restauradora/fundamentos']);
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
   }
 
   ngOnDestroy() {

@@ -1,6 +1,7 @@
 import { Component, HostListener } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import {BannerEspecialidad} from '../../../../shared/components/banner-especialidad/banner-especialidad';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-rehabilitacion',
@@ -14,8 +15,13 @@ export class Rehabilitacion {
   currentFaseIndex = 0;
   fasesPerPage = 3;
 
-  constructor() {
+  constructor(private router: Router) {
     this.updatePerPage();
+  }
+
+  irAFundamentos() {
+    const rutaActual = this.router.url;
+    this.router.navigate([`${rutaActual}/fundamentos`]);
   }
 
   @HostListener('window:resize')
