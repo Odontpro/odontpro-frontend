@@ -8,5 +8,4 @@ import { Component, Input } from '@angular/core';
 })
 export class BannerEspecialidad {
   @Input() titulo: string = '';
-  @Input() imagenUrl: string = 'https://picsum.photos/1920/600?medical=1'; // Imagen por defecto
 }
