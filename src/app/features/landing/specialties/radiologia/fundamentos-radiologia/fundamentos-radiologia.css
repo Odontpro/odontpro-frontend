@@ -269,7 +269,7 @@ img {
   margin-bottom: 50px;
 }
 
-.custom-dental-grid-4 img {
+.custom-dental-grid-4 img, .custom-dental-grid-4 video {
   width: 100%;
   object-fit: cover;
   border-radius: 6px;
