@@ -36,12 +36,12 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
       subtitulo: "Fases de Barrancos Mooney",
       intro: "Protocolo integral para restauraciones de alta longevidad.",
       detalles: [
-        { nombre: "Fase 1: Diagnóstico", descripcion: "Historia clínica, examen ATM e intrabucal (Imágenes 1-5)", imgUrl: "https://picsum.photos/400/300?1" },
-        { nombre: "Fase 2: Terapia Control", descripcion: "Eliminación de infección y motivación (Imágenes 6-10)", imgUrl: "https://picsum.photos/400/300?2" },
-        { nombre: "Fase 3: Preparación", descripcion: "Protección dentino-pulpar y biomecánica (Imágenes 11-15)", imgUrl: "https://picsum.photos/400/300?3" },
-        { nombre: "Fase 4: Restauración", descripcion: "Técnica incremental y grabado ácido (Imágenes 16-20)", imgUrl: "https://picsum.photos/400/300?4" },
-        { nombre: "Fase 5: Restauración Clase V", descripcion: "Tratamiento de lesiones cervicales con retracción gingival, bisel en esmalte y materiales de baja contracción (Imágenes 21-25)", imgUrl: "https://picsum.photos/400/300?5" },
-        { nombre: "Fase 6: Restauración Clase VI", descripcion: "Reconstrucción de cúspides y bordes incisales con énfasis en la resistencia al desgaste y oclusión (Imágenes 26-30)", imgUrl: "https://picsum.photos/400/300?6" }
+        { nombre: "Fase 1: Diagnóstico", descripcion: "Historia clínica, examen ATM e intrabucal", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536723/Imagen8_goehez.webp" },
+        { nombre: "Fase 2: Terapia Control", descripcion: "Eliminación de infección y motivación", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536826/Imagen10_fgwi9s.webp" },
+        { nombre: "Fase 3: Tratamientos restauradores directos", descripcion: "", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536824/Imagen17_oclssn.webp" },
+        { nombre: "Fase 4: Tratamientos restauradores indirectos", descripcion: "", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537371/Imagen25_ll00qz.webp" },
+        { nombre: "Fase 5: Control final y ajuste", descripcion: "", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537371/Imagen26_ybo90q.webp" },
+        { nombre: "Fase 6: Mantenimiento", descripcion: "", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537366/Imagen30_qtevzq.webp" }
       ]
     },
     {
@@ -60,9 +60,9 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
       subtitulo: "Deep Margin Elevation",
       intro: "Técnica avanzada para márgenes profundos sin cirugía.",
       detalles: [
-        { nombre: "Aislamiento Absoluto", descripcion: "Uso de dique de goma y clamps especiales. (Imágenes 33-35)", imgUrl: "https://picsum.photos/400/300?9" },
-        { nombre: "Elevación de Margen", descripcion: "Uso de matrices seccionales y resinas flow. (Imágenes 36-38)", imgUrl: "https://picsum.photos/400/300?10" },
-        { nombre: "Ajuste Oclusal", descripcion: "Papel de articular de 8 micras y guías. (Imágenes 39-45)", imgUrl: "https://picsum.photos/400/300?11" }
+        { nombre: "Aislamiento Absoluto", descripcion: "Uso de dique de goma y clamps especiales.", imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769539641/Imagen51_ytcvsj.webp" },
+        { nombre: "Elevación de Margen", descripcion: "Uso de matrices seccionales y resinas flow.", imgUrl: "https://picsum.photos/400/300?10" },
+        { nombre: "Ajuste Oclusal", descripcion: "Papel de articular de 8 micras y guías.", imgUrl: "https://picsum.photos/400/300?11" }
       ]
     }
   ];
