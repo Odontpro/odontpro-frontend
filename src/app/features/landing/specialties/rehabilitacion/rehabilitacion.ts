@@ -31,27 +31,57 @@ export class Rehabilitacion {
 
   tabsEspecialidad = [
     {
-      titulo: "Prótesis Fija",
-      subtitulo: "Protocolo de Restauración Indirecta",
-      intro: "Procedimientos para coronas y puentes sobre dientes naturales.",
+      titulo: "Planificación y Registro de Precisión",
+      subtitulo: "Del Diagnóstico a la Captura de Datos",
+      intro: "Protocolos para el mantenimiento de la función, confort y salud.",
       detalles: [
-        { nombre: "Tallado Biomecánico", descripcion: "Preparación de pilares con líneas de terminación definidas y respeto al espesor biológico.", imgUrl: "https://picsum.photos/400/300?fixed-1" },
-        { nombre: "Gestión de Tejidos", descripcion: "Uso de hilos retractores para exponer el margen gingival antes de la impresión.", imgUrl: "https://picsum.photos/400/300?fixed-2" },
-        { nombre: "Impresión Definitiva", descripcion: "Técnica de doble mezcla con siliconas de adición o escaneo digital.", imgUrl: "https://picsum.photos/400/300?fixed-3" },
-        { nombre: "Prueba de Estructura", descripcion: "Verificación de ajuste marginal y espacio para la cerámica en metal o zirconio.", imgUrl: "https://picsum.photos/400/300?fixed-4" },
-        { nombre: "Cementación", descripcion: "Protocolos de adhesión según el sustrato (cerámica ácida o zirconio).", imgUrl: "https://picsum.photos/400/300?fixed-5" }
+        {
+          nombre: "Diagnóstico Integral",
+          descripcion: "Anamnesis, modelos en articulador semiajustable y análisis de la sonrisa.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550863/Imagen2_ah0ms5.webp"
+        },
+        {
+          nombre: "Técnica Análoga Élite",
+          descripcion: "Impresiones con Siliconas por Adición (Panasil) mediante técnica de doble mezcla.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550966/Imagen9_xjtqwd.webp"
+        },
+        {
+          nombre: "Escaneo Digital Helios 600",
+          descripcion: "Captura de alta precisión (≤ 10 μm) con flujo de trabajo eficiente y cómodo.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551014/Imagen11_ve9ayf.webp"
+        },
+        {
+          nombre: "Fase de Provisionales",
+          descripcion: "Validación de función masticatoria, oclusión, estética y fonética en resina.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550965/Imagen8_k7ov2k.webp"
+        }
       ]
     },
     {
-      titulo: "Prótesis Removible y Total",
-      subtitulo: "Protocolo de Grandes Rehabilitaciones",
-      intro: "Restauración de pacientes edéntulos parciales o totales.",
+      titulo: "Sistemas de Rehabilitación Oral",
+      subtitulo: "Prótesis Fija, Removible e Implantes",
+      intro: "Restauración de piezas mediante sustitutos artificiales de alta gama.",
       detalles: [
-        { nombre: "Diseño de Estructura", descripcion: "Análisis de paralelismo, apoyos y retenedores en modelos de estudio.", imgUrl: "https://picsum.photos/400/300?removable-1" },
-        { nombre: "Dimensión Vertical", descripcion: "Determinación de la altura facial óptima y espacio interoclusal.", imgUrl: "https://picsum.photos/400/300?removable-2" },
-        { nombre: "Relación Céntrica", descripcion: "Registro de la posición maxilo-mandibular más estable y repetible.", imgUrl: "https://picsum.photos/400/300?removable-3" },
-        { nombre: "Prueba de Enfilado", descripcion: "Evaluación estética y fonética de los dientes montados en cera.", imgUrl: "https://picsum.photos/400/300?removable-4" },
-        { nombre: "Instalación", descripcion: "Ajuste de flancos, alivio de zonas de presión y enseñanza de higiene.", imgUrl: "https://picsum.photos/400/300?removable-5" }
+        {
+          nombre: "Coronas de Zirconia y e.max",
+          descripcion: "Preparaciones biomecánicas con hombro redondeado y cementado adhesivo o dual.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551546/Imagen27_ixtxwl.webp"
+        },
+        {
+          nombre: "Puentes e Implantes",
+          descripcion: "Planificación 3D, torque ≥35Ncm y restauraciones sobre pilares naturales o implantes.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551668/Imagen34_lvroid.webp"
+        },
+        {
+          nombre: "Prótesis Parcial y Total",
+          descripcion: "Diseño con apoyos y bases extendidas para máxima retención y estabilidad.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551817/Imagen42_z8jaom.webp"
+        },
+        {
+          nombre: "Control y Mantenimiento",
+          descripcion: "Ajuste oclusal final (papel 8-12μm) y seguimiento riguroso a largo plazo.",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551550/Imagen30_eyod9l.webp"
+        }
       ]
     }
   ];
