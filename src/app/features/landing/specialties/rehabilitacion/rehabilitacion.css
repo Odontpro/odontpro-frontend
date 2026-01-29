@@ -169,6 +169,26 @@
   .section-title.white {
     font-size: 2rem;
   }
+
+  .ext-link{
+    text-align: center !important;
+  }
+
+
+  .tabs-header {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-content: center;
+    gap: 15px;
+    margin-bottom: 40px;
+  }
+
+  .tabs-header button {
+    margin: auto !important;
+  }
+
 }
 
 .oclusion-item { text-align: center; padding: 30px; background: rgba(255,255,255,0.05); border-radius: 15px; }

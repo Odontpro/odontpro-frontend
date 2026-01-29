@@ -132,7 +132,8 @@
 /* Mobile */
 @media (max-width: 900px) {
   .definicion-section .container-cirugia, .seguridad-grid { grid-template-columns: 1fr; text-align: center; }
-  .text-block h2 { font-size: 2rem;}
+  .text-block h2 { font-size: 2rem; }
+  .container-cirugia h2 { line-height: 1.2; }
   .quote { font-size: 1rem; line-height: 1.5; }
   .section-title { margin-bottom: 40px; line-height: 1.2 }
   .carousel-wrapper { padding: 0 10px; }
