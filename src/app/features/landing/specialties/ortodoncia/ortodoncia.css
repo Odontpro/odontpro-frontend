@@ -37,7 +37,7 @@
 .etapas-timeline { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 30px; }
 .etapa-box { padding: 40px; background: #fcfcfc; border-radius: 20px; transition: 0.3s; }
 .etapa-box:hover { transform: translateY(-10px); background: #fff; box-shadow: 0 20px 40px rgba(0,0,0,0.05); }
-.etapa-number { font-size: 2.5rem; font-weight: 900; color: #7dc0bf20; transition: 0.3s; }
+.etapa-number { font-size: 2.5rem; font-weight: 900; color: rgba(125, 192, 191, 0.56); transition: 0.3s; }
 .etapa-box:hover .etapa-number { color: #7dc0bf; }
 
 /* Sección 6: Retención (Oscuro) */
