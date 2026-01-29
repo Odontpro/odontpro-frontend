@@ -2,10 +2,6 @@ import { Routes } from '@angular/router';
 import {AuthGuard} from './core/guards/auth.guard';
 import {GuestGuard} from './core/guards/guest.guard';
 import {PublicLayout} from './shared/layouts/public-layout/public-layout';
-import {Book} from './features/landing/book/book';
-import {
-  FundamentosRestauradora
-} from './features/landing/specialties/odontologia-general/fundamentos-restauradora/fundamentos-restauradora';
 
 export const routes: Routes = [
 

@@ -434,9 +434,13 @@
    ============================================ */
 @media (max-width: 768px) {
   .header-container {
-    padding: 22px 40px;
+    padding: 22px 20px 22px 40px;
     gap: 16px;
     display: flex;
+  }
+
+  .logo img {
+    height: 33px;
   }
 
   .nav-menu {

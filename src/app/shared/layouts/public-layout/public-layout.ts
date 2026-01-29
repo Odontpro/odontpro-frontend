@@ -33,7 +33,25 @@ export class PublicLayout implements OnInit, AfterViewInit {
   constructor(
     private router: Router,
     private viewportScroller: ViewportScroller
-  ) {}
+  ) {
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.scrollOnTop();
+    });
+  }
+
+  scrollOnTop() {
+    const sidenavContent = document.querySelector('mat-sidenav-content');
+
+    if (sidenavContent) {
+      sidenavContent.scrollTo({
+        top: 0,
+        behavior: 'smooth' // Movimiento fluido
+      });
+    }
+
+  }
 
   ngOnInit() {
     // Detectar cambios de ruta
@@ -90,17 +108,7 @@ export class PublicLayout implements OnInit, AfterViewInit {
     this.isScrolled = false;
   }
 
-  scrollOnTop() {
-  const sidenavContent = document.querySelector('mat-sidenav-content');
-  
-  if (sidenavContent) {
-    sidenavContent.scrollTo({
-      top: 0,
-      behavior: 'smooth' // Movimiento fluido
-    });
-  }
 
-}
 
   // Método para hacer scroll al fragmento dentro del mat-sidenav-content
   private scrollToFragment(fragment: string) {

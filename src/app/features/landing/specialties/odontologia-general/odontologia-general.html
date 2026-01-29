@@ -83,6 +83,11 @@
     </div>
 
     <div class="caso-container">
+      <div class="casos-selector-mobile">
+        <button *ngFor="let caso of casos; let i = index" class="caso-btn" [class.active]="casoActual === i" (click)="seleccionarCaso(i)">
+          CASO {{ caso.id }}
+        </button>
+      </div>
       <div class="image-side">
         <div class="image-comparison" (mousedown)="onMouseDown($event)" (mousemove)="onMouseMove($event)" (mouseup)="onMouseUp()">
           <div class="image-layer image-after">

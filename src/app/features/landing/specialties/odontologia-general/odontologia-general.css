@@ -842,7 +842,7 @@
   }
   .casos-selector-mobile{
     display: flex;
-    padding: 10px 0 0 0;
+    padding: 10px 0 20px 0 ;
   }
 }
 
