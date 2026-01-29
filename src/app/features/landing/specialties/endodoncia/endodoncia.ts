@@ -39,7 +39,7 @@ export class Endodoncia {
             <li><strong>Radiología:</strong> Técnica de cono largo y análisis de anatomía radicular.</li>
             <li><strong>CBCT:</strong> Uso de Tomografía para casos de anatomía compleja o sospecha de fracturas.</li>
           </ul>`,
-          imgUrl: "https://picsum.photos/400/300?dentist-xray",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769554205/Imagen11_q9ieuq.webp",
           abierto: false
         },
         {
@@ -51,7 +51,7 @@ export class Endodoncia {
             <li><strong>Desinfección:</strong> Uso de clorhexidina o hipoclorito en el campo operatorio.</li>
             <li><strong>Seguridad:</strong> Protección de la vía aérea y tejidos blandos del paciente.</li>
           </ul>`,
-          imgUrl: "https://picsum.photos/400/300?medical-mask",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553658/Imagen3_gbxw5c.webp",
           abierto: false
         }
       ]
@@ -70,7 +70,7 @@ export class Endodoncia {
             <li><strong>Tecnología:</strong> Localizadores electrónicos de ápice (LEA) y microscopio operativo.</li>
             <li><strong>Exploración:</strong> Uso de instrumentos DG-16 para identificar orificios de entrada.</li>
           </ul>`,
-          imgUrl: "https://picsum.photos/400/300?microscope",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553778/Imagen4_cfzawc.webp",
           abierto: false
         },
         {
@@ -82,7 +82,7 @@ export class Endodoncia {
             <li><strong>Irrigación:</strong> Hipoclorito de Sodio activado por ultrasonido (PUI).</li>
             <li><strong>Protocolo Final:</strong> Eliminación del barrillo dentinario con EDTA.</li>
           </ul>`,
-          imgUrl: "https://picsum.photos/400/300?dental-care",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553659/Imagen6_s1czlh.webp",
           abierto: false
         }
       ]
