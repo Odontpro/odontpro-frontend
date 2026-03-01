@@ -35,6 +35,7 @@
   <!-- CONTENIDO ORIGINAL CON EVENTO DE SCROLL -->
   <mat-sidenav-content #sidenavContent (scroll)="onContentScroll($event)">
     <div class="app-layout">
+      <app-floating-actions [scrollContainer]="sidenavContent"></app-floating-actions>
 
       <!-- HEADER -->
       <header class="header" [class.scrolled]="isScrolled" [class.always-solid]="!isLandingPage">

@@ -39,9 +39,9 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
         { "nombre": "Fase 1: Diagnóstico", "descripcion": "Historia clínica, examen ATM e intrabucal", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536723/Imagen8_goehez.webp" },
         { "nombre": "Fase 2: Terapia Control", "descripcion": "Eliminación de infección y motivación", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536826/Imagen10_fgwi9s.webp" },
         { "nombre": "Fase 3: Restauración Directa", "descripcion": "Operatoria dental adhesiva y resinas", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769536824/Imagen17_oclssn.webp" },
-        { "nombre": "Fase 4: Restauración Indirecta", "descripcion": "Prótesis fija y reconstrucción extensa", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537371/Imagen25_ll00qz.webp" },
+        { "nombre": "Fase 4: Restauración Indirecta", "descripcion": "Prótesis fija y reconstrucción extensa", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1772404396/Imagen1_msyjlf.jpg" },
         { "nombre": "Fase 5: Control y Ajuste", "descripcion": "Oclusión estable y ajuste funcional", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537371/Imagen26_ybo90q.webp" },
-        { "nombre": "Fase 6: Mantenimiento", "descripcion": "Terapia de soporte y monitoreo clínico", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537366/Imagen30_qtevzq.webp" }
+        { "nombre": "Fase 6: Mantenimiento", "descripcion": "Terapia de soporte y monitoreo clínico", "imgUrl": "https://res.cloudinary.com/de3nau9kv/image/upload/v1769537929/Imagen22_ds6haz.webp" }
       ]
     },
     {
@@ -111,9 +111,9 @@ export class OdontologiaGeneral implements OnDestroy, OnInit {
   ];
 
   casos = [
-    { id: 1, titulo: 'REPARACIÓN DE MUELAS', descripcion: 'Reconstrucción proximal en molares mediante técnica incremental con resina microhíbrida. Se utilizaron matrices metálicas y cuñas para devolver el punto de contacto y la anatomía oclusal funcional.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769537367/Imagen21_ffr0x3.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705014/caso-1-despues_itcs5q.webp' },
-    { id: 2, titulo: 'ESTÉTICA EN DIENTES FRONTALES', descripcion: 'Tratamiento de caries proximales en sector anterior sin compromiso incisal. Uso de resinas nanómeras de alta estética y matrices de Mylar para un pulido óptimo y mimetismo con el esmalte natural.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769538045/Imagen31_pqh11v.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705322/caso-2-despues_avwahg.webp' },
-    { id: 3, titulo: 'RESCATE DE DIENTE PROFUNDO', descripcion: 'Elevación de margen profundo subgingival mediante aislamiento absoluto y composite fluido Bulk-Fill. Se observa el levantamiento del margen para permitir una futura restauración indirecta sellada y funcional.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769538380/Imagen47_t4y6vg.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705999/caso-3-despues_ozfjri.webp' }
+    { id: 1, titulo: 'RECONTRUSCCION INTERPROXIMAL EN PREMOLARES', descripcion: 'Reconstrucción proximal en molares mediante técnica incremental con resina nanoparticulada. Se utilizaron matrices metálicas y cuñas para devolver el punto de contacto y la anatomía oclusal funcional.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769537367/Imagen21_ffr0x3.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705014/caso-1-despues_itcs5q.webp' },
+    { id: 2, titulo: 'ESTÉTICA EN DIENTES ANTERIORES', descripcion: 'Tratamiento de caries proximales en sector anterior sin compromiso incisal. Uso de resinas nanoparticulada de alta estética y matrices preformadas para un pulido óptimo y mimetismo con el esmalte natural.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769538045/Imagen31_pqh11v.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705322/caso-2-despues_avwahg.webp' },
+    { id: 3, titulo: 'ELEVACION DE MARGEN PROFUNDO', descripcion: 'Elevación de margen profundo subgingival mediante aislamiento absoluto y resina reforzada con fibra de vidrio corto. Se observa el levantamiento del margen profundo para permitir una futura restauración indirecta sellada y funcional.', imagenAntes: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769538380/Imagen47_t4y6vg.webp', imagenDespues: 'https://res.cloudinary.com/de3nau9kv/image/upload/v1769705999/caso-3-despues_ozfjri.webp' }
   ];
 
   ngOnInit() {

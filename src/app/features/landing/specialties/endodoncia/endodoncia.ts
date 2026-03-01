@@ -70,7 +70,7 @@ export class Endodoncia {
             <li><strong>Tecnología:</strong> Localizadores electrónicos de ápice (LEA) y microscopio operativo.</li>
             <li><strong>Exploración:</strong> Uso de instrumentos DG-16 para identificar orificios de entrada.</li>
           </ul>`,
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553778/Imagen4_cfzawc.webp",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553659/Imagen6_s1czlh.webp",
           abierto: false
         },
         {
@@ -82,7 +82,7 @@ export class Endodoncia {
             <li><strong>Irrigación:</strong> Hipoclorito de Sodio activado por ultrasonido (PUI).</li>
             <li><strong>Protocolo Final:</strong> Eliminación del barrillo dentinario con EDTA.</li>
           </ul>`,
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769553659/Imagen6_s1czlh.webp",
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769554065/Imagen7-8_cvm2pw.webp",
           abierto: false
         }
       ]

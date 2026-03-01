@@ -7,6 +7,7 @@ import { filter } from 'rxjs/operators';
 import { CommonModule } from '@angular/common';
 import { MatSidenav, MatSidenavModule } from '@angular/material/sidenav';
 import { ViewportScroller } from '@angular/common';
+import {FloatingActionsComponent} from './FloatingActions';
 
 @Component({
   selector: 'app-public-layout',
@@ -18,7 +19,8 @@ import { ViewportScroller } from '@angular/common';
     MatButtonModule,
     MatIconModule,
     RouterLink,
-    MatSidenavModule
+    MatSidenavModule,
+    FloatingActionsComponent
   ],
   templateUrl: './public-layout.html',
   styleUrl: './public-layout.css',

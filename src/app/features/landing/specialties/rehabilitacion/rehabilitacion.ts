@@ -43,17 +43,17 @@ export class Rehabilitacion {
         {
           nombre: "Técnica Análoga Élite",
           descripcion: "Impresiones con Siliconas por Adición (Panasil) mediante técnica de doble mezcla.",
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550966/Imagen9_xjtqwd.webp"
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550965/Imagen8_k7ov2k.webp"
         },
         {
-          nombre: "Escaneo Digital Helios 600",
+          nombre: "Escaneo Digital",
           descripcion: "Captura de alta precisión (≤ 10 μm) con flujo de trabajo eficiente y cómodo.",
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551014/Imagen11_ve9ayf.webp"
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1772405646/Imagen2_audz3a.jpg"
         },
         {
           nombre: "Fase de Provisionales",
           descripcion: "Validación de función masticatoria, oclusión, estética y fonética en resina.",
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769550965/Imagen8_k7ov2k.webp"
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551550/Imagen30_eyod9l.webp"
         }
       ]
     },
@@ -75,12 +75,12 @@ export class Rehabilitacion {
         {
           nombre: "Prótesis Parcial y Total",
           descripcion: "Diseño con apoyos y bases extendidas para máxima retención y estabilidad.",
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551817/Imagen42_z8jaom.webp"
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551930/Imagen50_whlr1e.webp"
         },
         {
           nombre: "Control y Mantenimiento",
           descripcion: "Ajuste oclusal final (papel 8-12μm) y seguimiento riguroso a largo plazo.",
-          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769551550/Imagen30_eyod9l.webp"
+          imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769556065/Imagen10_tidcvd.webp"
         }
       ]
     }
