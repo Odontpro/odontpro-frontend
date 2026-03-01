@@ -366,6 +366,7 @@
   flex-direction: column;
   align-items: center;
   gap: 12px; /* Reducido gap */
+  cursor: pointer;
 }
 
 .specialty-card:hover {
