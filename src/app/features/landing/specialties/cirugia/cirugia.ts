@@ -77,7 +77,7 @@ export class Cirugia {
     {
       nombre: "Fase 10: Seguimiento",
       descripcion: "Retirada de puntos a los 7-10 días y control radiográfico de cicatrización.",
-      imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1769554619/Imagen10_rhsapr.webp"
+      imgUrl: "https://res.cloudinary.com/de3nau9kv/image/upload/v1772410883/cirugia_fase_10_z9ncaj.jpg"
     }
   ];
 
