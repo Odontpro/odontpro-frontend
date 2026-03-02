@@ -14,22 +14,48 @@
 /* Intro con Efecto Escáner */
 .intro-section .container-rad { display: grid; grid-template-columns: 1fr 1fr; gap: 80px; align-items: center; }
 .quote-box { background: #f8fbfb; border-left: 4px solid #7dc0bf; padding: 25px; margin-top: 30px; font-style: italic; }
-.image-display { position: relative; border-radius: 20px; overflow: hidden; box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-.image-display img { width: 100%; display: block; }
-
-.scan-effect {
-  position: absolute;
-  top: 0; left: 0; width: 100%; height: 4px;
-  background: #7dc0bf;
-  box-shadow: 0 0 15px #7dc0bf;
-  z-index: 2;
-  animation: scan 3s infinite ease-in-out;
+.image-display {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 20px 40px rgba(0,0,0,0.1);
 }
 
-@keyframes scan {
-  0% { top: 0%; }
-  50% { top: 100%; }
-  100% { top: 0%; }
+.scan-wrapper {
+  position: relative;
+  width: 100%;
+  line-height: 0; /* evita gaps */
+}
+
+.img-base,
+.img-revealed img {
+  width: 100%;
+  display: block;
+}
+
+.img-revealed {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  transition: clip-path 0.01s linear;
+}
+
+.img-revealed img {
+  height: 100%;
+  object-fit: cover;
+}
+
+.scan-line {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #7dc0bf;
+  box-shadow: 0 0 12px #7dc0bf, 0 0 30px rgba(125, 192, 191, 0.5);
+  z-index: 3;
+  pointer-events: none;
+  transform: translateY(-50%);
 }
 
 /* ============================================
@@ -156,12 +182,34 @@
   background: #fff;
   border-radius: 20px;
   border: 1px solid #eee;
-  padding: 40px;
+  padding: 30px;
   transition: 0.3s;
   border-top: 5px solid #7dc0bf;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* Empuja el contenido arriba y la imagen abajo */
 }
 .tech-card:hover { transform: translateY(-10px); box-shadow: 0 15px 35px rgba(0,0,0,0.08); }
 .tech-card h3 { color: #2c3e50; margin-bottom: 20px; }
+.tech-image {
+  width: 100%;
+  height: 200px;
+  overflow: hidden;
+  border-radius: 15px; /* --- EL BORDER RADIUS DE LA IMAGEN --- */
+}
+
+.tech-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 15px; /* Refuerzo para que la imagen misma sea curva */
+  transition: transform 0.5s ease;
+}
+
+.tech-card:hover .tech-image img {
+  transform: scale(1.08); /* Efecto de zoom suave al pasar el mouse */
+}
 .benefit { color: #7dc0bf; margin-top: 15px; }
 
 /* Stepper de Interpretación */
