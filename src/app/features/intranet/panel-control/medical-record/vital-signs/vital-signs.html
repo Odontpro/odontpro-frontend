@@ -1,1 +1,57 @@
-<p>vital-signs works!</p>
+<div class="vital-signs-container" [formGroup]="form">
+  <div class="table-wrapper">
+    <table class="custom-table">
+      <thead>
+      <tr>
+        <th class="row-label-header"></th>
+        <ng-container formArrayName="columns">
+          <th *ngFor="let col of columns.controls; let i = index" [formGroupName]="i">
+            <mat-form-field appearance="fill" class="date-picker-field">
+              <input matInput [matDatepicker]="picker" formControlName="fecha">
+              <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+              <mat-datepicker #picker></mat-datepicker>
+            </mat-form-field>
+          </th>
+        </ng-container>
+        <th>
+          <button mat-icon-button
+                  color="primary"
+                  (click)="addColumn()"
+                  [disabled]="isLimitReached"
+                  type="button"
+                  matTooltip="Máximo 6 registros">
+            <mat-icon [style.color]="isLimitReached ? '#ccc' : '#7dc0bf'">add_circle</mat-icon>
+          </button>
+        </th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let row of rows">
+        <td class="row-label">{{ row.label }}</td>
+        <ng-container formArrayName="columns">
+          <td *ngFor="let col of columns.controls; let i = index" [formGroupName]="i">
+            <input type="text"
+                   [formControlName]="row.key"
+                   class="cell-input"
+                   [class.invalid]="col.get(row.key)?.invalid">
+          </td>
+        </ng-container>
+        <td></td>
+      </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="extra-actions">
+    <button mat-button color="primary" class="chart-link">Actualizar gráficos</button>
+
+    <div class="notes-section">
+      <label>Nota adicional</label>
+      <textarea matInput formControlName="notaAdicional" rows="4"></textarea>
+    </div>
+  </div>
+
+  <div class="footer-save">
+    <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Guardar</button>
+  </div>
+</div>

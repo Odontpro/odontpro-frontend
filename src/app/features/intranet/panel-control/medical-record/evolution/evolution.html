@@ -1,1 +1,37 @@
-<p>evolution works!</p>
+<div class="evolution-container">
+  <button mat-flat-button class="add-btn" (click)="openAddDialog()">
+    Agregar evolución
+  </button>
+
+  <div class="timeline">
+    <div class="timeline-item" *ngFor="let item of evolutions">
+      <div class="timeline-marker"></div>
+
+      <div class="timeline-content">
+        <div class="item-header">
+          <span class="meta-info">
+            {{ item.date | date:'dd MMM yyyy' }} a las {{ item.date | date:'hh:mm a' }} | {{ item.doctorName }}
+          </span>
+
+          <button mat-icon-button [matMenuTriggerFor]="menu" class="more-btn">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="editItem(item)">
+              <mat-icon>edit</mat-icon><span>Editar</span>
+            </button>
+            <button mat-menu-item (click)="deleteItem(item.id)">
+              <mat-icon color="warn">delete</mat-icon><span>Eliminar</span>
+            </button>
+          </mat-menu>
+        </div>
+
+        <div class="note-card">
+          <strong>Evolución</strong>
+          <p>{{ item.content }}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

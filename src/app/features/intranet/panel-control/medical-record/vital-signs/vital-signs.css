@@ -1,0 +1,118 @@
+.vital-signs-container {
+  width: 100%;
+  max-width: 100%; /* Evita que el contenedor padre se estire */
+  overflow: hidden; /* Corta cualquier intento de salirse */
+  padding: 10px;
+}
+
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto; /* Permite scroll solo si es estrictamente necesario en mobile */
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+}
+
+.custom-table {
+  width: 100%;
+  table-layout: fixed; /* MÁGICO: Fuerza a las columnas a repartirse el ancho disponible */
+  border-collapse: collapse;
+  background: white;
+}
+
+/* Primera columna (las etiquetas) */
+.row-label {
+  width: 160px; /* Ancho fijo para las etiquetas */
+  background-color: #f8f9fa;
+  padding-left: 10px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid #e0e0e0;
+}
+
+/* Columnas de datos */
+.custom-table th:not(.row-label-header),
+.custom-table td:not(.row-label) {
+  width: auto; /* Se reparten el espacio restante por igual */
+  min-width: 0; /* Permite que se encojan más allá de su contenido */
+  border: 1px solid #e0e0e0;
+}
+
+/* Ajuste de los inputs para que no empujen el ancho */
+.cell-input {
+  width: 100%;
+  box-sizing: border-box; /* Incluye el padding en el ancho */
+  border: none;
+  text-align: center;
+  padding: 5px;
+  font-size: 13px;
+}
+
+/* Compactar el DatePicker para que no ocupe espacio de más */
+.date-picker-field {
+  width: 100%;
+}
+
+::ng-deep .date-picker-field .mdc-text-field {
+  padding: 0 4px !important; /* Reduce el aire interno de Material */
+}
+
+::ng-deep .date-picker-field .mat-mdc-form-field-infix {
+  width: auto !important;
+  min-width: 50px !important;
+}
+
+.cell-input {
+  width: 100%;
+  height: 40px;
+  border: none;
+  text-align: center;
+  outline: none;
+  font-size: 14px;
+}
+
+.cell-input:focus {
+  background-color: #f0f7f7;
+}
+
+.cell-input.invalid {
+  background-color: #ffebee;
+  color: #c62828;
+}
+
+.extra-actions {
+  margin-top: 20px;
+}
+
+.chart-link {
+  color: #7dc0bf;
+  text-transform: none;
+  font-weight: 400;
+}
+
+.notes-section {
+  margin-top: 30px;
+}
+
+.notes-section label {
+  display: block;
+  margin-bottom: 8px;
+  color: #666;
+}
+
+.notes-section textarea {
+  width: 100%;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 10px;
+}
+
+.footer-save {
+  display: flex;
+  justify-content: center;
+  margin-top: 30px;
+}
+
+.footer-save button {
+  background-color: #00897b;
+  min-width: 150px;
+}
