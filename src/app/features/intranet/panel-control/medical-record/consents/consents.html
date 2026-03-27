@@ -1,1 +1,42 @@
-<p>consents works!</p>
+<div class="consents-container">
+  <section class="consent-section">
+    <h3 class="section-title">Plantillas de consentimientos disponibles</h3>
+
+    <div class="template-list">
+      <div class="template-item" *ngFor="let item of templates">
+        <span class="item-date">{{ item.date }}</span>
+
+        <span class="item-title">{{ item.title }}</span>
+
+        <div class="item-actions">
+          <button mat-icon-button (click)="onShare(item.id)" matTooltip="Compartir">
+            <mat-icon class="icon-share">share</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onEdit(item.id)" matTooltip="Editar">
+            <mat-icon class="icon-edit">edit</mat-icon>
+          </button>
+          <button mat-icon-button (click)="onDelete(item.id)" matTooltip="Eliminar">
+            <mat-icon class="icon-delete">delete_outline</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <mat-divider class="section-spacer"></mat-divider>
+
+  <section class="signed-section">
+    <button mat-flat-button class="btn-create" (click)="onCreateConsent()">
+      Crear
+    </button>
+
+    <h3 class="section-title margin-top">Consentimientos firmados por el paciente</h3>
+
+    <div class="empty-state" *ngIf="signedConsents.length === 0">
+      <p>Aun no se ha firmado ningún consentimiento</p>
+    </div>
+
+    <div class="signed-list" *ngIf="signedConsents.length > 0">
+    </div>
+  </section>
+</div>
