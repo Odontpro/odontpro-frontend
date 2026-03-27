@@ -1,6 +1,16 @@
 import {Routes} from '@angular/router';
 import {IntranetLayout} from '../../shared/layouts/intranet-layout/intranet-layout';
 import { RoleGuard} from '../../core/guards/role.guard';
+import {PanelControl} from './panel-control/panel-control';
+import {MedicalRecord} from './panel-control/medical-record/medical-record';
+import {QuestionnareDentistry} from './panel-control/medical-record/questionnare-dentistry/questionnare-dentistry';
+import {Evolution} from './panel-control/medical-record/evolution/evolution';
+import {
+  QuestionnareEndodontics
+} from './panel-control/medical-record/questionnare-endodontics/questionnare-endodontics';
+import {VitalSigns} from './panel-control/medical-record/vital-signs/vital-signs';
+import {Consents} from './panel-control/medical-record/consents/consents';
+import {QuestionnarePediatric} from './panel-control/medical-record/questionnare-pediatric/questionnare-pediatric';
 
 export const INTRANET_ROUTES: Routes = [
   {
@@ -29,6 +39,26 @@ export const INTRANET_ROUTES: Routes = [
         loadComponent: () =>
           import('./user-management/user-management')
             .then(m => m.UserManagement)
+      },
+      {
+        path: 'panel-control/:id', // Recibe el ID del paciente
+        component: PanelControl,
+        children: [
+          {
+            path: 'historia-clinica',
+            component: MedicalRecord,
+            children: [
+              { path: 'odontologia', component: QuestionnareDentistry },
+              { path: 'evolucion', component: Evolution },
+              { path: 'pediatria', component: QuestionnarePediatric },
+              { path: 'endodoncia', component: QuestionnareEndodontics },
+              { path: 'signos-vitales', component: VitalSigns },
+              { path: 'consentimientos', component: Consents },
+              { path: '', redirectTo: 'odontologia', pathMatch: 'full' }
+            ]
+          },
+          { path: '', redirectTo: 'historia-clinica', pathMatch: 'full' }
+        ]
       },
       {
         path: 'pacientes',

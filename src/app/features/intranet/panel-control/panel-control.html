@@ -1,0 +1,28 @@
+<div class="panel-layout">
+  <aside class="sidebar-patient">
+    <div class="patient-card">
+      <h2>{{ patient?.firstName }} {{ patient?.firstName }}</h2>
+      <p>Creado el {{ patient?.createdAt | date:'dd MMM yyyy' }}</p>
+    </div>
+
+    <nav class="patient-nav">
+      <a mat-button [routerLink]="['filiacion']" routerLinkActive="active-link">
+        <mat-icon>person</mat-icon> Filiación
+      </a>
+      <a mat-button [routerLink]="['historia-clinica']" routerLinkActive="active-link">
+        <mat-icon>assignment</mat-icon> Historia Clínica
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    <header class="patient-header-info">
+      <div class="info-card tags"><span>Etiquetas</span></div>
+      <div class="info-card notes"><span>Notas</span></div>
+      <div class="info-card allergies"><span>Alergias</span></div>
+    </header>
+
+    <section class="tab-content">
+      <router-outlet></router-outlet> </section>
+  </main>
+</div>

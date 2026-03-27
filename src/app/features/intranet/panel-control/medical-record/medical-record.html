@@ -1,0 +1,14 @@
+<div class="medical-record-container">
+  <nav class="medical-tabs">
+    <a [routerLink]="['odontologia']" routerLinkActive="active-tab">Anam. Odontología</a>
+    <a [routerLink]="['evolucion']" routerLinkActive="active-tab">Nota evolución breve</a>
+    <a [routerLink]="['pediatria']" routerLinkActive="active-tab">Anam. Odontopediatría</a>
+    <a [routerLink]="['endodoncia']" routerLinkActive="active-tab">Endodoncia</a>
+    <a [routerLink]="['signos-vitales']" routerLinkActive="active-tab">Signos Vitales</a>
+    <a [routerLink]="['consentimientos']" routerLinkActive="active-tab">Consentimientos</a>
+  </nav>
+
+  <div class="medical-form-content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

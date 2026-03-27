@@ -1,0 +1,29 @@
+.medical-tabs {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid #e0e0e0;
+  background: white;
+  padding: 0 10px;
+  overflow-x: auto; /* Por si hay muchas pestañas en mobile */
+}
+
+.medical-tabs a {
+  padding: 15px 20px;
+  text-decoration: none;
+  color: #666;
+  font-weight: 500;
+  font-size: 14px;
+  border-bottom: 3px solid transparent;
+  transition: all 0.3s;
+}
+
+.medical-tabs a.active-tab {
+  color: #5ba3a2;
+  border-bottom: 3px solid #5ba3a2;
+  background: rgba(91, 163, 162, 0.05);
+}
+
+.medical-form-content {
+  padding: 20px;
+  background: #fff;
+}

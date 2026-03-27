@@ -1,0 +1,426 @@
+<div class="form-container">
+  <form [formGroup]="questionnaireForm" (ngSubmit)="onSubmit()">
+
+    <!-- Selector de Doctor -->
+    <div class="doctor-selector">
+      <span>Doctor: </span>
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione un doctor</mat-label>
+        <mat-select formControlName="doctor">
+          <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+            {{ doctor.name }}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="hasError('doctor', 'required')">
+          Debe seleccionar un doctor
+        </mat-error>
+      </mat-form-field>
+    </div>
+
+    <!-- Acordeones -->
+    <mat-accordion multi>
+
+      <!-- SECCIÓN: ENFERMEDAD ACTUAL -->
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>ENFERMEDAD ACTUAL</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="section-content">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Motivo de consulta</mat-label>
+              <input matInput formControlName="motivoConsulta" placeholder="Describe el motivo de la consulta">
+              <mat-error *ngIf="hasError('motivoConsulta', 'required')">
+                Este campo es obligatorio
+              </mat-error>
+              <mat-error *ngIf="hasError('motivoConsulta', 'minlength')">
+                Mínimo 3 caracteres
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Tiempo de enfermedad</mat-label>
+              <input matInput formControlName="tiempoEnfermedad" placeholder="Ej: 2 semanas, 3 días">
+              <mat-error *ngIf="hasError('tiempoEnfermedad', 'required')">
+                Este campo es obligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Signos y síntomas principales</mat-label>
+              <textarea matInput formControlName="signosSintomas" rows="3" placeholder="Describe los signos y síntomas"></textarea>
+              <mat-error *ngIf="hasError('signosSintomas', 'required')">
+                Este campo es obligatorio
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Relato cronológico</mat-label>
+              <textarea matInput formControlName="relatoCronologico" rows="3" placeholder="Cronología de eventos"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Funciones biológicas</mat-label>
+              <textarea matInput formControlName="funcionesBiologicas" rows="3" placeholder="Funciones biológicas"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- SECCIÓN: ANTECEDENTES -->
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>ANTECEDENTES</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="section-content">
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Antecedentes familiares</mat-label>
+              <textarea matInput formControlName="antecedentesFamiliares" rows="3" placeholder="Antecedentes familiares"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Antecedentes personales</mat-label>
+              <textarea matInput formControlName="antecedentesPersonales" rows="3" placeholder="Antecedentes personales"></textarea>
+            </mat-form-field>
+          </div>
+
+          <h3 class="subsection-title">¿Tiene o ha tenido?</h3>
+
+          <!-- Grid de checkboxes en dos columnas -->
+          <div class="checkbox-grid">
+            <div class="checkbox-row">
+              <span class="checkbox-label">Presión alta</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="presionAlta" color="primary">
+                  {{ questionnaireForm.get('presionAlta')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">VIH</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="vih" color="primary">
+                  {{ questionnaireForm.get('vih')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Presión baja</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="presionBaja" color="primary">
+                  {{ questionnaireForm.get('presionBaja')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Diabetes</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="diabetes" color="primary">
+                  {{ questionnaireForm.get('diabetes')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Hepatitis</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="hepatitis" color="primary">
+                  {{ questionnaireForm.get('hepatitis')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Asma</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="asma" color="primary">
+                  {{ questionnaireForm.get('asma')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Gastritis</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="gastritis" color="primary">
+                  {{ questionnaireForm.get('gastritis')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Fuma?</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="fuma" color="primary">
+                  {{ questionnaireForm.get('fuma')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+
+            <div class="checkbox-row">
+              <span class="checkbox-label">Úlceras</span>
+              <div class="checkbox-group">
+                <mat-checkbox formControlName="ulceras" color="primary">
+                  {{ questionnaireForm.get('ulceras')?.value ? 'Sí' : 'No' }}
+                </mat-checkbox>
+              </div>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Comentario adicional</mat-label>
+              <textarea matInput formControlName="comentarioAdicional" rows="2"></textarea>
+            </mat-form-field>
+          </div>
+
+          <!-- Preguntas con checkbox + detalle -->
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">Enfermedades sanguíneas</span>
+              <mat-checkbox formControlName="enfermedadesSanguineas" color="primary">
+                {{ questionnaireForm.get('enfermedadesSanguineas')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('enfermedadesSanguineas')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="enfermedadesSanguineasDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">Problemas cardíacos</span>
+              <mat-checkbox formControlName="problemasCardiacos" color="primary">
+                {{ questionnaireForm.get('problemasCardiacos')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('problemasCardiacos')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="problemasCardiacosDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Padece de alguna otra enfermedad?</span>
+              <mat-checkbox formControlName="otraEnfermedad" color="primary">
+                {{ questionnaireForm.get('otraEnfermedad')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('otraEnfermedad')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="otraEnfermedadDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>¿Cuántas veces al día se cepilla los dientes?</mat-label>
+              <input matInput type="number" formControlName="vecesCepilloDientes" min="0" max="10">
+              <mat-error *ngIf="hasError('vecesCepilloDientes', 'min')">
+                El valor mínimo es 0
+              </mat-error>
+              <mat-error *ngIf="hasError('vecesCepilloDientes', 'max')">
+                El valor máximo es 10
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Le sangra sus encías?</span>
+              <mat-checkbox formControlName="sangraEncias" color="primary">
+                {{ questionnaireForm.get('sangraEncias')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('sangraEncias')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="sangraEnciasDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Ha tenido hemorragias anormales después de una extracción?</span>
+              <mat-checkbox formControlName="hemorragiasAnormales" color="primary">
+                {{ questionnaireForm.get('hemorragiasAnormales')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('hemorragiasAnormales')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="hemorragiasAnormalesDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Hace rechinar o aprieta los dientes?</span>
+              <mat-checkbox formControlName="rechinarDientes" color="primary">
+                {{ questionnaireForm.get('rechinarDientes')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('rechinarDientes')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="rechinarDientesDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">Otras molestias en la boca</span>
+              <mat-checkbox formControlName="otrasMolestias" color="primary">
+                {{ questionnaireForm.get('otrasMolestias')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('otrasMolestias')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="otrasMolestiasDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">Alergias</span>
+              <mat-checkbox formControlName="alergias" color="primary">
+                {{ questionnaireForm.get('alergias')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('alergias')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="alergiasDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Ha tenido alguna operación grande en los últimos años?</span>
+              <mat-checkbox formControlName="operacionGrande" color="primary">
+                {{ questionnaireForm.get('operacionGrande')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('operacionGrande')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="operacionGrandeDetalle">
+            </mat-form-field>
+          </div>
+
+          <div class="checkbox-with-detail">
+            <div class="checkbox-row">
+              <span class="checkbox-label">¿Toma alguna medicación de manera permanente?</span>
+              <mat-checkbox formControlName="medicacionPermanente" color="primary">
+                {{ questionnaireForm.get('medicacionPermanente')?.value ? 'Sí' : 'No' }}
+              </mat-checkbox>
+            </div>
+            <mat-form-field appearance="outline" *ngIf="questionnaireForm.get('medicacionPermanente')?.value" class="detail-field">
+              <mat-label>Especifique</mat-label>
+              <input matInput formControlName="medicacionPermanenteDetalle">
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+      <!-- SECCIÓN: EXAMEN CLÍNICO -->
+      <mat-expansion-panel expanded="true">
+        <mat-expansion-panel-header>
+          <mat-panel-title>EXAMEN CLÍNICO</mat-panel-title>
+        </mat-expansion-panel-header>
+
+        <div class="section-content">
+          <h3 class="subsection-title">Signos vitales:</h3>
+
+          <div class="vitals-grid">
+            <mat-form-field appearance="outline">
+              <mat-label>PA</mat-label>
+              <input matInput formControlName="presionArterial" placeholder="120">
+              <span matSuffix>mmHg</span>
+              <mat-error *ngIf="hasError('presionArterial', 'pattern')">
+                Solo números
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>FC</mat-label>
+              <input matInput formControlName="frecuenciaCardiaca" placeholder="80">
+              <span matSuffix>bpm</span>
+              <mat-error *ngIf="hasError('frecuenciaCardiaca', 'pattern')">
+                Solo números
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Temperatura</mat-label>
+              <input matInput formControlName="temperatura" placeholder="36.5">
+              <span matSuffix>°C</span>
+              <mat-error *ngIf="hasError('temperatura', 'pattern')">
+                Solo números
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>FR</mat-label>
+              <input matInput formControlName="frecuenciaRespiratoria" placeholder="18">
+              <span matSuffix>r/m</span>
+              <mat-error *ngIf="hasError('frecuenciaRespiratoria', 'pattern')">
+                Solo números
+              </mat-error>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Examen extraoral</mat-label>
+              <textarea matInput formControlName="examenExtraoral" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Examen intraoral</mat-label>
+              <textarea matInput formControlName="examenIntraoral" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Resultado de exámenes auxiliares</mat-label>
+              <textarea matInput formControlName="resultadoExamenesAuxiliares" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="form-row">
+            <mat-form-field appearance="outline" class="full-width">
+              <mat-label>Observaciones</mat-label>
+              <textarea matInput formControlName="observaciones" rows="4"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </mat-expansion-panel>
+
+    </mat-accordion>
+
+    <!-- Botón de Guardar -->
+    <div class="form-actions">
+      <button mat-raised-button color="primary" type="submit" [disabled]="questionnaireForm.invalid">
+        Guardar
+      </button>
+    </div>
+
+  </form>
+</div>
