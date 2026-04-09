@@ -1,1 +1,179 @@
-<p>questionnare-pediatric works!</p>
+<div class="form-container" [formGroup]="form">
+  <mat-accordion multi>
+
+    <mat-expansion-panel expanded>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Sección</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="grid-layout">
+        <mat-form-field appearance="outline" class="col-full">
+          <mat-label>Motivo de consulta</mat-label>
+          <textarea matInput formControlName="motivoConsulta" rows="3"></textarea>
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre mamá</mat-label>
+          <input matInput formControlName="nombreMama">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Nombre papá</mat-label>
+          <input matInput formControlName="nombrePapa">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Número de hermanos</mat-label>
+          <input matInput type="number" formControlName="numeroHermanos">
+        </mat-form-field>
+
+        <mat-form-field appearance="outline">
+          <mat-label>Orden</mat-label>
+          <input matInput formControlName="ordenNacimiento">
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>ENFERMEDAD ACTUAL</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Tipo de enfermedad</mat-label>
+          <textarea matInput formControlName="tipoEnfermedad" rows="4"></textarea>
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Relato cronológico</mat-label>
+          <textarea matInput formControlName="relatoCronologico" rows="4"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>ANTECEDENTES PRENATALES</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="grid-2">
+        <mat-form-field appearance="outline">
+          <mat-label>Enfermedades maternas</mat-label>
+          <input matInput formControlName="enfermedadesMaternas">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>¿Hubo complicaciones en el embarazo?</mat-label>
+          <input matInput formControlName="complicacionesEmbarazo">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>¿Fue un bebé prematuro?</mat-label>
+          <input matInput formControlName="bebePrematuro">
+        </mat-form-field>
+        <mat-form-field appearance="outline">
+          <mat-label>Peso al nacer (kg)</mat-label>
+          <input matInput type="number" formControlName="pesoNacer">
+        </mat-form-field>
+        <mat-form-field appearance="outline" class="col-full">
+          <mat-label>Comentario</mat-label>
+          <textarea matInput formControlName="comentarioPrenatal" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>ANTECEDENTES POSTNATALES</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="postnatal-content" [formGroup]="form">
+        <div class="boolean-list">
+          <ng-container *ngFor="let item of postnatalFields">
+            <div class="boolean-row">
+              <span class="question">{{ item.label }}</span>
+              <div class="radio-group-container">
+                <mat-radio-group [formControlName]="item.key">
+                  <mat-radio-button [value]="false">No</mat-radio-button>
+                  <mat-radio-button [value]="true">Si</mat-radio-button>
+                </mat-radio-group>
+              </div>
+              <input type="text"
+                     class="detail-input"
+                     [formControlName]="item.key + 'Detalle'"
+                     placeholder="Detalle...">
+            </div>
+          </ng-container>
+        </div>
+
+        <div class="additional-postnatal-fields">
+          <mat-form-field appearance="outline" class="col-full margin-top">
+            <mat-label>Comentario adicional</mat-label>
+            <textarea matInput formControlName="comentarioPostnatal" rows="2"></textarea>
+          </mat-form-field>
+
+          <div class="grid-2">
+            <div class="input-with-label">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>¿Cuánto dulce come?</mat-label>
+                <input matInput formControlName="cuantoDulce">
+                <span matSuffix class="suffix-box">Veces al día</span>
+              </mat-form-field>
+            </div>
+            <div class="input-with-label">
+              <mat-form-field appearance="outline" class="full-width">
+                <mat-label>¿Con qué frecuencia?</mat-label>
+                <input matInput formControlName="frecuenciaDulce">
+                <span matSuffix class="suffix-box">días/semana</span>
+              </mat-form-field>
+            </div>
+          </div>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>¿Qué tipo de leche recibe el bebé?</mat-label>
+            <input matInput formControlName="tipoLeche">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>¿Cómo le lava los dientes al bebé o niño?</mat-label>
+            <input matInput formControlName="lavadoDientes">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>Describa un día de comida de su bebé/niño desde el desayuno.</mat-label>
+            <textarea matInput formControlName="descripcionComida" rows="3"></textarea>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>¿Te consideras un papá/mamá autoritario, cooperador, despreocupado o sobreprotector?</mat-label>
+            <input matInput formControlName="perfilPadre">
+          </mat-form-field>
+
+          <div class="grid-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Hábitos orales</mat-label>
+              <textarea matInput formControlName="habitosOrales" rows="3"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Técnica de cepillado</mat-label>
+              <textarea matInput formControlName="tecnicaCepillado" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+
+          <div class="grid-2">
+            <mat-form-field appearance="outline">
+              <mat-label>Examen clínico</mat-label>
+              <textarea matInput formControlName="examenClinico" rows="3"></textarea>
+            </mat-form-field>
+            <mat-form-field appearance="outline">
+              <mat-label>Observaciones</mat-label>
+              <textarea matInput formControlName="observaciones" rows="3"></textarea>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+    </mat-expansion-panel>
+  </mat-accordion>
+
+  <div class="actions">
+    <button mat-raised-button class="save-btn" (click)="save()">Guardar</button>
+  </div>
+</div>
