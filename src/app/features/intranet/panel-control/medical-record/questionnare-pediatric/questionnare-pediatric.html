@@ -1,4 +1,20 @@
 <div class="form-container" [formGroup]="form">
+  <!-- Selector de Doctor -->
+  <div class="doctor-selector">
+    <span>Doctor: </span>
+    <mat-form-field appearance="outline">
+      <mat-label>Seleccione un doctor</mat-label>
+      <mat-select formControlName="doctor">
+        <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
+          {{ doctor.name }}
+        </mat-option>
+      </mat-select>
+      <mat-error *ngIf="hasError('doctor', 'required')">
+        Debe seleccionar un doctor
+      </mat-error>
+    </mat-form-field>
+  </div>
+
   <mat-accordion multi>
 
     <mat-expansion-panel expanded>

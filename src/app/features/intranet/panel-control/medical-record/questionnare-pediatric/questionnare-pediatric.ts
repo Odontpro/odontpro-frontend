@@ -1,12 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {FormBuilder, FormGroup, ReactiveFormsModule, Validators} from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatRadioModule } from '@angular/material/radio';
 import { MatButtonModule } from '@angular/material/button';
+import {MatOption} from '@angular/material/core';
+import {MatSelect} from '@angular/material/select';
 
 @Component({
   selector: 'app-questionnare-pediatric',
@@ -19,12 +21,22 @@ import { MatButtonModule } from '@angular/material/button';
     MatInputModule,
     MatCheckboxModule,
     MatRadioModule,
-    MatButtonModule
+    MatButtonModule,
+    MatOption,
+    MatSelect
   ],
   templateUrl: './questionnare-pediatric.html',
   styleUrl: './questionnare-pediatric.css',
 })
 export class QuestionnarePediatric implements OnInit {
+  selectedDoctor: string = '';
+
+  doctors = [
+    { id: 1, name: 'Diego Talledo Sanchez' },
+    { id: 2, name: 'Dr. Juan Pérez' },
+    { id: 3, name: 'Dra. María García' }
+  ];
+
   form!: FormGroup;
 
   postnatalFields = [
@@ -42,6 +54,9 @@ export class QuestionnarePediatric implements OnInit {
 
   ngOnInit(): void {
     this.form = this.fb.group({
+      // Sección: Información del Doctor
+      doctor: ['', Validators.required],
+
       // SECCIÓN
       motivoConsulta: [''],
       nombreMama: [''],
@@ -83,6 +98,12 @@ export class QuestionnarePediatric implements OnInit {
       examenClinico: [''],
       observaciones: ['']
     });
+  }
+
+  // Helpers para validación
+  hasError(field: string, error: string): boolean {
+    const control = this.form.get(field);
+    return !!(control?.hasError(error) && control?.touched);
   }
 
   save() {
