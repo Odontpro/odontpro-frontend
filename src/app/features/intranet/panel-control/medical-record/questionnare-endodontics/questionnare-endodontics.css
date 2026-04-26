@@ -41,6 +41,26 @@ mat-panel-title {
   padding: 15px 0;
 }
 
+.endodontics-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding-top: 10px;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-small {
+  width: 180px; /* Ancho reducido para el número de diente */
+}
+
+/* Ajuste para que los labels se vean suaves como en el diseño de OdontPro */
+::ng-deep .mat-mdc-text-field-wrapper {
+  background-color: white !important;
+}
+
 .actions-footer {
   display: flex;
   justify-content: center;

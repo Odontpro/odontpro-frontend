@@ -17,11 +17,35 @@
 
   <mat-accordion multi="true">
 
-    <mat-expansion-panel>
+    <mat-expansion-panel [expanded]="true">
       <mat-expansion-panel-header>
         <mat-panel-title>Sección</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="seccion">
+        <div class="endodontics-grid">
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>¿Tratamiento endodóntico previo?</mat-label>
+            <input matInput formControlName="tratamientoPrevio">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>Historia del dolor</mat-label>
+            <input matInput formControlName="historiaDolor">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-full">
+            <mat-label>Nota adicional</mat-label>
+            <input matInput formControlName="notaAdicional">
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="col-small">
+            <mat-label>N° de diente</mat-label>
+            <input matInput formControlName="numeroDiente" type="number">
+          </mat-form-field>
+
+        </div>
       </div>
     </mat-expansion-panel>
 

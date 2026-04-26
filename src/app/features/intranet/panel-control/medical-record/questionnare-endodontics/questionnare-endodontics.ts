@@ -36,7 +36,12 @@ export class QuestionnareEndodontics implements OnInit {
     this.form = this.fb.group({
       doctorId: [1], // Por defecto Diego Talledo Sanchez
       // Las secciones se irán rellenando una a una
-      seccion: this.fb.group({}),
+      seccion: this.fb.group({
+        tratamientoPrevio: [''],
+        historiaDolor: [''],
+        notaAdicional: [''],
+        numeroDiente: ['']
+      }),
       examenClinico: this.fb.group({}),
       pruebaVitalidad: this.fb.group({}),
       examenRadiografico: this.fb.group({}),
