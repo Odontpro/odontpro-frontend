@@ -25,16 +25,14 @@
 }
 
 mat-expansion-panel {
-  margin-bottom: 10px;
-  border: 1px solid #e0e0e0;
-  box-shadow: none !important;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 mat-panel-title {
-  color: #007bb2;
   font-weight: 600;
-  text-transform: uppercase;
-  font-size: 13px;
+  color: #7dc0bf;
+  font-size: 1.1rem;
 }
 
 .panel-content {

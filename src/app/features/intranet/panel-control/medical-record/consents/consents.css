@@ -4,7 +4,7 @@
 }
 
 .section-title {
-  color: #0077b6; /* Azul para los títulos de sección */
+  color: #7dc0bf; /* Azul para los títulos de sección */
   font-size: 1.1rem;
   font-weight: 600;
   margin-bottom: 20px;
@@ -31,9 +31,9 @@
 }
 
 /* Iconos con colores de la captura */
-.icon-share { color: #a2d2ff; }
-.icon-edit { color: #8ecae6; }
-.icon-delete { color: #bde0fe; }
+.icon-share { color: #7dc0bf; }
+.icon-edit { color: #7dc0bf; }
+.icon-delete { color: #7dc0bf; }
 
 .section-spacer {
   margin: 40px 0;
