@@ -53,7 +53,120 @@
       <mat-expansion-panel-header>
         <mat-panel-title>EXAMEN CLÍNICO</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="examenClinico">
+
+        <div class="field-group">
+          <label class="group-label">Corona Anatómica</label>
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="caries">Caries</mat-checkbox>
+            <mat-checkbox formControlName="restauracion">Restauración</mat-checkbox>
+            <mat-checkbox formControlName="bruxismo">Bruxismo</mat-checkbox>
+            <mat-checkbox formControlName="fractura">Fractura</mat-checkbox>
+            <mat-checkbox formControlName="fracturaExposicion">Fractura y exposición pulpar</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="hallazgos-grid">
+          <div class="hallazgo-row">
+            <span>Inflamación presente</span>
+            <mat-radio-group formControlName="inflamacion">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline">
+              <mat-label>Especificar</mat-label>
+              <mat-select formControlName="inflamacionEsp">
+                <mat-option value="leve">Leve</mat-option>
+                <mat-option value="moderada">Moderada</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="hallazgo-row">
+            <span>Fístulas</span>
+            <mat-radio-group formControlName="fistulas">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline">
+              <mat-label>Especificar</mat-label>
+              <mat-select formControlName="fistulasEsp">
+                <mat-option value="vestibular">Vestibular</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="hallazgo-row">
+            <span>Gingivitis</span>
+            <mat-radio-group formControlName="gingivitis">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline">
+              <mat-label>Movilidad</mat-label>
+              <mat-select formControlName="movilidad">
+                <mat-option value="grado1">Grado 1</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="hallazgo-row">
+            <span>Bolsas</span>
+            <mat-radio-group formControlName="bolsas">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline">
+              <mat-label>Sondeo</mat-label>
+              <input matInput formControlName="sondeo">
+            </mat-form-field>
+          </div>
+        </div>
+
+        <div class="field-group margin-top">
+          <label class="group-label">Características del dolor</label>
+          <div class="checkbox-wrap">
+            <mat-checkbox formControlName="espontaneo">Espontáneo</mat-checkbox>
+            <mat-checkbox formControlName="provocado">Provocado</mat-checkbox>
+            <mat-checkbox formControlName="frio">Frio</mat-checkbox>
+            <mat-checkbox formControlName="calor">Calor</mat-checkbox>
+            <mat-checkbox formControlName="masticacion">Masticación</mat-checkbox>
+            <mat-checkbox formControlName="nocturno">Nocturno</mat-checkbox>
+            <mat-checkbox formControlName="aire">Aire</mat-checkbox>
+            <mat-checkbox formControlName="dulce">Dulce</mat-checkbox>
+            <mat-checkbox formControlName="acido">Ácido</mat-checkbox>
+            <mat-checkbox formControlName="irradiado">Irradiado</mat-checkbox>
+            <mat-checkbox formControlName="difuso">Difuso</mat-checkbox>
+            <mat-checkbox formControlName="punzante">Punzante</mat-checkbox>
+            <mat-checkbox formControlName="continuo">Continuo</mat-checkbox>
+            <mat-checkbox formControlName="intermitente">Intermitente</mat-checkbox>
+            <mat-checkbox formControlName="esporadico">Esporádico</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="grid-2 margin-top">
+          <div>
+            <label class="group-label">Dolor a la percusión</label>
+            <div class="checkbox-row">
+              <mat-checkbox formControlName="horizontal">Horizontal</mat-checkbox>
+              <mat-checkbox formControlName="vertical">Vertical</mat-checkbox>
+            </div>
+          </div>
+          <div>
+            <label class="group-label">Dolor a palpación</label>
+            <div class="checkbox-row">
+              <mat-checkbox formControlName="vestibular">Vestibular</mat-checkbox>
+              <mat-checkbox formControlName="lingualPalatino">Lingual/Palatino</mat-checkbox>
+            </div>
+          </div>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <textarea matInput formControlName="notaAdicionalExamen" rows="3"></textarea>
+        </mat-form-field>
+
       </div>
     </mat-expansion-panel>
 
@@ -61,7 +174,67 @@
       <mat-expansion-panel-header>
         <mat-panel-title>PRUEBA DE VITALIDAD</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="pruebaVitalidad">
+        <div class="vitality-grid">
+
+          <div class="vitality-row">
+            <div class="test-type">
+              <label class="group-label">Calor</label>
+              <mat-radio-group formControlName="calorSiNo">
+                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Duración</mat-label>
+              <mat-select formControlName="calorDuracion">
+                <mat-option *ngFor="let opt of duracionOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Intensidad</mat-label>
+              <mat-select formControlName="calorIntensidad">
+                <mat-option *ngFor="let opt of intensidadOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+          <div class="vitality-row">
+            <div class="test-type">
+              <label class="group-label">Frío</label>
+              <mat-radio-group formControlName="frioSiNo">
+                <mat-radio-button [value]="true">Sí</mat-radio-button>
+                <mat-radio-button [value]="false">No</mat-radio-button>
+              </mat-radio-group>
+            </div>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Duración</mat-label>
+              <mat-select formControlName="frioDuracion">
+                <mat-option *ngFor="let opt of duracionOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+              <mat-label>Intensidad</mat-label>
+              <mat-select formControlName="frioIntensidad">
+                <mat-option *ngFor="let opt of intensidadOptions" [value]="opt.value">
+                  {{ opt.label }}
+                </mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
       </div>
     </mat-expansion-panel>
 
@@ -69,15 +242,106 @@
       <mat-expansion-panel-header>
         <mat-panel-title>EXAMEN RADIOGRÁFICO</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="examenRadiografico">
+
+        <div class="field-group">
+          <label class="group-label">Cámara Pulpar:</label>
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="camaraAbierta">Abierta</mat-checkbox>
+            <mat-checkbox formControlName="camaraCerrada">Cerrada</mat-checkbox>
+            <mat-checkbox formControlName="camaraAmplia">Amplia</mat-checkbox>
+            <mat-checkbox formControlName="camaraEstrecha">Estrecha</mat-checkbox>
+            <mat-checkbox formControlName="camaraCalculos">Cálculos pulpares</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="field-group margin-top">
+          <label class="group-label">Conducto(s):</label>
+          <div class="checkbox-row">
+            <mat-checkbox formControlName="condUnico">Único</mat-checkbox>
+            <mat-checkbox formControlName="cond2">2 conductos</mat-checkbox>
+            <mat-checkbox formControlName="cond3">3 conductos</mat-checkbox>
+            <mat-checkbox formControlName="cond4">4 conductos</mat-checkbox>
+          </div>
+          <div class="checkbox-row margin-top-xs">
+            <mat-checkbox formControlName="condRecto">Recto</mat-checkbox>
+            <mat-checkbox formControlName="condCurvo">Curvo</mat-checkbox>
+            <mat-checkbox formControlName="condAmplio">Amplio</mat-checkbox>
+            <mat-checkbox formControlName="condEstrecho">Estrecho</mat-checkbox>
+            <mat-checkbox formControlName="condTratado">Tratado anteriormente</mat-checkbox>
+            <mat-checkbox formControlName="condApiceAbierto">Ápice abierto</mat-checkbox>
+          </div>
+        </div>
+
+        <div class="hallazgos-rad-grid margin-top">
+
+          <div class="hallazgo-row" *ngFor="let item of [
+        {key: 'lesionFurca', label: 'Lesión en Furca'},
+        {key: 'lesionApical', label: 'Lesión Apical'},
+        {key: 'lesionLateral', label: 'Lesión Lateral'},
+        {key: 'lesionEndoPerio', label: 'Lesión Endo-perio'},
+        {key: 'raicesEnanas', label: 'Raíces enanas'}
+      ]">
+            <span class="hallazgo-label">{{item.label}}</span>
+            <mat-radio-group [formControlName]="item.key">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <div></div> </div>
+
+          <div class="hallazgo-row" *ngFor="let item of [
+        {key: 'fracturaRadicular', label: 'Fractura radicular', opts: fracturaOptions},
+        {key: 'calcificacion', label: 'Calcificación', opts: calcificacionOptions},
+        {key: 'ligamentoPeriodontal', label: 'Ligamento periodontal', opts: ligamentoOptions},
+        {key: 'reabsorcion', label: 'Reabsorción', opts: reabsorcionOptions}
+      ]">
+            <span class="hallazgo-label">{{item.label}}</span>
+            <mat-radio-group [formControlName]="item.key">
+              <mat-radio-button [value]="true">Sí</mat-radio-button>
+              <mat-radio-button [value]="false">No</mat-radio-button>
+            </mat-radio-group>
+            <mat-form-field appearance="outline">
+              <mat-label>Seleccionar</mat-label>
+              <mat-select [formControlName]="item.key + 'Detalle'">
+                <mat-option *ngFor="let opt of item.opts" [value]="opt">{{opt}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <input matInput formControlName="notaAdicionalRad">
+        </mat-form-field>
+
       </div>
     </mat-expansion-panel>
 
     <mat-expansion-panel>
       <mat-expansion-panel-header>
-        <mat-panel-title>DIAGNÓSTICO PULPAR DE PRESUNCIÓN</mat-panel-title>
+        <mat-panel-title>DIAGNÓSTICO PULPAR DE PRESUNCION</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="diagnosticoPulpar">
+        <div class="diagnosis-grid">
+
+          <div class="checkbox-group-wrap">
+            <mat-checkbox
+              *ngFor="let option of estadoPulparOptions"
+              [checked]="form.get('diagnosticoPulpar')?.get('estadoPulpar')?.value === option"
+              (change)="form.get('diagnosticoPulpar')?.get('estadoPulpar')?.setValue(option)">
+              {{ option }}
+            </mat-checkbox>
+          </div>
+
+          <mat-form-field appearance="outline" class="col-full margin-top">
+            <mat-label>Nota adicional</mat-label>
+            <input matInput formControlName="notaAdicionalPulpar">
+          </mat-form-field>
+
+        </div>
       </div>
     </mat-expansion-panel>
 
@@ -85,7 +349,21 @@
       <mat-expansion-panel-header>
         <mat-panel-title>DIAGNÓSTICO PERIAPICAL</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="diagPeriapical">
+        <div class="checkbox-group-wrap">
+          <mat-checkbox
+            *ngFor="let option of estadoPeriapicalOptions"
+            [checked]="diagPeriapicalGroup.get('estadoPeriapical')?.value === option"
+            (change)="diagPeriapicalGroup.get('estadoPeriapical')?.setValue(option)">
+            {{ option }}
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <input matInput formControlName="notaAdicionalPeriapical">
+        </mat-form-field>
       </div>
     </mat-expansion-panel>
 
@@ -93,7 +371,21 @@
       <mat-expansion-panel-header>
         <mat-panel-title>DIAGNÓSTICO DEFINITIVO</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="diagnosticoDefinitivo">
+        <div class="checkbox-group-wrap">
+          <mat-checkbox
+            *ngFor="let option of estadoDefinitivoOptions"
+            [checked]="diagDefinitivoGroup.get('estadoDefinitivo')?.value === option"
+            (change)="diagDefinitivoGroup.get('estadoDefinitivo')?.setValue(option)">
+            {{ option }}
+          </mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <input matInput formControlName="notaAdicionalDefinitivo">
+        </mat-form-field>
       </div>
     </mat-expansion-panel>
 
@@ -101,7 +393,23 @@
       <mat-expansion-panel-header>
         <mat-panel-title>TRATAMIENTO INDICADO</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="tratamientoIndicado">
+        <div class="checkbox-group-wrap">
+          <mat-checkbox formControlName="biopulpectomia">Biopulpectomía</mat-checkbox>
+          <mat-checkbox formControlName="apicectomia">Apicectomía</mat-checkbox>
+          <mat-checkbox formControlName="necropulpectomia">Necropulpectomía</mat-checkbox>
+          <mat-checkbox formControlName="hemiseccion">Hemisección</mat-checkbox>
+          <mat-checkbox formControlName="retratamiento">Retratamiento</mat-checkbox>
+          <mat-checkbox formControlName="radicectomia">Radicectomía</mat-checkbox>
+          <mat-checkbox formControlName="blanqueamiento">Blanqueamiento</mat-checkbox>
+          <mat-checkbox formControlName="extraccion">Extracción</mat-checkbox>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <textarea matInput formControlName="notaAdicionalTratamiento" rows="3"></textarea>
+        </mat-form-field>
       </div>
     </mat-expansion-panel>
 
@@ -109,7 +417,85 @@
       <mat-expansion-panel-header>
         <mat-panel-title>DATOS CLÍNICOS</mat-panel-title>
       </mat-expansion-panel-header>
-      <div class="panel-content">
+
+      <div class="panel-content" formGroupName="datosClinicos">
+        <div class="table-container">
+          <table class="clinical-table">
+            <thead>
+            <tr>
+              <th></th>
+              <th>Conducto</th>
+              <th>Longitud de trabajo (mm)</th>
+              <th>Punto de referencia</th>
+              <th>Lima inicial</th>
+              <th>Última lima apical</th>
+              <th>Tipo Cemento</th>
+              <th>Cono maestro de gutapercha</th>
+            </tr>
+            </thead>
+            <tbody formArrayName="conductos">
+            <tr *ngFor="let item of conductosArray; let i = index" [formGroupName]="i">
+              <td class="row-header">{{conductoRows[i]}}</td>
+              <td><input matInput formControlName="conducto"></td>
+              <td><input matInput formControlName="longitud" type="number"></td>
+              <td><input matInput formControlName="referencia"></td>
+              <td><input matInput formControlName="limaInicial"></td>
+              <td><input matInput formControlName="ultimaLima"></td>
+              <td><input matInput formControlName="cemento"></td>
+              <td><input matInput formControlName="conoMaestro"></td>
+            </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <textarea matInput formControlName="notaAdicionalClinica" rows="3"></textarea>
+        </mat-form-field>
+      </div>
+    </mat-expansion-panel>
+
+    <mat-expansion-panel>
+      <mat-expansion-panel-header>
+        <mat-panel-title>Sección</mat-panel-title>
+      </mat-expansion-panel-header>
+
+      <div class="panel-content" formGroupName="seccionFinal">
+
+        <mat-form-field appearance="outline" class="col-full">
+          <mat-label>Accidentes operatorios</mat-label>
+          <input matInput formControlName="accidentesOperatorios">
+        </mat-form-field>
+
+        <div class="field-group margin-top">
+          <label class="group-label">Restauración post-endodóntica indicada</label>
+          <div class="checkbox-row">
+            <mat-checkbox
+              *ngFor="let opt of restauracionOptions"
+              [checked]="seccionFinalGroup.get('restauracionPost')?.value === opt"
+              (change)="seccionFinalGroup.get('restauracionPost')?.setValue(opt)">
+              {{ opt }}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <div class="field-group margin-top">
+          <label class="group-label">Pronóstico</label>
+          <div class="checkbox-row">
+            <mat-checkbox
+              *ngFor="let opt of pronosticoOptions"
+              [checked]="seccionFinalGroup.get('pronostico')?.value === opt"
+              (change)="seccionFinalGroup.get('pronostico')?.setValue(opt)">
+              {{ opt }}
+            </mat-checkbox>
+          </div>
+        </div>
+
+        <mat-form-field appearance="outline" class="col-full margin-top">
+          <mat-label>Nota adicional</mat-label>
+          <textarea matInput formControlName="notaAdicionalFinal" rows="3"></textarea>
+        </mat-form-field>
+
       </div>
     </mat-expansion-panel>
 

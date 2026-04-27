@@ -1,11 +1,13 @@
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
+import {FormArray, FormBuilder, FormGroup, ReactiveFormsModule} from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatSelectModule } from '@angular/material/select';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import {Component, OnInit} from '@angular/core';
+import {MatCheckbox} from '@angular/material/checkbox';
+import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
 
 @Component({
   selector: 'app-questionnare-endodontics',
@@ -17,7 +19,10 @@ import {Component, OnInit} from '@angular/core';
     MatFormFieldModule,
     MatSelectModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCheckbox,
+    MatRadioButton,
+    MatRadioGroup
   ],
   templateUrl: './questionnare-endodontics.html',
   styleUrl: './questionnare-endodontics.css',
@@ -42,15 +47,180 @@ export class QuestionnareEndodontics implements OnInit {
         notaAdicional: [''],
         numeroDiente: ['']
       }),
-      examenClinico: this.fb.group({}),
-      pruebaVitalidad: this.fb.group({}),
-      examenRadiografico: this.fb.group({}),
-      diagPulpar: this.fb.group({}),
-      diagPeriapical: this.fb.group({}),
-      diagDefinitivo: this.fb.group({}),
-      tratamientoIndicado: this.fb.group({}),
-      datosClinicos: this.fb.group({})
+      examenClinico: this.fb.group({
+        // Corona Anatómica
+        caries: [false], restauracion: [false], bruxismo: [false], fractura: [false], fracturaExposicion: [false],
+
+        // Hallazgos con Si/No y Especificación
+        inflamacion: [null], inflamacionEsp: [''],
+        fistulas: [null], fistulasEsp: [''],
+        gingivitis: [null], movilidad: [''],
+        bolsas: [null], sondeo: [''],
+        sarro: [null],
+
+        // Características del dolor
+        espontaneo: [false], provocado: [false], frio: [false], calor: [false], masticacion: [false],
+        nocturno: [false], aire: [false], dulce: [false], acido: [false], irradiado: [false],
+        difuso: [false], punzante: [false], continuo: [false], intermitente: [false], esporadico: [false],
+
+        // Percusión y Palpación
+        horizontal: [false], vertical: [false],
+        vestibular: [false], lingualPalatino: [false],
+
+        notaAdicionalExamen: ['']
+      }),
+      pruebaVitalidad: this.fb.group({
+        calorSiNo: [null],
+        calorDuracion: [''],
+        calorIntensidad: [''],
+        frioSiNo: [null],
+        frioDuracion: [''],
+        frioIntensidad: ['']
+      }),
+      examenRadiografico: this.fb.group({
+        // Cámara Pulpar
+        camaraAbierta: [false], camaraCerrada: [false], camaraAmplia: [false],
+        camaraEstrecha: [false], camaraCalculos: [false],
+
+        // Conducto(s) - Cantidad y Forma
+        condUnico: [false], cond2: [false], cond3: [false], cond4: [false],
+        condRecto: [false], condCurvo: [false], condAmplio: [false],
+        condEstrecho: [false], condTratado: [false], condApiceAbierto: [false],
+
+        // Hallazgos Si/No
+        lesionFurca: [null],
+        lesionApical: [null],
+        lesionLateral: [null],
+        lesionEndoPerio: [null],
+        raicesEnanas: [null],
+
+        // Hallazgos con Selección
+        fracturaRadicular: [null], fracturaRadicularDetalle: [''],
+        calcificacion: [null], calcificacionDetalle: [''],
+        ligamentoPeriodontal: [null], ligamentoPeriodontalDetalle: [''],
+        reabsorcion: [null], reabsorcionDetalle: [''],
+
+        notaAdicionalRad: ['']
+      }),
+      diagnosticoPulpar: this.fb.group({
+        estadoPulpar: [''], // Almacenará el valor seleccionado
+        notaAdicionalPulpar: ['']
+      }),
+      diagPeriapical: this.fb.group({
+        estadoPeriapical: [''],
+        notaAdicionalPeriapical: ['']
+      }),
+      diagnosticoDefinitivo: this.fb.group({
+        estadoDefinitivo: [''],
+        notaAdicionalDefinitivo: ['']
+      }),
+      tratamientoIndicado: this.fb.group({
+        biopulpectomia: [false],
+        apicectomia: [false],
+        necropulpectomia: [false],
+        hemiseccion: [false],
+        retratamiento: [false],
+        radicectomia: [false],
+        blanqueamiento: [false],
+        extraccion: [false],
+        notaAdicionalTratamiento: ['']
+      }),
+      datosClinicos: this.fb.group({
+        conductos: this.fb.array([]),
+        notaAdicionalClinica: ['']
+      }),
+      seccionFinal: this.fb.group({
+        accidentesOperatorios: [''],
+        restauracionPost: [''], // Manejado como selección única
+        pronostico: [''],       // Manejado como selección única
+        notaAdicionalFinal: ['']
+      }),
     });
+    this.initConductos();
+  }
+
+  intensidadOptions = [
+    { value: 'leve', label: 'Leve (1-3)' },
+    { value: 'moderada', label: 'Moderada (4-7)' },
+    { value: 'severa', label: 'Severa (8-10)' }
+  ];
+
+  duracionOptions = [
+    { value: 'fugaz', label: 'Fugaz' },
+    { value: 'persistente', label: 'Persistente' }
+  ];
+
+  fracturaOptions = ['Tercio cervical', 'Tercio medio', 'Tercio apical', 'Vertical'];
+  calcificacionOptions = ['Total', 'Parcial', 'Conductos calcificados'];
+  ligamentoOptions = ['Ensanchado', 'Normal'];
+  reabsorcionOptions = ['Interna', 'Externa'];
+  estadoPulparOptions = [
+    'Pulpa normal',
+    'Pulpitis Reversible',
+    'Pulpitis Irreversible sintomática',
+    'Pulpitis Irreversible asintomática',
+    'Necrosis Pulpar',
+    'Previamente tratado',
+    'Previamente iniciado'
+  ];
+
+  estadoPeriapicalOptions = [
+    'Tejidos apicales sanos',
+    'Periodontitis apical aguda (sintomática)',
+    'Periodontitis apical crónica (asintomática)',
+    'Absceso apical agudo (sin fístula)',
+    'Absceso apical crónico (con fístula)',
+    'Osteítis condensante'
+  ];
+
+  estadoDefinitivoOptions = [
+    'Pulpitis irreversible',
+    'Pulpa necrótica'
+  ];
+
+  conductoRows = [
+    'Único', 'Vestibular', 'Palatino/Lingual', 'Mesio lingual',
+    'Mesio Bucal', 'Distal', 'Disto Bucal', 'Disto Lingual'
+  ];
+
+  restauracionOptions = ['Poste', 'Amalgama/Resina', 'Corona', 'Otro'];
+  pronosticoOptions = ['Favorable', 'Desfavorable', 'Reservado'];
+
+
+  initConductos() {
+    const control = <FormArray>this.form.get('datosClinicos.conductos');
+    this.conductoRows.forEach(name => {
+      control.push(this.fb.group({
+        nombre: [name],
+        conducto: [''],
+        longitud: [''],
+        referencia: [''],
+        limaInicial: [''],
+        ultimaLima: [''],
+        cemento: [''],
+        conoMaestro: ['']
+      }));
+    });
+  }
+
+  get diagPeriapicalGroup() {
+    return this.form.get('diagPeriapical') as FormGroup;
+  }
+
+  get diagDefinitivoGroup() {
+    return this.form.get('diagnosticoDefinitivo') as FormGroup;
+  }
+
+  get tratamientoGroup() {
+    return this.form.get('tratamientoIndicado') as FormGroup;
+  }
+
+  get conductosArray() {
+    return (this.form.get('datosClinicos.conductos') as FormArray).controls;
+  }
+
+  get seccionFinalGroup() {
+    return this.form.get('seccionFinal') as FormGroup;
   }
 
   // Helpers para validación
