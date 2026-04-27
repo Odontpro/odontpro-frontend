@@ -16,13 +16,20 @@
 
 /* La línea vertical turquesa */
 .timeline::before {
+  display: none;
+}
+.timeline-item::before {
   content: '';
   position: absolute;
-  left: 5px;
+  left: -24px; /* Ajustar según la posición de tu timeline-marker */
   top: 10px;
-  bottom: 0;
+  bottom: -50px; /* Se extiende hasta el inicio del siguiente ítem */
   width: 2px;
   background-color: #7dc0bf; /* Turquesa OdontPro */
+}
+
+.timeline-item:last-child::before {
+  display: none;
 }
 
 .timeline-item {

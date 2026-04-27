@@ -26,15 +26,14 @@
 }
 
 mat-expansion-panel {
-  margin-bottom: 15px;
-  border-radius: 8px !important;
-  box-shadow: none !important;
-  border: 1px solid #e0e0e0;
+  margin-bottom: 16px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1) !important;
 }
 
 mat-panel-title {
-  color: #0077b6;
   font-weight: 600;
+  color: #7dc0bf;
+  font-size: 1.1rem;
 }
 
 .grid-layout {
