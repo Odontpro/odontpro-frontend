@@ -58,6 +58,22 @@ export class UserService {
     );
   }
 
+  getDoctors(): Observable<User[]> {
+    const token = this.cryptoService.getToken();
+    const headers = new HttpHeaders({
+      'Authorization': `Bearer ${token}`
+    });
+
+    // Usamos el endpoint específico /users/doctors
+    return this.http.get<BackendUserResponse[]>(`${this.apiUrl}/doctors`, { headers }).pipe(
+      map(users => users.map(user => this.transformBackendUser(user))),
+      catchError(error => {
+        console.error('Error fetching doctors:', error);
+        return of([]);
+      })
+    );
+  }
+
   updateUser(userId: number, userData: UpdateUserDto): Observable<User> {
     const token = this.cryptoService.getToken();
 

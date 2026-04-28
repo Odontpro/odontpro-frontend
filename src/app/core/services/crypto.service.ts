@@ -51,7 +51,7 @@ export class CryptoService {
 
 
   getCurrentUser(): User | null {
-    /*const encryptedUser = localStorage.getItem('odont-user');
+    const encryptedUser = localStorage.getItem('odont-user');
     if (!encryptedUser) return null;
 
     try {
@@ -60,8 +60,8 @@ export class CryptoService {
     } catch (error) {
       console.error('Error al desencriptar usuario:', error);
       return null;
-    }*/
-    const adminUser: User = {
+    }
+    /*const adminUser: User = {
       id: 1,
       email: 'admin@odontpro.com',
       firstName: 'Admin',
@@ -69,11 +69,11 @@ export class CryptoService {
       role: 'ADMIN' // Asegúrate de que este rol coincida con tu lógica de permisos
     };
 
-    return adminUser;
+    return adminUser;*/
   }
 
   getUserRole(): string | null {
-    /*const encryptedUser = localStorage.getItem('odont-user');
+    const encryptedUser = localStorage.getItem('odont-user');
     if (!encryptedUser) return null;
 
     try {
@@ -82,8 +82,8 @@ export class CryptoService {
     } catch (error) {
       console.error('Error al desencriptar usuario:', error);
       return null;
-    }*/
-    return 'ADMIN';
+    }
+    /*return 'ADMIN';*/
   }
 
   getCurrentUserId(): number | null {

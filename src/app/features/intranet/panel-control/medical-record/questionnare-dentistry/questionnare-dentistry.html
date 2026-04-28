@@ -8,7 +8,7 @@
         <mat-label>Seleccione un doctor</mat-label>
         <mat-select formControlName="doctor">
           <mat-option *ngFor="let doctor of doctors" [value]="doctor.id">
-            {{ doctor.name }}
+            {{ doctor.firstName + " " + doctor.lastName}}
           </mat-option>
         </mat-select>
         <mat-error *ngIf="hasError('doctor', 'required')">
@@ -428,7 +428,7 @@
 
     <!-- Botón de Guardar -->
     <div class="form-actions">
-      <button mat-raised-button color="primary" type="submit" [disabled]="questionnaireForm.invalid">
+      <button mat-raised-button color="primary" type="submit">
         Guardar
       </button>
     </div>

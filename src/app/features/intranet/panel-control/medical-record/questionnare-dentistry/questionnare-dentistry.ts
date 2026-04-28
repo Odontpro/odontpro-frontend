@@ -8,6 +8,8 @@ import { MatExpansionModule } from '@angular/material/expansion';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
+import { MedicalHistoryService} from '../../../../../core/services/medical-history.service';
+import { UserService} from '../../../../../core/services/user.service';
 
 @Component({
   selector: 'app-questionnare-dentistry',
@@ -23,42 +25,68 @@ import { MatRadioModule } from '@angular/material/radio';
     MatButtonModule,
     MatRadioModule
   ],
+  providers: [MedicalHistoryService, UserService],
   templateUrl: './questionnare-dentistry.html',
   styleUrl: './questionnare-dentistry.css',
 })
 export class QuestionnareDentistry implements OnInit {
   questionnaireForm!: FormGroup;
-  selectedDoctor: string = '';
+  patientId = 1; // 👈 Esto debería ser dinámico
+  doctors: any[] = []; // Se llenará desde el backend
+  loading = false;
 
-  doctors = [
-    { id: 1, name: 'Diego Talledo Sanchez' },
-    { id: 2, name: 'Dr. Juan Pérez' },
-    { id: 3, name: 'Dra. María García' }
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private medicalHistoryService: MedicalHistoryService,
+    private userService: UserService
+  ) {}
 
   ngOnInit(): void {
     this.initForm();
+    this.loadDoctors();
+    this.loadData();
+  }
+  loadDoctors(): void {
+    this.userService.getDoctors().subscribe({
+      next: (data) => {
+        console.log('Datos recibidos de doctores:', data);
+        this.doctors = data;
+      },
+      error: (err) => console.error('Error cargando doctores:', err)
+    });
+  }
+
+  // 2. Carga de datos de la historia clínica desde el backend
+  loadData(): void {
+    this.loading = true;
+    this.medicalHistoryService.getDentistry(this.patientId).subscribe({
+      next: (data) => {
+        if (data && Object.keys(data).length > 0) {
+          this.questionnaireForm.patchValue({
+            ...data,
+            // Forzamos que sea un número para que coincida con el [value]="doctor.id"
+            doctor: data.doctorId ? Number(data.doctorId) : ''
+          });
+        }
+        this.loading = false;
+      },
+      error: (err) => {
+        console.error('Error cargando datos:', err);
+        this.loading = false;
+      }
+    });
   }
 
   initForm(): void {
     this.questionnaireForm = this.fb.group({
-      // Sección: Información del Doctor
       doctor: ['', Validators.required],
-
-      // ENFERMEDAD ACTUAL
       motivoConsulta: ['', [Validators.required, Validators.minLength(3)]],
-      tiempoEnfermedad: ['', Validators.required],
-      signosSintomas: ['', Validators.required],
+      tiempoEnfermedad: [''],
+      signosSintomas: [''],
       relatoCronologico: [''],
       funcionesBiologicas: [''],
-
-      // ANTECEDENTES
       antecedentesFamiliares: [''],
       antecedentesPersonales: [''],
-
-      // ¿Tiene o ha tenido?
       presionAlta: [false],
       presionBaja: [false],
       hepatitis: [false],
@@ -68,8 +96,6 @@ export class QuestionnareDentistry implements OnInit {
       diabetes: [false],
       asma: [false],
       fuma: [false],
-
-      // Campos con texto adicional
       comentarioAdicional: [''],
       enfermedadesSanguineas: [false],
       enfermedadesSanguineasDetalle: [''],
@@ -77,8 +103,6 @@ export class QuestionnareDentistry implements OnInit {
       problemasCardiacosDetalle: [''],
       otraEnfermedad: [false],
       otraEnfermedadDetalle: [''],
-
-      // Preguntas con respuesta numérica o de texto
       vecesCepilloDientes: ['', [Validators.min(0), Validators.max(10)]],
       sangraEncias: [false],
       sangraEnciasDetalle: [''],
@@ -94,15 +118,10 @@ export class QuestionnareDentistry implements OnInit {
       operacionGrandeDetalle: [''],
       medicacionPermanente: [false],
       medicacionPermanenteDetalle: [''],
-
-      // EXAMEN CLÍNICO
-      // Signos vitales
-      presionArterial: ['', [Validators.pattern(/^\d+$/)]],
-      frecuenciaCardiaca: ['', [Validators.pattern(/^\d+$/)]],
-      temperatura: ['', [Validators.pattern(/^\d+\.?\d*$/)]],
-      frecuenciaRespiratoria: ['', [Validators.pattern(/^\d+$/)]],
-
-      // Exámenes
+      presionArterial: [''],
+      frecuenciaCardiaca: [''],
+      temperatura: [''],
+      frecuenciaRespiratoria: [''],
       examenExtraoral: [''],
       examenIntraoral: [''],
       resultadoExamenesAuxiliares: [''],
@@ -111,11 +130,35 @@ export class QuestionnareDentistry implements OnInit {
   }
 
   onSubmit(): void {
+    console.log('¡Botón presionado!'); // 👈 Agrega esto al inicio
+    console.log('Estado del formulario:', this.questionnaireForm.status);
+    console.log(this.getFormValidationErrors())
     if (this.questionnaireForm.valid) {
-      console.log('Formulario válido:', this.questionnaireForm.value);
-      // Aquí enviarías los datos al backend
+      const rawData = this.questionnaireForm.value;
+
+      // Construimos el payload para el backend siguiendo el DTO
+      const payload = {
+        ...rawData,
+        doctorId: String(rawData.doctor), // Convertimos ID a string para el DTO
+        // Aseguramos que los números no viajen como strings vacíos
+        vecesCepilloDientes: rawData.vecesCepilloDientes === '' ? null : Number(rawData.vecesCepilloDientes),
+        // Los signos vitales se envían tal cual, el @Transform del DTO los volverá strings
+      };
+
+      // Limpiamos el campo 'doctor' que solo existe en el front
+      delete (payload as any).doctor;
+
+      this.medicalHistoryService.updateDentistry(this.patientId, payload).subscribe({
+        next: (res) => {
+          console.log('Historia de odontología guardada:', res);
+          alert('Datos guardados correctamente');
+        },
+        error: (err) => {
+          console.error('Error al guardar:', err);
+          alert('Hubo un error al guardar los datos');
+        }
+      });
     } else {
-      console.log('Formulario inválido');
       this.markFormGroupTouched(this.questionnaireForm);
     }
   }
@@ -128,14 +171,21 @@ export class QuestionnareDentistry implements OnInit {
     });
   }
 
+  // Helpers de validación para el HTML
+  getFormValidationErrors() {
+    const errors: any = {};
+    Object.keys(this.questionnaireForm.controls).forEach(key => {
+      const controlErrors = this.questionnaireForm.get(key)?.errors;
+      if (controlErrors != null) {
+        errors[key] = controlErrors;
+      }
+    });
+    return errors;
+  }
+
   // Helpers para validación
   hasError(field: string, error: string): boolean {
     const control = this.questionnaireForm.get(field);
     return !!(control?.hasError(error) && control?.touched);
-  }
-
-  isFieldInvalid(field: string): boolean {
-    const control = this.questionnaireForm.get(field);
-    return !!(control?.invalid && control?.touched);
   }
 }
