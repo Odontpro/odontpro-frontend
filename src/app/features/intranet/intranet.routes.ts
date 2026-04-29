@@ -41,7 +41,7 @@ export const INTRANET_ROUTES: Routes = [
             .then(m => m.UserManagement)
       },
       {
-        path: 'panel-control/:id', // Recibe el ID del paciente
+        path: 'panel-control/patient/:id', // <--- CAMBIO AQUÍ: Agregamos /patient/ antes del parámetro :id
         component: PanelControl,
         children: [
           {

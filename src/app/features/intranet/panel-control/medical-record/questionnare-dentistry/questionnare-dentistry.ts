@@ -10,6 +10,7 @@ import { MatButtonModule } from '@angular/material/button';
 import { MatRadioModule } from '@angular/material/radio';
 import { MedicalHistoryService} from '../../../../../core/services/medical-history.service';
 import { UserService} from '../../../../../core/services/user.service';
+import { ActivatedRoute } from '@angular/router'; // 👈 Importante
 
 @Component({
   selector: 'app-questionnare-dentistry',
@@ -31,21 +32,37 @@ import { UserService} from '../../../../../core/services/user.service';
 })
 export class QuestionnareDentistry implements OnInit {
   questionnaireForm!: FormGroup;
-  patientId = 1; // 👈 Esto debería ser dinámico
-  doctors: any[] = []; // Se llenará desde el backend
+  patientId!: number;
+  doctors: any[] = [];
   loading = false;
 
   constructor(
     private fb: FormBuilder,
     private medicalHistoryService: MedicalHistoryService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.extractPatientId();
+
     this.initForm();
     this.loadDoctors();
-    this.loadData();
   }
+
+  private extractPatientId(): void {
+
+    const idParam = this.route.parent?.parent?.snapshot.paramMap.get('id')
+      || this.route.snapshot.paramMap.get('id');
+
+    if (idParam) {
+      this.patientId = Number(idParam);
+      this.loadData(); // Solo cargamos datos si tenemos un ID válido
+    } else {
+      console.error('No se pudo encontrar el ID del paciente en la URL');
+    }
+  }
+
   loadDoctors(): void {
     this.userService.getDoctors().subscribe({
       next: (data) => {

@@ -43,8 +43,6 @@
   </div>
 
   <div class="extra-actions">
-    <button mat-button color="primary" class="chart-link">Actualizar gráficos</button>
-
     <div class="notes-section">
       <label>Nota adicional</label>
       <textarea matInput formControlName="notaAdicional" rows="4"></textarea>
@@ -52,6 +50,12 @@
   </div>
 
   <div class="footer-save">
-    <button mat-raised-button color="primary" (click)="save()" [disabled]="form.invalid">Guardar</button>
+    <button mat-raised-button
+            color="primary"
+            type="button"
+            (click)="save()"
+            [disabled]="form.invalid">
+      Guardar
+    </button>
   </div>
 </div>

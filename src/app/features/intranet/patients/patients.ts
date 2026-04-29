@@ -122,6 +122,12 @@ export class Patients implements OnInit, OnDestroy {
   }
 
   viewHistory(patient: Patient): void {
-    this.router.navigate(['/intranet/paciente', patient.id]);
+    // Navegamos siguiendo la nueva estructura de rutas
+    this.router.navigate([
+      '/intranet/panel-control/patient',
+      patient.id,
+      'historia-clinica',
+      'odontologia'
+    ]);
   }
 }

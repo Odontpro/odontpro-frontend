@@ -34,6 +34,36 @@ export class MedicalHistoryService {
     return this.http.patch(`${this.API_URL}/dentistry/${patientId}`, data);
   }
 
+
+  //NOTAS
+  getEvolutions(patientId: number): Observable<any[]> {
+    return this.http.get<any[]>(`${this.API_URL}/evolution/${patientId}`);
+  }
+
+  createEvolution(patientId: number, data: any): Observable<any> {
+    return this.http.post(`${this.API_URL}/evolution/${patientId}`, data);
+  }
+
+  updateEvolution(id: number, content: string): Observable<any> {
+    return this.http.patch(`${this.API_URL}/evolution/${id}`, { content });
+  }
+
+  deleteEvolution(id: number): Observable<any> {
+    return this.http.delete(`${this.API_URL}/evolution/${id}`);
+  }
+
+  //SIGNOS VITALES
+
+  getVitalSigns(patientId: number): Observable<any[]> {
+    // Se agrega /medical-history/ antes de /vital-signs/
+    return this.http.get<any[]>(`${this.API_URL}/vital-signs/${patientId}`);
+  }
+
+  saveVitalSigns(patientId: number, data: any): Observable<any> {
+    // Se agrega /medical-history/ antes de /vital-signs/
+    return this.http.post(`${this.API_URL}/vital-signs/${patientId}`, data);
+  }
+
   // --- ENDODONCIA ---
 
   // Obtener datos de endodoncia

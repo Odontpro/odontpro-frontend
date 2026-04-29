@@ -12,6 +12,7 @@ import {MatSelect} from '@angular/material/select';
 import {MedicalHistoryService} from '../../../../../core/services/medical-history.service';
 import {UserService} from '../../../../../core/services/user.service';
 import {User} from '../../../../../shared/models/user.model';
+import {ActivatedRoute} from '@angular/router';
 
 
 @Component({
@@ -34,7 +35,7 @@ import {User} from '../../../../../shared/models/user.model';
   styleUrl: './questionnare-pediatric.css',
 })
 export class QuestionnarePediatric implements OnInit {
-  patientId = 1;
+  patientId!: number;
   doctors: User[] = [];
 
   form!: FormGroup;
@@ -53,13 +54,27 @@ export class QuestionnarePediatric implements OnInit {
   constructor(
     private fb: FormBuilder,
     private medicalHistoryService: MedicalHistoryService,
-    private userService: UserService
+    private userService: UserService,
+    private route: ActivatedRoute
   ) {}
 
   ngOnInit(): void {
+    this.extractPatientId();
     this.initForm(); // 1. Creamos la estructura
     this.loadDoctors(); // 👈 Cargamos los doctores primero o en paralelo
-    this.loadData(); // 2. Llenamos con datos del servidor
+  }
+
+  private extractPatientId(): void {
+
+    const idParam = this.route.parent?.parent?.snapshot.paramMap.get('id')
+      || this.route.snapshot.paramMap.get('id');
+
+    if (idParam) {
+      this.patientId = Number(idParam);
+      this.loadData(); // Solo cargamos datos si tenemos un ID válido
+    } else {
+      console.error('No se pudo encontrar el ID del paciente en la URL');
+    }
   }
 
   initForm(): void {

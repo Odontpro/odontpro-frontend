@@ -8,6 +8,9 @@ import { MatButtonModule } from '@angular/material/button';
 import {Component, OnInit} from '@angular/core';
 import {MatCheckbox} from '@angular/material/checkbox';
 import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
+import {MedicalHistoryService} from '../../../../../core/services/medical-history.service';
+import {UserService} from '../../../../../core/services/user.service';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-questionnare-endodontics',
@@ -28,16 +31,38 @@ import {MatRadioButton, MatRadioGroup} from '@angular/material/radio';
   styleUrl: './questionnare-endodontics.css',
 })
 export class QuestionnareEndodontics implements OnInit {
+  patientId!: number;
+  loading = false;
   form!: FormGroup;
+  doctors: any[] = []; // Se llenará desde el backend
 
-  // Lista de doctores para el select
-  doctors = [
-    { id: 1, name: 'Diego Talledo Sanchez' }
-  ];
-
-  constructor(private fb: FormBuilder) {}
+  constructor(
+    private fb: FormBuilder,
+    private medicalService: MedicalHistoryService,
+    private userService: UserService,
+    private route: ActivatedRoute
+  ) {}
 
   ngOnInit(): void {
+    this.extractPatientId();
+    this.initForm();
+    this.loadDoctors();
+  }
+
+  private extractPatientId(): void {
+
+    const idParam = this.route.parent?.parent?.snapshot.paramMap.get('id')
+      || this.route.snapshot.paramMap.get('id');
+
+    if (idParam) {
+      this.patientId = Number(idParam);
+      this.loadEndodonticsData(); // Solo cargamos datos si tenemos un ID válido
+    } else {
+      console.error('No se pudo encontrar el ID del paciente en la URL');
+    }
+  }
+
+  initForm(): void {
     this.form = this.fb.group({
       doctorId: [1], // Por defecto Diego Talledo Sanchez
       // Las secciones se irán rellenando una a una
@@ -139,6 +164,52 @@ export class QuestionnareEndodontics implements OnInit {
     this.initConductos();
   }
 
+  loadDoctors(): void {
+    this.userService.getDoctors().subscribe({
+      next: (data) => {
+        console.log('Datos recibidos de doctores:', data);
+        this.doctors = data;
+      },
+      error: (err) => console.error('Error cargando doctores:', err)
+    });
+  }
+
+  loadEndodonticsData() {
+    this.loading = true;
+    this.medicalService.getEndodontics(this.patientId.toString()).subscribe({
+      next: (data) => {
+        if (data) {
+          console.log(data);
+          if (data.doctorId) {
+            this.form.get('doctorId')?.setValue(Number(data.doctorId));
+          }
+          this.form.patchValue({
+            doctorId: data.doctorId,
+            seccion: data,
+            examenClinico: data,
+            pruebaVitalidad: data,
+            examenRadiografico: data,
+            diagnosticoPulpar: data,
+            diagPeriapical: data,
+            diagnosticoDefinitivo: data,
+            tratamientoIndicado: data,
+            seccionFinal: data
+          });
+
+          // Caso especial: La nota de datos clínicos y los conductos (JSON)
+          if (data.conductos) {
+            const control = this.form.get('datosClinicos.conductos') as FormArray;
+            control.clear();
+            data.conductos.forEach((c: any) => control.push(this.fb.group(c)));
+          }
+          this.form.get('datosClinicos.notaAdicionalClinica')?.patchValue(data.notaAdicionalClinica);
+        }
+        this.loading = false;
+      },
+      error: () => this.loading = false
+    });
+  }
+
   intensidadOptions = [
     { value: 'leve', label: 'Leve (1-3)' },
     { value: 'moderada', label: 'Moderada (4-7)' },
@@ -230,6 +301,29 @@ export class QuestionnareEndodontics implements OnInit {
   }
 
   save() {
-    console.log('Datos de Endodoncia:', this.form.value);
+    if (this.form.valid) {
+      const v = this.form.getRawValue();
+
+      // Aplanamos el objeto para que coincida con la entidad del Backend
+      const payload = {
+        doctorId: v.doctorId,
+        ...v.seccion,
+        ...v.examenClinico,
+        ...v.pruebaVitalidad,
+        ...v.examenRadiografico,
+        ...v.diagnosticoPulpar,
+        ...v.diagPeriapical,
+        ...v.diagnosticoDefinitivo,
+        ...v.tratamientoIndicado,
+        ...v.seccionFinal,
+        conductos: v.datosClinicos.conductos, // Se envía como array (JSONB en back)
+        notaAdicionalClinica: v.datosClinicos.notaAdicionalClinica
+      };
+
+      this.medicalService.updateEndodontics(this.patientId.toString(), payload).subscribe({
+        next: () => alert('Ficha de Endodoncia guardada correctamente'),
+        error: (err) => alert('Error al guardar')
+      });
+    }
   }
 }

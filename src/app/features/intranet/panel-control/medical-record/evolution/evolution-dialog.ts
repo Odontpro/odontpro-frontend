@@ -27,6 +27,9 @@ import { MatButtonModule } from '@angular/material/button';
                   formControlName="content"
                   rows="6"
                   placeholder="Escriba los avances del tratamiento..."></textarea>
+        <mat-error *ngIf="form.get('content')?.hasError('required')">
+          La descripción es obligatoria
+        </mat-error>
       </mat-form-field>
     </mat-dialog-content>
 
@@ -43,30 +46,41 @@ import { MatButtonModule } from '@angular/material/button';
   styles: [`
     .full-width { width: 100%; margin-top: 10px; }
     textarea { resize: none; }
+    /* Mantenemos el estilo visual de tu marca */
     h2 { color: #5ba3a2; font-weight: 600; }
+    mat-dialog-content { min-width: 400px; }
   `]
 })
-export class EvolutionDialog implements OnInit { // <--- El EXPORT es vital
+export class EvolutionDialog implements OnInit {
   form!: FormGroup;
 
   constructor(
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<EvolutionDialog>,
+    // Definimos mejor el tipo de DATA para evitar errores de compilación
     @Inject(MAT_DIALOG_DATA) public data: { mode: 'add' | 'edit', note?: any }
   ) {}
 
   ngOnInit(): void {
+    this.initForm();
+  }
+
+  private initForm(): void {
     this.form = this.fb.group({
-      content: [this.data.note?.content || '', [Validators.required]]
+      // Si es modo edit, cargamos el contenido existente
+      content: [this.data.note?.content || '', [Validators.required, Validators.minLength(1)]]
     });
   }
 
   onCancel(): void {
+    // Al cerrar sin nada, el .subscribe del padre recibirá 'undefined'
     this.dialogRef.close();
   }
 
   onSave(): void {
     if (this.form.valid) {
+      // Enviamos el objeto del formulario de vuelta al componente Evolution
+      // El componente padre decidirá si llama a createEvolution o updateEvolution
       this.dialogRef.close(this.form.value);
     }
   }
