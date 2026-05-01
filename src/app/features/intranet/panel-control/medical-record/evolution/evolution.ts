@@ -84,13 +84,19 @@ export class Evolution implements OnInit {
 
         const payload = {
           content: result.content,
-          doctorId: result.doctorId,
-          doctorName: selectedDoctor ? `${selectedDoctor.firstName} ${selectedDoctor.lastName}` : 'Doctor'
+          doctorId: result.doctorId || 0,
+          doctorName: 'Sistema/General'
         };
 
         this.medicalService.createEvolution(this.patientId, payload).subscribe({
-          next: () => this.loadEvolutions(),
-          error: (err) => alert('Error al guardar la nota')
+          next: () => {
+            this.loadEvolutions();
+            console.log('Nota guardada con éxito');
+          },
+          error: (err) => {
+            console.error('Error del servidor:', err);
+            alert('Error al guardar: El backend exige un doctorId válido.');
+          }
         });
       }
     });
