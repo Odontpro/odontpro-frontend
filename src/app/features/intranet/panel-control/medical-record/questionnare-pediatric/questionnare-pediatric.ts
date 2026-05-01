@@ -178,11 +178,12 @@ export class QuestionnarePediatric implements OnInit {
 
     this.medicalHistoryService.updatePediatric(this.patientId, payload).subscribe({
       next: (response) => {
-        console.log('¡Actualizado con éxito!', response);
-        // Aquí podrías mostrar un SnackBar o Toast de éxito
+        console.log('Historia actualizada con éxito', response);
+        alert('Datos guardados correctamente');
       },
       error: (err) => {
         console.error('Error al guardar:', err);
+        alert('Hubo un error al guardar los datos');
       }
     });
   }
